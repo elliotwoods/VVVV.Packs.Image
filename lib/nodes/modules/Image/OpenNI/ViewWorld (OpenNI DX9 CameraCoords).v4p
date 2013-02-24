@@ -1,0 +1,179 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta26.dtd" >
+   <PATCH nodename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.OpenNI\Build\modules\ViewWorld (OpenNI DX9 CameraCoords).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.OpenNI\Build\Modules\ViewWorld (OpenNI DX9 CameraCoords).v4p" locked="0" systemname="ViewWorld (OpenNI DX9 CameraCoords)">
+   <BOUNDS height="9375" left="18420" top="5250" type="Window" width="7425">
+   </BOUNDS>
+   <NODE componentmode="InABox" id="1" nodename="IOBox (Node)" systemname="IOBox (Node)">
+   <BOUNDS height="100" left="4275" top="315" type="Node" width="100">
+   </BOUNDS>
+   <BOUNDS height="240" left="4275" top="315" type="Box" width="795">
+   </BOUNDS>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
+   <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Transform">
+   </PIN>
+   </NODE>
+   <NODE componentmode="InABox" id="3" nodename="Renderer (EX9)" systemname="Renderer (EX9)">
+   <BOUNDS height="100" left="1245" top="4245" type="Node" width="100">
+   </BOUNDS>
+   <BOUNDS height="4260" left="1245" top="4245" type="Box" width="4725">
+   </BOUNDS>
+   <BOUNDS height="5010" left="20595" top="13485" type="Window" width="6240">
+   </BOUNDS>
+   <PIN pinname="Layers" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="View" slicecount="1" visible="1" values="||">
+   </PIN>
+   </NODE>
+   <NODE componentmode="Hidden" id="7" nodename="Grid (EX9.Geometry)" systemname="Grid (EX9.Geometry)">
+   <BOUNDS height="100" left="555" top="3015" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Mesh" visible="1">
+   </PIN>
+   <PIN pinname="Resolution X" slicecount="1" values="640">
+   </PIN>
+   <PIN pinname="Resolution Y" slicecount="1" values="480">
+   </PIN>
+   </NODE>
+   <NODE componentmode="InABox" id="8" nodename="IOBox (Node)" systemname="IOBox (Node)">
+   <BOUNDS height="100" left="225" top="4245" type="Node" width="100">
+   </BOUNDS>
+   <BOUNDS height="240" left="225" top="4245" type="Box" width="795">
+   </BOUNDS>
+   <PIN pinname="Input Node" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Layer">
+   </PIN>
+   </NODE>
+   <NODE componentmode="InABox" id="11" nodename="IOBox (Node)" systemname="IOBox (Node)">
+   <BOUNDS height="100" left="1260" top="315" type="Node" width="100">
+   </BOUNDS>
+   <BOUNDS height="240" left="1260" top="315" type="Box" width="795">
+   </BOUNDS>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
+   <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Texture">
+   </PIN>
+   </NODE>
+   <NODE componentmode="InABox" id="12" nodename="IOBox (Node)" systemname="IOBox (Node)">
+   <BOUNDS height="100" left="1635" top="1095" type="Node" width="100">
+   </BOUNDS>
+   <BOUNDS height="240" left="1635" top="1095" type="Box" width="795">
+   </BOUNDS>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
+   <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="World">
+   </PIN>
+   </NODE>
+   <NODE componentmode="Hidden" filename="..\..\..\VVVV.Nodes.EmguCV\Build\modules\CameraCoordsView (Transform).v4p" id="20" nodename="CameraCoordsView (Transform)" systemname="CameraCoordsView (Transform)">
+   <BOUNDS height="100" left="4275" top="1065" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="Resolution">
+   </PIN>
+   </NODE>
+   <NODE componentmode="InABox" id="21" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
+   <BOUNDS height="0" left="6270" top="315" type="Node" width="0">
+   </BOUNDS>
+   <BOUNDS height="480" left="6270" top="315" type="Box" width="795">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="2" values="640,480">
+   </PIN>
+   <PIN encoded="0" pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Resolution">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="20" dstpinname="Resolution" linkstyle="VHV" srcnodeid="21" srcpinname="Y Output Value">
+   <LINKPOINT x="7300" y="915">
+   </LINKPOINT>
+   <LINKPOINT x="3305" y="915">
+   </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" id="22" nodename="Scale (Transform)" systemname="Scale (Transform)">
+   <BOUNDS height="100" left="4515" top="2325" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="Y" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Transform In" slicecount="1" visible="1" values="||">
+   </PIN>
+   </NODE>
+   <NODE componentmode="Hidden" id="23" nodename="Multiply (Transform)" systemname="Multiply (Transform)">
+   <BOUNDS height="100" left="4260" top="2790" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Transform In 1" visible="1">
+   </PIN>
+   <PIN pinname="Transform In 2" visible="1">
+   </PIN>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="23" dstpinname="Transform In 1" srcnodeid="20" srcpinname="Transform Out">
+   </LINK>
+   <LINK dstnodeid="23" dstpinname="Transform In 2" srcnodeid="22" srcpinname="Transform Out">
+   </LINK>
+   <NODE componentmode="Hidden" filename="..\Shaders\KinectPreview.fx" id="29" nodename="KinectPreview (EX9.Effect)" systemname="KinectPreview (EX9.Effect)">
+   <BOUNDS height="270" left="225" top="3825" type="Node" width="3540">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Mesh" visible="1">
+   </PIN>
+   <PIN pinname="Transform" visible="1">
+   </PIN>
+   <PIN pinname="XYZ" visible="1">
+   </PIN>
+   <PIN pinname="RGB" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="World" visible="1">
+   </PIN>
+   <PIN pinname="tScreen" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="8" dstpinname="Input Node" srcnodeid="29" srcpinname="Layer">
+   </LINK>
+   <LINK dstnodeid="3" dstpinname="Layers" linkstyle="VHV" srcnodeid="29" srcpinname="Layer">
+   <LINKPOINT x="285" y="4155">
+   </LINKPOINT>
+   <LINKPOINT x="1245" y="4155">
+   </LINKPOINT>
+   </LINK>
+   <LINK dstnodeid="29" dstpinname="Mesh" srcnodeid="7" srcpinname="Mesh">
+   </LINK>
+   <LINK dstnodeid="29" dstpinname="RGB" srcnodeid="11" srcpinname="Output Node">
+   </LINK>
+   <LINK dstnodeid="29" dstpinname="World" srcnodeid="12" srcpinname="Output Node">
+   </LINK>
+   <NODE componentmode="Hidden" id="32" nodename="Multiply (Transform)" systemname="Multiply (Transform)">
+   <BOUNDS height="270" left="915" top="3405" type="Node" width="3405">
+   </BOUNDS>
+   <PIN pinname="Transform In 1" visible="1">
+   </PIN>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="Transform In 2" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="29" dstpinname="Transform" srcnodeid="32" srcpinname="Transform Out">
+   </LINK>
+   <LINK dstnodeid="32" dstpinname="Transform In 1" hiddenwhenlocked="0" linkstyle="Bezier" srcnodeid="1" srcpinname="Output Node">
+   <LINKPOINT x="4275" y="1965">
+   </LINKPOINT>
+   <LINKPOINT x="975" y="1965">
+   </LINKPOINT>
+   </LINK>
+   <LINK dstnodeid="32" dstpinname="Transform In 2" srcnodeid="23" srcpinname="Transform Out">
+   </LINK>
+   </PATCH>

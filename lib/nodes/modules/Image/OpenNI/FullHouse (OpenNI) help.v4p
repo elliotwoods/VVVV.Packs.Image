@@ -1,0 +1,179 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenNI\FullHouse (OpenNI) help.v4p" systemname="FullHouse (OpenNI) help" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenNI\FullHouse (OpenNI) help.v4p">
+   <BOUNDS type="Window" left="5970" top="4170" width="8955" height="11910">
+   </BOUNDS>
+   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenNI\FullHouse (OpenNI).v4p" id="0" nodename="FullHouse (OpenNI)" systemname="FullHouse (OpenNI)">
+   <BOUNDS height="270" left="360" top="1170" type="Node" width="1950">
+   </BOUNDS>
+   <PIN pinname="Open">
+   </PIN>
+   <PIN pinname="RGB Texture" visible="1">
+   </PIN>
+   <PIN pinname="World Texture" visible="1">
+   </PIN>
+   <PIN pinname="Preview layer" visible="1">
+   </PIN>
+   <PIN pinname="Enabled">
+   </PIN>
+   <PIN pinname="Mode">
+   </PIN>
+   <PIN pinname="RGB Image" visible="1">
+   </PIN>
+   </NODE>
+   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenNI\ViewWorld (OpenNI DX9).v4p" id="1" nodename="ViewWorld (OpenNI DX9)" systemname="ViewWorld (OpenNI DX9)">
+   <BOUNDS height="100" left="840" top="4035" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="RGB" visible="1">
+   </PIN>
+   <PIN pinname="World" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="1" dstpinname="RGB" srcnodeid="0" srcpinname="RGB Texture" linkstyle="Bezier">
+   <LINKPOINT x="1005" y="2738">
+   </LINKPOINT>
+   <LINKPOINT x="870" y="2738">
+   </LINKPOINT>
+   </LINK>
+   <LINK dstnodeid="1" dstpinname="World" srcnodeid="0" srcpinname="World Texture">
+   </LINK>
+   <NODE componentmode="InABox" id="2" nodename="Renderer (EX9)" systemname="Renderer (EX9)">
+   <BOUNDS height="270" left="840" top="5370" type="Node" width="2130">
+   </BOUNDS>
+   <BOUNDS height="4965" left="840" top="5370" type="Box" width="7440">
+   </BOUNDS>
+   <BOUNDS height="5010" left="7155" top="17010" type="Window" width="6240">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   <PIN pinname="View" visible="1">
+   </PIN>
+   <PIN pinname="Actual Backbuffer Width" visible="1">
+   </PIN>
+   <PIN pinname="Actual Backbuffer Height" visible="1">
+   </PIN>
+   <PIN pinname="Windowed Antialiasing Quality Level" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Windowed Depthbuffer Format" slicecount="1" values="D24X8">
+   </PIN>
+   </NODE>
+   <NODE componentmode="Hidden" filename="%VVVV%\lib\nodes\modules\Transform\Camera (Transform Softimage).v4p" id="3" nodename="Camera (Transform Softimage)" systemname="Camera (Transform Softimage)">
+   <BOUNDS height="100" left="6585" top="4860" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="View Projection" visible="1">
+   </PIN>
+   <PIN pinname="Inital Distance" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Initial Yaw" slicecount="1" values="0.02">
+   </PIN>
+   <PIN pinname="Initial Pitch" slicecount="1" values="0.1">
+   </PIN>
+   <PIN pinname="Distortion" visible="1">
+   </PIN>
+   <PIN pinname="Initial Interest" slicecount="3" values="1.01,1.01,1.01">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="2" dstpinname="View" srcnodeid="3" srcpinname="View Projection">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\lib\nodes\modules\EX9\AxisAndGrid (DX9).v4p" id="4" nodename="AxisAndGrid (DX9)" systemname="AxisAndGrid (DX9)">
+   <BOUNDS height="100" left="1125" top="4380" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <NODE componentmode="Hidden" id="5" nodename="Group (EX9)" systemname="Group (EX9)">
+   <BOUNDS height="100" left="840" top="4830" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Layer 1" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Layer 2" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="5" dstpinname="Layer 1" srcnodeid="1" srcpinname="Layer">
+   </LINK>
+   <LINK dstnodeid="2" dstpinname="Layers" srcnodeid="5" srcpinname="Layer">
+   </LINK>
+   <LINK dstnodeid="5" dstpinname="Layer 2" srcnodeid="4" srcpinname="Layer">
+   </LINK>
+   <NODE componentmode="Hidden" id="6" nodename="Scale (Transform)" systemname="Scale (Transform)">
+   <BOUNDS height="100" left="6030" top="10950" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   </NODE>
+   <NODE componentmode="Hidden" id="7" nodename="Divide (Value)" systemname="Divide (Value)">
+   <BOUNDS height="270" left="6375" top="10545" type="Node" width="990">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="7" dstpinname="Input" srcnodeid="2" srcpinname="Actual Backbuffer Width">
+   </LINK>
+   <LINK dstnodeid="7" dstpinname="Input 2" srcnodeid="2" srcpinname="Actual Backbuffer Height">
+   </LINK>
+   <LINK dstnodeid="6" dstpinname="Y" srcnodeid="7" srcpinname="Output">
+   </LINK>
+   <LINK dstnodeid="3" dstpinname="Distortion" linkstyle="Bezier" srcnodeid="6" srcpinname="Transform Out">
+   <LINKPOINT x="6140" y="8823">
+   </LINKPOINT>
+   <LINKPOINT x="7555" y="7243">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InABox" id="9">
+   <BOUNDS type="Node" left="360" top="1590" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="360" top="1590" width="8145" height="2055">
+   </BOUNDS>
+   <BOUNDS type="Window" left="6795" top="13545" width="6240" height="5010">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Preview layer" dstnodeid="9" dstpinname="Layers">
+   </LINK>
+   <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Open">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="11" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Node" left="375" top="210" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="375" top="210" width="480" height="480">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" encoded="0" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Enabled">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Enabled">
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="12" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Node" left="2250" top="495" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2250" top="495" width="1590" height="240">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" values="RGB">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Mode">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="12" srcpinname="Output Enum" dstnodeid="0" dstpinname="Mode">
+   </LINK>
+   </PATCH>

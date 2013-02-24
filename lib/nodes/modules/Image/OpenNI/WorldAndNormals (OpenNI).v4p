@@ -1,0 +1,165 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta26.dtd" >
+   <PATCH nodename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.OpenNI\Samples\Modules\WorldAndNormals (OpenNI).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\subpatches\DepthToWorldAndNormals.v4p" systemname="DepthToWorldAndNormals">
+   <BOUNDS height="11790" left="11040" top="3360" type="Window" width="6720">
+   </BOUNDS>
+   <NODE componentmode="InABox" id="36" nodename="Renderer (EX9)" systemname="Renderer (EX9)">
+   <BOUNDS height="100" left="765" top="1755" type="Node" width="100">
+   </BOUNDS>
+   <BOUNDS height="3300" left="765" top="1755" type="Box" width="4440">
+   </BOUNDS>
+   <BOUNDS height="5010" left="6225" top="11010" type="Window" width="6240">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   <PIN pinname="EX9 Out" visible="1">
+   </PIN>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   <PIN pinname="Left Button" visible="1">
+   </PIN>
+   <PIN pinname="View" slicecount="1" visible="1" values="||">
+   </PIN>
+   </NODE>
+   <NODE componentmode="Hidden" id="35" nodename="Grid (EX9.Geometry)" systemname="Grid (EX9.Geometry)">
+   <BOUNDS height="100" left="960" top="840" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Mesh" visible="1">
+   </PIN>
+   </NODE>
+   <NODE componentmode="Hidden" id="34" nodename="DX9Texture (EX9.Texture)" systemname="DX9Texture (EX9.Texture)">
+   <BOUNDS height="100" left="5145" top="5445" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Source" visible="1">
+   </PIN>
+   <PIN pinname="Format" slicecount="1" values="A16B16G16R16F">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="Width" slicecount="1" values="640">
+   </PIN>
+   <PIN pinname="Height" slicecount="1" values="480">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="34" dstpinname="Source" srcnodeid="36" srcpinname="EX9 Out">
+   </LINK>
+   <NODE componentmode="Hidden" id="1" nodename="Grid (EX9.Geometry)" systemname="Grid (EX9.Geometry)">
+   <BOUNDS height="100" left="945" top="5475" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Mesh" visible="1">
+   </PIN>
+   </NODE>
+   <NODE componentmode="Hidden" id="0" nodename="DX9Texture (EX9.Texture)" systemname="DX9Texture (EX9.Texture)">
+   <BOUNDS height="100" left="5160" top="10140" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Source" visible="1">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="Width" slicecount="1" values="640">
+   </PIN>
+   <PIN pinname="Height" slicecount="1" values="480">
+   </PIN>
+   </NODE>
+   <NODE componentmode="InABox" id="39" nodename="IOBox (Node)" systemname="IOBox (Node)">
+   <BOUNDS height="0" left="1410" top="180" type="Node" width="0">
+   </BOUNDS>
+   <BOUNDS height="240" left="1410" top="180" type="Box" width="795">
+   </BOUNDS>
+   <PIN pinname="Input Node" slicecount="1" values="||">
+   </PIN>
+   <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="|Depth Texture|">
+   </PIN>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
+   </NODE>
+   <NODE componentmode="InABox" id="40" nodename="Renderer (EX9)" systemname="Renderer (EX9)">
+   <BOUNDS height="100" left="780" top="6555" type="Node" width="100">
+   </BOUNDS>
+   <BOUNDS height="3300" left="780" top="6555" type="Box" width="4425">
+   </BOUNDS>
+   <BOUNDS height="5010" left="6225" top="11010" type="Window" width="6240">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   <PIN pinname="EX9 Out" visible="1">
+   </PIN>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   <PIN pinname="Left Button" visible="1">
+   </PIN>
+   <PIN pinname="View" slicecount="1" visible="1" values="||">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="0" dstpinname="Source" srcnodeid="40" srcpinname="EX9 Out">
+   </LINK>
+   <NODE componentmode="InABox" id="41" nodename="IOBox (Node)" systemname="IOBox (Node)">
+   <BOUNDS height="0" left="5145" top="5955" type="Node" width="0">
+   </BOUNDS>
+   <BOUNDS height="240" left="5145" top="5955" type="Box" width="795">
+   </BOUNDS>
+   <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="|World Texture|">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="41" dstpinname="Input Node" srcnodeid="34" srcpinname="Texture Out">
+   </LINK>
+   <NODE componentmode="InABox" id="42" nodename="IOBox (Node)" systemname="IOBox (Node)">
+   <BOUNDS height="0" left="5160" top="10695" type="Node" width="0">
+   </BOUNDS>
+   <BOUNDS height="240" left="5160" top="10695" type="Box" width="795">
+   </BOUNDS>
+   <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="|Normals Texture|">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="42" dstpinname="Input Node" srcnodeid="0" srcpinname="Texture Out">
+   </LINK>
+   <NODE componentmode="Hidden" filename="..\Shaders\Normals.fx" id="3" nodename="Normals (EX9.Effect)" systemname="Normals (EX9.Effect)">
+   <BOUNDS height="270" left="780" top="6015" type="Node" width="1200">
+   </BOUNDS>
+   <PIN pinname="Texture" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Mesh" visible="1">
+   </PIN>
+   <PIN pinname="spread" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="World Texture" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="3" dstpinname="Texture" linkstyle="VHV" srcnodeid="34" srcpinname="Texture Out">
+   <LINKPOINT x="5145" y="5850">
+   </LINKPOINT>
+   <LINKPOINT x="1320" y="5850">
+   </LINKPOINT>
+   </LINK>
+   <LINK dstnodeid="3" dstpinname="Mesh" srcnodeid="1" srcpinname="Mesh">
+   </LINK>
+   <LINK dstnodeid="40" dstpinname="Layers" srcnodeid="3" srcpinname="Layer">
+   </LINK>
+   <NODE componentmode="Hidden" filename="..\Shaders\World.fx" id="43" nodename="World (EX9.Effect)" systemname="World (EX9.Effect)">
+   <BOUNDS height="270" left="765" top="1275" type="Node" width="2115">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Mesh" visible="1">
+   </PIN>
+   <PIN pinname="Depth Texture" slicecount="1" visible="1" values="||">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="36" dstpinname="Layers" srcnodeid="43" srcpinname="Layer">
+   </LINK>
+   <LINK dstnodeid="43" dstpinname="Mesh" srcnodeid="35" srcpinname="Mesh">
+   </LINK>
+   <LINK dstnodeid="43" dstpinname="Depth Texture" srcnodeid="39" srcpinname="Output Node">
+   </LINK>
+   <LINK srcnodeid="34" srcpinname="Texture Out" dstnodeid="3" dstpinname="World Texture" linkstyle="VHV">
+   <LINKPOINT x="5145" y="5850">
+   </LINKPOINT>
+   <LINKPOINT x="1650" y="5850">
+   </LINKPOINT>
+   </LINK>
+   </PATCH>
