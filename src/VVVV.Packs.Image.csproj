@@ -95,6 +95,10 @@
       <Project>{5EDB3C6E-2685-44F6-BD71-678CFC10AB31}</Project>
       <Name>VVVV.Nodes.OpenCV.EDSDK</Name>
     </ProjectReference>
+    <ProjectReference Include="nodes\plugins\Image\FreeImage\VVVV.Nodes.OpenCV.FreeImage.csproj">
+      <Project>{7A5AC7E2-511C-4240-8D2B-5171F511F4C5}</Project>
+      <Name>VVVV.Nodes.OpenCV.FreeImage</Name>
+    </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\OpenCV\VVVV.Nodes.OpenCV.csproj">
       <Project>{E9A7FC26-34E0-4C1E-83D8-C01A169422B2}</Project>
       <Name>VVVV.Nodes.OpenCV</Name>
