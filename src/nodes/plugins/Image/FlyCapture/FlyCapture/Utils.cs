@@ -9,21 +9,21 @@ namespace VVVV.Nodes.FlyCapture
 {
 	class Utils
 	{
-		static public TColourFormat GetFormat(PixelFormat format)
+		static public TColorFormat GetFormat(PixelFormat format)
 		{
 			switch(format)
 			{
 				case PixelFormat.PixelFormatBgr:
 				case PixelFormat.PixelFormatRgb8:
-					return TColourFormat.RGB8;
+                    return TColorFormat.RGB8;
 
 				case PixelFormat.PixelFormatMono8:
 				case PixelFormat.PixelFormatRaw8:
-					return TColourFormat.L8;
+                    return TColorFormat.L8;
 
 				case PixelFormat.PixelFormatMono16:
 				case PixelFormat.PixelFormatRaw16:
-					return TColourFormat.L16;
+                    return TColorFormat.L16;
 			}
 			throw (new Exception("Unsupported PixelFormat"));
 		}

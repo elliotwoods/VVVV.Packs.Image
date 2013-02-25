@@ -80,6 +80,7 @@ namespace VVVV.Nodes.OpenCV.VideoInput
 						throw new Exception("Failed to open device");
 					}
 
+                    //should this always be performed?
 					ReAllocate();
 
 					Status = "OK";

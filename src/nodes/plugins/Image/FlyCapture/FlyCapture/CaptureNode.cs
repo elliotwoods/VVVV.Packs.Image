@@ -53,21 +53,14 @@ namespace VVVV.Nodes.FlyCapture
 			}
 		}
 
-		protected override void Open()
+		protected override bool Open()
 		{
-			Close();
-
-			if (!FEnabled)
-				return;
-
-			if (FGuid == null)
-			{
-				Status = "Awaiting camera guid";
-				return;
-			}
-
 			try
 			{
+                if (FGuid == null) {
+                    throw new Exception("No Camera GUID specified");
+                }
+
 				FCamera.Connect(FGuid);
 				VideoMode mode = new VideoMode();
 				FrameRate rate = new FrameRate();
@@ -79,12 +72,16 @@ namespace VVVV.Nodes.FlyCapture
 				FRunning = true;
 				FCamera.StartCapture(CaptureCallback);
 
+                ReAllocate();
+
 				Status = "OK";
+                return true;
 			}
 			catch(Exception e)
 			{
 				FRunning = false;
 				Status = e.Message;
+                return false;
 			}
 		}
 
@@ -106,13 +103,15 @@ namespace VVVV.Nodes.FlyCapture
 			FRunning = false;
 		}
 
+        public override void Allocate()
+        {
+            //allocation is hackily performed on first callback
+        }
+
 		public unsafe void CaptureCallback(ManagedImage image)
 		{
-			if (!FOutput.Image.Allocated)
-			{
-				FOutput.Image.Initialise(new Size((int)image.cols, (int)image.rows), Utils.GetFormat(image.pixelFormat));
-				Initialise();
-			}
+            if (!FOutput.Image.Allocated)
+                FOutput.Image.Initialise(new Size((int)image.cols, (int)image.rows), Utils.GetFormat(image.pixelFormat));            
 
 			FOutput.Image.SetPixels((IntPtr)image.data);
 			FOutput.Send();
@@ -149,10 +148,10 @@ namespace VVVV.Nodes.FlyCapture
 		}
 
 		//called when data for any output pin is requested
-		protected override void Update(int InstanceCount)
+		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FPinInGUID.IsChanged)
-				for (int i = 0; i < FPinInGUID.SliceCount; i++)
+			if (FPinInGUID.IsChanged || SpreadChanged)
+				for (int i = 0; i < InstanceCount; i++)
 					FProcessor[i].Guid = FPinInGUID[i];
 
 			FPinOutMode.SliceCount = InstanceCount;

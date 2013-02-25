@@ -124,9 +124,9 @@
       <Output TaskParameter="ReturnValue" PropertyName="VersionInfo" />
     </GetVersionInfo>
     <PropertyGroup>
-      <TempDir>$(TempBaseDir)addonpack\</TempDir>
+      <TempDir>$(TempBaseDir)imagepack\</TempDir>
       <ZipFileName>$(ZipOutputDir)imagepack_$(VersionInfo)_$(Platform).zip</ZipFileName>
-      <ZipExclude>..\**\.gitignore;..\**\*.pdb;..\src\**\*.*;..\tests\**\*.*;..\lib\nodes\plugins\*\bin\**\*.*</ZipExclude>
+      <ZipExclude>..\**\.gitignore;..\**\*.pdb;..\src\**\*.*;..\.git\**\*.*;..\tests\**\*.*;..\lib\nodes\plugins\*\bin\**\*.*</ZipExclude>
     </PropertyGroup>
     <!-- Files to exclude for platform specific builds -->
     <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
