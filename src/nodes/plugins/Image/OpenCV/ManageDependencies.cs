@@ -8,7 +8,7 @@ using System.IO;
 
 namespace VVVV.Nodes.EDSDK
 {
-    [Startable]
+    [Startable(Lazy=false)]
     public class ManageDependencies : IStartable
     {
         public void Start()

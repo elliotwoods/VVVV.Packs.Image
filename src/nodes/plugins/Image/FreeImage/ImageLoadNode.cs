@@ -41,6 +41,11 @@ namespace VVVV.Nodes.OpenCV.FreeImageNodes
 		{
 			try
 			{
+                if (!System.IO.File.Exists(FFilename))
+                {
+                    throw (new Exception("Given filename '" + FFilename + "' is not a file"));
+                }
+
 				FREE_IMAGE_FORMAT format = FreeImage.GetFileType(FFilename, 0);
 				FIBITMAP bmp = FreeImage.Load(format, FFilename, FREE_IMAGE_LOAD_FLAGS.JPEG_ACCURATE);
 

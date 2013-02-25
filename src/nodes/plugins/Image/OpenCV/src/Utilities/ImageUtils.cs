@@ -380,8 +380,10 @@ namespace VVVV.Nodes.OpenCV
 
 		public static void CopyImageConverted(CVImage source, CVImage target)
 		{
-			//CvInvoke.cvConvert(source.CvMat, target.CvMat);
-			//return;
+            if (target.Size != source.Size)
+            {
+                target.Initialise(source.Size, target.NativeFormat);
+            }
 
 			COLOR_CONVERSION route = ConvertRoute(source.NativeFormat, target.NativeFormat);
 

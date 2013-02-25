@@ -64,8 +64,12 @@ namespace VVVV.Nodes.OpenCV
 			for (int i = 0; i < FProcessor.SliceCount; i++)
 				needsInit |= FProcessor[i].NeedsTexture;
 
-			if (needsInit)
-				Reinitialize();
+            if (needsInit)
+            {
+                foreach (var processor in FProcessor)
+                    processor.Logger = this.FLogger;
+                Reinitialize();
+            }
 
 			SetSliceCount(FProcessor.SliceCount);
 

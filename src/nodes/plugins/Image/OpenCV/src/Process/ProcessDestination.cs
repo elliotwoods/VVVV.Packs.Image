@@ -61,6 +61,7 @@ namespace VVVV.Nodes.OpenCV
 		{
 			FThreadRunning = true;
 			FThread = new Thread(ThreadedFunction);
+            FThread.Name = "OpenCV Destination";
 			FThread.Start();
 		}
 

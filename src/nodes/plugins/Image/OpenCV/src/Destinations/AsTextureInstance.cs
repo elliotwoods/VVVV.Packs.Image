@@ -7,6 +7,8 @@ using System.Drawing;
 using SlimDX.Direct3D9;
 using SlimDX;
 using VVVV.Utils.SlimDX;
+using System.ComponentModel.Composition;
+using VVVV.Core.Logging;
 
 namespace VVVV.Nodes.OpenCV
 {
@@ -25,6 +27,8 @@ namespace VVVV.Nodes.OpenCV
 		Object FLockTexture = new Object();
 		private Dictionary<Texture, bool> FNeedsRefresh = new Dictionary<Texture,bool>();
 
+        public ILogger Logger;
+        
 		private bool FNeedsTexture = false;
 		public bool NeedsTexture
 		{
@@ -148,6 +152,11 @@ namespace VVVV.Nodes.OpenCV
 						throw (new Exception("AsTextureInstance : srf dimensions don't match image dimensions"));
 					}
 
+                    if (!FInput.Image.Allocated)
+                    {
+                        throw (new Exception("Image not allocated"));
+                    }
+
 					if (FNeedsConversion)
 					{
 						FInput.GetImage(FBufferConverted);
@@ -192,7 +201,7 @@ namespace VVVV.Nodes.OpenCV
 				}
 				catch (Exception e)
 				{
-					throw (e);
+                    Logger.Log(e);
 				}
 				finally
 				{

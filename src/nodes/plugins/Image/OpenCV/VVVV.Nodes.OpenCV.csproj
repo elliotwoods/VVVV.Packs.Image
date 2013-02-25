@@ -70,6 +70,9 @@
     <Compile Include="src\CameraCalibration\IntrinsicsSplitNode.cs" />
     <Compile Include="src\CameraCalibration\ProjectPointsNode.cs" />
     <None Include="src\Incomplete\GenericFilterNode.cs" />
+    <None Include="src\Features\Stitch.cs" />
+    <Compile Include="src\Filters\RotateContinuous.cs" />
+    <Compile Include="src\Filters\RotateStep.cs" />
     <Compile Include="src\Utilities\TypeUtils.cs" />
     <Compile Include="src\CameraCalibration\FindExtrinsicsNode.cs" />
     <Compile Include="src\CameraCalibration\SolvePnP.cs" />

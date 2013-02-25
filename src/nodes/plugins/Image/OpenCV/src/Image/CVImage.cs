@@ -62,7 +62,12 @@ namespace VVVV.Nodes.OpenCV
 		/// <param name="target"></param>
 		public void GetImage(CVImage target)
 		{
-			GetImage(target.ImageAttributes.ColourFormat, target);
+            if (target.NativeFormat == TColorFormat.UnInitialised)
+            {
+                target.Initialise(this.ImageAttributes);
+            }
+
+            GetImage(target.ImageAttributes.ColourFormat, target);
 		}
 
 		public unsafe bool SetImage(IImage source)

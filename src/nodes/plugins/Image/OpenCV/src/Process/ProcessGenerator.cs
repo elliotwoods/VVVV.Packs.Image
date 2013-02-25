@@ -53,7 +53,8 @@ namespace VVVV.Nodes.OpenCV
 		{
 			FThreadRunning = true;
 			FThread = new Thread(ThreadedFunction);
-			FThread.Start();
+            FThread.Name = "OpenCV Generator";
+            FThread.Start();
 		}
 
 		private void StopThread()

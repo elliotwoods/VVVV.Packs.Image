@@ -75,7 +75,12 @@ namespace VVVV.Nodes.OpenCV.VideoInput
 			{
 				try
 				{
-					if (!FCapture.Open(FDeviceID % Capture.ListDevices().Length, FFramerate, FWidth, FHeight))
+                    int numDevices = Capture.ListDevices().Length;
+                    if (numDevices == 0)
+                    {
+                        throw new Exception("No devices found");
+                    }
+					if (!FCapture.Open(FDeviceID % numDevices, FFramerate, FWidth, FHeight))
 					{
 						throw new Exception("Failed to open device");
 					}

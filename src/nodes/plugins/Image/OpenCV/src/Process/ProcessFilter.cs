@@ -71,7 +71,8 @@ namespace VVVV.Nodes.OpenCV
 		{
 			FThreadRunning = true;
 			FThread = new Thread(ThreadedFunction);
-			FThread.Start();
+            FThread.Name = "OpenCV Filter";
+            FThread.Start();
 		}
 
 		private void StopThread()
