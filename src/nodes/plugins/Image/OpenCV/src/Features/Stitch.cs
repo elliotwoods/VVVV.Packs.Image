@@ -7,7 +7,7 @@ using Emgu.CV;
 using Emgu.CV.Structure;
 using Emgu.CV.Stitching;
 
-namespace VVVV.Nodes.OpenCV.src.Features
+namespace VVVV.Nodes.OpenCV.Features
 {
     #region PluginInfo
     [PluginInfo(Name = "Stitch", Help = "Stitch together a spread of Images", Category = "OpenCV", Version = "Spectral")]

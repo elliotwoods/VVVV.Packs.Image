@@ -27,11 +27,14 @@ namespace VVVV.Nodes.OpenCV
 				FProcessor = new ProcessGenerator<T>(FPinOutOutput);
 
 			bool changed = FProcessor.CheckInputSize(SpreadMax);
-			for (int i = 0; i < SpreadMax; i++)
-			{
-				FProcessor[i].TimestampDelay = FPinInTimestampDelay[i];
-				FProcessor[i].Enabled = FPinInEnabled[i];
-			}
+
+            if (FPinInTimestampDelay.IsChanged || changed)
+                for (int i = 0; i < SpreadMax; i++)
+                    FProcessor[i].TimestampDelay = FPinInTimestampDelay[i];
+
+            if (FPinInEnabled.IsChanged || changed)
+                for (int i = 0; i < SpreadMax; i++)
+                    FProcessor[i].Enabled = FPinInEnabled[i];
 
 			Update(FProcessor.SliceCount, changed);
 

@@ -39,14 +39,20 @@ namespace VVVV.Nodes.OpenCV
 		/// </summary>
 		public void Start()
 		{
-			FNeedsOpen = true;
+            if (this.NeedsThread())
+                FNeedsOpen = true;
+            else
+                this.FOpen = this.Open();
 		}
 		/// <summary>
 		/// Message the thread to stop the capture device. This is called from outside the thread (e.g. the plugin node)
 		/// </summary>
 		public void Stop()
 		{
-			FNeedsClose = true;
+            if (this.NeedsThread())
+                FNeedsClose = true;
+            else
+                this.Close();
 		}
 
 		/// <summary>
@@ -54,11 +60,22 @@ namespace VVVV.Nodes.OpenCV
 		/// </summary>
 		public void Restart()
 		{
-			if (this.IsOpen)
-			{
-				FNeedsClose = true;
-				FNeedsOpen = true;
-			}
+            if (this.NeedsThread())
+            {
+                if (this.IsOpen)
+                {
+                    FNeedsClose = true;
+                    FNeedsOpen = true;
+                }
+            }
+            else
+            {
+                if (this.IsOpen)
+                    Close();
+                if (this.Enabled)
+                    this.FOpen = Open();
+            }
+			
 		}
 
 		override public void Process()
@@ -75,17 +92,17 @@ namespace VVVV.Nodes.OpenCV
 					return;
 				}
 
-				if (FNeedsOpen && Enabled || (!FOpen && Enabled))
+				if (FNeedsOpen && Enabled || (!IsOpen && Enabled))
 				{
 					FNeedsOpen = false;
-					if (FOpen)
+                    if (IsOpen)
 						Close();
 					FOpen = Open();
 				}
 
-				if (FOpen)
+				if (IsOpen)
 				{
-					if (FOutput.Image.Allocated == false)
+					if (FOutput.Image.Allocated == false && this.NeedsAllocate())
 						ReAllocate();
 					else
 					{
@@ -131,6 +148,7 @@ namespace VVVV.Nodes.OpenCV
 					else
 					{
 						Stop();
+                        FEnabled = false;
 					}
 				}
 			}
