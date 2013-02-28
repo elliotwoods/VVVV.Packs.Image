@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\modules\Chessboard (EmguCV, DX9).v4p" systemname="Chessboard (EmguCV, DX9)">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha29.3.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\modules\Chessboard (EmguCV, DX9).v4p" systemname="Chessboard (EmguCV, DX9)">
    <BOUNDS height="5505" left="3405" top="8130" type="Window" width="8790">
    </BOUNDS>
    <NODE componentmode="Hidden" id="8" nodename="Quad (DX9)" systemname="Quad (DX9)">
@@ -25,11 +25,11 @@
    </PIN>
    <PIN pinname="Height" visible="1">
    </PIN>
-   <PIN pinname="Red" visible="1">
+   <PIN pinname="Red" visible="1" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Green" visible="1">
+   <PIN pinname="Green" visible="1" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Blue" visible="1">
+   <PIN pinname="Blue" visible="1" slicecount="1" values="1">
    </PIN>
    </NODE>
    <NODE componentmode="Hidden" id="6" nodename="Filter (EX9.SamplerState)" systemname="Filter (EX9.SamplerState)">
@@ -204,56 +204,12 @@
    </LINK>
    <LINK dstnodeid="16" dstpinname="Transform In" srcnodeid="1" srcpinname="Transform Out">
    </LINK>
-   <NODE id="3" componentmode="Hidden" filename="%VVVV%\addonpack\girlpower\OpenNI\ValueChessBoardSpread\ValueChessBoardSpread.csproj" nodename="ChessBoardSpread (Value)" systemname="ChessBoardSpread (Value)" hiddenwhenlocked="0" managers="">
-   <PIN pinname="Board Size X" visible="1" pintype="Input">
-   </PIN>
-   <PIN pinname="Board Size Y" visible="1" pintype="Input" slicecount="1" values="7">
-   </PIN>
-   <BOUNDS type="Node" height="100" left="3660" top="1635" width="100">
-   </BOUNDS>
-   <PIN pinname="Output" visible="1" pintype="Output">
-   </PIN>
-   <BOUNDS type="Box" left="0" top="0" width="2400" height="1800">
-   </BOUNDS>
-   <BOUNDS type="Window" left="0" top="0" width="6240" height="5010">
-   </BOUNDS>
-   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" encoded="0" values="||">
-   </PIN>
-   <PIN pinname="Output Bin Size" pintype="Output" visible="1">
-   </PIN>
-   <PIN pinname="ID" pintype="Output" visible="-1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Board Size X" linkstyle="Bezier">
-   <LINKPOINT x="2415" y="1080">
-   </LINKPOINT>
-   <LINKPOINT x="3645" y="1080">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="3" srcpinname="Output" dstnodeid="7" dstpinname="Blue" linkstyle="VHV">
-   <LINKPOINT x="3720" y="1885">
-   </LINKPOINT>
-   <LINKPOINT x="4530" y="1985">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="3" srcpinname="Output" dstnodeid="7" dstpinname="Green" linkstyle="VHV">
-   <LINKPOINT x="3720" y="1885">
-   </LINKPOINT>
-   <LINKPOINT x="4080" y="1985">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="3" srcpinname="Output" dstnodeid="7" dstpinname="Red" linkstyle="VHV">
-   <LINKPOINT x="3690" y="1900">
-   </LINKPOINT>
-   <LINKPOINT x="3690" y="2000">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (Color)" componentmode="InABox" id="17" systemname="IOBox (Color)">
    <BOUNDS type="Node" left="7140" top="315" width="0" height="0">
    </BOUNDS>
    <BOUNDS type="Box" left="7140" top="315" width="1095" height="255">
    </BOUNDS>
-   <PIN pinname="Color Input" slicecount="1" values="|1.00000,1.00000,1.00000,0.80000|">
+   <PIN pinname="Color Input" slicecount="1" values="|1.00000,1.00000,1.00000,1.00000|">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Color">
    </PIN>
@@ -283,5 +239,63 @@
    </LINKPOINT>
    <LINKPOINT x="2865" y="1080">
    </LINKPOINT>
+   </LINK>
+   <NODE systemname="ChessboardSpread (OpenCV Value)" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p" componentmode="Hidden" id="19" nodename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p">
+   <BOUNDS type="Node" left="3210" top="420" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="3210" top="420" width="4800" height="3600">
+   </BOUNDS>
+   <BOUNDS type="Window" left="9645" top="7230" width="9000" height="6000">
+   </BOUNDS>
+   </NODE>
+   <NODE id="3" componentmode="InAWindow" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p" nodename="ChessboardSpread (OpenCV Value)" systemname="ChessboardSpread (OpenCV Value)" hiddenwhenlocked="0" managers="">
+   <PIN pinname="Board Size X" visible="1" pintype="Input" slicecount="1" values="10">
+   </PIN>
+   <PIN pinname="Board Size Y" visible="1" pintype="Input" slicecount="1" values="7">
+   </PIN>
+   <BOUNDS type="Node" height="270" left="3660" top="1635" width="1665">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1" pintype="Output">
+   </PIN>
+   <BOUNDS type="Box" left="0" top="0" width="2400" height="1800">
+   </BOUNDS>
+   <BOUNDS type="Window" left="0" top="0" width="6240" height="5010">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" encoded="0" values="||">
+   </PIN>
+   <PIN pinname="Output Bin Size" pintype="Output" visible="1">
+   </PIN>
+   <PIN pinname="ID" pintype="Output" visible="-1">
+   </PIN>
+   <PIN pinname="Rows" visible="1">
+   </PIN>
+   <PIN pinname="Columns" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="3" srcpinname="Output" dstnodeid="7" dstpinname="Blue" linkstyle="VHV">
+   <LINKPOINT x="3720" y="1885">
+   </LINKPOINT>
+   <LINKPOINT x="4530" y="1985">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Output" dstnodeid="7" dstpinname="Green" linkstyle="VHV">
+   <LINKPOINT x="3720" y="1885">
+   </LINKPOINT>
+   <LINKPOINT x="4080" y="1985">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Output" dstnodeid="7" dstpinname="Red" linkstyle="VHV">
+   <LINKPOINT x="3690" y="1900">
+   </LINKPOINT>
+   <LINKPOINT x="3690" y="2000">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Rows">
+   </LINK>
+   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Columns">
+   </LINK>
+   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Board Size X">
+   </LINK>
+   <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Board Size Y">
    </LINK>
    </PATCH>
