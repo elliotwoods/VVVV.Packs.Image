@@ -1,0 +1,117 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha29.3.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\MapCameraToNormalised (OpenCV 2D).v4p" systemname="MapCameraToNormalised (OpenCV 2D)" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\MapCameraToNormalised (OpenCV 2D).v4p">
+   <BOUNDS type="Window" left="3585" top="10530" width="9000" height="6000">
+   </BOUNDS>
+   <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="4">
+   <BOUNDS type="Node" left="4470" top="600" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4470" top="600" width="795" height="480">
+   </BOUNDS>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="2" values="1280,720">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="|0, 0|">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Resolution">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="px">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="ApplyTransform (Transform)" nodename="ApplyTransform (Transform)" componentmode="Hidden" id="2">
+   <BOUNDS type="Node" left="1185" top="2985" width="2520" height="270">
+   </BOUNDS>
+   <PIN pinname="X UnTransformed" visible="1">
+   </PIN>
+   <PIN pinname="Y UnTransformed" visible="1">
+   </PIN>
+   <PIN pinname="X Transformed" visible="1">
+   </PIN>
+   <PIN pinname="Y Transformed" visible="1">
+   </PIN>
+   <PIN pinname="Transform" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="2025" top="2430" width="855" height="270">
+   </BOUNDS>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="X" dstnodeid="2" dstpinname="X UnTransformed">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Y" dstnodeid="2" dstpinname="Y UnTransformed">
+   </LINK>
+   <NODE systemname="Vector (2d Join)" nodename="Vector (2d Join)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="1170" top="3510" width="1290" height="270">
+   </BOUNDS>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="X Transformed" dstnodeid="0" dstpinname="X">
+   </LINK>
+   <LINK srcnodeid="2" srcpinname="Y Transformed" dstnodeid="0" dstpinname="Y">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="5" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Node" left="2055" top="600" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2055" top="600" width="795" height="480">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="2" values="0,0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="px">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Input">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="5" srcpinname="Y Output Value" dstnodeid="1" dstpinname="XY">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="6" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Node" left="1170" top="4290" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1170" top="4290" width="795" height="480">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Y Input Value">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Output">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="XY" dstnodeid="6" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="CameraCoordsView (Transform)" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\CameraCoordsView (Transform).v4p" nodename="CameraCoordsView (Transform)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="1200" top="1680" width="3315" height="270">
+   </BOUNDS>
+   <PIN pinname="Resolution" visible="1">
+   </PIN>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="4" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Resolution">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Transform Out" dstnodeid="2" dstpinname="Transform">
+   </LINK>
+   </PATCH>

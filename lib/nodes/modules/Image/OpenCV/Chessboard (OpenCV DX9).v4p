@@ -248,7 +248,7 @@
    <BOUNDS type="Window" left="9645" top="7230" width="9000" height="6000">
    </BOUNDS>
    </NODE>
-   <NODE id="3" componentmode="InAWindow" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p" nodename="ChessboardSpread (OpenCV Value)" systemname="ChessboardSpread (OpenCV Value)" hiddenwhenlocked="0" managers="">
+   <NODE id="3" componentmode="Hidden" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p" nodename="ChessboardSpread (OpenCV Value)" systemname="ChessboardSpread (OpenCV Value)" hiddenwhenlocked="0" managers="">
    <PIN pinname="Board Size X" visible="1" pintype="Input" slicecount="1" values="10">
    </PIN>
    <PIN pinname="Board Size Y" visible="1" pintype="Input" slicecount="1" values="7">

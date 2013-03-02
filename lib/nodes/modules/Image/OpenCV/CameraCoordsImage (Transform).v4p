@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta26.dtd" >
-   <PATCH nodename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\subpatches\CameraCoordsImage (Transform).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\subpatches\CameraCoordsImage (Transform).v4p" systemname="CameraCoordsImage (Transform)">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha29.3.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\CameraCoordsImage (Transform).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\subpatches\CameraCoordsImage (Transform).v4p" systemname="CameraCoordsImage (Transform)">
    <BOUNDS height="6000" left="15015" top="5490" type="Window" width="3990">
    </BOUNDS>
    <NODE componentmode="InABox" id="11" nodename="IOBox (Node)" systemname="IOBox (Node)">
@@ -85,5 +85,17 @@
    <LINK dstnodeid="4" dstpinname="Input 2" srcnodeid="7" srcpinname="Y">
    </LINK>
    <LINK dstnodeid="7" dstpinname="XY" srcnodeid="6" srcpinname="Y Output Value">
+   </LINK>
+   <NODE nodename="IOBox (Node)" componentmode="InABox" id="12" systemname="IOBox (Node)">
+   <BOUNDS type="Node" left="570" top="525" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="570" top="525" width="795" height="240">
+   </BOUNDS>
+   <PIN pinname="Input Node" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Transform In|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="12" srcpinname="Output Node" dstnodeid="10" dstpinname="Transform In">
    </LINK>
    </PATCH>

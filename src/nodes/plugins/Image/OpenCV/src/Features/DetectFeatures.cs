@@ -25,7 +25,6 @@ namespace VVVV.Nodes.OpenCV.Features
         public FeatureSet FeaturesSet {get; private set;}
         public SURFDetector Detector = new SURFDetector(500, false);
         CVImage FGrayScale = new CVImage();
-        bool FNewOutput = false;
 
         public DetectFeaturesInstance()
         {
@@ -37,22 +36,6 @@ namespace VVVV.Nodes.OpenCV.Features
             set
             {
                 this.Detector = new SURFDetector(value, false);
-            }
-        }
-
-        public bool NewOutput
-        {
-            get
-            {
-                if (FNewOutput)
-                {
-                    FNewOutput = false;
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
             }
         }
 
@@ -70,8 +53,8 @@ namespace VVVV.Nodes.OpenCV.Features
                 this.FeaturesSet.KeyPoints = this.Detector.DetectKeyPointsRaw(gray, null);
                 this.FeaturesSet.Descriptors = this.Detector.ComputeDescriptorsRaw(gray, null, this.FeaturesSet.KeyPoints);
                 this.FeaturesSet.Allocated = true;
+                this.FeaturesSet.OnUpdate();
             }
-            FNewOutput = true;
         }
     }
 
@@ -85,9 +68,6 @@ namespace VVVV.Nodes.OpenCV.Features
 
         [Output("Output")]
         ISpread<FeatureSet> FOutput;
-        
-        [Output("Position")]
-        ISpread<ISpread<Vector2D>> FOutPosition;
 
         protected override void Update(int InstanceCount, bool SpreadChanged)
         {
@@ -102,26 +82,10 @@ namespace VVVV.Nodes.OpenCV.Features
             if (SpreadChanged)
             {
                 FOutput.SliceCount = InstanceCount;
-                FOutPosition.SliceCount = InstanceCount;
 
                 for (int i = 0; i < InstanceCount; i++)
                 {
                     FOutput[i] = FProcessor[i].FeaturesSet;
-                }
-            }
-
-            for (int i = 0; i < InstanceCount; i++)
-            {
-                if (FProcessor[i].NewOutput)
-                {
-                    var positions = FProcessor[i].FeaturesSet.KeyPoints;
-                    FOutPosition[i].SliceCount = positions.Size;
-
-                    for (int j = 0; j < positions.Size; j++)
-                    {
-                        var point = positions[j];
-                        FOutPosition[i][j] = new Vector2D(point.Point.X, point.Point.Y);
-                    }
                 }
             }
         }

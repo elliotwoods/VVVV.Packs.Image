@@ -26,9 +26,6 @@ namespace VVVV.Nodes.OpenCV
         [Output("Transform Out")]
         ISpread<Matrix4x4> FTransformOut;
 
-        [Output("Raw Matrix")]
-        ISpread<ISpread<double>> FOutput;
-
         [Output("Status")]
         ISpread<string> FStatus;
 
@@ -37,7 +34,6 @@ namespace VVVV.Nodes.OpenCV
             if (FSource.IsChanged || FTarget.IsChanged)
             {
                 SpreadMax = Math.Max(FSource.SliceCount, FTarget.SliceCount);
-                FOutput.SliceCount = SpreadMax;
                 FTransformOut.SliceCount = SpreadMax;
                 FStatus.SliceCount = SpreadMax;
 
@@ -47,6 +43,11 @@ namespace VVVV.Nodes.OpenCV
                     {
                         var source = FSource[slice];
                         var target = FTarget[slice];
+
+                        if (source.SliceCount < 4 || target.SliceCount < 4)
+                        {
+                            throw(new Exception("You need at least 4 source and 4 target points"));
+                        }
 
                         int sliceSpreadMax = Math.Max(source.SliceCount, target.SliceCount);
                         PointF[] sourcePoints = new PointF[sliceSpreadMax];
@@ -61,17 +62,7 @@ namespace VVVV.Nodes.OpenCV
                             targetPoints[i].Y = (float)target[i].y;
                         }
 
-                        var matrix = CameraCalibration.GetPerspectiveTransform(sourcePoints, targetPoints);
-
-                        var output = FOutput[slice];
-                        output.SliceCount = 9;
-                        for (int i = 0; i < 3; i++)
-                        {
-                            for (int j = 0; j < 3; j++)
-                            {
-                                output[i + j * 3] = matrix[i, j];
-                            }
-                        }
+                        var matrix = CameraCalibration.FindHomography(sourcePoints, targetPoints, Emgu.CV.CvEnum.HOMOGRAPHY_METHOD.LMEDS, 0.0);
 
                         FTransformOut[slice] = new Matrix4x4(matrix[0, 0], matrix[1, 0], 0.0, matrix[2, 0],
                                                              matrix[0, 1], matrix[1, 1], 0.0, matrix[2, 1],
@@ -82,6 +73,7 @@ namespace VVVV.Nodes.OpenCV
                     }
                     catch (Exception e)
                     {
+                        FTransformOut[slice] = VMath.IdentityMatrix;
                         FStatus[slice] = e.Message;
                     }
                 }
