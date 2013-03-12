@@ -96,17 +96,17 @@ namespace VVVV.Nodes.OpenCV
 			return true;
 		}
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			FPinOutput.SliceCount = InstanceCount;
+			FPinOutput.SliceCount = instanceCount;
 			
 			if (FPinInInput.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 				{
 					FProcessor[i].Lookup = FPinInInput;
 				}
 
-			Output(InstanceCount);
+			Output(instanceCount);
 		}
 
 		private void Output(int InstanceCount)

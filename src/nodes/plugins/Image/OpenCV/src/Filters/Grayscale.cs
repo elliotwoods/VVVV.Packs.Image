@@ -42,7 +42,7 @@ namespace VVVV.Nodes.OpenCV
 	public class GrayscaleNode : IFilterNode<GrayscaleInstance>
 	{
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 		}
 	}

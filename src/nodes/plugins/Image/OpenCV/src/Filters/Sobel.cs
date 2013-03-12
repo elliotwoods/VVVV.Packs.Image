@@ -94,18 +94,18 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Aperture size", MinValue = 3, MaxValue = 7, DefaultValue = 3)]
 		IDiffSpread<int> FInApertureSize;
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			if (FInXOrder.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].XOrder = FInXOrder[i];
 
 			if (FInYOrder.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].YOrder = FInYOrder[i];
 
 			if (FInApertureSize.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Aperture = FInApertureSize[i];
 
 		}

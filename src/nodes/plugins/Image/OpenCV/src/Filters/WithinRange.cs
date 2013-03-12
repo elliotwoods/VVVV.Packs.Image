@@ -53,14 +53,14 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Maximum", DefaultValue = 1)]
 		IDiffSpread<double> FMaximum;
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			if (FMinimum.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Minimum = FMinimum[i];
 
 			if (FMaximum.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Maximum = FMaximum[i];
 		}
 	}

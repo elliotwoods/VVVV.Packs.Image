@@ -37,7 +37,7 @@ namespace VVVV.Nodes.OpenCV
 	#endregion PluginInfo
 	public class NotNode : IFilterNode<NotInstance>
 	{
-		protected override void Update(int SpreadMax, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 		}
 	}

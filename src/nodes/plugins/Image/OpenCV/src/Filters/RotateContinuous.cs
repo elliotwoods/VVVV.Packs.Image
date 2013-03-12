@@ -66,18 +66,18 @@ namespace VVVV.Nodes.OpenCV
         [Input("Center", DefaultValue = 0.5)]
         IDiffSpread<Vector2D> FCenter;
 
-        protected override void Update(int InstanceCount, bool SpreadChanged)
+        protected override void Update(int instanceCount, bool spreadChanged)
         {
-            if (FRotation.IsChanged || SpreadChanged)
-                for (int i = 0; i < InstanceCount; i++)
+            if (FRotation.IsChanged || spreadChanged)
+                for (int i = 0; i < instanceCount; i++)
                     FProcessor[i].Rotation = FRotation[i];
 
-            if (FScale.IsChanged || SpreadChanged)
-                for (int i = 0; i < InstanceCount; i++)
+            if (FScale.IsChanged || spreadChanged)
+                for (int i = 0; i < instanceCount; i++)
                     FProcessor[i].Scale = FScale[i];
 
-            if (FCenter.IsChanged || SpreadChanged)
-                for (int i = 0; i < InstanceCount; i++)
+            if (FCenter.IsChanged || spreadChanged)
+                for (int i = 0; i < instanceCount; i++)
                     FProcessor[i].Center = FCenter[i];
         }
     }

@@ -89,14 +89,14 @@ namespace VVVV.Nodes.OpenCV
 
 		}
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			for (int i = 0; i < InstanceCount; i++)
+			for (int i = 0; i < instanceCount; i++)
 				if (FRefresh[i])
 					FProcessor[i].Refresh();
 
 			if (FDimension.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Dimension = FDimension[i];
 		}
 	}

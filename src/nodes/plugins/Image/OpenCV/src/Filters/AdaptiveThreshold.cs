@@ -100,26 +100,26 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Constant")]
 		IDiffSpread<double> FPinInConstant;
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			if (FPinInMaximum.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Maximum = FPinInMaximum[i];
 
 			if (FPinInMethod.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Method = FPinInMethod[i];
 
 			if (FPinInType.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Type = FPinInType[i];
 
 			if (FPinInBlockSize.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].BlockSize = (uint)FPinInBlockSize[i];
 
 			if (FPinInConstant.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Constant = (uint)FPinInConstant[i];
 		}
 	}

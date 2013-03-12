@@ -93,10 +93,10 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Window Size", IsSingle = true, DefaultValue=5, MinValue=1, MaxValue=15)]
 		IDiffSpread<int> FPinInWindowSize;
 
-		protected override void Update(int SpreadMax, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			if (FPinInWindowSize.IsChanged)
-				for (int i=0; i<SpreadMax; i++)
+				for (int i=0; i<instanceCount; i++)
 					FProcessor[i].WindowSize = FPinInWindowSize[0];
 		}
 	}

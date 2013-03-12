@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.OpenCV

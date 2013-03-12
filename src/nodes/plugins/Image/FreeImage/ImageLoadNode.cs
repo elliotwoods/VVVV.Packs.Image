@@ -167,13 +167,13 @@ namespace VVVV.Nodes.OpenCV.FreeImageNodes
 
 		}
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			if (FPinInFilename.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Filename = FPinInFilename[i];
 
-			for (int i = 0; i < InstanceCount; i++)
+			for (int i = 0; i < instanceCount; i++)
 			{
 				if (FPinInReload[i])
 					FProcessor[i].Reload();

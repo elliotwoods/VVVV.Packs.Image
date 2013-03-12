@@ -79,14 +79,14 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Pass original", DefaultValue = 0)]
 		IDiffSpread<bool> FPassOriginal;
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			if (FThreshold.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Threshold = FThreshold[i];
 
 			if (FPassOriginal.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].PassOriginal = FPassOriginal[i];
 		}
 	}

@@ -164,18 +164,18 @@ namespace VVVV.Nodes.OpenCV
 
 		}
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			if (FPinInDeviceID.IsChanged || SpreadChanged)
-				for (int i = 0; i < InstanceCount; i++)
+			if (FPinInDeviceID.IsChanged || spreadChanged)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].DeviceID = FPinInDeviceID[i];
 
-            if (FPinInWidth.IsChanged || SpreadChanged)
-				for (int i = 0; i < InstanceCount; i++)
+            if (FPinInWidth.IsChanged || spreadChanged)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Width = FPinInWidth[i];
 
-            if (FPinInHeight.IsChanged || SpreadChanged)
-				for (int i = 0; i < InstanceCount; i++)
+            if (FPinInHeight.IsChanged || spreadChanged)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Height = FPinInHeight[i];
 		}
 	}

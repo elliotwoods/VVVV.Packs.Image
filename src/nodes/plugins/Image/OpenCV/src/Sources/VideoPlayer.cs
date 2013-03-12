@@ -157,20 +157,20 @@ namespace VVVV.Nodes.OpenCV
 
         #endregion fields & pins
 
-        protected override void Update(int InstanceCount, bool SpreadChanged)
+        protected override void Update(int instanceCount, bool spreadChanged)
         {
-            if (FFilename.IsChanged || SpreadChanged)
-                for (int i = 0; i < InstanceCount; i++)
+            if (FFilename.IsChanged || spreadChanged)
+                for (int i = 0; i < instanceCount; i++)
                     FProcessor[i].Filename = FFilename[i];
 
-            if (SpreadChanged)
+            if (spreadChanged)
             {
-                FFramerate.SliceCount = InstanceCount;
-                FLength.SliceCount = InstanceCount;
-                FPosition.SliceCount = InstanceCount;
+                FFramerate.SliceCount = instanceCount;
+                FLength.SliceCount = instanceCount;
+                FPosition.SliceCount = instanceCount;
             }
 
-            for (int i = 0; i < InstanceCount; i++)
+            for (int i = 0; i < instanceCount; i++)
             {
                 FFramerate[i] = FProcessor[i].FrameRate;
                 FPosition[i] = FProcessor[i].Position;

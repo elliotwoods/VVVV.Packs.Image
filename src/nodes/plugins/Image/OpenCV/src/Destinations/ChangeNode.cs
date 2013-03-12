@@ -47,11 +47,11 @@ namespace VVVV.Nodes.OpenCV
 		[Output("Output", DimensionNames=new string[]{"frames"})]
 		ISpread<int> FOutput;
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			FOutput.SliceCount = InstanceCount;
+			FOutput.SliceCount = instanceCount;
 
-			for (int i = 0; i < InstanceCount; i++)
+			for (int i = 0; i < instanceCount; i++)
 			{
 				FOutput[i] = FProcessor[i].Frames;
 			}

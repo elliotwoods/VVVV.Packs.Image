@@ -148,16 +148,16 @@ namespace VVVV.Nodes.FlyCapture
 		}
 
 		//called when data for any output pin is requested
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			if (FPinInGUID.IsChanged || SpreadChanged)
-				for (int i = 0; i < InstanceCount; i++)
+			if (FPinInGUID.IsChanged || spreadChanged)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Guid = FPinInGUID[i];
 
-			FPinOutMode.SliceCount = InstanceCount;
-			FPinOutFramerate.SliceCount = InstanceCount;
+			FPinOutMode.SliceCount = instanceCount;
+			FPinOutFramerate.SliceCount = instanceCount;
 
-			for (int i = 0; i < InstanceCount; i++)
+			for (int i = 0; i < instanceCount; i++)
 			{
 				FPinOutMode[i] = FProcessor[i].Mode;
 				FPinOutFramerate[i] = FProcessor[i].Framerate;

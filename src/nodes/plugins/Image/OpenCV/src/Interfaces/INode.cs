@@ -19,9 +19,9 @@ namespace VVVV.Nodes.OpenCV
 		/// <summary>
 		/// The internal call to update. You need to override this in your node definition
 		/// </summary>
-		/// <param name="InstanceCount">SliceCount of FProcessor</param>
-		/// <param name="SpreadChanged">true if instances in FProcessor have changed</param>
-		protected abstract void Update(int InstanceCount, bool SpreadChanged);
+		/// <param name="instanceCount">SliceCount of FProcessor</param>
+		/// <param name="spreadChanged">true if instances in FProcessor have changed</param>
+		protected abstract void Update(int instanceCount, bool spreadChanged);
 
 		/// <summary>
 		/// Returns whether we should count only the images input (i.e. not Evaluate's SpreadMax).
