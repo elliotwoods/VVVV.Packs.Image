@@ -27,6 +27,7 @@ namespace VVVV.Nodes.OptiTrack
 			this.Objects = new List<TrackingObject>();
 		}
 
+        Object FCameraLock = new Object();
 		MCamera FCamera = null;
 		public MCamera Camera
 		{
@@ -37,7 +38,10 @@ namespace VVVV.Nodes.OptiTrack
 
 				lock (FLockProperties)
 				{
-					FCamera = value;
+                    lock (FCameraLock)
+                    {
+                        FCamera = value;
+                    }
                     this.Restart();
 				}
 			}
@@ -102,21 +106,24 @@ namespace VVVV.Nodes.OptiTrack
 		{
 			try
 			{
-                if (FCamera == null)
+                lock (FCameraLock)
                 {
-                    FCamera = MCameraManager.GetCamera();
-                    if (FCamera == null || !FCamera.IsValid())
+                    if (FCamera == null)
                     {
-                        throw (new Exception("Cannot open camera, no device attached"));
+                        FCamera = MCameraManager.GetCamera();
+                        if (FCamera == null || !FCamera.IsValid())
+                        {
+                            throw (new Exception("Cannot open camera, no device attached"));
+                        }
                     }
-                }
 
-				FCamera.SetVideoType(this.FMode);
-				FCamera.Start();
-				ApplyCaptureProperty();
-				FCamera.FrameAvailable += FCamera_FrameAvailable;
-				Status = "OK";
-				return true;
+                    FCamera.SetVideoType(this.FMode);
+                    FCamera.Start();
+                    ApplyCaptureProperty();
+                    FCamera.FrameAvailable += FCamera_FrameAvailable;
+                    Status = "OK";
+                    return true;
+                }
 			}
 			catch (Exception e)
 			{
