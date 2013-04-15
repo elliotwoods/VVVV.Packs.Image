@@ -11,7 +11,7 @@ using VVVV.Core.Logging;
 
 using System.Collections.Generic;
 
-using NPCameraSDKDotNet;
+using OptiTrackNET;
 
 using VVVV.Nodes.OpenCV;
 
@@ -27,7 +27,7 @@ namespace VVVV.Nodes.OptiTrack
 			this.Objects = new List<TrackingObject>();
 		}
 
-		MCamera FCamera;
+		MCamera FCamera = null;
 		public MCamera Camera
 		{
 			set
@@ -35,13 +35,10 @@ namespace VVVV.Nodes.OptiTrack
 				if (value == FCamera)
 					return;
 
-				if (value == null)
-					value = MCameraManager.GetCamera();
-
 				lock (FLockProperties)
 				{
 					FCamera = value;
-					Restart();
+                    this.Restart();
 				}
 			}
 		}
@@ -101,13 +98,19 @@ namespace VVVV.Nodes.OptiTrack
 			FCamera.SetIRFilter(FCaptureProperty.IRFilter);
 		}
 
-		protected override bool Open()
+        public override bool Open()
 		{
 			try
 			{
-				if (FCamera == null || !FCamera.IsValid())
-					throw (new Exception("Cannot open camera, no device attached"));
-				
+                if (FCamera == null)
+                {
+                    FCamera = MCameraManager.GetCamera();
+                    if (FCamera == null || !FCamera.IsValid())
+                    {
+                        throw (new Exception("Cannot open camera, no device attached"));
+                    }
+                }
+
 				FCamera.SetVideoType(this.FMode);
 				FCamera.Start();
 				ApplyCaptureProperty();
@@ -122,7 +125,7 @@ namespace VVVV.Nodes.OptiTrack
 			}
 		}
 
-		protected override void Close()
+        public override void Close()
 		{
 			FCamera.FrameAvailable -= FCamera_FrameAvailable;
 			FCamera.Stop(true);

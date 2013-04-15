@@ -46,7 +46,7 @@ namespace VVVV.Nodes.OpenCV
 
         System.Windows.Forms.Timer FTimer = new System.Windows.Forms.Timer();
 
-        protected override bool Open()
+        public override bool Open()
         {
             try
             {
@@ -76,8 +76,8 @@ namespace VVVV.Nodes.OpenCV
                 return false;
             }
         }
-        
-        protected override void Close()
+
+        public override void Close()
         {
             if (FCapture == null)
                 return;

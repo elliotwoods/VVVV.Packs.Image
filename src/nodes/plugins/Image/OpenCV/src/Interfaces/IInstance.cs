@@ -32,6 +32,10 @@ namespace VVVV.Nodes.OpenCV
 			}
 		}
 
+        /// <summary>
+        /// Flag to mark when allocation is required. This is deprecreciated in IGeneratorInstance
+        /// in favour of FActionQueue.
+        /// </summary>
 		protected bool FNeedsAllocate = true;
 		virtual public bool NeedsAllocate()
 		{
@@ -59,7 +63,7 @@ namespace VVVV.Nodes.OpenCV
 		/// Feel free this to call multiple times in 1 evaluate.
 		/// If not threaded, forces an immediate Initialise with lock
 		/// </summary>
-		public void ReAllocate()
+		virtual public void ReAllocate()
 		{
 			if (this.NeedsThread())
 				FNeedsAllocate = true;

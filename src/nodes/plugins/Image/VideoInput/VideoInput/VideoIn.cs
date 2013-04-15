@@ -69,7 +69,7 @@ namespace VVVV.Nodes.OpenCV.VideoInput
 			}
 		}
 
-		protected override bool Open()
+        public override bool Open()
 		{
 			lock (DeviceLock.LockDevices)
 			{
@@ -99,7 +99,7 @@ namespace VVVV.Nodes.OpenCV.VideoInput
 			}
 		}
 
-		protected override void Close()
+        public override void Close()
 		{
 			lock (DeviceLock.LockDevices)
 			{

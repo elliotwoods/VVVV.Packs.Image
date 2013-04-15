@@ -7,6 +7,43 @@ namespace VVVV.Nodes.OpenCV
 {
 	public abstract class IGeneratorInstance : IInstance, IInstanceOutput, IDisposable
 	{
+        enum Action
+        {
+            Open,
+            Close,
+            Allocate
+        }
+        Queue<Action> FActionQueue = new Queue<Action>();
+
+        void Enqueue(Action Action)
+        {
+            this.FActionQueue.Enqueue(Action);
+        }
+
+        public void ProcessActionQueue()
+        {
+            while (FActionQueue.Count > 0)
+            {
+                var action = FActionQueue.Dequeue();
+                switch (action)
+                {
+                    case Action.Open:
+                        this.FOpen = Open();
+                        break;
+                    case Action.Close:
+                        if (this.FOpen)
+                        {
+                            Close();
+                        }
+                        this.FOpen = false;
+                        break;
+                    case Action.Allocate:
+                        Allocate();
+                        break;
+                }
+            }
+        }
+
 		protected CVImageOutput FOutput;
 
 		/// <summary>
@@ -17,14 +54,12 @@ namespace VVVV.Nodes.OpenCV
 		/// <summary>
 		/// Open the device for capture. This is called from inside the thread
 		/// </summary>
-		protected abstract bool Open();
+        public abstract bool Open();
 		/// <summary>
 		/// Close the capture device. This is called from inside the thread
 		/// </summary>
-		protected abstract void Close();
+		public abstract void Close();
 
-		private bool FNeedsOpen = false;
-		private bool FNeedsClose = false;
 		private bool FOpen = false;
 		public bool IsOpen
 		{
@@ -40,66 +75,59 @@ namespace VVVV.Nodes.OpenCV
 		public void Start()
 		{
             if (this.NeedsThread())
-                FNeedsOpen = true;
+            {
+                this.Enqueue(Action.Open);
+            }
             else
+            {
                 this.FOpen = this.Open();
-		}
+                Allocate();
+            }
+        }
+
 		/// <summary>
 		/// Message the thread to stop the capture device. This is called from outside the thread (e.g. the plugin node)
 		/// </summary>
 		public void Stop()
 		{
             if (this.NeedsThread())
-                FNeedsClose = true;
-            else
+            {
+                this.Enqueue(Action.Close);
+            } else {
                 this.Close();
+                this.FOpen = false;
+            }
 		}
+
+        /// <summary>
+        /// Message the thread to allocate frame.
+        /// </summary>
+        public override void ReAllocate()
+        {
+            if (this.NeedsThread())
+            {
+                this.Enqueue(Action.Allocate);
+            } else {
+                Allocate();
+            }
+        }
 
 		/// <summary>
 		/// Used to restart the device (e.g. you change a setting). If not open, this action does nothing
 		/// </summary>
 		public void Restart()
 		{
-            if (this.NeedsThread())
+            if (this.IsOpen)
             {
-                if (this.IsOpen)
-                {
-                    FNeedsClose = true;
-                    FNeedsOpen = true;
-                }
+                Stop();
+                Start();
             }
-            else
-            {
-                if (this.IsOpen)
-                    Close();
-                if (this.Enabled)
-                    this.FOpen = Open();
-            }
-			
 		}
 
 		override public void Process()
 		{
 			lock (FLockProperties)
 			{
-				if (FNeedsClose)
-				{
-					FNeedsClose = false;
-					if (FOpen)
-						Close();
-					FEnabled = false;
-					FOpen = false;
-					return;
-				}
-
-				if (FNeedsOpen && Enabled || (!IsOpen && Enabled))
-				{
-					FNeedsOpen = false;
-                    if (IsOpen)
-						Close();
-					FOpen = Open();
-				}
-
 				if (IsOpen)
 				{
 					if (FOutput.Image.Allocated == false && this.NeedsAllocate())
@@ -139,16 +167,15 @@ namespace VVVV.Nodes.OpenCV
 					return;
 				lock (FLockProperties)
 				{
+                    FEnabled = value;
+
 					if (value)
 					{
-
-						FEnabled = true;
 						Start();
 					}
 					else
 					{
 						Stop();
-                        FEnabled = false;
 					}
 				}
 			}
@@ -156,7 +183,7 @@ namespace VVVV.Nodes.OpenCV
 
 		override public void Dispose()
 		{
-			Enabled = false;
+            Stop();
 		}
 	}
 }

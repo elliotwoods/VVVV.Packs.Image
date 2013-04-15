@@ -11,12 +11,12 @@ namespace VVVV.Nodes.OpenCV
 	/// </summary>
 	public abstract class IStaticGeneratorInstance : IGeneratorInstance
 	{
-		protected override bool Open()
+		public override bool Open()
 		{
 			return true;
 		}
 
-		protected override void Close()
+        public override void Close()
 		{
 		}
 	}
