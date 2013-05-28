@@ -75,7 +75,7 @@ namespace VVVV.Nodes.OpenCV
 			}
 		}
 
-		protected override bool Open()
+        public override bool Open()
 		{
 			Close();
 
@@ -96,7 +96,7 @@ namespace VVVV.Nodes.OpenCV
 			}
 		}
 
-		protected override void Close()
+        public override void Close()
 		{
             if (FCapture == null)
                 return;

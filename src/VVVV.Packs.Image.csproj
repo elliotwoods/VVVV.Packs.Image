@@ -107,6 +107,10 @@
       <Project>{D9D17924-98D5-468F-840E-3A3F8308BE35}</Project>
       <Name>VVVV.Nodes.OpenCV.OpenNI</Name>
     </ProjectReference>
+    <ProjectReference Include="nodes\plugins\Image\OptiTrack\VVVV.Nodes.OpenCV.OptiTrack.csproj">
+      <Project>{5971BE7A-0FB0-4DDF-B7D2-000E80EF6FDD}</Project>
+      <Name>VVVV.Nodes.OpenCV.OptiTrack</Name>
+    </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\VideoInput\VVVV.Nodes.OpenCV.VideoInput.csproj">
       <Project>{C111EF2E-E57C-480C-9E76-C6304AC02D79}</Project>
       <Name>VVVV.Nodes.OpenCV.VideoInput</Name>

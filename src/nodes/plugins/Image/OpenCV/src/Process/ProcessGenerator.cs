@@ -32,12 +32,8 @@ namespace VVVV.Nodes.OpenCV
 					{
 						Parallel.For(0, FProcess.SliceCount, i =>
 							{
-								if (FProcess[i].Enabled)
-								{
-									if (FProcess[i].NeedsAllocate() && FProcess[i].IsOpen)
-										FProcess[i].Allocate();
-									FProcess[i].Process();
-								}
+                                FProcess[i].ProcessActionQueue();
+								FProcess[i].Process();
 							});
 					}
 					catch (Exception e)
@@ -63,11 +59,11 @@ namespace VVVV.Nodes.OpenCV
 			{
 				foreach (var process in FProcess)
 				{
-					process.Enabled = false;
+					process.Dispose();
 				}
 				foreach (var process in FProcess)
 				{
-					while (process.Enabled == true)
+					while (process.IsOpen == true)
 						Thread.Sleep(5);
 				}
 

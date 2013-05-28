@@ -53,7 +53,7 @@ namespace VVVV.Nodes.FlyCapture
 			}
 		}
 
-		protected override bool Open()
+        public override bool Open()
 		{
 			try
 			{
@@ -85,7 +85,7 @@ namespace VVVV.Nodes.FlyCapture
 			}
 		}
 
-        protected override void Close()
+        public override void Close()
 		{
 			if (!FRunning)
 				return;

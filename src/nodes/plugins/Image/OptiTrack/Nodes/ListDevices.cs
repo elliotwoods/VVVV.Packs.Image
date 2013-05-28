@@ -12,7 +12,7 @@ using VVVV.Core.Logging;
 using ThreadState = System.Threading.ThreadState;
 using System.Collections.Generic;
 
-using NPCameraSDKDotNet;
+using OptiTrackNET;
 
 using VVVV.Nodes.OpenCV;
 
@@ -21,7 +21,7 @@ using VVVV.Nodes.OpenCV;
 namespace VVVV.Nodes.OptiTrack
 {
 	#region PluginInfo
-	[PluginInfo(Name = "ListDevices", Category = "OptiTrack", Help = "List OptiTrack camera devices", Tags = "")]
+	[PluginInfo(Name = "ListDevices", Category = "OptiTrack", Help = "List OptiTrack camera devices", Tags = "", AutoEvaluate=true)]
 	#endregion PluginInfo
 	public class CameraListNode : IPluginEvaluate, IDisposable
 	{
