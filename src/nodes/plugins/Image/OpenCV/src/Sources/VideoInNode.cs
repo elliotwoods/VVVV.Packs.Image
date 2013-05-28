@@ -1,40 +1,29 @@
-﻿#region usings
-
-using System;
-using System.ComponentModel.Composition;
+﻿using System;
 using Emgu.CV.CvEnum;
-using VVVV.Core.Logging;
-using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 using Emgu.CV;
-using Emgu.CV.Structure;
-using System.Threading;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-
-#endregion usings
 
 namespace VVVV.Nodes.OpenCV
 {
 	public class CaptureVideoInstance : IGeneratorInstance
 	{
-		private int FRequestedWidth = 0;
-		private int FRequestedHeight = 0;
-
 		Capture FCapture;
 
-		private int FDeviceID = 0;
-		public int DeviceID
+		private int FDeviceId;
+		public int DeviceId
 		{
 			get
 			{
-				return FDeviceID;
+				return FDeviceId;
 			}
 			set
 			{
-				FDeviceID = value;
+				if (value == FDeviceId) return;
+
+				FDeviceId = value;
 				Restart();
+				Open();
 			}
 		}
 
@@ -47,6 +36,8 @@ namespace VVVV.Nodes.OpenCV
 			}
 			set
 			{
+				if(value == FWidth) return;
+
 				FWidth = value;
 				Restart();
 			}
@@ -61,6 +52,8 @@ namespace VVVV.Nodes.OpenCV
 			}
 			set
 			{
+				if(value == FHeight) return;
+
 				FHeight = value;
 				Restart();
 			}
@@ -75,6 +68,8 @@ namespace VVVV.Nodes.OpenCV
 			}
 			set
 			{
+				if(value == FFramerate) return;
+
 				FFramerate = value;
 				Restart();
 			}
@@ -86,7 +81,7 @@ namespace VVVV.Nodes.OpenCV
 
 			try
 			{
-				FCapture = new Capture(FDeviceID);
+				FCapture = new Capture(FDeviceId);
 				FCapture.SetCaptureProperty(CAP_PROP.CV_CAP_PROP_FRAME_WIDTH, FWidth);
 				FCapture.SetCaptureProperty(CAP_PROP.CV_CAP_PROP_FRAME_HEIGHT, FHeight);
 				FCapture.SetCaptureProperty(CAP_PROP.CV_CAP_PROP_FPS, FFramerate);
@@ -125,58 +120,33 @@ namespace VVVV.Nodes.OpenCV
 		protected override void Generate()
 		{
 			IImage capbuffer = FCapture.QueryFrame();
-			if (ImageUtils.IsIntialised(capbuffer))
-			{
-				FOutput.Image.SetImage(capbuffer);
-				FOutput.Send();
-			}
+			if (!ImageUtils.IsIntialised(capbuffer)) return;
+			
+			FOutput.Image.SetImage(capbuffer);
+			FOutput.Send();
 		}
 }
 
-	#region PluginInfo
-	[PluginInfo(Name = "VideoIn",
-			  Category = "OpenCV",
-			  Version = "",
-			  Help = "Captures from DShow device to IPLImage",
-			  Tags = "")]
-	#endregion PluginInfo
+	[PluginInfo(Name = "VideoIn", Category = "OpenCV", Version = "", Help = "Captures from DShow device to IPLImage", Tags = "")]
 	public class CaptureVideoNode : IGeneratorNode<CaptureVideoInstance>
 	{
-		#region fields & pins
 		[Input("Device ID", MinValue = 0)]
-		IDiffSpread<int> FPinInDeviceID;
+		ISpread<int> FDeviceIDIn;
 
 		[Input("Width", MinValue = 32, MaxValue = 8192, DefaultValue = 640)]
-		IDiffSpread<int> FPinInWidth;
+		ISpread<int> FWidthIn;
 
 		[Input("Height", MinValue = 32, MaxValue = 8192, DefaultValue = 480)]
-		IDiffSpread<int> FPinInHeight;
-
-		[Import]
-		ILogger FLogger;
-
-		#endregion fields & pins
-
-		// import host and hand it to base constructor
-		[ImportingConstructor]
-		public CaptureVideoNode(IPluginHost host)
-		{
-
-		}
+		ISpread<int> FHeightIn;
 
 		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			if (FPinInDeviceID.IsChanged || spreadChanged)
-				for (int i = 0; i < instanceCount; i++)
-					FProcessor[i].DeviceID = FPinInDeviceID[i];
-
-            if (FPinInWidth.IsChanged || spreadChanged)
-				for (int i = 0; i < instanceCount; i++)
-					FProcessor[i].Width = FPinInWidth[i];
-
-            if (FPinInHeight.IsChanged || spreadChanged)
-				for (int i = 0; i < instanceCount; i++)
-					FProcessor[i].Height = FPinInHeight[i];
+			for (int i = 0; i < instanceCount; i++)
+			{
+				FProcessor[i].DeviceId = FDeviceIDIn[i];
+				FProcessor[i].Width = FWidthIn[i];
+				FProcessor[i].Height = FHeightIn[i];
+			}			
 		}
 	}
 }
