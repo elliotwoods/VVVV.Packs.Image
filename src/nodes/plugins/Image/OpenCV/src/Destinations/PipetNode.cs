@@ -1,21 +1,6 @@
-﻿#region usings
-using System;
-using System.ComponentModel.Composition;
-using System.Drawing;
-using System.Threading;
-
-using VVVV.PluginInterfaces.V1;
+﻿using System;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
-using VVVV.Core.Logging;
-
-using Emgu.CV;
-using Emgu.CV.Structure;
-using Emgu.CV.CvEnum;
-using ThreadState = System.Threading.ThreadState;
-using System.Collections.Generic;
-
-#endregion usings
 
 namespace VVVV.Nodes.OpenCV
 {
@@ -28,16 +13,9 @@ namespace VVVV.Nodes.OpenCV
 			
 		}
 
-		private int FChannelCount = 0;
-		public int ChannelCount
-		{
-			get
-			{
-				return FChannelCount;
-			}
-		}
+		public int ChannelCount { get; private set; }
 
-		private ISpread<Vector2D> FLookup = null;
+		private ISpread<Vector2D> FLookup;
 		public ISpread<Vector2D> Lookup
 		{
 			set
@@ -49,40 +27,36 @@ namespace VVVV.Nodes.OpenCV
 			}
 		}
 
-		private Spread<Spread<double>> FReturn = new Spread<Spread<double>>(0);
+		private readonly Spread<Spread<double>> FReturn = new Spread<Spread<double>>(0);
 		public Spread<Spread<double>> Return
 		{
 			get
 			{
 				lock (FLock)
 				{
-					Spread<Spread<double>> output = FReturn.Clone() as Spread<Spread<double>>;
-					return output;
+					return FReturn.Clone();
 				}
 			}
 		}
 
 		public override void Process()
 		{
-			if (FLookup == null)
-				return;
-			else
-				lock (FLock)
-				{
-					FChannelCount = ImageUtils.ChannelCount(FInput.ImageAttributes.ColourFormat);
-					FReturn.SliceCount = FLookup.SliceCount;
+			if (FLookup == null) return;
 
-					for (int i = 0; i < FLookup.SliceCount; i++)
-					{
-						FReturn[i] = ImageUtils.GetPixelAsDoubles(FInput.Image, (uint) FLookup[i].x, (uint) FLookup[i].y);
-					}
+			lock (FLock)
+			{
+				ChannelCount = ImageUtils.ChannelCount(FInput.ImageAttributes.ColourFormat);
+				FReturn.SliceCount = FLookup.SliceCount;
+
+				for (var i = 0; i < FLookup.SliceCount; i++)
+				{
+					FReturn[i] = ImageUtils.GetPixelAsDoubles(FInput.Image, (uint) FLookup[i].x, (uint) FLookup[i].y);
 				}
+			}
 		}
 	}
 
-	#region PluginInfo
 	[PluginInfo(Name = "Pipet", Category = "OpenCV", Version = "", Help = "Pipet in image", Tags = "")]
-	#endregion PluginInfo
 	public class PipetNode : IDestinationNode<PipetInstance>
 	{
 		[Input("Position", DimensionNames=new string[1]{"px"})]
@@ -109,17 +83,17 @@ namespace VVVV.Nodes.OpenCV
 			Output(instanceCount);
 		}
 
-		private void Output(int InstanceCount)
+		private void Output(int instanceCount)
 		{
 			//since we cant output an ISpread<ISpread<ISpread<double>>>
 			//we have to do it the long way...
 
-			Spread<Spread<Spread<double>>> returned = new Spread<Spread<Spread<double>>>(InstanceCount);
+			var returned = new Spread<Spread<Spread<double>>>(instanceCount);
 			
-			int count = 0;
-			Spread<int> counts = new Spread<int>(InstanceCount);
+			var count = 0;
+			var counts = new Spread<int>(instanceCount);
 
-			for (int i = 0; i < InstanceCount; i++)
+			for (var i = 0; i < instanceCount; i++)
 			{
 				returned[i] = FProcessor[i].Return;
 				counts[i] = returned[i].SliceCount;
@@ -128,14 +102,14 @@ namespace VVVV.Nodes.OpenCV
 
 			FPinOutput.SliceCount = count;
 
-			int offset = 0;
+			var offset = 0;
 
-			for (int i=0; i<InstanceCount; i++)
+			for (var i = 0; i < instanceCount; i++)
 			{
-				for (int j=0; j<counts[i]; j++)
+				for (var j = 0; j < counts[i]; j++)
 				{
 					FPinOutput[offset + j].SliceCount = FProcessor[i].ChannelCount;
-					for (int c=0; c<FProcessor[i].ChannelCount; c++)
+					for (var c = 0; c < FProcessor[i].ChannelCount; c++)
 						FPinOutput[offset + j][c] = returned[i][j][c];
 				}
 				offset += counts[i];
