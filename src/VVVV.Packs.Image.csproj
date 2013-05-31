@@ -91,6 +91,10 @@
       <Project>{98936436-EA28-437E-A2A4-CC7CAA532658}</Project>
       <Name>WinFormsViewer</Name>
     </ProjectReference>
+    <ProjectReference Include="nodes\plugins\DX11\Ximea\VVVV.Nodes.Ximea.csproj">
+      <Project>{685c0911-c080-46b4-b21f-b8bbad507d0b}</Project>
+      <Name>VVVV.Nodes.Ximea</Name>
+    </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\EDSDK\VVVV.Nodes.OpenCV.EDSDK.csproj">
       <Project>{5EDB3C6E-2685-44F6-BD71-678CFC10AB31}</Project>
       <Name>VVVV.Nodes.OpenCV.EDSDK</Name>

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{704B6D46-8445-4315-8128-F331143A113E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hosting", "..\..\src\core\Hosting\Hosting.csproj", "{F9A754A6-EEA5-4761-9446-C2AAF9CF8B31}"
@@ -56,6 +56,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.FreeImage", "nodes\plugins\Image\FreeImage\VVVV.Nodes.OpenCV.FreeImage.csproj", "{7A5AC7E2-511C-4240-8D2B-5171F511F4C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.OptiTrack", "nodes\plugins\Image\OptiTrack\VVVV.Nodes.OpenCV.OptiTrack.csproj", "{5971BE7A-0FB0-4DDF-B7D2-000E80EF6FDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.Ximea", "nodes\plugins\DX11\Ximea\VVVV.Nodes.Ximea.csproj", "{685C0911-C080-46B4-B21F-B8BBAD507D0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -307,6 +309,18 @@ Global
 		{5971BE7A-0FB0-4DDF-B7D2-000E80EF6FDD}.Release|x64.Build.0 = Release|x64
 		{5971BE7A-0FB0-4DDF-B7D2-000E80EF6FDD}.Release|x86.ActiveCfg = Release|x86
 		{5971BE7A-0FB0-4DDF-B7D2-000E80EF6FDD}.Release|x86.Build.0 = Release|x86
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Debug|x64.ActiveCfg = Debug|x64
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Debug|x64.Build.0 = Debug|x64
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Debug|x86.ActiveCfg = Debug|x86
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Debug|x86.Build.0 = Debug|x86
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Release|x64.ActiveCfg = Release|x64
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Release|x64.Build.0 = Release|x64
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Release|x86.ActiveCfg = Release|x86
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -334,5 +348,6 @@ Global
 		{998E4E7E-F3B4-4CA1-ACD3-0EABACF23DD0} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 		{7A5AC7E2-511C-4240-8D2B-5171F511F4C5} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 		{5971BE7A-0FB0-4DDF-B7D2-000E80EF6FDD} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
+		{685C0911-C080-46B4-B21F-B8BBAD507D0B} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 	EndGlobalSection
 EndGlobal
