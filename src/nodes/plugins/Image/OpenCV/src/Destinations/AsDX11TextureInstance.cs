@@ -85,7 +85,7 @@ namespace VVVV.Nodes.OpenCV
             }
         }
 
-        private static SlimDX.DXGI.Format GetFormat(TColorFormat format)
+        public static SlimDX.DXGI.Format GetFormat(TColorFormat format)
         {
             switch (format)
             {

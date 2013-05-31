@@ -1,91 +1,71 @@
 ﻿using System;
-using System.ComponentModel.Composition;
-using SlimDX.Direct3D9;
-using VVVV.Core.Logging;
+using FeralTic.DX11;
+using FeralTic.DX11.Resources;
+using VVVV.DX11;
 using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
-using VVVV.PluginInterfaces.V2.EX9;
-using VVVV.Utils.SlimDX;
 
 namespace VVVV.Nodes.OpenCV
 {
-	#region PluginInfo
-	[PluginInfo(Name = "AsTexture",
-				Category = "OpenCV",
-				Version = "",
-				Help = "Converts IPLImage to Texture",
-				Tags = "")]
-	#endregion PluginInfo
-	public class AsTextureNode : DXTextureOutPluginBase, IPluginEvaluate, IDisposable
+	[PluginInfo(Name = "AsTexture", Category = "OpenCV", Version = "DX11", Help = "Converts IPLImage to DX11 Texture", Tags = "")]
+	public class AsDX11TextureNode : IPluginEvaluate, IDX11ResourceProvider, IDisposable
 	{
-		#region fields & pins
 		[Input("Image")]
 		ISpread<CVImageLink> FPinInImage;
 
-		[Import]
-		ILogger FLogger;
+		[Output("Texture Out", IsSingle = true)]
+		protected Pin<DX11Resource<DX11DynamicTexture2D>> FTextureOutput;
 
-		private ProcessDestination<AsTextureInstance> FProcessor;
+		private ProcessDestination<AsDX11TextureInstance> FProcessor;
+		private bool FNeedsInit;
 
-		#endregion fields & pins
+		private DX11DynamicTexture2D FTexture;
 
-		// import host and hand it to base constructor
-		[ImportingConstructor()]
-		public AsTextureNode(IPluginHost host)
-			: base(host)
-		{
-		}
-
-		//called when data for any output pin is requested
 		public void Evaluate(int SpreadMax)
 		{
 			if (FProcessor == null)
-				FProcessor = new ProcessDestination<AsTextureInstance>(FPinInImage);
+				FProcessor = new ProcessDestination<AsDX11TextureInstance>(FPinInImage);
 
-			bool needsInit = FProcessor.CheckInputSize();
-			for (int i = 0; i < FProcessor.SliceCount; i++)
-				needsInit |= FProcessor[i].NeedsTexture;
+			if (FTextureOutput[0] == null) FTextureOutput[0] = new DX11Resource<DX11DynamicTexture2D>();
 
-            if (needsInit)
-            {
-                foreach (var processor in FProcessor)
-                    processor.Logger = this.FLogger;
-                Reinitialize();
-            }
-
-			SetSliceCount(FProcessor.SliceCount);
-
-			Update();
+			FNeedsInit = FProcessor.CheckInputSize();
+			for (var i = 0; i < FProcessor.SliceCount; i++)
+				FNeedsInit |= FProcessor[i].NeedsTexture;
 		}
 
-		//this method gets called, when Reinitialize() was called in evaluate,
-		//or a graphics device asks for its data
-		protected override Texture CreateTexture(int Slice, Device device)
+		public void Update(IPluginIO pin, DX11RenderContext context)
 		{
-			if (FProcessor.SliceCount > Slice)
-				if (FProcessor.GetProcessor(Slice) != null) // we do have a connected input for this slice
-					return FProcessor.GetProcessor(Slice).CreateTexture(device);
-			
-			return TextureUtils.CreateTexture(device, 1, 1);
+			if (FNeedsInit)
+			{
+				if (FProcessor.SliceCount > 0 && FProcessor.GetProcessor(0) != null)
+				{
+					FTexture = FProcessor.GetProcessor(0).CreateTexture(context);
+				}
+					
 				
-		}
+				if (FTextureOutput[0].Contains(context))
+					FTextureOutput[0].Dispose(context);
+			}
 
-		//this method gets called, when Update() was called in evaluate,
-		//or a graphics device asks for its texture, here you fill the texture with the actual data
-		//this is called for each renderer, careful here with multiscreen setups, in that case
-		//calculate the pixels in evaluate and just copy the data to the device texture here
-		protected unsafe override void UpdateTexture(int Slice, Texture texture)
-		{
-			if (FProcessor.SliceCount <= Slice)
+			if (FProcessor.SliceCount == 0)
 				return;
 
-			FProcessor.GetProcessor(Slice).UpdateTexture(texture);
+			FProcessor.GetProcessor(0).UpdateTexture(FTexture);
+
+			FTextureOutput[0][context] = FTexture;
+		}
+
+		public void Destroy(IPluginIO pin, DX11RenderContext context, bool force)
+		{
+			FTextureOutput[0].Dispose(context);
 		}
 
 		public void Dispose()
 		{
 			if (FProcessor != null)
 				FProcessor.Dispose();
+
+			FTextureOutput[0].Dispose();
 		}
 	}
 }
