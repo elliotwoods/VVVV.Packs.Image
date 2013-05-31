@@ -214,9 +214,9 @@ namespace VVVV.Nodes.OpenCV
                             if (!FBufferConverted.FrontImage.Allocated)
                                 throw (new Exception());
 
-	                        FImageData = FInput.Data;
-							ConvertData();
-                            texture.WriteData(FRgbaImageData, FRgbaSize);
+	                        //FImageData = FInput.Data;
+							//ConvertData();
+							texture.WriteData(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.BytesPerFrame);
                             //rect.Data.WriteRange(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.BytesPerFrame);
                             FNeedsRefresh[texture] = false;
                         }
