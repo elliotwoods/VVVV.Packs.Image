@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using FeralTic.DX11.Resources;
 using FeralTic.DX11;
 
 namespace VVVV.Nodes.OpenCV
 {
-    class AsDX11TextureInstance : IDestinationInstance
+    public unsafe class AsDX11TextureInstance : IDestinationInstance
     {
         public int Width { get; private set; }
         public int Height { get; private set; }
@@ -15,6 +16,11 @@ namespace VVVV.Nodes.OpenCV
         CVImageDoubleBuffer FBufferConverted;
         TColorFormat FConvertedFormat;
         bool FNeedsConversion;
+
+		private IntPtr FImageData = IntPtr.Zero;
+		private IntPtr FRgbaImageData = IntPtr.Zero;
+	    private long FRgbaSize;
+	    private int FPixelsCount;
 
 	    private readonly Object FLockTexture = new Object();
         private readonly Dictionary<DX11DynamicTexture2D, bool> FNeedsRefresh = new Dictionary<DX11DynamicTexture2D, bool>();
@@ -43,6 +49,20 @@ namespace VVVV.Nodes.OpenCV
             }
 
             FNeedsTexture = true;
+
+			if (FImageData != IntPtr.Zero)
+			{
+				Marshal.FreeCoTaskMem(FImageData);
+			}
+
+	        var width = FInput.ImageAttributes.Width;
+	        var height = FInput.ImageAttributes.Height;
+
+	        FRgbaSize = width * height * 4;
+			FPixelsCount = width * height;
+
+			FImageData = Marshal.AllocCoTaskMem(width * height * 3);
+			FRgbaImageData = Marshal.AllocCoTaskMem((int)FRgbaSize);
         }
 
         public override void Process()
@@ -136,6 +156,19 @@ namespace VVVV.Nodes.OpenCV
             }
         }
 
+	    private void ConvertData()
+	    {
+			var brgb = (byte*)FImageData.ToPointer();
+			var brgba = (byte*)FRgbaImageData.ToPointer();
+
+			for (var i = 0; i < FPixelsCount; i++)
+			{
+				brgba[i * 4] = brgb[i * 3 + 2];
+				brgba[i * 4 + 1] = brgb[i * 3 + 1];
+				brgba[i * 4 + 2] = brgb[i * 3];
+			}
+	    }
+
         public void UpdateTexture(DX11DynamicTexture2D texture)
         {
             lock (FLockTexture)
@@ -181,7 +214,9 @@ namespace VVVV.Nodes.OpenCV
                             if (!FBufferConverted.FrontImage.Allocated)
                                 throw (new Exception());
 
-                            texture.WriteData(FInput.Data, FInput.BytesPerFrame);
+	                        FImageData = FInput.Data;
+							ConvertData();
+                            texture.WriteData(FRgbaImageData, FRgbaSize);
                             //rect.Data.WriteRange(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.BytesPerFrame);
                             FNeedsRefresh[texture] = false;
                         }
@@ -200,7 +235,9 @@ namespace VVVV.Nodes.OpenCV
                         FInput.LockForReading();
                         try
                         {
-                            texture.WriteData(FInput.Data, FInput.BytesPerFrame);
+							FImageData = FInput.Data;
+							ConvertData();
+                            texture.WriteData(FRgbaImageData, FRgbaSize);
                             //rect.Data.WriteRange(FInput.Data, FInput.ImageAttributes.BytesPerFrame);
                             FNeedsRefresh[texture] = false;
                         }
@@ -218,10 +255,6 @@ namespace VVVV.Nodes.OpenCV
                 catch (Exception e)
                 {
                     throw (e);
-                }
-                finally
-                {
-                    //srf.UnlockRectangle();
                 }
             }
         }
