@@ -59,6 +59,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.OptiTrack
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.Ximea", "nodes\plugins\DX11\Ximea\VVVV.Nodes.Ximea.csproj", "{685C0911-C080-46B4-B21F-B8BBAD507D0B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C4104F7D-3002-4EBA-9947-335EAE3DA8E1}"
+	ProjectSection(SolutionItems) = preProject
+		Performance1.psess = Performance1.psess
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -349,5 +354,8 @@ Global
 		{7A5AC7E2-511C-4240-8D2B-5171F511F4C5} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 		{5971BE7A-0FB0-4DDF-B7D2-000E80EF6FDD} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 		{685C0911-C080-46B4-B21F-B8BBAD507D0B} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

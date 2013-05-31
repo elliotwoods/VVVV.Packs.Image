@@ -48,15 +48,24 @@ namespace VVVV.Nodes.Ximea
 
 			FDevice = new xiCam();
 			FDevice.OpenDevice(FID);
+			FDevice.SetParam(PRM.BUFFER_POLICY, BUFF_POLICY.UNSAFE);
 
-			FDevice.SetParam(PRM.EXPOSURE, 1291);
 			FDevice.SetParam(PRM.AEAG, 0);
-			FDevice.SetParam(PRM.GPI_SELECTOR, 1);
-			FDevice.SetParam(PRM.GPI_MODE, GPI_MODE.TRIGGER);
-			FDevice.SetParam(PRM.TRG_SOURCE, TRG_SOURCE.EDGE_RISING);
+			FDevice.SetParam(PRM.EXPOSURE, 1291);
 
-			FDevice.SetParam(PRM.HEIGHT, 1536);
-			FDevice.SetParam(PRM.OFFSET_Y, (2048 - 1536) / 2);
+			if (FHWTrigger)
+			{
+				FDevice.SetParam(PRM.GPI_SELECTOR, 1);
+				FDevice.SetParam(PRM.GPI_MODE, GPI_MODE.TRIGGER);
+				FDevice.SetParam(PRM.TRG_SOURCE, TRG_SOURCE.EDGE_FALLING);
+			}
+			else
+			{
+				FDevice.SetParam(PRM.TRG_SOURCE, TRG_SOURCE.OFF);
+			}
+
+			FDevice.SetParam(PRM.HEIGHT, FROIHeight);
+			FDevice.SetParam(PRM.OFFSET_Y, (2048 - FROIHeight) / 2);
 
 			FDevice.StartAcquisition();
 
@@ -102,9 +111,43 @@ namespace VVVV.Nodes.Ximea
 			}
 		}
 
+		int FROIHeight = 1536;
+		public int ROIHeight
+		{
+			set
+			{
+				this.FROIHeight = value;
+				if (IsOpen && value != this.FROIHeight)
+				{
+					FDevice.SetParam(PRM.HEIGHT, FROIHeight);
+					FDevice.SetParam(PRM.OFFSET_Y, (2048 - FROIHeight) / 2);
+					FHeight = FROIHeight;
+				}
+			}
+		}
+
+		bool FHWTrigger = false;
+		public bool HWTrigger
+		{
+			set
+			{
+				if (this.FHWTrigger == value)
+					return;
+
+				this.FHWTrigger = value;
+				if (IsOpen)
+				{
+					Open();
+				}
+			}
+		}
+
+		byte[] data;
+		bool FDataNew = false;
+
 		public void Update(DX11Resource<DX11DynamicTexture2D> textureSlice, DX11RenderContext context)
 		{
-			if (!IsOpen)
+			if (!IsOpen || !FDataNew)
 			{
 				return;
 			}
@@ -118,32 +161,43 @@ namespace VVVV.Nodes.Ximea
 				tex = new DX11DynamicTexture2D(context, FWidth, FHeight, SlimDX.DXGI.Format.R8_UNorm);
 				textureSlice[context] = tex;
 			}
+			else if (textureSlice[context].Width != this.FWidth || textureSlice[context].Height != this.FHeight)
+			{
+				textureSlice[context].Dispose();
+				tex = new DX11DynamicTexture2D(context, FWidth, FHeight, SlimDX.DXGI.Format.R8_UNorm);
+				textureSlice[context] = tex;
+			}
 			else
 			{
 				tex = textureSlice[context];
-			}
-			
-			byte[] imageData;
-
-			try
-			{
-				FDevice.GetImage(out imageData, FTimeout);
-			}
-			catch
-			{
-				return;
 			}
 
 			//write data to surface
 			if (FWidth == tex.GetRowPitch())
 			{
-				tex.WriteData(imageData);
+				tex.WriteData(data);
 			}
 			else
 			{
-				GCHandle pinnedArray = GCHandle.Alloc(imageData, GCHandleType.Pinned);
-				tex.WriteDataPitch(pinnedArray.AddrOfPinnedObject(), imageData.Length);
+				GCHandle pinnedArray = GCHandle.Alloc(data, GCHandleType.Pinned);
+				tex.WriteDataPitch(pinnedArray.AddrOfPinnedObject(), data.Length);
 				pinnedArray.Free();
+			}
+		}
+
+		public void UpdateCapture()
+		{
+			if (!IsOpen)
+				return;
+
+			try
+			{
+				FDevice.GetImage(out data, FTimeout);
+				FDataNew = true;
+			}
+			catch
+			{
+				return;
 			}
 		}
 
@@ -168,8 +222,14 @@ namespace VVVV.Nodes.Ximea
 		[Input("Device ID", IsSingle=true)]
 		ISpread<int> FInDeviceID;
 
+		[Input("Hardware Trigger", IsSingle = true)]
+		ISpread<bool> FInHWTrigger;
+
 		[Input("Timeout", IsSingle = true, MinValue = 0, DefaultValue=100)]
 		ISpread<int> FInTimeout;
+
+		[Input("ROI Height", IsSingle = true, MinValue = 0, DefaultValue = 1536)]
+		ISpread<int> FInROIHeight;
 
 		[Input("Open", IsSingle = true)]
 		IDiffSpread<bool> FInOpen;
@@ -202,6 +262,21 @@ namespace VVVV.Nodes.Ximea
 				this.FTextureOut[0] = new DX11Resource<DX11DynamicTexture2D>();
 			}
 
+			if (FInHWTrigger.IsChanged)
+			{
+				FDevice.HWTrigger = FInHWTrigger[0];
+			}
+
+			if (FInTimeout.IsChanged)
+			{
+				FDevice.Timeout = FInTimeout[0];
+			}
+
+			if (FInROIHeight.IsChanged)
+			{
+				FDevice.ROIHeight = FInROIHeight[0];
+			}
+
 			if (FInDeviceID.IsChanged || FInOpen.IsChanged)
 			{
 				FDevice.ID = FInDeviceID[0];
@@ -218,21 +293,21 @@ namespace VVVV.Nodes.Ximea
 				}
 			}
 
-			if (FInTimeout.IsChanged)
-			{
-				FDevice.Timeout = FInTimeout[0];
-			}
-
 			FOutWidth[0] = FDevice.Width;
 			FOutHeight[0] = FDevice.Height;
 			FOutOpen[0] = FDevice.IsOpen;
+
+			FDevice.UpdateCapture();
 		}
 
 		public void Dispose()
 		{
 			foreach (var texture in FTextureOut)
 			{
-				texture.Dispose();
+				if (texture != null)
+				{
+					texture.Dispose();
+				}
 			}
 		}
 
@@ -243,7 +318,10 @@ namespace VVVV.Nodes.Ximea
 		
 		public void Destroy(IPluginIO pin, DX11RenderContext context, bool force)
 		{
-			throw new NotImplementedException();
+			foreach (var texture in FTextureOut)
+			{
+				texture.Dispose(context);
+			}
 		}
 	}
 }
