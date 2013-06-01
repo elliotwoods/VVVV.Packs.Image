@@ -192,9 +192,6 @@ namespace VVVV.Nodes.OpenCV
                     return;
                 }
 
-                /*Surface srf = texture.GetSurfaceLevel(0);
-                DataRectangle rect = srf.LockRectangle(LockFlags.None);*/
-
                 try
                 {
                     Size imageSize = FNeedsConversion ? FBufferConverted.ImageAttributes.Size : FInput.ImageAttributes.Size;
@@ -214,10 +211,7 @@ namespace VVVV.Nodes.OpenCV
                             if (!FBufferConverted.FrontImage.Allocated)
                                 throw (new Exception());
 
-	                        //FImageData = FInput.Data;
-							//ConvertData();
 							texture.WriteData(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.BytesPerFrame);
-                            //rect.Data.WriteRange(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.BytesPerFrame);
                             FNeedsRefresh[texture] = false;
                         }
                         catch (Exception e)
@@ -235,10 +229,7 @@ namespace VVVV.Nodes.OpenCV
                         FInput.LockForReading();
                         try
                         {
-							FImageData = FInput.Data;
-							ConvertData();
-                            texture.WriteData(FRgbaImageData, FRgbaSize);
-                            //rect.Data.WriteRange(FInput.Data, FInput.ImageAttributes.BytesPerFrame);
+                            texture.WriteData(FInput.Data, FInput.ImageAttributes.BytesPerFrame);
                             FNeedsRefresh[texture] = false;
                         }
                         catch (Exception e)
