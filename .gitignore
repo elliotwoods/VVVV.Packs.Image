@@ -55,3 +55,6 @@ _ReSharper*/
 
 #media files
 *.avi
+
+#dependencies
+src/nodes/plugins/Image/OpenCV/Dependencies
