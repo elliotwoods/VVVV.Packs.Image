@@ -74,8 +74,8 @@
     <Compile Include="src\CameraCalibration\ProjectPointsNode.cs" />
     <None Include="src\Incomplete\GenericFilterNode.cs" />
     <None Include="src\Features\Stitch.cs" />
-    <Compile Include="src\Destinations\AsDX11TextureInstance.cs" />
-    <Compile Include="src\Destinations\AsDX11TextureNode.cs" />
+    <Compile Include="src\Destinations\AsTextureDX11Instance.cs" />
+    <Compile Include="src\Destinations\AsTextureDX11Node.cs" />
     <Compile Include="src\Features\Criteria\Position.cs" />
     <Compile Include="src\Features\DetectFeatures.cs" />
     <Compile Include="src\Features\FeatureSet.cs" />
