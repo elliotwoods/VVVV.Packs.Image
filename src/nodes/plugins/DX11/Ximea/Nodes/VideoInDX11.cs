@@ -13,200 +13,6 @@ using System.Runtime.InteropServices;
 
 namespace VVVV.Nodes.Ximea
 {
-	class Device : IDisposable
-	{
-		xiCam FDevice;
-
-		int FID = -1;
-		public int ID
-		{
-			set
-			{
-				if (value != FID)
-				{
-					FID = value;
-					if (this.IsOpen)
-					{
-						this.Open();
-					}
-				}
-			}
-		}
-
-		bool FIsOpen = false;
-		public bool IsOpen
-		{
-			get
-			{
-				return FIsOpen;
-			}
-		}
-
-		public void Open()
-		{
-			this.Close();
-
-			FDevice = new xiCam();
-			FDevice.OpenDevice(FID);
-			FDevice.SetParam(PRM.BUFFER_POLICY, BUFF_POLICY.UNSAFE);
-
-			FDevice.SetParam(PRM.AEAG, 0);
-			FDevice.SetParam(PRM.EXPOSURE, 1291);
-
-			if (FHWTrigger)
-			{
-				FDevice.SetParam(PRM.GPI_SELECTOR, 1);
-				FDevice.SetParam(PRM.GPI_MODE, GPI_MODE.TRIGGER);
-				FDevice.SetParam(PRM.TRG_SOURCE, TRG_SOURCE.EDGE_FALLING);
-			}
-			else
-			{
-				FDevice.SetParam(PRM.TRG_SOURCE, TRG_SOURCE.OFF);
-			}
-
-			FDevice.SetParam(PRM.HEIGHT, FROIHeight);
-			FDevice.SetParam(PRM.OFFSET_Y, (2048 - FROIHeight) / 2);
-
-			FDevice.StartAcquisition();
-
-			FWidth = FDevice.GetParamInt(PRM.WIDTH);
-			FHeight = FDevice.GetParamInt(PRM.HEIGHT);			
-			FIsOpen = true;
-		}
-
-		public void Close()
-		{
-			if (this.IsOpen && FDevice != null)
-			{
-				FDevice.CloseDevice();
-				FDevice = null;
-				FIsOpen = false;
-			}
-		}
-
-		int FWidth = 0;
-		public int Width
-		{
-			get
-			{
-				return FWidth;
-			}
-		}
-
-		int FHeight = 0;
-		public int Height
-		{
-			get
-			{
-				return FHeight;
-			}
-		}
-
-		int FTimeout = 100;
-		public int Timeout
-		{
-			set
-			{
-				this.FTimeout = value;
-			}
-		}
-
-		int FROIHeight = 1536;
-		public int ROIHeight
-		{
-			set
-			{
-				this.FROIHeight = value;
-				if (IsOpen && value != this.FROIHeight)
-				{
-					FDevice.SetParam(PRM.HEIGHT, FROIHeight);
-					FDevice.SetParam(PRM.OFFSET_Y, (2048 - FROIHeight) / 2);
-					FHeight = FROIHeight;
-				}
-			}
-		}
-
-		bool FHWTrigger = false;
-		public bool HWTrigger
-		{
-			set
-			{
-				if (this.FHWTrigger == value)
-					return;
-
-				this.FHWTrigger = value;
-				if (IsOpen)
-				{
-					Open();
-				}
-			}
-		}
-
-		byte[] data;
-		bool FDataNew = false;
-
-		public void Update(DX11Resource<DX11DynamicTexture2D> textureSlice, DX11RenderContext context)
-		{
-			if (!IsOpen || !FDataNew)
-			{
-				return;
-			}
-			
-			DX11DynamicTexture2D tex;
-			
-			//create texture if necessary
-			//should also check if properties (width,height) changed
-			if (!textureSlice.Contains(context))
-			{
-				tex = new DX11DynamicTexture2D(context, FWidth, FHeight, SlimDX.DXGI.Format.R8_UNorm);
-				textureSlice[context] = tex;
-			}
-			else if (textureSlice[context].Width != this.FWidth || textureSlice[context].Height != this.FHeight)
-			{
-				textureSlice[context].Dispose();
-				tex = new DX11DynamicTexture2D(context, FWidth, FHeight, SlimDX.DXGI.Format.R8_UNorm);
-				textureSlice[context] = tex;
-			}
-			else
-			{
-				tex = textureSlice[context];
-			}
-
-			//write data to surface
-			if (FWidth == tex.GetRowPitch())
-			{
-				tex.WriteData(data);
-			}
-			else
-			{
-				GCHandle pinnedArray = GCHandle.Alloc(data, GCHandleType.Pinned);
-				tex.WriteDataPitch(pinnedArray.AddrOfPinnedObject(), data.Length);
-				pinnedArray.Free();
-			}
-		}
-
-		public void UpdateCapture()
-		{
-			if (!IsOpen)
-				return;
-
-			try
-			{
-				FDevice.GetImage(out data, FTimeout);
-				FDataNew = true;
-			}
-			catch
-			{
-				return;
-			}
-		}
-
-		public void Dispose()
-		{
-			Close();
-		}
-	}
-
 	#region PluginInfo
 	[PluginInfo(Name = "VideoIn",
 				Category = "Ximea",
@@ -222,29 +28,26 @@ namespace VVVV.Nodes.Ximea
 		[Input("Device ID", IsSingle=true)]
 		ISpread<int> FInDeviceID;
 
-		[Input("Hardware Trigger", IsSingle = true)]
-		ISpread<bool> FInHWTrigger;
-
-		[Input("Timeout", IsSingle = true, MinValue = 0, DefaultValue=100)]
+		[Input("Timeout", IsSingle = true, MinValue = 0, DefaultValue=500)]
 		ISpread<int> FInTimeout;
 
-		[Input("ROI Height", IsSingle = true, MinValue = 0, DefaultValue = 1536)]
-		ISpread<int> FInROIHeight;
-
-		[Input("Open", IsSingle = true)]
-		IDiffSpread<bool> FInOpen;
+		[Input("Enabled", IsSingle = true)]
+		IDiffSpread<bool> FInEnabled;
 
 		[Output("Texture Out", Order = 0)]
 		protected Pin<DX11Resource<DX11DynamicTexture2D>> FTextureOut;
 
-		[Output("Open")]
-		ISpread<bool> FOutOpen;
+		[Output("Running")]
+		ISpread<bool> FOutRunning;
 
-		[Output("Width")]
-		ISpread<int> FOutWidth;
+		[Output("Framerate")]
+		ISpread<double> FOutFramerate;
 
-		[Output("Height")]
-		ISpread<int> FOutHeight;
+		[Output("Timestamp")]
+		ISpread<double> FOutTimestamp;
+
+		[Output("Specification")]
+		ISpread<Device.Specification> FOutSpecification;
 
 		Device FDevice = new Device();
 		#endregion fields & pins
@@ -262,42 +65,41 @@ namespace VVVV.Nodes.Ximea
 				this.FTextureOut[0] = new DX11Resource<DX11DynamicTexture2D>();
 			}
 
-			if (FInHWTrigger.IsChanged)
+			bool MaybeReinitialised = false;
+
+			if (this.FInDeviceID.IsChanged)
 			{
-				FDevice.HWTrigger = FInHWTrigger[0];
+				this.FDevice.DeviceID = this.FInDeviceID[0];
+				MaybeReinitialised = true;
 			}
 
-			if (FInTimeout.IsChanged)
+			if (this.FInEnabled.IsChanged)
 			{
-				FDevice.Timeout = FInTimeout[0];
+				this.FDevice.Enabled = this.FInEnabled[0];
+				MaybeReinitialised = true;
 			}
 
-			if (FInROIHeight.IsChanged)
+			if (MaybeReinitialised)
 			{
-				FDevice.ROIHeight = FInROIHeight[0];
+				FOutSpecification[0] = FDevice.DeviceSpecification;
 			}
 
-			if (FInDeviceID.IsChanged || FInOpen.IsChanged)
+			FOutRunning[0] = FDevice.Running;
+			FOutTimestamp[0] = FDevice.Timestamp;
+			FOutFramerate[0] = FDevice.Framerate;
+		}
+
+		public void Update(IPluginIO pin, DX11RenderContext context)
+		{
+			//FDevice.Update(this.FTextureOut[0], context);
+		}
+
+		public void Destroy(IPluginIO pin, DX11RenderContext context, bool force)
+		{
+			foreach (var texture in FTextureOut)
 			{
-				FDevice.ID = FInDeviceID[0];
-				if (FDevice.IsOpen != FInOpen[0])
-				{
-					if (FInOpen[0])
-					{
-						FDevice.Open();
-					}
-					else
-					{
-						FDevice.Close();
-					}
-				}
+				texture.Dispose(context);
 			}
-
-			FOutWidth[0] = FDevice.Width;
-			FOutHeight[0] = FDevice.Height;
-			FOutOpen[0] = FDevice.IsOpen;
-
-			FDevice.UpdateCapture();
 		}
 
 		public void Dispose()
@@ -309,19 +111,8 @@ namespace VVVV.Nodes.Ximea
 					texture.Dispose();
 				}
 			}
-		}
 
-		public void Update(IPluginIO pin, DX11RenderContext context)
-		{
-			FDevice.Update(this.FTextureOut[0], context);
-		}
-		
-		public void Destroy(IPluginIO pin, DX11RenderContext context, bool force)
-		{
-			foreach (var texture in FTextureOut)
-			{
-				texture.Dispose(context);
-			}
+			FDevice.Dispose();
 		}
 	}
 }

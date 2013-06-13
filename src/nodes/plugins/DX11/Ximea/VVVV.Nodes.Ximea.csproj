@@ -33,9 +33,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="VideoInputSharp">
-      <HintPath>Dependencies\VideoInput.Net\VideoInputSharp.dll</HintPath>
-    </Reference>
     <Reference Include="VVVV.DX11.Core">
       <HintPath>..\..\..\..\..\..\packs\DX11\core\VVVV.DX11.Core.dll</HintPath>
     </Reference>
@@ -64,13 +61,12 @@
       <Project>{837C740A-485C-424C-8C38-086ED3DC73CB}</Project>
       <Name>PluginInterfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Image\OpenCV\VVVV.Nodes.OpenCV.csproj">
-      <Project>{E9A7FC26-34E0-4C1E-83D8-C01A169422B2}</Project>
-      <Name>VVVV.Nodes.OpenCV</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lib\Device.cs" />
+    <Compile Include="Lib\OldDevice.cs" />
     <Compile Include="ManageDependencies.cs" />
+    <Compile Include="Nodes\SpecificationSplit.cs" />
     <Compile Include="Nodes\VideoInDX11.cs" />
     <Compile Include="Nodes\ListDevices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
