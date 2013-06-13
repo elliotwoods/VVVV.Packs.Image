@@ -10,6 +10,8 @@ using VVVV.PluginInterfaces.V1;
 using System.ComponentModel.Composition;
 using FeralTic.DX11;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
+using System.Threading;
 
 namespace VVVV.Nodes.Ximea
 {
@@ -30,6 +32,9 @@ namespace VVVV.Nodes.Ximea
 
 		[Input("Timeout", IsSingle = true, MinValue = 0, DefaultValue=500)]
 		ISpread<int> FInTimeout;
+
+		[Input("Wait For Frame")]
+		ISpread<bool> FInWaitForFrame;
 
 		[Input("Enabled", IsSingle = true)]
 		IDiffSpread<bool> FInEnabled;
@@ -84,6 +89,17 @@ namespace VVVV.Nodes.Ximea
 				FOutSpecification[0] = FDevice.DeviceSpecification;
 			}
 
+			if (FInWaitForFrame[0] && FDevice.Running)
+			{
+				Stopwatch Timer = new Stopwatch();
+				Timer.Start();
+
+				while (Timer.ElapsedMilliseconds < FInTimeout[0] && !FDevice.DataNew)
+				{
+					Thread.Sleep(1);
+				}
+			}
+
 			FOutRunning[0] = FDevice.Running;
 			FOutTimestamp[0] = FDevice.Timestamp;
 			FOutFramerate[0] = FDevice.Framerate;
@@ -91,7 +107,7 @@ namespace VVVV.Nodes.Ximea
 
 		public void Update(IPluginIO pin, DX11RenderContext context)
 		{
-			//FDevice.Update(this.FTextureOut[0], context);
+			FDevice.Update(this.FTextureOut[0], context);
 		}
 
 		public void Destroy(IPluginIO pin, DX11RenderContext context, bool force)

@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using FeralTic.DX11;
+using FeralTic.DX11.Resources;
+using VVVV.DX11;
 using xiApi.NET;
 
 namespace VVVV.Nodes.Ximea
@@ -125,6 +129,8 @@ namespace VVVV.Nodes.Ximea
 		public int FFrameIndex = -1;
 		public double FTimestamp = 0;
 		public double FFramerate = 0;
+		bool FDataNew = false;
+		bool FDataNewPublic = false;
 
 		Specification FSpecification = new Specification();
 		public Specification DeviceSpecification
@@ -194,6 +200,22 @@ namespace VVVV.Nodes.Ximea
 			get
 			{
 				return FFramerate;
+			}
+		}
+
+		public bool DataNew
+		{
+			get
+			{
+				if (FDataNewPublic)
+				{
+					FDataNewPublic = false;
+					return true;
+				}
+				else
+				{
+					return false;
+				}
 			}
 		}
 
@@ -316,6 +338,9 @@ namespace VVVV.Nodes.Ximea
 						var timestamp = imageParams.GetTimestamp();
 						FFramerate = 1.0 / (timestamp - FTimestamp);
 						FTimestamp = timestamp;
+
+						FDataNew = true;
+						FDataNewPublic = true;
 					}
 					catch
 					{
@@ -324,6 +349,58 @@ namespace VVVV.Nodes.Ximea
 				}
 			} while (FRunning);
 
+		}
+
+		public void Update(DX11Resource<DX11DynamicTexture2D> textureSlice, DX11RenderContext context)
+		{
+			if (!this.Running || !FDataNew)
+			{
+				return;
+			}
+			FDataNew = false;
+
+			DX11DynamicTexture2D tex;
+
+			//create texture if necessary
+			//should also check if properties (width,height) changed
+			if (!textureSlice.Contains(context))
+			{
+				tex = new DX11DynamicTexture2D(context, FFrameWidth, FFrameHeight, SlimDX.DXGI.Format.R8_UNorm);
+				textureSlice[context] = tex;
+			}
+			else if (textureSlice[context].Width != this.FFrameWidth || textureSlice[context].Height != this.FFrameHeight)
+			{
+				textureSlice[context].Dispose();
+				tex = new DX11DynamicTexture2D(context, FFrameWidth, FFrameHeight, SlimDX.DXGI.Format.R8_UNorm);
+				textureSlice[context] = tex;
+			}
+			else
+			{
+				tex = textureSlice[context];
+			}
+
+			FDoubleBuffer.LockFront.AcquireReaderLock(100);
+			try
+			{
+				//write data to surface
+				if (FFrameWidth == tex.GetRowPitch())
+				{
+					tex.WriteData(FDoubleBuffer.Front);
+				}
+				else
+				{
+					GCHandle pinnedArray = GCHandle.Alloc(FDoubleBuffer.Front, GCHandleType.Pinned);
+					tex.WriteDataPitch(pinnedArray.AddrOfPinnedObject(), FDoubleBuffer.Front.Length);
+					pinnedArray.Free();
+				}
+			}
+			catch
+			{
+			}
+			finally
+			{
+				FDoubleBuffer.LockFront.ReleaseReaderLock();
+			}
 		}
 
 		static int Count
