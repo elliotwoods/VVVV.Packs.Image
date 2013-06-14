@@ -65,8 +65,12 @@
   <ItemGroup>
     <Compile Include="Lib\Device.cs" />
     <Compile Include="Lib\OldDevice.cs" />
+    <Compile Include="Lib\SoftwareLFO.cs" />
+    <Compile Include="Lib\Trigger.cs" />
     <Compile Include="ManageDependencies.cs" />
+    <Compile Include="Nodes\ParameterJoin.cs" />
     <Compile Include="Nodes\SpecificationSplit.cs" />
+    <Compile Include="Nodes\SoftwareLFONode.cs" />
     <Compile Include="Nodes\VideoInDX11.cs" />
     <Compile Include="Nodes\ListDevices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

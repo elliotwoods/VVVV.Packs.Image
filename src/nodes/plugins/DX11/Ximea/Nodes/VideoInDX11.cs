@@ -15,6 +15,8 @@ using System.Threading;
 
 namespace VVVV.Nodes.Ximea
 {
+	using ParameterSet = Dictionary<Device.IntParameter, int>;
+
 	#region PluginInfo
 	[PluginInfo(Name = "VideoIn",
 				Category = "Ximea",
@@ -35,6 +37,12 @@ namespace VVVV.Nodes.Ximea
 
 		[Input("Wait For Frame")]
 		ISpread<bool> FInWaitForFrame;
+
+		[Input("ParameterSet")]
+		ISpread<ParameterSet> FInParameterSet;
+
+		[Input("Trigger", Visibility = PinVisibility.Hidden)]
+		IDiffSpread<ITrigger> FInTrigger;
 
 		[Input("Enabled", IsSingle = true)]
 		IDiffSpread<bool> FInEnabled;
@@ -72,6 +80,12 @@ namespace VVVV.Nodes.Ximea
 
 			bool MaybeReinitialised = false;
 
+			if (this.FInTrigger.IsChanged)
+			{
+				this.FDevice.Trigger = this.FInTrigger[0];
+				MaybeReinitialised = true;
+			}
+
 			if (this.FInDeviceID.IsChanged)
 			{
 				this.FDevice.DeviceID = this.FInDeviceID[0];
@@ -87,6 +101,14 @@ namespace VVVV.Nodes.Ximea
 			if (MaybeReinitialised)
 			{
 				FOutSpecification[0] = FDevice.DeviceSpecification;
+			}
+
+			if (FInParameterSet.IsChanged && FInParameterSet[0] != null)
+			{
+				foreach (var parameter in FInParameterSet[0])
+				{
+					FDevice.SetParameter(parameter.Key, parameter.Value);
+				}
 			}
 
 			if (FInWaitForFrame[0] && FDevice.Running)

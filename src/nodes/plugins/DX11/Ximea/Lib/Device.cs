@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using FeralTic.DX11;
 using FeralTic.DX11.Resources;
+using VVVV.Core.Logging;
 using VVVV.DX11;
 using xiApi.NET;
 
@@ -82,12 +84,6 @@ namespace VVVV.Nodes.Ximea
 			RegionY
 		}
 
-		public enum Trigger
-		{
-			Default,
-			HardwareRisingEdge
-		}
-
 		class InstructionQueue<Parameter, Value>
 		{
 			public Dictionary<Parameter, Value> Content = new Dictionary<Parameter, Value>();
@@ -97,7 +93,7 @@ namespace VVVV.Nodes.Ximea
 			{
 				lock (Lock)
 				{
-					Content.Add(Parameter, Value);
+					Content[Parameter] = Value;
 				}
 			}
 
@@ -119,6 +115,9 @@ namespace VVVV.Nodes.Ximea
 				}
 			}
 		}
+
+		[Import()]
+		ILogger FLogger;
 
 		InstructionQueue<Instruction, int> FInstructionQueue = new InstructionQueue<Instruction, int>();
 		InstructionQueue<IntParameter, int> FParameterChangeQueue = new InstructionQueue<IntParameter, int>();
@@ -168,6 +167,45 @@ namespace VVVV.Nodes.Ximea
 			}
 		}
 
+		ITrigger FTrigger = null;
+		public ITrigger Trigger
+		{
+			set
+			{
+				if (value == FTrigger)
+					return;
+
+				var oldSoftwareTrigger = FTrigger as SoftwareTrigger;
+				if (oldSoftwareTrigger != null)
+				{
+					oldSoftwareTrigger.Trigger -= SoftwareTrigger_Trigger;
+				}
+
+				FTrigger = value;
+				
+				if (FTrigger != null && FTrigger.GetTriggerType() == TriggerType.Software)
+				{
+					var SoftwareTrigger = FTrigger as SoftwareTrigger;
+					SoftwareTrigger.Trigger += SoftwareTrigger_Trigger;
+				}
+
+				if (this.Running)
+					Start(); //restart
+			}
+		}
+
+		void SoftwareTrigger_Trigger(object sender, EventArgs e)
+		{
+			lock (FInstructionQueue.Lock)
+			{
+				if (Running && FTrigger == sender)
+				{
+					FDevice.SetParam(PRM.TRG_SOFTWARE, 0);
+				}
+			}
+			
+		}
+
 		public bool Enabled
 		{
 			set
@@ -179,11 +217,12 @@ namespace VVVV.Nodes.Ximea
 			}
 		}
 
+		bool FRunning = false;
 		public bool Running
 		{
 			get
 			{
-				return FThread != null;
+				return FRunning;
 			}
 		}
 
@@ -243,48 +282,64 @@ namespace VVVV.Nodes.Ximea
 			FThread = null;
 		}
 
-		void ThreadedFunction()
+		void ProcessInstructionQueue()
 		{
-			bool FRunning = true;
-
-			do
+			lock (FInstructionQueue.Lock)
 			{
-				lock (FInstructionQueue.Lock)
+				foreach (var operation in FInstructionQueue.Content)
 				{
-					foreach (var operation in FInstructionQueue.Content)
+					switch (operation.Key)
 					{
-						switch (operation.Key)
-						{
-							case Instruction.Open:
-								try
+						case Instruction.Open:
+							try
+							{
+								FDevice.OpenDevice(operation.Value);
+								FSpecification.Width = FDevice.GetParamInt(PRM.WIDTH);
+								FSpecification.Height = FDevice.GetParamInt(PRM.HEIGHT);
+								FSpecification.Name = FDevice.GetParamString(PRM.DEVICE_NAME);
+								FSpecification.Type = FDevice.GetParamString(PRM.DEVICE_TYPE);
+								FSpecification.Serial = FDevice.GetParamString(PRM.DEVICE_SN);
+								if (FTrigger == null)
 								{
-									FDevice.OpenDevice(operation.Value);
-									FSpecification.Width = FDevice.GetParamInt(PRM.WIDTH);
-									FSpecification.Height = FDevice.GetParamInt(PRM.HEIGHT);
-									FSpecification.Name = FDevice.GetParamString(PRM.DEVICE_NAME);
-									FSpecification.Type = FDevice.GetParamString(PRM.DEVICE_TYPE);
-									FSpecification.Serial = FDevice.GetParamString(PRM.DEVICE_SN);
-
-									FRunning = true;
+									FDevice.SetParam(PRM.TRG_SOURCE, TRG_SOURCE.OFF);
 								}
-								catch
+								else
 								{
-									FRunning = false;
+									switch (FTrigger.GetTriggerType())
+									{
+										case TriggerType.Software:
+											FDevice.SetParam(PRM.TRG_SOURCE, TRG_SOURCE.SOFTWARE);
+											break;
+										default:
+											throw (new Exception("Trigger type not handled"));
+									}
 								}
-								break;
-							case Instruction.Close:
-								FDevice.CloseDevice();
+							}
+							catch
+							{
 								FRunning = false;
-								break;
-							case Instruction.StartAcquisition:
-								FDevice.StartAcquisition();
-								break;
-						}
+							}
+							break;
+						case Instruction.Close:
+							FDevice.CloseDevice();
+							FRunning = false;
+							break;
+						case Instruction.StartAcquisition:
+							FDevice.StartAcquisition();
+							FDevice.SetParam(PRM.TRG_SOFTWARE, 0);
+							FRunning = true;
+							break;
 					}
-					FInstructionQueue.Content.Clear();
 				}
+				FInstructionQueue.Content.Clear();
+			}
+		}
 
-				lock (FParameterChangeQueue.Lock)
+		void ProcessParameterQueue()
+		{
+			lock (FParameterChangeQueue.Lock)
+			{
+				try
 				{
 					foreach (var operation in FParameterChangeQueue.Content)
 					{
@@ -300,7 +355,13 @@ namespace VVVV.Nodes.Ximea
 								FDevice.SetParam(PRM.GAIN, operation.Value);
 								break;
 							case IntParameter.RegionHeight:
-								FDevice.SetParam(PRM.HEIGHT, operation.Value);
+								int value = operation.Value;
+								value /= 4;
+								value *= 4;
+								if (value < 4)
+									value = 4;
+
+								FDevice.SetParam(PRM.HEIGHT, value);
 								break;
 							case IntParameter.RegionWidth:
 								FDevice.SetParam(PRM.WIDTH, operation.Value);
@@ -315,12 +376,26 @@ namespace VVVV.Nodes.Ximea
 					}
 					FParameterChangeQueue.Content.Clear();
 				}
+				catch (Exception e)
+				{
+					FParameterChangeQueue.Content.Clear();
+					FLogger.Log(e);
+				}
+			}
+		}
 
+		void ThreadedFunction()
+		{
+			do
+			{
+				ProcessInstructionQueue();
+				ProcessParameterQueue();
+				
 				if (FRunning)
 				{
-					FFrameWidth = FDevice.GetParamInt(PRM.WIDTH);
-					FFrameHeight = FDevice.GetParamInt(PRM.HEIGHT);
-					int size = FFrameWidth * FFrameHeight;
+					int width = FDevice.GetParamInt(PRM.WIDTH);
+					int height = FDevice.GetParamInt(PRM.HEIGHT);
+					int size = width * height;
 
 					if (FDoubleBuffer.Back == null || FDoubleBuffer.Back.Length != size)
 					{
@@ -330,7 +405,6 @@ namespace VVVV.Nodes.Ximea
 					try
 					{
 						FDevice.GetImage(FDoubleBuffer.Back, Timeout);
-						FDoubleBuffer.Swap();
 						
 						var imageParams = FDevice.GetLastImageParams();
 						FFrameIndex = imageParams.GetFrameNum();
@@ -341,11 +415,13 @@ namespace VVVV.Nodes.Ximea
 
 						FDataNew = true;
 						FDataNewPublic = true;
+						FFrameWidth = width;
+						FFrameHeight = height;
+						FDoubleBuffer.Swap();
 					}
 					catch
 					{
 					}
-					
 				}
 			} while (FRunning);
 
@@ -401,6 +477,11 @@ namespace VVVV.Nodes.Ximea
 			{
 				FDoubleBuffer.LockFront.ReleaseReaderLock();
 			}
+		}
+
+		public void SetParameter(IntParameter Parameter, int Value)
+		{
+			FParameterChangeQueue.Add(Parameter, Value);
 		}
 
 		static int Count
