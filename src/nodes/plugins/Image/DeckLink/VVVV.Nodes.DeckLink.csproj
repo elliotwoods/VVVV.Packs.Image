@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\Default.Plugin.Project.settings" />
+  <PropertyGroup>
+    <ProjectGuid>{450CF5DB-EDB3-4E59-BD5F-F1857EB76419}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VVVV.Nodes.DeckLink</RootNamespace>
+    <AssemblyName>VVVV.Nodes.DeckLink</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Interop.DeckLinkAPI">
+      <HintPath>.\Interop.DeckLinkAPI.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition.Codeplex">
+      <HintPath>..\..\..\..\..\..\lib\core\System.ComponentModel.Composition.Codeplex.dll</HintPath>
+    </Reference>
+    <Reference Include="SlimDX">
+      <HintPath>..\..\..\..\..\..\..\common\src\thirdparty\$(Platform)\SlimDX.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\..\common\src\core\Core\Core.csproj">
+      <Project>{6AD35106-187B-4A3A-A801-E665CD12E020}</Project>
+      <Name>Core %28core\Core%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\common\src\core\Utils\Utils.csproj">
+      <Project>{C3773330-81FA-4253-823E-1BDE1529AA99}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\src\core\Hosting\Hosting.csproj">
+      <Project>{F9A754A6-EEA5-4761-9446-C2AAF9CF8B31}</Project>
+      <Name>Hosting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\src\core\PluginInterfaces\PluginInterfaces.csproj">
+      <Project>{837C740A-485C-424C-8C38-086ED3DC73CB}</Project>
+      <Name>PluginInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenCV\VVVV.Nodes.OpenCV.csproj">
+      <Project>{E9A7FC26-34E0-4C1E-83D8-C01A169422B2}</Project>
+      <Name>VVVV.Nodes.OpenCV</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Lib\ReadTexture.cs" />
+    <Compile Include="Lib\WorkerThread.cs" />
+    <Compile Include="Nodes\About.cs" />
+    <Compile Include="Lib\Capture.cs" />
+    <None Include="Nodes\DeviceAttributes.cs" />
+    <Compile Include="Lib\Source.cs" />
+    <Compile Include="Nodes\VideoOut.cs" />
+    <Compile Include="Nodes\ListDevices.cs" />
+    <Compile Include="Nodes\VideoOutTexture.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Nodes\VideoInTexture.cs" />
+    <None Include="Nodes\VideoInImage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\src\core\Hosting\Hosting.csproj">
+      <Project>{F9A754A6-EEA5-4761-9446-C2AAF9CF8B31}</Project>
+      <Name>Hosting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\src\core\PluginInterfaces\PluginInterfaces.csproj">
+      <Project>{837C740A-485C-424C-8C38-086ED3DC73CB}</Project>
+      <Name>PluginInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\src\core\Utils3rdParty\Utils3rdParty.csproj">
+      <Project>{87863121-C124-4585-B3BB-7706F03ECC64}</Project>
+      <Name>Utils3rdParty</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\..\common\src\core\Utils\Utils.csproj">
+      <Project>{C3773330-81FA-4253-823E-1BDE1529AA99}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Image\OpenCV\VVVV.Nodes.OpenCV.csproj">
+      <Project>{E9A7FC26-34E0-4C1E-83D8-C01A169422B2}</Project>
+      <Name>VVVV.Nodes.OpenCV</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

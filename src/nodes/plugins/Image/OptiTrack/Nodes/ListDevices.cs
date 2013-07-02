@@ -57,8 +57,8 @@ namespace VVVV.Nodes.OptiTrack
 			if (FPinInRefresh[0] || FFirstRun)
 			{
 				Refresh();
-				FFirstRun = false;
-			}
+                FFirstRun = false;
+            }
 		}
 
 		void Refresh()
@@ -74,6 +74,6 @@ namespace VVVV.Nodes.OptiTrack
                     FPinOutCameras.Add(Camera);
                 }
 			}
-		}
+        }
 	}
 }

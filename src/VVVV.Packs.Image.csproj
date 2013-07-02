@@ -91,6 +91,10 @@
       <Project>{98936436-EA28-437E-A2A4-CC7CAA532658}</Project>
       <Name>WinFormsViewer</Name>
     </ProjectReference>
+    <ProjectReference Include="nodes\plugins\Image\DeckLink\VVVV.Nodes.DeckLink.csproj">
+      <Project>{450cf5db-edb3-4e59-bd5f-f1857eb76419}</Project>
+      <Name>VVVV.Nodes.DeckLink</Name>
+    </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\EDSDK\VVVV.Nodes.OpenCV.EDSDK.csproj">
       <Project>{5EDB3C6E-2685-44F6-BD71-678CFC10AB31}</Project>
       <Name>VVVV.Nodes.OpenCV.EDSDK</Name>

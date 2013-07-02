@@ -110,6 +110,7 @@ namespace VVVV.Nodes.OptiTrack
                 {
                     if (FCamera == null)
                     {
+                        MCameraManager.WaitForInitialization();
                         FCamera = MCameraManager.GetCamera();
                         if (FCamera == null || !FCamera.IsValid())
                         {
