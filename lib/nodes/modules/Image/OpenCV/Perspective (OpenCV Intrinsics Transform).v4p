@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\Perspective (OpenCV Intrinsics Transform).v4p" systemname="Perspective (OpenCV Intrinsics Transform)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\Perspective (OpenCV Intrinsics Transform).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.1.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\Perspective (OpenCV Intrinsics Transform).v4p" systemname="Perspective (OpenCV Intrinsics Transform)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\Perspective (OpenCV Intrinsics Transform).v4p">
    <BOUNDS type="Window" left="3450" top="6360" width="6780" height="5250">
    </BOUNDS>
    <NODE componentmode="Hidden" id="3" nodename="Multiply (Transform)" systemname="Multiply (Transform)">
@@ -38,7 +38,7 @@
    <PIN pinname="Transform Out" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="ApplyNearAndFar (Transform)" filename="%VVVV%\addonpack\lib\nodes\modules\Transform\ApplyNearAndFar (Transform).v4p" nodename="ApplyNearAndFar (Transform)" componentmode="Hidden" id="0">
+   <NODE systemname="ApplyNearAndFar (Transform)" filename="%VVVV%\addonpack\lib\nodes\modules\Transform\ApplyNearAndFar (Transform).v4p" nodename="ApplyNearAndFar (Transform)" componentmode="InAWindow" id="0">
    <BOUNDS type="Node" left="420" top="3255" width="4425" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
