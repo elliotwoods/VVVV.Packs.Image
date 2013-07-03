@@ -35,13 +35,30 @@ namespace VVVV.Nodes.DeckLink
 			public ReadTexture ReadTexture;
 			byte[] FBuffer;
 
-			public Instance(IDeckLink device, _BMDDisplayMode mode, _BMDVideoOutputFlags flags, uint textureHandle)
+			public Instance(int deviceID, _BMDDisplayMode mode, _BMDVideoOutputFlags flags, uint textureHandle, Format format, Usage usage)
 			{
-				this.Source = new Source(device, mode, flags);
-				this.ReadTexture = new ReadTexture(this.Source.Width, this.Source.Height, textureHandle);
-				this.FBuffer = new byte[this.ReadTexture.BufferLength];
+				IDeckLink device = null;
+				WorkerThread.Singleton.PerformBlocking(() => {
+					device = DeviceRegister.Singleton.GetDeviceHandle(deviceID);
+				});
 
-				this.Source.NewFrame += Source_NewFrame;
+				try
+				{
+					this.Source = new Source(device, mode, flags);
+					this.ReadTexture = new ReadTexture(this.Source.Width, this.Source.Height, textureHandle, format, usage);
+					this.FBuffer = new byte[this.ReadTexture.BufferLength];
+					this.Source.NewFrame += Source_NewFrame;
+				}
+				catch
+				{
+					if (this.Source != null)
+						this.Source.Dispose();
+					if (this.ReadTexture != null)
+						this.ReadTexture.Dispose();
+					if (this.FBuffer != null)
+						this.FBuffer = null;
+					throw;
+				}
 			}
 
 			void Source_NewFrame(IntPtr data)
@@ -49,7 +66,7 @@ namespace VVVV.Nodes.DeckLink
 				try
 				{
 					this.ReadTexture.ReadBack(this.FBuffer);
-					Marshal.Copy(this.FBuffer, 0, data, this.FBuffer.Length);
+					Marshal.Copy(this.FBuffer, 0, data, this.FBuffer.Length / 2);
 				}
 				catch(Exception e)
 				{
@@ -67,7 +84,7 @@ namespace VVVV.Nodes.DeckLink
         #region fields & pins
 #pragma warning disable 0649
 		[Input("Device")]
-		IDiffSpread<IDeckLink> FInDevice;
+		IDiffSpread<int> FInDevice;
 
 		[Input("Video mode")]
 		IDiffSpread<_BMDDisplayMode> FInMode;
@@ -75,11 +92,14 @@ namespace VVVV.Nodes.DeckLink
 		[Input("Flags")]
 		IDiffSpread<ISpread<_BMDVideoOutputFlags>> FInFlags;
 
-        [Input("Usage", EnumName = "TextureUsage")]
-        IDiffSpread<EnumEntry> FInUsage;
-
         [Input("Handle")]
         IDiffSpread<uint> FInHandle;
+
+		[Input("Format", EnumName = "TextureFormat")]
+		IDiffSpread<EnumEntry> FInFormat;
+
+		[Input("Usage", EnumName = "TextureUsage")]
+		IDiffSpread<EnumEntry> FInUsage;
 
 		[Output("Width", DefaultValue = 64)]
 		ISpread<int> FOutWidth;
@@ -108,7 +128,7 @@ namespace VVVV.Nodes.DeckLink
 
         public void Evaluate(int SpreadMax)
         {
-			if (FInDevice.IsChanged || FInFlags.IsChanged || FInMode.IsChanged)
+			if (FInDevice.IsChanged || FInFlags.IsChanged || FInMode.IsChanged || FInFormat.IsChanged || FInUsage.IsChanged || FInHandle.IsChanged)
 			{
 				foreach(var slice in FInstances)
 					slice.Dispose();
@@ -119,16 +139,35 @@ namespace VVVV.Nodes.DeckLink
 				for (int i=0; i<SpreadMax; i++)
 				{
 					_BMDVideoOutputFlags flags = _BMDVideoOutputFlags.bmdVideoOutputFlagDefault;
-					for (int j=0; j<FInFlags[i].SliceCount; j++)
+					if (FInFlags.SliceCount > 0)
 					{
-						if (j==0)
-							flags = FInFlags[i][j];
-						else
-							flags |= FInFlags[i][j];
+						for (int j=0; j<FInFlags[i].SliceCount; j++)
+						{
+							if (j==0)
+								flags = FInFlags[i][j];
+							else
+								flags |= FInFlags[i][j];
+						}
 					}
 					try
 					{
-						FInstances.Add(new Instance(FInDevice[i], FInMode[i], flags, FInHandle[i]));
+						Format format;
+						if (FInFormat[i].Name == "INTZ")
+							format = D3DX.MakeFourCC((byte)'I', (byte)'N', (byte)'T', (byte)'Z');
+						else if (FInFormat[i].Name == "RAWZ")
+							format = D3DX.MakeFourCC((byte)'R', (byte)'A', (byte)'W', (byte)'Z');
+						else if (FInFormat[i].Name == "RESZ")
+							format = D3DX.MakeFourCC((byte)'R', (byte)'E', (byte)'S', (byte)'Z');
+						else
+							format = (Format)Enum.Parse(typeof(Format), FInFormat[i], true);
+
+						var usage = Usage.Dynamic;
+						if (FInUsage[i].Index == (int)(TextureType.RenderTarget))
+							usage = Usage.RenderTarget;
+						else if (FInUsage[i].Index == (int)(TextureType.DepthStencil))
+							usage = Usage.DepthStencil;
+
+						FInstances.Add(new Instance(FInDevice[i], FInMode[i], flags, FInHandle[i], format, usage));
 						FOutStatus[i] = "OK";
 					}
 					catch(Exception e)
@@ -144,6 +183,7 @@ namespace VVVV.Nodes.DeckLink
 		{
 			foreach (var slice in FInstances)
 				slice.Dispose();
+			GC.SuppressFinalize(this);
 		}
 	}
 }

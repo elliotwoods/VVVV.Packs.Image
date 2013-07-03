@@ -25,7 +25,7 @@ namespace VVVV.Nodes.DeckLink
 		ISpread<bool> FPinInRefresh;
 
 		[Output("Device")]
-		ISpread<IDeckLink> FPinOutDevices;
+		ISpread<int> FPinOutDevices;
 
 		[Output("Model Name")]
 		ISpread<string> FPinOutModelName;
@@ -62,55 +62,19 @@ namespace VVVV.Nodes.DeckLink
 		{
 			try
 			{
-				IDeckLink deckLink;
-				IDeckLinkIterator iterator;
-				List<IDeckLink> deviceList = new List<IDeckLink>();
-
-				
 				FPinOutDevices.SliceCount = 0;
 				FPinOutModelName.SliceCount = 0;
 				FPinOutDisplayName.SliceCount = 0;
 
-				WorkerThread.Singleton.PerformBlocking(() =>
+				var register = DeviceRegister.Singleton;
+				register.Refresh();
+
+				for (int i = 0; i < register.Count; i++)
 				{
-					iterator = new CDeckLinkIterator();
-					if (iterator == null)
-						throw (new Exception("Please check DeckLink drivers are installed."));
-					
-					while (true)
-					{
-						iterator.Next(out deckLink);
-
-						if (deckLink == null)
-							break;
-						else
-							deviceList.Add(deckLink);
-					}
-				});
-
-				FPinOutDevices.SliceCount = deviceList.Count;
-				FPinOutModelName.SliceCount = deviceList.Count;
-				FPinOutDisplayName.SliceCount = deviceList.Count;
-
-				for (int i = 0; i < deviceList.Count; i++)
-				{
-					deckLink = deviceList[i];
-
-					FPinOutDevices[i] = deckLink;
-
-					string model = "";
-					string name = "";
-					
-					WorkerThread.Singleton.PerformBlocking(() =>
-					{
-						deckLink.GetModelName(out model);
-						deckLink.GetDisplayName(out name);
-					});
-
-					FPinOutModelName[i] = name;
-					FPinOutDisplayName[i] = name;
+					FPinOutDevices.Add(i);
+					FPinOutModelName.Add(register.GetModelName(i));
+					FPinOutDisplayName.Add(register.GetDisplayName(i));
 				}
-
 				FPinOutStatus[0] = "OK";
 			}
 

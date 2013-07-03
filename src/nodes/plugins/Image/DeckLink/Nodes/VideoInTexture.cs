@@ -187,6 +187,7 @@ namespace VVVV.Nodes.DeckLink
 		{
 			foreach (var capture in FCaptures)
 				capture.Dispose();
+			GC.SuppressFinalize(this);
 		}
 	}
 }

@@ -76,7 +76,7 @@ namespace VVVV.Nodes.DeckLink
 				Ready = false;
 				Reinitialise = false;
 				FreshData = false;
-				throw (e);
+				throw;
 			}
 			finally
 			{

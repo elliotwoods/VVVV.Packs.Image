@@ -12,6 +12,27 @@ namespace VVVV.Nodes.DeckLink
 		[DllImport("msvcrt.dll", EntryPoint = "memset", CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
 		public static extern IntPtr MemSet(IntPtr dest, int c, IntPtr count);
 
+		class MemoryAllocator : IDeckLinkMemoryAllocator
+		{
+			public void AllocateBuffer(uint bufferSize, out IntPtr allocatedBuffer)
+			{
+				allocatedBuffer = Marshal.AllocCoTaskMem( (int) bufferSize);
+			}
+
+			public void Commit()
+			{
+			}
+
+			public void Decommit()
+			{
+			}
+
+			public void ReleaseBuffer(IntPtr buffer)
+			{
+				Marshal.FreeCoTaskMem(buffer);
+			}
+		}
+
 		IDeckLink FDevice;
 		_BMDVideoOutputFlags FFlags;
 		_BMDDisplayMode FMode;
@@ -20,6 +41,7 @@ namespace VVVV.Nodes.DeckLink
 		IDeckLinkDisplayMode FDisplayMode;
 		int FFrameIndex = 0;
 
+		IDeckLinkMemoryAllocator FMemoryAllocator = new MemoryAllocator();
 		IDeckLinkMutableVideoFrame FVideoFrame;
 		IDeckLinkMutableVideoFrame FVideoFrameBlack;
 		IDeckLinkMutableVideoFrame FVideoFrameBars;
@@ -48,8 +70,8 @@ namespace VVVV.Nodes.DeckLink
 			}
 		}
 
-		int BytesPerPixel = 4;
-		_BMDPixelFormat PixelFormat = _BMDPixelFormat.bmdFormat8BitARGB;
+		const int BytesPerPixel = 2;
+		const _BMDPixelFormat PixelFormat = _BMDPixelFormat.bmdFormat8BitYUV;
 
 		bool FRunning = false;
 		public bool Running
@@ -116,6 +138,14 @@ namespace VVVV.Nodes.DeckLink
 
 
 					//--
+					//set memory allocator
+					//
+					FOutputDevice.SetVideoOutputFrameMemoryAllocator(FMemoryAllocator);
+					//
+					//--
+
+
+					//--
 					//select mode
 					//
 					_BMDDisplayModeSupport support;
@@ -161,7 +191,7 @@ namespace VVVV.Nodes.DeckLink
 					FVideoFrame.GetBytes(out data);
 					FillBlack(data);
 
-					GenerateTestPatterns();
+					//GenerateTestPatterns();
 					//
 					//--
 
@@ -192,7 +222,7 @@ namespace VVVV.Nodes.DeckLink
 				this.FWidth = 0;
 				this.FHeight = 0;
 				this.FRunning = false;
-				throw (e);
+				throw;
 			}
 		}
 
@@ -212,6 +242,7 @@ namespace VVVV.Nodes.DeckLink
 				FOutputDevice.DisableVideoOutput();
 			});
 
+			Marshal.ReleaseComObject(FVideoFrame);
 			Marshal.FreeCoTaskMem(FAudioBuffer);
 		}
 

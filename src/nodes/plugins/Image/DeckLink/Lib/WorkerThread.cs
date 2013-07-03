@@ -63,13 +63,21 @@ namespace VVVV.Nodes.DeckLink
 
 		public void PerformBlocking(WorkItem item)
 		{
-			Perform(item);
-			BlockUntilEmpty();
-			if (this.FException != null)
+			if (Thread.CurrentThread == this.FThread)
 			{
-				var e = this.FException;
-				this.FException = null;
-				throw (e);
+				//we're already inside the worker thread
+				item();
+			}
+			else
+			{
+				Perform(item);
+				BlockUntilEmpty();
+				if (this.FException != null)
+				{
+					var e = this.FException;
+					this.FException = null;
+					throw (e);
+				}
 			}
 		}
 

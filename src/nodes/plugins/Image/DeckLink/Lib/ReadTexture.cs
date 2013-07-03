@@ -33,6 +33,8 @@ namespace VVVV.Nodes.DeckLink
 		int FWidth;
 		int FHeight;
 		IntPtr FHandle;
+		Format FFormat;
+		Usage FUsage;
 
 		/*
 		VertexBuffer FVertices;
@@ -44,26 +46,32 @@ namespace VVVV.Nodes.DeckLink
 		Texture FTextureCopied;
 		Surface FSurfaceOffscreen;
 
-		public ReadTexture(int width, int height, uint handle)
+		public ReadTexture(int width, int height, uint handle, Format format, Usage usage)
 		{
 			this.FWidth = width;
 			this.FHeight = height;
-			this.FHandle = (IntPtr)handle;
+			this.FHandle = (IntPtr)unchecked((int)handle);
+			this.FFormat = format;
+			this.FUsage = usage;
 
 			Initialise();
 		}
 
-		public ReadTexture(int width, int height, IntPtr handle)
+		public ReadTexture(int width, int height, IntPtr handle, Format format, Usage usage)
 		{
 			this.FWidth = width;
 			this.FHeight = height;
 			this.FHandle = handle;
+			this.FFormat = format;
+			this.FUsage = usage;
 
 			Initialise();
 		}
 
 		void Initialise()
 		{
+			if (this.FHandle == (IntPtr) 0)
+				throw (new Exception("No shared texture handle set"));
 			this.FContext = new Direct3DEx();
 
 			this.FHiddenControl = new Control();
@@ -101,11 +109,9 @@ namespace VVVV.Nodes.DeckLink
 			FDevice.SetSamplerState(0, SamplerState.MipFilter, TextureFilter.Linear);
 			*/
 
-			this.FTextureShared = new Texture(this.FDevice, this.FWidth, this.FHeight, 1, Usage.RenderTarget, Format.A8R8G8B8, Pool.Default, ref this.FHandle);
-			this.FTextureCopied = new Texture(this.FDevice, this.FWidth, this.FHeight, 1, Usage.None, Format.A8R8G8B8, Pool.Default);
-
-			var description = FTextureCopied.GetLevelDescription(0);
-			this.FSurfaceOffscreen = Surface.CreateOffscreenPlainEx(FDevice, FWidth, FHeight, description.Format, Pool.SystemMemory, Usage.None);
+			this.FTextureShared = new Texture(this.FDevice, this.FWidth, this.FHeight, 1, FUsage, FFormat, Pool.Default, ref this.FHandle);
+			this.FTextureCopied = new Texture(this.FDevice, this.FWidth, this.FHeight, 1, Usage.None, FFormat, Pool.Default);
+			this.FSurfaceOffscreen = Surface.CreateOffscreenPlainEx(FDevice, FWidth, FHeight, FFormat, Pool.SystemMemory, Usage.None);
 
 			this.FInitialised = true;
 		}
@@ -116,26 +122,34 @@ namespace VVVV.Nodes.DeckLink
 		/// <param name="buffer"></param>
 		public void ReadBack(byte[] buffer)
 		{
-			FDevice.StretchRectangle(FTextureShared.GetSurfaceLevel(0), FTextureCopied.GetSurfaceLevel(0), TextureFilter.None);
-			FDevice.GetRenderTargetData(FTextureCopied.GetSurfaceLevel(0), FSurfaceOffscreen);
-
-			Exception exception = null;
-			var rect = FSurfaceOffscreen.LockRectangle(LockFlags.ReadOnly);
+			for (int i = 0; i < buffer.Length; i++)
+			{
+				buffer[i] = unchecked((byte) i);
+			}
+			return;
+			FDevice.BeginScene();
 			try
 			{
-				rect.Data.Read(buffer, 0, buffer.Length);
-			}
-			catch(Exception e)
-			{
-				exception = e;
-			}
-			finally
-			{
-				FSurfaceOffscreen.UnlockRectangle();
-			}
+				FDevice.StretchRectangle(FTextureShared.GetSurfaceLevel(0), FTextureCopied.GetSurfaceLevel(0), TextureFilter.None);
+				FDevice.GetRenderTargetData(FTextureCopied.GetSurfaceLevel(0), FSurfaceOffscreen);
 
-			if (exception != null)
-				throw (exception);
+				var rect = FSurfaceOffscreen.LockRectangle(LockFlags.ReadOnly);
+				try
+				{
+					rect.Data.Read(buffer, 0, buffer.Length);
+				}
+				catch (Exception e)
+				{
+					FSurfaceOffscreen.UnlockRectangle();
+					throw;
+				}
+				FDevice.EndScene();
+			}
+			catch (Exception e)
+			{
+				FDevice.EndScene();
+				throw;
+			}
 		}
 
 		public int BufferLength
