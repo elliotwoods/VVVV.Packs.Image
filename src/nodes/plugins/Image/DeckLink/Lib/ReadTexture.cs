@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D9;
+using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.DeckLink
 {
@@ -36,18 +37,28 @@ namespace VVVV.Nodes.DeckLink
 		Format FFormat;
 		Usage FUsage;
 
-		/*
-		VertexBuffer FVertices;
-		VertexElement[] FVertexElements;
-		VertexDeclaration FVertexDeclaration;
-		*/
-
 		Texture FTextureShared;
 		Texture FTextureCopied;
 		Surface FSurfaceOffscreen;
 
-		public ReadTexture(int width, int height, uint handle, Format format, Usage usage)
+		public ReadTexture(int width, int height, uint handle, EnumEntry formatEnum, EnumEntry usageEnum)
 		{
+			Format format;
+			if (formatEnum.Name == "INTZ")
+				format = D3DX.MakeFourCC((byte)'I', (byte)'N', (byte)'T', (byte)'Z');
+			else if (formatEnum.Name == "RAWZ")
+				format = D3DX.MakeFourCC((byte)'R', (byte)'A', (byte)'W', (byte)'Z');
+			else if (formatEnum.Name == "RESZ")
+				format = D3DX.MakeFourCC((byte)'R', (byte)'E', (byte)'S', (byte)'Z');
+			else
+				format = (Format)Enum.Parse(typeof(Format), formatEnum, true);
+
+			var usage = Usage.Dynamic;
+			if (usageEnum.Index == (int)(TextureType.RenderTarget))
+				usage = Usage.RenderTarget;
+			else if (usageEnum.Index == (int)(TextureType.DepthStencil))
+				usage = Usage.DepthStencil;
+
 			this.FWidth = width;
 			this.FHeight = height;
 			this.FHandle = (IntPtr)unchecked((int)handle);
@@ -86,33 +97,11 @@ namespace VVVV.Nodes.DeckLink
 				BackBufferHeight = this.FHeight
 			});
 
-			/*
-			this.FVertices = new VertexBuffer(FDevice, Vertex.GetSize(), Usage.WriteOnly, VertexFormat.None, pool);
-			this.FVertices.Lock(0, 0, LockFlags.None).WriteRange(new[] {
-                new Vertex() { Position = new Vector4(0, 0, 0.5f, 1.0f), TextureCoord = new Vector2(0,0) },
-                new Vertex() { Position = new Vector4(width, 0, 0.5f, 1.0f), TextureCoord = new Vector2(1,0) },
-                new Vertex() { Position = new Vector4(0, height, 0.5f, 1.0f), TextureCoord = new Vector2(0,1) },
-                new Vertex() { Position = new Vector4(width, height, 0.5f, 1.0f), TextureCoord = new Vector2(1,1) }
-			});
-			this.FVertices.Unlock();
-
-			this.FVertexElements = new[] {
-				new VertexElement(0, 0, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, 0),
-				new VertexElement(0, 16 + 4, DeclarationType.Float2, DeclarationMethod.Default, DeclarationUsage.TextureCoordinate, 0),
-				VertexElement.VertexDeclarationEnd
-			};
-
-			this.FVertexDeclaration = new VertexDeclaration(FDevice, FVertexElements);
-
-			FDevice.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.None);
-			FDevice.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Linear);
-			FDevice.SetSamplerState(0, SamplerState.MipFilter, TextureFilter.Linear);
-			*/
-
 			this.FTextureShared = new Texture(this.FDevice, this.FWidth, this.FHeight, 1, FUsage, FFormat, Pool.Default, ref this.FHandle);
 			this.FTextureCopied = new Texture(this.FDevice, this.FWidth, this.FHeight, 1, Usage.None, FFormat, Pool.Default);
-			this.FSurfaceOffscreen = Surface.CreateOffscreenPlainEx(FDevice, FWidth, FHeight, FFormat, Pool.SystemMemory, Usage.None);
 
+			var description = FTextureCopied.GetLevelDescription(0);
+			this.FSurfaceOffscreen = Surface.CreateOffscreenPlainEx(FDevice, FWidth, FHeight, description.Format, Pool.SystemMemory, Usage.None);
 			this.FInitialised = true;
 		}
 
@@ -122,28 +111,21 @@ namespace VVVV.Nodes.DeckLink
 		/// <param name="buffer"></param>
 		public void ReadBack(byte[] buffer)
 		{
-			for (int i = 0; i < buffer.Length; i++)
-			{
-				buffer[i] = unchecked((byte) i);
-			}
-			return;
-			FDevice.BeginScene();
 			try
 			{
-				FDevice.StretchRectangle(FTextureShared.GetSurfaceLevel(0), FTextureCopied.GetSurfaceLevel(0), TextureFilter.None);
-				FDevice.GetRenderTargetData(FTextureCopied.GetSurfaceLevel(0), FSurfaceOffscreen);
+				FDevice.GetRenderTargetData(FTextureShared.GetSurfaceLevel(0), FSurfaceOffscreen);
 
 				var rect = FSurfaceOffscreen.LockRectangle(LockFlags.ReadOnly);
 				try
 				{
 					rect.Data.Read(buffer, 0, buffer.Length);
+					FSurfaceOffscreen.UnlockRectangle();
 				}
 				catch (Exception e)
 				{
 					FSurfaceOffscreen.UnlockRectangle();
 					throw;
 				}
-				FDevice.EndScene();
 			}
 			catch (Exception e)
 			{

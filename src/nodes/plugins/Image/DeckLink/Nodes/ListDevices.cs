@@ -25,7 +25,7 @@ namespace VVVV.Nodes.DeckLink
 		ISpread<bool> FPinInRefresh;
 
 		[Output("Device")]
-		ISpread<int> FPinOutDevices;
+		ISpread<DeviceRegister.DeviceIndex> FPinOutDevices;
 
 		[Output("Model Name")]
 		ISpread<string> FPinOutModelName;
@@ -71,7 +71,7 @@ namespace VVVV.Nodes.DeckLink
 
 				for (int i = 0; i < register.Count; i++)
 				{
-					FPinOutDevices.Add(i);
+					FPinOutDevices.Add(new DeviceRegister.DeviceIndex(i));
 					FPinOutModelName.Add(register.GetModelName(i));
 					FPinOutDisplayName.Add(register.GetDisplayName(i));
 				}

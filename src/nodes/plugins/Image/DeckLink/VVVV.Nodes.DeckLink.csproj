@@ -55,13 +55,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Lib\DeviceRegister.cs" />
+    <Compile Include="Lib\ModeRegister.cs" />
     <Compile Include="Lib\ReadTexture.cs" />
     <Compile Include="Lib\WorkerThread.cs" />
     <Compile Include="Nodes\About.cs" />
     <Compile Include="Lib\Capture.cs" />
     <None Include="Nodes\DeviceAttributes.cs" />
     <Compile Include="Lib\Source.cs" />
-    <Compile Include="Nodes\ReadTextureTestNdoe.cs" />
+    <Compile Include="Nodes\EnumerateOutputModes.cs" />
+    <Compile Include="Nodes\ReadTextureTestNode.cs" />
     <Compile Include="Nodes\VideoOut.cs" />
     <Compile Include="Nodes\ListDevices.cs" />
     <Compile Include="Nodes\VideoOutTexture.cs" />

@@ -11,6 +11,16 @@ namespace VVVV.Nodes.DeckLink
 	{
 		static public DeviceRegister Singleton = new DeviceRegister();
 
+		public class DeviceIndex
+		{
+			public DeviceIndex(int Index)
+			{
+				this.Index = Index;
+			}
+
+			public int Index;
+		}
+
 		public class Device
 		{
 			public IDeckLink DeviceHandle;
