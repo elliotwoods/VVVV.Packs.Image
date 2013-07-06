@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
+using System.Timers;
 using DeckLinkAPI;
 
 namespace VVVV.Nodes.DeckLink
 {
-	class Source : IDeckLinkVideoOutputCallback, IDeckLinkAudioOutputCallback, IDisposable
+	class Source : IDeckLinkVideoOutputCallback, IDisposable
 	{
 		[DllImport("msvcrt.dll", EntryPoint = "memset", CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
 		public static extern IntPtr MemSet(IntPtr dest, int c, IntPtr count);
@@ -35,18 +38,12 @@ namespace VVVV.Nodes.DeckLink
 
 		IDeckLink FDevice;
 		IDeckLinkOutput FOutputDevice;
-		IDeckLinkDisplayMode FMode;
+		public ModeRegister.Mode Mode {get; private set;}
 
 		int FFrameIndex = 0;
 
 		IDeckLinkMemoryAllocator FMemoryAllocator = new MemoryAllocator();
 		IDeckLinkMutableVideoFrame FVideoFrame;
-
-		IntPtr FAudioBuffer;
-		uint FAudioBufferOffset;
-		uint FAudioBufferSampleLength;
-		uint FAudioChannelCount = 2;
-		_BMDAudioSampleRate FAudioSampleRate = _BMDAudioSampleRate.bmdAudioSampleRate48kHz;
 
 		int FWidth = 0;
 		public int Width
@@ -65,9 +62,6 @@ namespace VVVV.Nodes.DeckLink
 				return FHeight;
 			}
 		}
-
-		const int BytesPerPixel = 4;
-		const _BMDPixelFormat PixelFormat = _BMDPixelFormat.bmdFormat8BitARGB;
 
 		bool FRunning = false;
 		public bool Running
@@ -96,12 +90,12 @@ namespace VVVV.Nodes.DeckLink
 				NewFrame(data);
 		}
 
-		public Source(IDeckLink device, IDeckLinkDisplayMode mode)
+		public Source(IDeckLink device, ModeRegister.Mode mode)
 		{
 			this.Initialise(device, mode);
 		}
 
-		public void Initialise(IDeckLink device, IDeckLinkDisplayMode mode)
+		public void Initialise(IDeckLink device, ModeRegister.Mode mode)
 		{
 			Stop();
 
@@ -125,7 +119,6 @@ namespace VVVV.Nodes.DeckLink
 					FOutputDevice = outputDevice;
 
 					FOutputDevice.SetScheduledFrameCompletionCallback(this);
-					FOutputDevice.SetAudioCallback(this);
 					//
 					//--
 
@@ -141,37 +134,25 @@ namespace VVVV.Nodes.DeckLink
 					//--
 					//select mode
 					//
-					var flags = _BMDVideoOutputFlags.bmdVideoOutputFlagDefault;
 					_BMDDisplayModeSupport support;
 					IDeckLinkDisplayMode displayMode;
-					FOutputDevice.DoesSupportVideoMode(mode.GetDisplayMode(), PixelFormat, flags, out support, out displayMode);
+					FOutputDevice.DoesSupportVideoMode(mode.DisplayModeHandle.GetDisplayMode(), mode.PixelFormat, mode.Flags, out support, out displayMode);
 					if (support == _BMDDisplayModeSupport.bmdDisplayModeNotSupported)
 						throw (new Exception("Mode not supported"));
 
-					this.FMode = mode;
-					this.FWidth = FMode.GetWidth();
-					this.FHeight = FMode.GetHeight();
+					this.Mode = mode;
+					this.FWidth = Mode.Width;
+					this.FHeight = Mode.Height;
 
-					FMode.GetFrameRate(out this.FFrameDuration, out this.FFrameTimescale);
+					Mode.DisplayModeHandle.GetFrameRate(out this.FFrameDuration, out this.FFrameTimescale);
 					//
 					//--
 
 
 					//--
-					//enable the outputs
+					//enable the output
 					//
-					FOutputDevice.EnableVideoOutput(FMode.GetDisplayMode(), flags);
-					FOutputDevice.EnableAudioOutput(FAudioSampleRate, _BMDAudioSampleType.bmdAudioSampleType16bitInteger, FAudioChannelCount, _BMDAudioOutputStreamType.bmdAudioOutputStreamContinuous);
-					//
-					//--
-
-
-					//--
-					//generate one second of blank audio
-					//
-					this.FAudioBufferSampleLength = (uint)FAudioSampleRate;
-					this.FAudioBuffer = Marshal.AllocCoTaskMem((int)(FAudioBufferSampleLength * FAudioChannelCount * (16 / 8)));
-					MemSet(FAudioBuffer, 0, (IntPtr) FAudioBufferSampleLength);
+					FOutputDevice.EnableVideoOutput(Mode.DisplayModeHandle.GetDisplayMode(), Mode.Flags);
 					//
 					//--
 
@@ -179,11 +160,9 @@ namespace VVVV.Nodes.DeckLink
 					//--
 					//generate frames
 					IntPtr data;
-					FOutputDevice.CreateVideoFrame(FWidth, FHeight, FWidth * BytesPerPixel, PixelFormat, _BMDFrameFlags.bmdFrameFlagDefault, out FVideoFrame);
+					FOutputDevice.CreateVideoFrame(FWidth, FHeight, Mode.CompressedWidth * 4, Mode.PixelFormat, _BMDFrameFlags.bmdFrameFlagDefault, out FVideoFrame);
 					FVideoFrame.GetBytes(out data);
 					FillBlack(data);
-
-					//GenerateTestPatterns();
 					//
 					//--
 
@@ -198,11 +177,11 @@ namespace VVVV.Nodes.DeckLink
 					//
 					//--
 
-
+					
 					//--
-					//give one second of audio preroll
-					this.FAudioBufferOffset = 0;
-					FOutputDevice.BeginAudioPreroll();
+					//initiate video feed
+					FOutputDevice.StartScheduledPlayback(0, 100, 1.0);
+					//FRunThread.Start();
 					//
 					//--
 
@@ -218,6 +197,37 @@ namespace VVVV.Nodes.DeckLink
 			}
 		}
 
+		//void ThreadedTimedFunction()
+		//{
+		//	Stopwatch Timer = new Stopwatch();
+		//	Timer.Start();
+
+		//	int intervalMillis = (int) (1.0 / Framerate * 1000.0);
+		//	TimeSpan frameInterval = new TimeSpan(0, 0, 0, intervalMillis / 1000, intervalMillis % 1000);
+
+		//	TimeSpan sleepDuration = new TimeSpan(10);
+
+		//	var lastFrame = Timer.Elapsed;
+		//	while (FRunning)
+		//	{
+		//		var currentFrame = Timer.Elapsed;
+		//		if (currentFrame >= lastFrame + frameInterval)
+		//		{
+		//			IntPtr data;
+		//			FVideoFrame.GetBytes(out data);
+		//			OnNewFrame(data);
+		//			FOutputDevice.DisplayVideoFrameSync(FVideoFrame);
+		//			lastFrame = currentFrame;
+		//			FFrameIndex++;
+		//		}
+		//		else
+		//		{
+		//			Thread.Sleep(sleepDuration);
+		//		}
+		//	}
+		//}
+
+
 		public void Stop()
 		{
 			if (!FRunning)
@@ -226,21 +236,22 @@ namespace VVVV.Nodes.DeckLink
 			//stop new frames from being scheduled
 			FRunning = false;
 
+			//FRunThread.Join();
+			//FRunThread = null;
+
 			long unused;
 			WorkerThread.Singleton.PerformBlocking(() =>
 			{
 				FOutputDevice.StopScheduledPlayback(0, out unused, 100);
-				FOutputDevice.DisableAudioOutput();
 				FOutputDevice.DisableVideoOutput();
 			});
 
 			Marshal.ReleaseComObject(FVideoFrame);
-			Marshal.FreeCoTaskMem(FAudioBuffer);
 		}
 
 		void FillBlack(IntPtr data)
 		{
-			MemSet(data, 0, (IntPtr)(FWidth * FHeight * BytesPerPixel));
+			MemSet(data, 0, (IntPtr)(Mode.CompressedWidth * Mode.Height * 4));
 		}
 
 		void ScheduleFrame(bool preRoll)
@@ -254,19 +265,10 @@ namespace VVVV.Nodes.DeckLink
 			FVideoFrame.GetBytes(out data);
 			OnNewFrame(data);
 
-			int frameRate = (int)this.Framerate;
+
 			long displayTime = FFrameIndex * FFrameDuration;
 			FOutputDevice.ScheduleVideoFrame(FVideoFrame, displayTime, FFrameDuration, FFrameTimescale);
-
 			FFrameIndex++;
-		}
-
-		public void RenderAudioSamples(int preroll)
-		{
-			if (preroll != 0)
-			{
-				FOutputDevice.StartScheduledPlayback(0, 100, 1.0);
-			}
 		}
 
 		public void ScheduledFrameCompleted(IDeckLinkVideoFrame completedFrame, _BMDOutputFrameCompletionResult result)

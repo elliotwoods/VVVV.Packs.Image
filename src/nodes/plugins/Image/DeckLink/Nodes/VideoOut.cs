@@ -18,13 +18,15 @@ using VVVV.Utils.SlimDX;
 //here you can change the vertex type
 using VertexType = VVVV.Utils.SlimDX.TexturedVertex;
 using DeckLinkAPI;
+using System.Threading;
+using System.Diagnostics;
 
 namespace VVVV.Nodes.DeckLink
 {
     #region PluginInfo
     [PluginInfo(Name = "VideoOut",
                 Category = "DeckLink",
-                Version = "EX9.Texture",
+                Version = "EX9.SharedTexture",
                 Help = "Given a texture handle, will push graphic to DeckLink device", Tags = "")]
     #endregion PluginInfo
     public class VideoOut : IPluginEvaluate, IDisposable
@@ -44,18 +46,14 @@ namespace VVVV.Nodes.DeckLink
 
 				try
 				{
-					IDeckLinkDisplayMode mode = null;
-					int width = 0;
-					int height = 0;
+					ModeRegister.Mode mode = null;
 					WorkerThread.Singleton.PerformBlocking(() =>
 					{
 						mode = ModeRegister.Singleton.Modes[modeString];
-						width = mode.GetWidth();
-						height = mode.GetHeight();
 					});
 
 					this.Source = new Source(device, mode);
-					this.ReadTexture = new ReadTexture(width, height, textureHandle, format, usage);
+					this.ReadTexture = new ReadTexture(mode.CompressedWidth, mode.Height, textureHandle, format, usage);
 					this.FBuffer = new byte[this.ReadTexture.BufferLength];
 					this.Source.NewFrame += Source_NewFrame;
 				}
@@ -71,15 +69,39 @@ namespace VVVV.Nodes.DeckLink
 				}
 			}
 
-			void Source_NewFrame(IntPtr data)
+			Stopwatch Timer = new Stopwatch();
+
+			void Source_NewFrame(IntPtr outputData)
 			{
 				try
 				{
-					this.ReadTexture.ReadBack(this.FBuffer);
-					Marshal.Copy(this.FBuffer, 0, data, this.FBuffer.Length);
+					Marshal.Copy(this.FBuffer, 0, outputData, this.FBuffer.Length);
+					WorkerThread.Singleton.PerformUnique(() =>
+					{
+						this.ReadTexture.ReadBack(this.FBuffer);
+					});
+					FFrameWaiting = true;
+					Debug.Print(((double)Stopwatch.Frequency / (double)Timer.ElapsedTicks).ToString() + " fps");
+					Timer.Restart();
 				}
 				catch(Exception e)
 				{
+				}
+			}
+
+			public void UpdateFrameAvailable()
+			{
+				FFrameAvailable = FFrameWaiting;
+				FFrameWaiting = false;
+			}
+
+			bool FFrameWaiting = false;
+			bool FFrameAvailable = false;
+			public bool FrameAvailable
+			{
+				get
+				{
+					return FFrameAvailable;
 				}
 			}
 
@@ -108,6 +130,12 @@ namespace VVVV.Nodes.DeckLink
 		[Input("Handle")]
 		IDiffSpread<uint> FInHandle;
 
+		[Input("Wait For Frame")]
+		ISpread<bool> FInWaitForFrame;
+
+		[Input("Enabled")]
+		IDiffSpread<bool> FInEnabled;
+
 		[Output("Status")]
 		ISpread<string> FOutStatus;
 
@@ -126,10 +154,11 @@ namespace VVVV.Nodes.DeckLink
 
         public void Evaluate(int SpreadMax)
         {
-			if (FInDevice.IsChanged || FInMode.IsChanged || FInFormat.IsChanged || FInUsage.IsChanged || FInHandle.IsChanged)
+			if (FInDevice.IsChanged || FInMode.IsChanged || FInFormat.IsChanged || FInUsage.IsChanged || FInHandle.IsChanged || FInEnabled.IsChanged)
 			{
 				foreach(var slice in FInstances)
-					slice.Dispose();
+					if (slice != null)
+						slice.Dispose();
 
 				FInstances.SliceCount = 0;
 				FOutStatus.SliceCount = SpreadMax;
@@ -142,15 +171,37 @@ namespace VVVV.Nodes.DeckLink
 							throw (new Exception("No device selected"));
 						if (FInMode[i] == null)
 							throw (new Exception("No mode selected"));
+						if (FInEnabled[i] == false)
+							throw (new Exception("Disabled"));
 
 						FInstances.Add(new Instance(FInDevice[i].Index, FInMode[i].Index, FInHandle[i], FInFormat[i], FInUsage[i]));
 						FOutStatus[i] = "OK";
 					}
 					catch(Exception e)
 					{
+						FInstances.Add(null);
 						FOutStatus[i] = e.Message;
 					}
+				}
+			}
 
+			TimeSpan sleepTime = new TimeSpan(100);
+			Stopwatch waitingTime = new Stopwatch();
+			waitingTime.Start();
+			for (int i = 0; i < SpreadMax; i++)
+			{
+				if (FInWaitForFrame[i] && FInstances[i] != null)
+				{
+					int tries = 0;
+					var instance = FInstances[i];
+					instance.UpdateFrameAvailable();
+					while (!instance.FrameAvailable)
+					{
+						Thread.Sleep(sleepTime);
+						instance.UpdateFrameAvailable();
+						if (waitingTime.ElapsedMilliseconds > 100)
+							break;
+					}
 				}
 			}
         }
@@ -158,7 +209,8 @@ namespace VVVV.Nodes.DeckLink
 		public void Dispose()
 		{
 			foreach (var slice in FInstances)
-				slice.Dispose();
+				if (slice != null)
+					slice.Dispose();
 			GC.SuppressFinalize(this);
 		}
 	}

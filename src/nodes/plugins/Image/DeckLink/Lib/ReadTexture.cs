@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -10,6 +11,14 @@ using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.DeckLink
 {
+	public enum TextureType
+	{
+		None,
+		RenderTarget,
+		DepthStencil,
+		Dynamic
+	}
+
 	/// <summary>
 	/// A method for copying data back from a DX9Ex shared Surface on the GPU
 	/// </summary>
@@ -50,6 +59,8 @@ namespace VVVV.Nodes.DeckLink
 				format = D3DX.MakeFourCC((byte)'R', (byte)'A', (byte)'W', (byte)'Z');
 			else if (formatEnum.Name == "RESZ")
 				format = D3DX.MakeFourCC((byte)'R', (byte)'E', (byte)'S', (byte)'Z');
+			else if (formatEnum.Name == "No Specific")
+				throw (new Exception("Texture mode not supported"));
 			else
 				format = (Format)Enum.Parse(typeof(Format), formatEnum, true);
 
@@ -98,7 +109,7 @@ namespace VVVV.Nodes.DeckLink
 			});
 
 			this.FTextureShared = new Texture(this.FDevice, this.FWidth, this.FHeight, 1, FUsage, FFormat, Pool.Default, ref this.FHandle);
-			this.FTextureCopied = new Texture(this.FDevice, this.FWidth, this.FHeight, 1, Usage.None, FFormat, Pool.Default);
+			this.FTextureCopied = new Texture(this.FDevice, this.FWidth, this.FHeight, 1, Usage.RenderTarget, FFormat, Pool.Default);
 
 			var description = FTextureCopied.GetLevelDescription(0);
 			this.FSurfaceOffscreen = Surface.CreateOffscreenPlainEx(FDevice, FWidth, FHeight, description.Format, Pool.SystemMemory, Usage.None);
@@ -111,9 +122,12 @@ namespace VVVV.Nodes.DeckLink
 		/// <param name="buffer"></param>
 		public void ReadBack(byte[] buffer)
 		{
+			Stopwatch Timer = new Stopwatch();
+			Timer.Start();
 			try
 			{
-				FDevice.GetRenderTargetData(FTextureShared.GetSurfaceLevel(0), FSurfaceOffscreen);
+				FDevice.StretchRectangle(this.FTextureShared.GetSurfaceLevel(0), this.FTextureCopied.GetSurfaceLevel(0), TextureFilter.None);
+				FDevice.GetRenderTargetData(this.FTextureCopied.GetSurfaceLevel(0), FSurfaceOffscreen);
 
 				var rect = FSurfaceOffscreen.LockRectangle(LockFlags.ReadOnly);
 				try
@@ -132,6 +146,8 @@ namespace VVVV.Nodes.DeckLink
 				FDevice.EndScene();
 				throw;
 			}
+			Timer.Stop();
+			Debug.Print(Timer.Elapsed.TotalMilliseconds.ToString());
 		}
 
 		public int BufferLength

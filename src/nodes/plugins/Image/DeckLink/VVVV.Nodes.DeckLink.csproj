@@ -63,10 +63,9 @@
     <None Include="Nodes\DeviceAttributes.cs" />
     <Compile Include="Lib\Source.cs" />
     <Compile Include="Nodes\EnumerateOutputModes.cs" />
-    <Compile Include="Nodes\ReadTextureTestNode.cs" />
+    <Compile Include="Nodes\InterimTextureInfo.cs" />
     <Compile Include="Nodes\VideoOut.cs" />
     <Compile Include="Nodes\ListDevices.cs" />
-    <Compile Include="Nodes\VideoOutTexture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Nodes\VideoInTexture.cs" />
     <None Include="Nodes\VideoInImage.cs" />

@@ -34,84 +34,76 @@ namespace VVVV.Nodes.DeckLink
 			Ready = false;
 		}
 
-		public void Open(IDeckLink device, _BMDDisplayMode mode, _BMDVideoInputFlags flags)
+		public void Open(DeviceRegister.DeviceIndex device, _BMDDisplayMode mode, _BMDVideoInputFlags flags)
 		{
 			if (Ready)
 				Close();
 
-			try
+			WorkerThread.Singleton.PerformBlocking(() =>
 			{
 				this.Lock.AcquireWriterLock(10000);
-			}
-			catch
-			{
+				try
+				{
+					if (device == null)
+						throw (new Exception("No device selected"));
 
-			}
-			try
-			{
-				FDevice = device as IDeckLinkInput;
-				FMode = mode;
-				FFlags = flags;
+					IDeckLink rawDevice = DeviceRegister.Singleton.GetDeviceHandle(device.Index);
+					FDevice = rawDevice as IDeckLinkInput;
+					FMode = mode;
+					FFlags = flags;
 
-				if (FDevice == null)
-					throw (new Exception("No input device connected"));
+					if (FDevice == null)
+						throw (new Exception("No input device connected"));
 
-				_BMDDisplayModeSupport displayModeSupported;
+					_BMDDisplayModeSupport displayModeSupported;
 
-				FDevice.DoesSupportVideoMode(FMode, FPixelFormat, flags, out displayModeSupported, out FDisplayMode);
+					FDevice.DoesSupportVideoMode(FMode, FPixelFormat, flags, out displayModeSupported, out FDisplayMode);
 
-				Width = FDisplayMode.GetWidth();
-				Height = FDisplayMode.GetHeight();
+					Width = FDisplayMode.GetWidth();
+					Height = FDisplayMode.GetHeight();
 
-				FDevice.EnableVideoInput(FMode, FPixelFormat, FFlags);
-				FDevice.SetCallback(this);
-				FDevice.StartStreams();
+					FDevice.EnableVideoInput(FMode, FPixelFormat, FFlags);
+					FDevice.SetCallback(this);
+					FDevice.StartStreams();
 
-				Reinitialise = true;
-				Ready = true;
-				FreshData = false;
-			}
-			catch (Exception e)
-			{
-				Ready = false;
-				Reinitialise = false;
-				FreshData = false;
-				throw;
-			}
-			finally
-			{
-				this.Lock.ReleaseWriterLock();
-			}
+					Reinitialise = true;
+					Ready = true;
+					FreshData = false;
+				}
+				catch (Exception e)
+				{
+					Ready = false;
+					Reinitialise = false;
+					FreshData = false;
+					throw;
+				}
+				finally
+				{
+					this.Lock.ReleaseWriterLock();
+				}
+			});
 		}
 
 		public void Close()
 		{
-			try
+			WorkerThread.Singleton.PerformBlocking(() =>
 			{
 				this.Lock.AcquireWriterLock(10000);
-			}
-			catch
-			{
+				try
+				{
+					if (!Ready)
+						return;
 
-			}
-			try
-			{
-				if (!Ready)
-					return;
+					Ready = false;
+					FDevice.StopStreams();
+					FDevice.DisableVideoInput();
+				}
+				finally
+				{
+					this.Lock.ReleaseWriterLock();
+				}
+			});
 
-				Ready = false;
-				FDevice.StopStreams();
-				FDevice.DisableVideoInput();
-			}
-			finally
-			{
-				this.Lock.ReleaseWriterLock();
-			}
-		}
-
-		public void Dispose()
-		{
-			Close();
 		}
 
 		public void VideoInputFormatChanged(_BMDVideoInputFormatChangedEvents notificationEvents, IDeckLinkDisplayMode newDisplayMode, _BMDDetectedVideoInputFormatFlags detectedSignalFlags)
@@ -160,7 +152,7 @@ namespace VVVV.Nodes.DeckLink
 		{
 			get
 			{
-				return Width / 2 * 4 * Height;
+				return Width / 2 * Height * 4;
 			}
 		}
 
@@ -171,8 +163,11 @@ namespace VVVV.Nodes.DeckLink
 				if (!Ready)
 					return 0;
 
-				uint count;
-				FDevice.GetAvailableVideoFrameCount(out count);
+				uint count = 0;
+				WorkerThread.Singleton.PerformBlocking(() =>
+				{
+					FDevice.GetAvailableVideoFrameCount(out count);
+				});
 				return (int)count;
 			}
 		}
@@ -181,8 +176,15 @@ namespace VVVV.Nodes.DeckLink
 		{
 			if (!Ready)
 				return;
+			WorkerThread.Singleton.PerformBlocking(() =>
+			{
+				FDevice.FlushStreams();
+			});
+		}
 
-			FDevice.FlushStreams();
+		public void Dispose()
+		{
+			Close();
 		}
 	}
 }

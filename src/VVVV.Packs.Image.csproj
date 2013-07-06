@@ -142,10 +142,10 @@
     </PropertyGroup>
     <!-- Files to exclude for platform specific builds -->
     <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
-      <ZipExclude>$(ZipExclude)</ZipExclude>
+      <ZipExclude>$(ZipExclude);..\lib\nodes\Dependencies\OpenCV\x64\*.*</ZipExclude>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Platform)' == 'x64' ">
-      <ZipExclude>$(ZipExclude);..\lib\nodes\freeframes\*.*</ZipExclude>
+      <ZipExclude>$(ZipExclude);..\lib\nodes\freeframes\*.*;..\lib\nodes\Dependencies\OpenCV\x86\*.*</ZipExclude>
     </PropertyGroup>
     <CreateItem Include="..\**\*.*" Exclude="$(ZipExclude)">
       <Output ItemName="OutputFiles" TaskParameter="Include" />
@@ -154,7 +154,7 @@
     <Exec Command="attrib +R &quot;$(TempDir)lib\nodes\*.*&quot; /S /D" />
     <Exec Command="&quot;$(StartProgram)&quot; /dx9ex /nodelist &quot;$(TempDir)lib\nodes&quot;" />
     <!-- Because of http://msbuildtasks.tigris.org/issues/show_bug.cgi?id=148 we switched to cmd line call to 7-Zip. -->
-    <Exec Command="&quot;$(SevenZip)&quot; a -r &quot;$(ZipFileName)&quot; &quot;$(TempDir)&quot;" />
+    <Exec Command="&quot;$(SevenZip)&quot; a -mmt=8 -r &quot;$(ZipFileName)&quot; &quot;$(TempDir)&quot;" />
     <!--
     <CreateItem Include="$(TempDir)\**\*.*">
       <Output ItemName="ZipFiles" TaskParameter="Include" />

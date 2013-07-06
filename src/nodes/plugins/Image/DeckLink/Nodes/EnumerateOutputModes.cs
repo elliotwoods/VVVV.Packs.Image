@@ -19,6 +19,9 @@ namespace VVVV.Nodes.DeckLink.Nodes
 		[Input("Refresh", IsSingle=true, IsBang=true)]
 		ISpread<bool> FInRefresh;
 
+		[Input("Flags", IsSingle = true)]
+		IDiffSpread<_BMDVideoOutputFlags> FInFlags;
+
 		[Input("Mode", EnumName="DeckLinkOutputMode")]
 		IDiffSpread<EnumEntry> FInMode;
 
@@ -44,13 +47,22 @@ namespace VVVV.Nodes.DeckLink.Nodes
 
 		public void Evaluate(int SpreadMax)
 		{
-			if (FInRefresh[0] || firstRun)
+			if (FInRefresh[0] || FInFlags.IsChanged || firstRun)
 			{
 				firstRun = false;
 				FOutStatus.SliceCount = 1;
 				try
 				{
-					ModeRegister.Singleton.Refresh();
+					_BMDVideoOutputFlags flags = _BMDVideoOutputFlags.bmdVideoOutputFlagDefault;
+					for (int i = 0; i < FInFlags.SliceCount; i++)
+					{
+						if (i == 0)
+							flags = FInFlags[i];
+						else
+							flags |= FInFlags[i];
+					}
+					ModeRegister.Singleton.Refresh(flags);
+
 					string firstKey = ModeRegister.Singleton.Modes.Keys.First();
 					EnumManager.UpdateEnum("DeckLinkOutputMode", firstKey, ModeRegister.Singleton.EnumStrings);
 					FOutStatus[0] = "OK";
@@ -73,23 +85,18 @@ namespace VVVV.Nodes.DeckLink.Nodes
 				{
 					try
 					{
-						WorkerThread.Singleton.PerformBlocking(() =>
-						{
-							var modes = ModeRegister.Singleton.Modes;
+						var modes = ModeRegister.Singleton.Modes;
 
-							var selection = FInMode[slice];
-							if (!modes.ContainsKey(selection.Name))
-								throw (new Exception("No valid mode selected (" + selection.Name + ")"));
+						var selection = FInMode[slice];
+						if (!modes.ContainsKey(selection.Name))
+							throw (new Exception("No valid mode selected (" + selection.Name + ")"));
 
-							var mode = modes[selection.Name];
-							FOutMode[slice] = new ModeRegister.ModeIndex(selection.Name);
-							FOutWidth[slice] = mode.GetWidth();
-							FOutHeight[slice] = mode.GetHeight();
-
-							long duration, timescale;
-							mode.GetFrameRate(out duration, out timescale);
-							FOutFrameRate[slice] = (double)timescale / (double)duration;
-						});
+						var mode = modes[selection.Name];
+						FOutMode[slice] = new ModeRegister.ModeIndex(selection.Name);
+						FOutWidth[slice] = mode.Width;
+						FOutHeight[slice] = mode.Height;
+						FOutFrameRate[slice] = mode.FrameRate;
+						
 						FOutStatus[slice] = "OK";
 					}
 					catch (Exception e)

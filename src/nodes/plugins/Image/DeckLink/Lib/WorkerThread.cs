@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -8,13 +9,13 @@ namespace VVVV.Nodes.DeckLink
 {
 	class WorkerThread : IDisposable
 	{
-		public delegate void WorkItem();
+		public delegate void WorkItemDelegate();
 		public static WorkerThread Singleton = new WorkerThread();
 
 		Thread FThread;
 		bool FRunning;
 		Object FLock = new Object();
-		Queue<WorkItem> FWorkQueue = new Queue<WorkItem>();
+		Queue<WorkItemDelegate> FWorkQueue = new Queue<WorkItemDelegate>();
 		Exception FException;
 
 		WorkerThread()
@@ -61,7 +62,7 @@ namespace VVVV.Nodes.DeckLink
 			FThread.Join();
 		}
 
-		public void PerformBlocking(WorkItem item)
+		public void PerformBlocking(WorkItemDelegate item)
 		{
 			if (Thread.CurrentThread == this.FThread)
 			{
@@ -81,11 +82,20 @@ namespace VVVV.Nodes.DeckLink
 			}
 		}
 
-		public void Perform(WorkItem item)
+		public void Perform(WorkItemDelegate item)
 		{
 			lock (FLock)
 			{
 				FWorkQueue.Enqueue(item);
+			}
+		}
+
+		public void PerformUnique(WorkItemDelegate item)
+		{
+			lock (FLock)
+			{
+				if (!FWorkQueue.Contains(item))
+					FWorkQueue.Enqueue(item);
 			}
 		}
 
@@ -96,10 +106,9 @@ namespace VVVV.Nodes.DeckLink
 				lock (FLock)
 				{
 					if (FWorkQueue.Count == 0)
-						break;
-					else
-						Thread.Sleep(1);
+						return;
 				}
+				Thread.Sleep(1);
 			}
 		}
 	}
