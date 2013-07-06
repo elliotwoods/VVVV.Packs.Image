@@ -82,6 +82,15 @@ namespace VVVV.Nodes.DeckLink
 			}
 		}
 
+		uint FFramesInBuffer = 0;
+		public int FramesInBuffer
+		{
+			get
+			{
+				return (int) FFramesInBuffer;
+			}
+		}
+
 		public delegate void FrameServeHandler(IntPtr data);
 		public event FrameServeHandler NewFrame;
 		void OnNewFrame(IntPtr data)
@@ -181,6 +190,7 @@ namespace VVVV.Nodes.DeckLink
 					//--
 					//initiate video feed
 					FOutputDevice.StartScheduledPlayback(0, 100, 1.0);
+					FFramesInBuffer = 0;
 					//FRunThread.Start();
 					//
 					//--
@@ -267,6 +277,8 @@ namespace VVVV.Nodes.DeckLink
 
 
 			long displayTime = FFrameIndex * FFrameDuration;
+			FOutputDevice.GetBufferedVideoFrameCount(out FFramesInBuffer);
+
 			FOutputDevice.ScheduleVideoFrame(FVideoFrame, displayTime, FFrameDuration, FFrameTimescale);
 			FFrameIndex++;
 		}

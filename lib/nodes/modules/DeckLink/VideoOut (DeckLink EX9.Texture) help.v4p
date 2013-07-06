@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.1.dtd" >
    <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\DeckLink\VideoOut (DeckLink EX9.Texture) help.v4p">
-   <BOUNDS type="Window" left="9390" top="2745" width="11775" height="11505">
+   <BOUNDS type="Window" left="9390" top="2745" width="12825" height="11505">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
    <BOUNDS type="Node" left="150" top="150" width="5000" height="450">
@@ -125,7 +125,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="8505" top="855" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -135,7 +135,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="7" dstpinname="Pause">
@@ -151,7 +151,7 @@
    </PIN>
    <PIN pinname="EX9 Out" visible="1">
    </PIN>
-   <PIN pinname="Presentation Interval" slicecount="1" values="immediately">
+   <PIN pinname="Presentation Interval" slicecount="1" values="default">
    </PIN>
    </NODE>
    <LINK srcnodeid="11" srcpinname="EX9 Out" dstnodeid="0" dstpinname="Source" linkstyle="Bezier">
@@ -165,7 +165,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="3300" top="7005" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="|HD 1080p 50 [8BitYUV]|">
+   <PIN pinname="Input Enum" slicecount="1" values="|HD 1080p 60 [8BitYUV]|">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Mode">
    </PIN>
@@ -173,9 +173,9 @@
    <LINK srcnodeid="12" srcpinname="Output Enum" dstnodeid="0" dstpinname="Mode">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="13" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="1035" top="9525" width="2820" height="240">
+   <BOUNDS type="Box" left="10155" top="9525" width="1635" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="1035" top="9525" width="0" height="0">
+   <BOUNDS type="Node" left="10155" top="9525" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -249,7 +249,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="7860" top="7050" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -259,7 +259,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="1">
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Wait For Frame|">
    </PIN>
@@ -291,5 +291,21 @@
    </LINKPOINT>
    <LINKPOINT x="5715" y="1883">
    </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="20" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="1005" top="9525" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="1005" top="9525" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Frames In Buffer|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Frames In Buffer" dstnodeid="20" dstpinname="Y Input Value">
    </LINK>
    </PATCH>

@@ -29,7 +29,7 @@ namespace VVVV.Nodes.DeckLink
                 Version = "EX9.SharedTexture",
                 Help = "Given a texture handle, will push graphic to DeckLink device", Tags = "")]
     #endregion PluginInfo
-    public class VideoOut : IPluginEvaluate, IDisposable
+	public class VideoOut : IPluginEvaluate, IPartImportsSatisfiedNotification, IDisposable
     {
 		class Instance : IDisposable
 		{
@@ -76,10 +76,6 @@ namespace VVVV.Nodes.DeckLink
 				try
 				{
 					Marshal.Copy(this.FBuffer, 0, outputData, this.FBuffer.Length);
-					WorkerThread.Singleton.PerformUnique(() =>
-					{
-						this.ReadTexture.ReadBack(this.FBuffer);
-					});
 					FFrameWaiting = true;
 					Debug.Print(((double)Stopwatch.Frequency / (double)Timer.ElapsedTicks).ToString() + " fps");
 					Timer.Restart();
@@ -87,6 +83,11 @@ namespace VVVV.Nodes.DeckLink
 				catch(Exception e)
 				{
 				}
+			}
+
+			public void PullFromTexture()
+			{
+				this.ReadTexture.ReadBack(this.FBuffer);
 			}
 
 			public void UpdateFrameAvailable()
@@ -102,6 +103,14 @@ namespace VVVV.Nodes.DeckLink
 				get
 				{
 					return FFrameAvailable;
+				}
+			}
+
+			public int FramesInBuffer
+			{
+				get
+				{
+					return Source.FramesInBuffer;
 				}
 			}
 
@@ -136,11 +145,18 @@ namespace VVVV.Nodes.DeckLink
 		[Input("Enabled")]
 		IDiffSpread<bool> FInEnabled;
 
+		[Output("Frames In Buffer")]
+		ISpread<int> FOutFramesInBuffer;
+
 		[Output("Status")]
 		ISpread<string> FOutStatus;
 
-        [Import()]
+        [Import]
         ILogger FLogger;
+
+		[Import]
+		IHDEHost FHDEHost;
+
 #pragma warning restore
 
         //track the current texture slice
@@ -185,10 +201,28 @@ namespace VVVV.Nodes.DeckLink
 				}
 			}
 
+			FOutFramesInBuffer.SliceCount = FInstances.SliceCount;
+			for (int i = 0; i < FInstances.SliceCount; i++)
+			{
+				if (FInstances[i] == null)
+					FOutFramesInBuffer[i] = 0;
+				else
+					FOutFramesInBuffer[i] = FInstances[i].FramesInBuffer;
+			}
+        }
+
+		public void OnImportsSatisfied()
+		{
+			FHDEHost.MainLoop.OnPresent += MainLoop_Present;
+			FHDEHost.MainLoop.OnRender += MainLoop_OnRender;
+		}
+
+		void MainLoop_Present(object o, EventArgs e)
+		{
 			TimeSpan sleepTime = new TimeSpan(100);
 			Stopwatch waitingTime = new Stopwatch();
 			waitingTime.Start();
-			for (int i = 0; i < SpreadMax; i++)
+			for (int i = 0; i < FInstances.SliceCount; i++)
 			{
 				if (FInWaitForFrame[i] && FInstances[i] != null)
 				{
@@ -204,7 +238,18 @@ namespace VVVV.Nodes.DeckLink
 					}
 				}
 			}
-        }
+		}
+
+		void MainLoop_OnRender(object sender, EventArgs e)
+		{
+			foreach (var instance in FInstances)
+			{
+				if (instance == null)
+					continue;
+
+				instance.PullFromTexture();
+			}
+		}
 
 		public void Dispose()
 		{

@@ -53,6 +53,8 @@
    </PIN>
    <PIN pinname="Handle" visible="1">
    </PIN>
+   <PIN pinname="Frames In Buffer" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="4" systemname="IOBox (Node)">
    <BOUNDS type="Box" left="780" top="660" width="795" height="240">
@@ -151,9 +153,9 @@
    <LINK srcnodeid="9" srcpinname="Shared Handle" dstnodeid="3" dstpinname="Handle">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="17" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="765" top="8160" width="4185" height="240">
+   <BOUNDS type="Box" left="7140" top="8160" width="4185" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="765" top="8160" width="0" height="0">
+   <BOUNDS type="Node" left="7140" top="8160" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -247,5 +249,23 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="24" dstpinname="Output Format">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="27" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="765" top="8130" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="765" top="8130" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Y Input Value" visible="1" slicecount="1" values="50">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Frames In Buffer|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="3" srcpinname="Frames In Buffer" dstnodeid="27" dstpinname="Y Input Value">
    </LINK>
    </PATCH>
