@@ -98,7 +98,7 @@ namespace VVVV.Nodes.OpenCV
 				{
 					FPinOutWidth[i] = FInputs[i].ImageAttributes.Width;
 					FPinOutHeight[i] = FInputs[i].ImageAttributes.Height;
-					FPinOutFormat[i] = ImageUtils.AsString(FInputs[i].ImageAttributes.ColourFormat);
+					FPinOutFormat[i] = ImageUtils.AsString(FInputs[i].ImageAttributes.ColorFormat);
 				}
 			}
 		}

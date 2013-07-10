@@ -33,7 +33,7 @@ namespace VVVV.Nodes.OpenCV
 		{
 			if(!FInput.Allocated) return;
 
-			FOutput.Image.Initialise(FSize, FInput.ImageAttributes.ColourFormat);
+			FOutput.Image.Initialise(FSize, FInput.ImageAttributes.ColorFormat);
 			FOutput.Image.Allocate();
 		}
 

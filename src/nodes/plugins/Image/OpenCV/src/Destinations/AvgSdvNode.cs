@@ -65,7 +65,7 @@ namespace VVVV.Nodes.OpenCV
 
 		public override void Process()
 		{
-			FChannelCount = ImageUtils.ChannelCount(FInput.ImageAttributes.ColourFormat);
+			FChannelCount = ImageUtils.ChannelCount(FInput.ImageAttributes.ColorFormat);
 
 			if (!FInput.LockForReading())
 				return;

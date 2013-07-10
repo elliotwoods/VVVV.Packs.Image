@@ -22,24 +22,24 @@ namespace VVVV.Nodes.OpenCV
 
 	public class CVImageAttributes : ICloneable
 	{
-		public TColorFormat ColourFormat;
+		public TColorFormat ColorFormat;
 		public Size FSize = new Size();
 
 		public CVImageAttributes()
 		{
-			ColourFormat = TColorFormat.UnInitialised;
+			ColorFormat = TColorFormat.UnInitialised;
 			FSize = new Size(0, 0);
 		}
 
 		public CVImageAttributes(Size size, TColorFormat format)
 		{
 			FSize = size;
-			ColourFormat = format;
+			ColorFormat = format;
 		}
 
 		public CVImageAttributes(TColorFormat c, int w, int h)
 		{
-			ColourFormat = c;
+			ColorFormat = c;
 			FSize.Width = w;
 			FSize.Height = h;
 		}
@@ -47,9 +47,9 @@ namespace VVVV.Nodes.OpenCV
 		public bool CheckChanges(TColorFormat c, Size s)
 		{
 			bool changed = false;
-			if (c != ColourFormat)
+			if (c != ColorFormat)
 			{
-				ColourFormat = c;
+				ColorFormat = c;
 				changed = true;
 			}
 
@@ -65,7 +65,7 @@ namespace VVVV.Nodes.OpenCV
 		{
 			get
 			{
-				return ColourFormat != TColorFormat.UnInitialised;
+				return ColorFormat != TColorFormat.UnInitialised;
 			}
 		}
 		public int Width
@@ -96,7 +96,7 @@ namespace VVVV.Nodes.OpenCV
 		{
 			get
 			{
-				return ImageUtils.BytesPerPixel(ColourFormat);
+				return ImageUtils.BytesPerPixel(ColorFormat);
 			}
 		}
 
@@ -112,7 +112,7 @@ namespace VVVV.Nodes.OpenCV
 		{
 			get
 			{
-				return ImageUtils.ChannelCount(this.ColourFormat);
+				return ImageUtils.ChannelCount(this.ColorFormat);
 			}
 		}
 
