@@ -92,6 +92,9 @@ namespace VVVV.Nodes.DeckLink
 		}
 
 		public delegate void FrameServeHandler(IntPtr data);
+		/// <summary>
+		/// Callback for scheduled playback
+		/// </summary>
 		public event FrameServeHandler NewFrame;
 		void OnNewFrame(IntPtr data)
 		{
@@ -99,12 +102,13 @@ namespace VVVV.Nodes.DeckLink
 				NewFrame(data);
 		}
 
-		public Source(IDeckLink device, ModeRegister.Mode mode)
+
+		public Source(IDeckLink device, ModeRegister.Mode mode, bool useDeviceCallbacks)
 		{
-			this.Initialise(device, mode);
+			this.Initialise(device, mode, useDeviceCallbacks);
 		}
 
-		public void Initialise(IDeckLink device, ModeRegister.Mode mode)
+		public void Initialise(IDeckLink device, ModeRegister.Mode mode, bool useDeviceCallbacks)
 		{
 			Stop();
 
@@ -126,8 +130,6 @@ namespace VVVV.Nodes.DeckLink
 					if (outputDevice == null)
 						throw (new Exception("Device does not support output"));
 					FOutputDevice = outputDevice;
-
-					FOutputDevice.SetScheduledFrameCompletionCallback(this);
 					//
 					//--
 
@@ -175,23 +177,18 @@ namespace VVVV.Nodes.DeckLink
 					//
 					//--
 
-
 					//--
-					//give one second of video preroll
-					this.FFrameIndex = 0;
-					for (int i = 0; i < (int)this.Framerate; i++)
+					//scheduled playback
+					if (useDeviceCallbacks == true)
 					{
-						ScheduleFrame(true);
+						FOutputDevice.SetScheduledFrameCompletionCallback(this);
+						this.FFrameIndex = 0;
+						for (int i = 0; i < (int)this.Framerate; i++)
+						{
+							ScheduleFrame(true);
+						}
+						FOutputDevice.StartScheduledPlayback(0, 100, 1.0);
 					}
-					//
-					//--
-
-					
-					//--
-					//initiate video feed
-					FOutputDevice.StartScheduledPlayback(0, 100, 1.0);
-					FFramesInBuffer = 0;
-					//FRunThread.Start();
 					//
 					//--
 
@@ -207,37 +204,6 @@ namespace VVVV.Nodes.DeckLink
 			}
 		}
 
-		//void ThreadedTimedFunction()
-		//{
-		//	Stopwatch Timer = new Stopwatch();
-		//	Timer.Start();
-
-		//	int intervalMillis = (int) (1.0 / Framerate * 1000.0);
-		//	TimeSpan frameInterval = new TimeSpan(0, 0, 0, intervalMillis / 1000, intervalMillis % 1000);
-
-		//	TimeSpan sleepDuration = new TimeSpan(10);
-
-		//	var lastFrame = Timer.Elapsed;
-		//	while (FRunning)
-		//	{
-		//		var currentFrame = Timer.Elapsed;
-		//		if (currentFrame >= lastFrame + frameInterval)
-		//		{
-		//			IntPtr data;
-		//			FVideoFrame.GetBytes(out data);
-		//			OnNewFrame(data);
-		//			FOutputDevice.DisplayVideoFrameSync(FVideoFrame);
-		//			lastFrame = currentFrame;
-		//			FFrameIndex++;
-		//		}
-		//		else
-		//		{
-		//			Thread.Sleep(sleepDuration);
-		//		}
-		//	}
-		//}
-
-
 		public void Stop()
 		{
 			if (!FRunning)
@@ -246,13 +212,15 @@ namespace VVVV.Nodes.DeckLink
 			//stop new frames from being scheduled
 			FRunning = false;
 
-			//FRunThread.Join();
-			//FRunThread = null;
-
-			long unused;
 			WorkerThread.Singleton.PerformBlocking(() =>
 			{
-				FOutputDevice.StopScheduledPlayback(0, out unused, 100);
+				int scheduledPlayback;
+				FOutputDevice.IsScheduledPlaybackRunning(out scheduledPlayback);
+				if (scheduledPlayback != 0)
+				{
+					long unused;
+					FOutputDevice.StopScheduledPlayback(0, out unused, 1000);
+				}
 				FOutputDevice.DisableVideoOutput();
 			});
 
@@ -262,6 +230,35 @@ namespace VVVV.Nodes.DeckLink
 		void FillBlack(IntPtr data)
 		{
 			MemSet(data, 0, (IntPtr)(Mode.CompressedWidth * Mode.Height * 4));
+		}
+
+		public Object LockBuffer = new Object();
+
+		public void SendFrame(byte[] buffer)
+		{
+			lock (LockBuffer)
+			{
+				IntPtr outBuffer = IntPtr.Zero;
+				WorkerThread.Singleton.PerformBlocking(() =>
+				{
+					FVideoFrame.GetBytes(out outBuffer);
+				});
+				Marshal.Copy(buffer, 0, outBuffer, buffer.Length);
+			}
+			WorkerThread.Singleton.Perform(() =>
+			{
+				FOutputDevice.DisplayVideoFrameSync(FVideoFrame);
+			});
+		}
+
+		public void Dispose()
+		{
+			Stop();
+		}
+
+		public void ScheduledFrameCompleted(IDeckLinkVideoFrame completedFrame, _BMDOutputFrameCompletionResult result)
+		{
+			ScheduleFrame(false);
 		}
 
 		void ScheduleFrame(bool preRoll)
@@ -277,24 +274,12 @@ namespace VVVV.Nodes.DeckLink
 
 
 			long displayTime = FFrameIndex * FFrameDuration;
-			FOutputDevice.GetBufferedVideoFrameCount(out FFramesInBuffer);
-
 			FOutputDevice.ScheduleVideoFrame(FVideoFrame, displayTime, FFrameDuration, FFrameTimescale);
 			FFrameIndex++;
 		}
 
-		public void ScheduledFrameCompleted(IDeckLinkVideoFrame completedFrame, _BMDOutputFrameCompletionResult result)
-		{
-			ScheduleFrame(false);
-		}
-
 		public void ScheduledPlaybackHasStopped()
 		{
-		}
-
-		public void Dispose()
-		{
-			Stop();
 		}
 	}
 }

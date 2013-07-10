@@ -11,6 +11,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.DeckLinkAPI">
       <HintPath>.\Interop.DeckLinkAPI.dll</HintPath>
@@ -62,9 +65,9 @@
     <Compile Include="Lib\Capture.cs" />
     <None Include="Nodes\DeviceAttributes.cs" />
     <Compile Include="Lib\Source.cs" />
-    <Compile Include="Nodes\EnumerateOutputModes.cs" />
-    <Compile Include="Nodes\InterimTextureInfo.cs" />
-    <Compile Include="Nodes\VideoOut.cs" />
+    <None Include="Nodes\EnumerateOutputModes.cs" />
+    <None Include="Nodes\InterimTextureInfo.cs" />
+    <None Include="Nodes\VideoOut.cs" />
     <Compile Include="Nodes\ListDevices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Nodes\VideoInTexture.cs" />

@@ -31,13 +31,20 @@ namespace VVVV.Nodes.DeckLink
     #endregion PluginInfo
 	public class VideoOut : IPluginEvaluate, IPartImportsSatisfiedNotification, IDisposable
     {
+		enum SyncLoop
+		{
+			DeckLink,
+			VVVV,
+			Sync
+		}
+
 		class Instance : IDisposable
 		{
 			public Source Source;
 			public ReadTexture ReadTexture;
 			byte[] FBuffer;
 
-			public Instance(int deviceID, string modeString, uint textureHandle, EnumEntry format, EnumEntry usage)
+			public Instance(int deviceID, string modeString, uint textureHandle, EnumEntry format, EnumEntry usage, SyncLoop syncLoop)
 			{
 				IDeckLink device = null;
 				WorkerThread.Singleton.PerformBlocking(() => {
@@ -52,10 +59,15 @@ namespace VVVV.Nodes.DeckLink
 						mode = ModeRegister.Singleton.Modes[modeString];
 					});
 
-					this.Source = new Source(device, mode);
+					bool useCallback = syncLoop != SyncLoop.DeckLink;
+					this.Source = new Source(device, mode, useCallback);
 					this.ReadTexture = new ReadTexture(mode.CompressedWidth, mode.Height, textureHandle, format, usage);
 					this.FBuffer = new byte[this.ReadTexture.BufferLength];
-					this.Source.NewFrame += Source_NewFrame;
+
+					if (useCallback)
+					{
+						this.Source.NewFrame += Source_NewFrame;
+					}
 				}
 				catch
 				{
@@ -69,25 +81,25 @@ namespace VVVV.Nodes.DeckLink
 				}
 			}
 
-			Stopwatch Timer = new Stopwatch();
-
-			void Source_NewFrame(IntPtr outputData)
+			void Source_NewFrame(IntPtr data)
 			{
-				try
+				lock (Source.LockBuffer)
 				{
-					Marshal.Copy(this.FBuffer, 0, outputData, this.FBuffer.Length);
-					FFrameWaiting = true;
-					Debug.Print(((double)Stopwatch.Frequency / (double)Timer.ElapsedTicks).ToString() + " fps");
-					Timer.Restart();
+					this.ReadTexture.ReadBack(this.FBuffer);
 				}
-				catch(Exception e)
-				{
-				}
+
+				Marshal.Copy(this.FBuffer, 0, data, this.FBuffer.Length);
+				this.FFrameWaiting = true;
 			}
 
 			public void PullFromTexture()
 			{
-				this.ReadTexture.ReadBack(this.FBuffer);
+				lock (Source.LockBuffer)
+				{
+					this.ReadTexture.ReadBack(this.FBuffer);
+				}
+
+				Source.SendFrame(this.FBuffer);
 			}
 
 			public void UpdateFrameAvailable()
@@ -139,8 +151,8 @@ namespace VVVV.Nodes.DeckLink
 		[Input("Handle")]
 		IDiffSpread<uint> FInHandle;
 
-		[Input("Wait For Frame")]
-		ISpread<bool> FInWaitForFrame;
+		[Input("Sync")]
+		IDiffSpread<SyncLoop> FInSyncLoop;
 
 		[Input("Enabled")]
 		IDiffSpread<bool> FInEnabled;
@@ -170,7 +182,7 @@ namespace VVVV.Nodes.DeckLink
 
         public void Evaluate(int SpreadMax)
         {
-			if (FInDevice.IsChanged || FInMode.IsChanged || FInFormat.IsChanged || FInUsage.IsChanged || FInHandle.IsChanged || FInEnabled.IsChanged)
+			if (FInDevice.IsChanged || FInMode.IsChanged || FInFormat.IsChanged || FInUsage.IsChanged || FInHandle.IsChanged || FInEnabled.IsChanged || FInSyncLoop.IsChanged || FInSyncLoop.IsChanged)
 			{
 				foreach(var slice in FInstances)
 					if (slice != null)
@@ -190,7 +202,7 @@ namespace VVVV.Nodes.DeckLink
 						if (FInEnabled[i] == false)
 							throw (new Exception("Disabled"));
 
-						FInstances.Add(new Instance(FInDevice[i].Index, FInMode[i].Index, FInHandle[i], FInFormat[i], FInUsage[i]));
+						FInstances.Add(new Instance(FInDevice[i].Index, FInMode[i].Index, FInHandle[i], FInFormat[i], FInUsage[i], FInSyncLoop[i]));
 						FOutStatus[i] = "OK";
 					}
 					catch(Exception e)
@@ -224,7 +236,7 @@ namespace VVVV.Nodes.DeckLink
 			waitingTime.Start();
 			for (int i = 0; i < FInstances.SliceCount; i++)
 			{
-				if (FInWaitForFrame[i] && FInstances[i] != null)
+				if (FInSyncLoop[i] == SyncLoop.Sync && FInstances[i] != null)
 				{
 					int tries = 0;
 					var instance = FInstances[i];
@@ -242,12 +254,16 @@ namespace VVVV.Nodes.DeckLink
 
 		void MainLoop_OnRender(object sender, EventArgs e)
 		{
-			foreach (var instance in FInstances)
+			for (int i = 0; i < FInstances.SliceCount; i++)
 			{
+				var instance = FInstances[i];
 				if (instance == null)
 					continue;
 
-				instance.PullFromTexture();
+				if (FInSyncLoop[i] == SyncLoop.VVVV)
+				{
+					instance.PullFromTexture();
+				}
 			}
 		}
 
@@ -257,6 +273,9 @@ namespace VVVV.Nodes.DeckLink
 				if (slice != null)
 					slice.Dispose();
 			GC.SuppressFinalize(this);
+
+			FHDEHost.MainLoop.OnPresent -= MainLoop_Present;
+			FHDEHost.MainLoop.OnRender -= MainLoop_OnRender;
 		}
 	}
 }

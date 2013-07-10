@@ -77,6 +77,8 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Mode">
    </PIN>
+   <PIN pinname="Output Enum" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="5" srcpinname="Output Enum" dstnodeid="2" dstpinname="Mode">
    </LINK>
@@ -217,7 +219,7 @@
    </LINKPOINT>
    </LINK>
    <NODE systemname="ColorSpaceConversion (EX9.Texture)" filename="%VVVV%\imagepack\lib\nodes\modules\DeckLink\ColorSpaceConversion (EX9.Texture).v4p" nodename="ColorSpaceConversion (EX9.Texture)" componentmode="Hidden" id="24">
-   <BOUNDS type="Node" left="2880" top="5100" width="4935" height="270">
+   <BOUNDS type="Node" left="2880" top="5700" width="4935" height="270">
    </BOUNDS>
    <PIN pinname="Texture Out" visible="1">
    </PIN>
@@ -231,9 +233,9 @@
    <LINK srcnodeid="1" srcpinname="Texture Out" dstnodeid="24" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="25" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="5325" top="4620" width="1590" height="240">
+   <BOUNDS type="Box" left="5325" top="5220" width="1590" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="5325" top="4620" width="0" height="0">
+   <BOUNDS type="Node" left="5325" top="5220" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" values="RGB888">
    </PIN>
@@ -241,11 +243,11 @@
    <LINK srcnodeid="25" srcpinname="Output Enum" dstnodeid="24" dstpinname="Input Format">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="26" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="7740" top="4620" width="1605" height="240">
+   <BOUNDS type="Box" left="7740" top="5220" width="1605" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="7740" top="4620" width="0" height="0">
+   <BOUNDS type="Node" left="7740" top="5220" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="YUV422">
+   <PIN pinname="Input Enum" slicecount="1" values="YUV422" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="26" srcpinname="Output Enum" dstnodeid="24" dstpinname="Output Format">
@@ -267,5 +269,89 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="3" srcpinname="Frames In Buffer" dstnodeid="27" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="Enum2String (Enumerations)" nodename="Enum2String (Enumerations)" componentmode="Hidden" id="28">
+   <BOUNDS type="Node" left="7755" top="1590" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Enum" visible="1">
+   </PIN>
+   <PIN pinname="String Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="5" srcpinname="Output Enum" dstnodeid="28" dstpinname="Enum" linkstyle="VHV">
+   <LINKPOINT x="6960" y="1230">
+   </LINKPOINT>
+   <LINKPOINT x="7740" y="1230">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="Sift (String)" nodename="Sift (String)" componentmode="Hidden" id="29">
+   <BOUNDS type="Node" left="7740" top="2235" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Filter" slicecount="1" values="YUV">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Comparison" slicecount="1" values="Contains">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="28" srcpinname="String Value" dstnodeid="29" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Switch (Value Input)" nodename="Switch (Value Input)" componentmode="Hidden" id="30">
+   <BOUNDS type="Node" left="7740" top="4335" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Switch" visible="1">
+   </PIN>
+   <PIN pinname="Input 2" slicecount="1" values="2">
+   </PIN>
+   </NODE>
+   <NODE systemname="Ord2Enum (Enumerations)" nodename="Ord2Enum (Enumerations)" componentmode="Hidden" id="31">
+   <BOUNDS type="Node" left="7740" top="4800" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Enum" visible="1">
+   </PIN>
+   <PIN pinname="Ord Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="31" srcpinname="Enum" dstnodeid="26" dstpinname="Input Enum">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="32" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="7920" top="1875" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7920" top="1875" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" values="YUV">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="text">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="32" srcpinname="Output String" dstnodeid="29" dstpinname="Filter">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="33" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="7725" top="2610" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7725" top="2610" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Toggle">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="29" srcpinname="Hits" dstnodeid="33" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="30" srcpinname="Output" dstnodeid="31" dstpinname="Ord Value">
+   </LINK>
+   <LINK srcnodeid="33" srcpinname="Y Output Value" dstnodeid="30" dstpinname="Switch">
    </LINK>
    </PATCH>
