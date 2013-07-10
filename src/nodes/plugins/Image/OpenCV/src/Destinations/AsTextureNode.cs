@@ -30,8 +30,8 @@ namespace VVVV.Nodes.OpenCV
 	#region PluginInfo
 	[PluginInfo(Name = "AsTexture",
 				Category = "OpenCV",
-				Version = "",
-				Help = "Converts IPLImage to Texture",
+				Version = "EX9.Texture",
+				Help = "Converts CVImage to Texture",
 				Tags = "")]
 	#endregion PluginInfo
 	public class AsTextureNode : DXTextureOutPluginBase, IPluginEvaluate, IDisposable
