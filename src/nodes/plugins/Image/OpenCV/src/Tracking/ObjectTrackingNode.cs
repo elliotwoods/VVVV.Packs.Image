@@ -1,16 +1,12 @@
-#region usings
-
 using System.ComponentModel.Composition;
 using System.Drawing;
+using Emgu.CV.GPU;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
 using VVVV.Core.Logging;
 using Emgu.CV;
 using Emgu.CV.Structure;
-using Emgu.CV.CvEnum;
 using System.Collections.Generic;
-
-#endregion usings
 
 namespace VVVV.Nodes.OpenCV.Tracking
 {
@@ -26,24 +22,28 @@ namespace VVVV.Nodes.OpenCV.Tracking
 		private readonly Vector2D FMinimumDestXY = new Vector2D(-0.5, 0.5);
 		private readonly Vector2D FMaximumDestXY = new Vector2D(0.5, -0.5);
 
-		private HaarCascade FHaarCascade;
-		private readonly CVImage FGrayScale = new CVImage();
+		private CascadeClassifier FCascadeClassifier;
+		private GpuCascadeClassifier FGpuCascadeClassifier;
 
+		private readonly CVImage FGrayScale = new CVImage();
 		private readonly List<TrackingObject> FTrackingObjects = new List<TrackingObject>();
 
 		#region tracking params
-		private double FScaleFactor = 1.8;
-		public double ScaleFactor { set { FScaleFactor = value; } }
-
-		private int FMinNeighbors = 1;
-		public int MinNeighbors { set { FMinNeighbors = value; } }
-
-		private int FMinWidth = 64;
-		public int MinWidth { set { FMinWidth = value; }}
-
-		private int FMinHeight = 48;
-		public int MinHeight { set { FMinHeight = value; } }
+		public double ScaleFactor { get; set; }
+		public int MinNeighbors { get; set; }
+		public Size MinSize { get; set; }
+		public Size MaxSize { get; set; }
+		public bool AllowGpu { get; set; }
 		#endregion
+
+		public TrackingInstance()
+		{
+			ScaleFactor = 1.8;
+			MinNeighbors = 1;
+			MinSize = new Size(20, 20);
+			MaxSize = Size.Empty;
+			AllowGpu = true;
+		}
 
 		public List<TrackingObject> TrackingObjects
 		{
@@ -52,7 +52,8 @@ namespace VVVV.Nodes.OpenCV.Tracking
 
 		public void LoadHaarCascade(string path)
 		{
-			FHaarCascade = new HaarCascade(path);
+			FCascadeClassifier = new CascadeClassifier(path);
+			FGpuCascadeClassifier = new GpuCascadeClassifier(path);
 		}
 
 		public override void Allocate()
@@ -62,79 +63,110 @@ namespace VVVV.Nodes.OpenCV.Tracking
 
 		public override void Process()
 		{
-			//TODO: Status = "Load Haar file"
-			if (FHaarCascade == null) return;
-
-			FInput.Image.GetImage(FGrayScale);
-
-			var stride = (FGrayScale.Width*3);
-			var align = stride%4;
-
-			if (align != 0)
+			Rectangle[] rectangles;
+			FInput.Image.GetImage(TColorFormat.L8, FGrayScale);
+			var grayImage = FGrayScale.GetImage() as Image<Gray, byte>;
+			if (GpuInvoke.HasCuda && AllowGpu)
 			{
-				stride += 4 - align;
+				rectangles = ProcessOnGpu(grayImage);
+			}
+			else
+			{
+				rectangles = ProcessOnCpu(grayImage);
 			}
 
-			//Can not work, bcs src and dest are the same.
-			CvInvoke.cvEqualizeHist(FGrayScale.CvMat, FGrayScale.CvMat);
-
-			//MCvAvgComp[] objectsDetected = FHaarCascade.Detect(grayImage, 1.8, 1, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING, new Size(grayImage.Width / 10, grayImage.Height / 10));
-			MCvAvgComp[] objectsDetected = FHaarCascade.Detect(FGrayScale.GetImage() as Image<Gray, byte>, FScaleFactor,
-			                                                   FMinNeighbors, HAAR_DETECTION_TYPE.DO_CANNY_PRUNING,
-			                                                   new Size(FMinWidth, FMinHeight), FGrayScale.Size);
-
 			FTrackingObjects.Clear();
-
-			foreach (MCvAvgComp f in objectsDetected)
+			foreach (var rectangle in rectangles)
 			{
-				TrackingObject trackingObject = new TrackingObject();
+				var trackingObject = new TrackingObject();
 
-				Vector2D objectCenterPosition = new Vector2D(f.rect.X + f.rect.Width/2, f.rect.Y + f.rect.Height/2);
-				Vector2D maximumSourceXY = new Vector2D(FGrayScale.Width, FGrayScale.Height);
+				var center = new Vector2D(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2);
+				var maximumSourceXY = new Vector2D(FGrayScale.Width, FGrayScale.Height);
 
-				trackingObject.Position = VMath.Map(objectCenterPosition, FMinimumSourceXY, maximumSourceXY, FMinimumDestXY,
-				                                    FMaximumDestXY, TMapMode.Float);
-				trackingObject.Scale = VMath.Map(new Vector2D(f.rect.Width, f.rect.Height), FMinimumSourceXY.x, maximumSourceXY.x, 0,
-				                                 1, TMapMode.Float);
+				trackingObject.Position = VMath.Map(center, FMinimumSourceXY, maximumSourceXY, FMinimumDestXY,
+													FMaximumDestXY, TMapMode.Float);
+				trackingObject.Scale = VMath.Map(new Vector2D(rectangle.Width, rectangle.Height), FMinimumSourceXY.x, maximumSourceXY.x, 0,
+												 1, TMapMode.Float);
 
 				FTrackingObjects.Add(trackingObject);
 			}
 		}
+
+		private Rectangle[] ProcessOnGpu(Image<Gray, byte> grayImage)
+		{
+			if (FGpuCascadeClassifier == null)
+			{
+				Status = "Can't load Haar file";
+				return new Rectangle[0];
+			}
+
+			using (var gpuImage = new GpuImage<Gray, byte>(grayImage))
+			{
+				return FGpuCascadeClassifier.DetectMultiScale(gpuImage, ScaleFactor, MinNeighbors, MinSize);
+			}
+		}
+
+		private Rectangle[] ProcessOnCpu(Image<Gray, byte> grayImage)
+		{
+			if (FCascadeClassifier == null)
+			{
+				Status = "Can't load Haar file";
+				return new Rectangle[0];
+			}
+
+			
+
+			if (grayImage == null)
+			{
+				Status = "Can't get image or convert it to grayscale";
+				return new Rectangle[0];
+			}
+
+			grayImage._EqualizeHist();
+
+			return FCascadeClassifier.DetectMultiScale(grayImage, ScaleFactor, MinNeighbors, MinSize, MaxSize);
+
+			
+		}
 	}
 
-	#region PluginInfo
-
-	[PluginInfo(Name = "ObjectTracking", Category = "OpenCV", Help = "Tracks faces and eyes", Author = "alg, sugokuGENKI",
-		Tags = "")]
-
-	#endregion PluginInfo
+	[PluginInfo(Name = "ObjectTracking", Category = "OpenCV", Help = "Tracks faces and eyes", Author = "alg", Credits = "Elliot Woods", Tags = "face, haar")]
 
 	public class ObjectTrackingNode : IDestinationNode<TrackingInstance>
 	{
 		#region fields & pins
+		[Input("Haar Table", DefaultString = "haarcascade_frontalface_alt2.xml", IsSingle = true, StringType = StringType.Filename)] 
+		private IDiffSpread<string> FHaarPathIn;
 
-		[Input("Haar Table", DefaultString = "haarcascade_frontalface_alt2.xml", IsSingle = true, 
-			StringType = StringType.Filename)] private IDiffSpread<string> FHaarPath;
+		[Input("Scale Factor", DefaultValue = 1.8, MinValue = 1)] 
+		private ISpread<double> FScaleFactorIn;
 
-		[Input("Scale Factor", DefaultValue = 1.8)] private IDiffSpread<double> FScaleFactor;
+		[Input("Min Neighbors", DefaultValue = 1)] 
+		private ISpread<int> FMinNeighborsIn;
 
-		[Input("Min Neighbors", DefaultValue = 1)] private IDiffSpread<int> FMinNeighbors;
+		[Input("Min Size", DefaultValues = new double[] {20, 20})] 
+		private ISpread<Vector2D> FMinSizeIn;
 
-		[Input("Min Width", DefaultValue = 64)] private IDiffSpread<int> FMinWidth;
+		[Input("Max Size", DefaultValues = new double[] {0, 0}, Visibility = PinVisibility.Hidden)]
+		private ISpread<Vector2D> FMaxSizeIn;
 
-		[Input("Min Height", DefaultValue = 48)] private IDiffSpread<int> FMinHeight;
+		[Input("Allow GPU", DefaultBoolean = true, Visibility = PinVisibility.OnlyInspector)]
+		private ISpread<bool> FAllowGpuIn;
 
-		[Input("Enabled", DefaultValue = 1)] private ISpread<bool> FEnabled;
+		[Output("Position")] 
+		private ISpread<ISpread<Vector2D>> FPositionXYOut;
 
-		[Output("Position")] private ISpread<ISpread<Vector2D>> FPinOutPositionXY;
+		[Output("Scale")] 
+		private ISpread<ISpread<Vector2D>> FScaleXYOut;
 
-		[Output("Scale")] private ISpread<ISpread<Vector2D>> FPinOutScaleXY;
+		[Output("Status")] 
+		private ISpread<string> FStatusOut;
 
-		[Import] private ILogger FLogger;
-
+		[Import] 
+		private ILogger FLogger;
 		#endregion fields & pins
 
-		protected override void Update(int instanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			CheckParams(instanceCount);
 			Output(instanceCount);
@@ -142,41 +174,35 @@ namespace VVVV.Nodes.OpenCV.Tracking
 
 		private void CheckParams(int instanceCount)
 		{
-			for (int i = 0; i < instanceCount; i++)
+			for (var i = 0; i < instanceCount; i++)
 			{
-				if (FHaarPath.IsChanged) FProcessor[i].LoadHaarCascade(FHaarPath[i]);
+				if (FHaarPathIn.IsChanged) FProcessor[i].LoadHaarCascade(FHaarPathIn[i]);
 				
-				if (FMinHeight.IsChanged)
-				{
-					FProcessor[i].MinHeight = FMinHeight[i];
-				}
-				if (FMinWidth.IsChanged)
-				{
-					FProcessor[i].MinWidth = FMinWidth[i];
-				}
-				
-				if (FMinNeighbors.IsChanged) FProcessor[i].MinNeighbors = FMinNeighbors[i];
-				if (FScaleFactor.IsChanged) FProcessor[i].ScaleFactor = FScaleFactor[i];
+				FProcessor[i].MinSize = new Size((int)FMinSizeIn[i].x, (int)FMaxSizeIn[i].y);
+				FProcessor[i].MaxSize = new Size((int)FMaxSizeIn[i].x, (int)FMaxSizeIn[i].y);
+				FProcessor[i].MinNeighbors = FMinNeighborsIn[i];
+				FProcessor[i].ScaleFactor = FScaleFactorIn[i];
+				FProcessor[i].AllowGpu = FAllowGpuIn[i];
 			}
 		}
 
 		private void Output(int instanceCount)
 		{
-			FPinOutPositionXY.SliceCount = instanceCount;
-			FPinOutScaleXY.SliceCount = instanceCount;
+			FPositionXYOut.SliceCount = instanceCount;
+			FScaleXYOut.SliceCount = instanceCount;
 
 			for (int i = 0; i < instanceCount; i++)
 			{
-				int count = FProcessor[i].TrackingObjects.Count;
-				FPinOutPositionXY[i].SliceCount = count;
-				FPinOutScaleXY[i].SliceCount = count;
+				var count = FProcessor[i].TrackingObjects.Count;
+				FPositionXYOut[i].SliceCount = count;
+				FScaleXYOut[i].SliceCount = count;
 
 				for (int j = 0; j < count; j++)
 				{
 					try
 					{
-						FPinOutPositionXY[i][j] = FProcessor[i].TrackingObjects[j].Position;
-						FPinOutScaleXY[i][j] = FProcessor[i].TrackingObjects[j].Scale;
+						FPositionXYOut[i][j] = FProcessor[i].TrackingObjects[j].Position;
+						FScaleXYOut[i][j] = FProcessor[i].TrackingObjects[j].Scale;
 					}
 					catch
 					{
