@@ -1,9 +1,9 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p" systemname="VideoIn (DeckLink EX9.Texture) help" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.1.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p" systemname="VideoIn (DeckLink EX9.Texture) help" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p">
    <BOUNDS type="Window" left="3900" top="1545" width="13275" height="13215">
    </BOUNDS>
    <NODE systemname="ListDevices (DeckLink)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.KC.DeckLink.dll" nodename="ListDevices (DeckLink)" componentmode="Hidden" id="0">
-   <BOUNDS type="Node" left="585" top="1590" width="100" height="100">
+   <BOUNDS type="Node" left="585" top="1590" width="1005" height="270">
    </BOUNDS>
    <PIN pinname="Device" visible="1">
    </PIN>
@@ -57,7 +57,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="3405" top="1590" width="2340" height="240">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="bmdModeHD1080i6000">
+   <PIN pinname="Input Enum" slicecount="1" values="bmdModeHD720p60">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="|Video mode|">
    </PIN>
@@ -69,7 +69,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="885" top="5445" width="8625" height="6750">
    </BOUNDS>
-   <BOUNDS type="Window" left="9240" top="885" width="21300" height="12030">
+   <BOUNDS type="Window" left="4545" top="4005" width="21690" height="9645">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
@@ -77,11 +77,15 @@
    </PIN>
    <PIN pinname="Actual Backbuffer Height" visible="1">
    </PIN>
+   <PIN pinname="Clip Device" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="EX9 Out" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="8" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Node" left="585" top="3225" width="0" height="0">
+   <BOUNDS type="Node" left="4335" top="3210" width="0" height="0">
    </BOUNDS>
-   <BOUNDS type="Box" left="585" top="3225" width="795" height="240">
+   <BOUNDS type="Box" left="4335" top="3210" width="795" height="240">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
@@ -93,22 +97,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="1" srcpinname="Frames Available" dstnodeid="8" dstpinname="Y Input Value">
-   </LINK>
-   <NODE systemname="YUV2toRGB (EX9.Texture Filter)" filename="%VVVV%\addonpack\lib\nodes\modules\TextureFX\Filter\YUV2toRGB\YUV2toRGB (EX9.Texture Filter).v4p" nodename="YUV2toRGB (EX9.Texture Filter)" componentmode="InAWindow" id="10">
-   <BOUNDS type="Node" left="1185" top="3915" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <BOUNDS type="Window" left="8625" top="7095" width="6165" height="6030">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="1" srcpinname="Texture Out" dstnodeid="10" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="9010" y="3498">
-   </LINKPOINT>
-   <LINKPOINT x="1250" y="3343">
-   </LINKPOINT>
    </LINK>
    <NODE systemname="Quad (DX9)" filename="" nodename="Quad (DX9)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="870" top="4695" width="100" height="100">
@@ -122,8 +110,6 @@
    <PIN pinname="Texture Transform" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <LINK srcnodeid="10" srcpinname="Output" dstnodeid="11" dstpinname="Texture">
-   </LINK>
    <NODE systemname="UniformScale (Transform)" nodename="UniformScale (Transform)" componentmode="Hidden" id="15">
    <BOUNDS type="Node" left="1035" top="4350" width="100" height="100">
    </BOUNDS>
@@ -151,7 +137,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="9015" top="1590" width="480" height="480">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" values="0" visible="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
@@ -162,6 +148,8 @@
    <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="|Flush Streams|">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Flush Streams">
@@ -187,7 +175,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="3075" top="585" width="6375" height="510">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" encoded="0" values="|by Elliot Woods&cr;&lf;developed with support from Lumacoustics, UK|">
+   <PIN pinname="Input String" visible="0" slicecount="1" encoded="0" values="|by Elliot Woods&cr;&lf;developed with support from This Is Luma (UK) and IRIS (DE)|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -298,14 +286,12 @@
    <PIN pinname="Layer" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="27" srcpinname="Layer" dstnodeid="26" dstpinname="Layer 2">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="28" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Node" left="4320" top="3180" width="0" height="0">
+   <BOUNDS type="Node" left="8085" top="3210" width="0" height="0">
    </BOUNDS>
-   <BOUNDS type="Box" left="4320" top="3180" width="480" height="480">
+   <BOUNDS type="Box" left="8085" top="3210" width="480" height="480">
    </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
@@ -313,9 +299,49 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|Frame Received|" encoded="0">
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="|Frame Received|">
    </PIN>
    </NODE>
    <LINK srcnodeid="1" srcpinname="Frame Received" dstnodeid="28" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="ColorSpaceConversion (EX9.Texture)" filename="%VVVV%\imagepack\lib\nodes\modules\DeckLink\ColorSpaceConversion (EX9.Texture).v4p" nodename="ColorSpaceConversion (EX9.Texture)" componentmode="InAWindow" id="30">
+   <BOUNDS type="Node" left="1185" top="3615" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <BOUNDS type="Window" left="10890" top="2700" width="14280" height="11490">
+   </BOUNDS>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Texture Out" dstnodeid="30" dstpinname="Input" linkstyle="Bezier">
+   <LINKPOINT x="645" y="3278">
+   </LINKPOINT>
+   <LINKPOINT x="1185" y="3278">
+   </LINKPOINT>
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="31" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="2070" top="3225" width="855" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2070" top="3225" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" values="YUV422">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="31" srcpinname="Output Enum" dstnodeid="30" dstpinname="Input Format">
+   </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="32" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="2955" top="3225" width="855" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2955" top="3225" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" values="RGB888">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="32" srcpinname="Output Enum" dstnodeid="30" dstpinname="Output Format">
+   </LINK>
+   <LINK srcnodeid="30" srcpinname="Texture Out" dstnodeid="11" dstpinname="Texture">
+   </LINK>
+   <LINK srcnodeid="27" srcpinname="Layer" dstnodeid="26" dstpinname="Layer 2">
    </LINK>
    </PATCH>

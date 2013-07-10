@@ -91,9 +91,9 @@
       <Project>{98936436-EA28-437E-A2A4-CC7CAA532658}</Project>
       <Name>WinFormsViewer</Name>
     </ProjectReference>
-    <ProjectReference Include="nodes\plugins\DX11\Ximea\VVVV.Nodes.Ximea.csproj">
-      <Project>{685c0911-c080-46b4-b21f-b8bbad507d0b}</Project>
-      <Name>VVVV.Nodes.Ximea</Name>
+    <ProjectReference Include="nodes\plugins\Image\DeckLink\VVVV.Nodes.DeckLink.csproj">
+      <Project>{450cf5db-edb3-4e59-bd5f-f1857eb76419}</Project>
+      <Name>VVVV.Nodes.DeckLink</Name>
     </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\EDSDK\VVVV.Nodes.OpenCV.EDSDK.csproj">
       <Project>{5EDB3C6E-2685-44F6-BD71-678CFC10AB31}</Project>
@@ -142,10 +142,10 @@
     </PropertyGroup>
     <!-- Files to exclude for platform specific builds -->
     <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
-      <ZipExclude>$(ZipExclude)</ZipExclude>
+      <ZipExclude>$(ZipExclude);..\lib\nodes\Dependencies\OpenCV\x64\*.*</ZipExclude>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Platform)' == 'x64' ">
-      <ZipExclude>$(ZipExclude);..\lib\nodes\freeframes\*.*</ZipExclude>
+      <ZipExclude>$(ZipExclude);..\lib\nodes\freeframes\*.*;..\lib\nodes\Dependencies\OpenCV\x86\*.*</ZipExclude>
     </PropertyGroup>
     <CreateItem Include="..\**\*.*" Exclude="$(ZipExclude)">
       <Output ItemName="OutputFiles" TaskParameter="Include" />
@@ -154,7 +154,7 @@
     <Exec Command="attrib +R &quot;$(TempDir)lib\nodes\*.*&quot; /S /D" />
     <Exec Command="&quot;$(StartProgram)&quot; /dx9ex /nodelist &quot;$(TempDir)lib\nodes&quot;" />
     <!-- Because of http://msbuildtasks.tigris.org/issues/show_bug.cgi?id=148 we switched to cmd line call to 7-Zip. -->
-    <Exec Command="&quot;$(SevenZip)&quot; a -r &quot;$(ZipFileName)&quot; &quot;$(TempDir)&quot;" />
+    <Exec Command="&quot;$(SevenZip)&quot; a -mmt=8 -r &quot;$(ZipFileName)&quot; &quot;$(TempDir)&quot;" />
     <!--
     <CreateItem Include="$(TempDir)\**\*.*">
       <Output ItemName="ZipFiles" TaskParameter="Include" />
