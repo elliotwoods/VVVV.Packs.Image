@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dependencies\EmguCV\Emgu.Util.dll</HintPath>
     </Reference>
+    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\packs\DX11\core\FeralTic.dll</HintPath>
+    </Reference>
     <Reference Include="SlimDX">
       <HintPath>..\..\..\..\..\..\..\common\src\thirdparty\$(Platform)\SlimDX.dll</HintPath>
     </Reference>
@@ -53,6 +57,14 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\packs\DX11\core\VVVV.DX11.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="VVVV.DX11.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\packs\DX11\core\VVVV.DX11.Lib.dll</HintPath>
+    </Reference>
     <Reference Include="ZedGraph">
       <HintPath>Dependencies\EmguCV\ZedGraph.dll</HintPath>
     </Reference>
@@ -74,6 +86,8 @@
     <Compile Include="src\Calibration\ProjectPointsNode.cs" />
     <None Include="src\Incomplete\GenericFilterNode.cs" />
     <None Include="src\Features\Stitch.cs" />
+    <Compile Include="src\Destinations\AsTextureDX11Instance.cs" />
+    <Compile Include="src\Destinations\AsTextureDX11Node.cs" />
     <Compile Include="src\Features\Criteria\Position.cs" />
     <Compile Include="src\Features\DetectFeatures.cs" />
     <Compile Include="src\Features\FeatureSet.cs" />
@@ -84,6 +98,7 @@
     <Compile Include="src\Filters\Crop.cs" />
     <Compile Include="src\Filters\RotateContinuous.cs" />
     <Compile Include="src\Filters\RotateStep.cs" />
+    <Compile Include="src\Sources\AsImageDX11.cs" />
     <Compile Include="src\Sources\VideoPlayer.cs" />
     <Compile Include="src\Utilities\TypeUtils.cs" />
     <Compile Include="src\Calibration\FindExtrinsicsNode.cs" />

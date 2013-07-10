@@ -16,7 +16,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Interop.DeckLinkAPI">
-      <HintPath>.\Interop.DeckLinkAPI.dll</HintPath>
+      <HintPath>.\Dependencies\Interop.DeckLinkAPI.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
