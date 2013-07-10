@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha27.1.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenNI\Normals (OpenNI).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.OpenNI\Samples\Modules\Normals (OpenNI).v4p" systemname="Normals (OpenNI)">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.1.dtd" >
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenNI\Normals (OpenNI).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.OpenNI\Samples\Modules\Normals (OpenNI).v4p" systemname="Normals (OpenNI)">
    <BOUNDS height="7110" left="9135" top="5010" type="Window" width="6570">
    </BOUNDS>
    <NODE componentmode="Hidden" id="1" nodename="Grid (EX9.Geometry)" systemname="Grid (EX9.Geometry)">
@@ -41,7 +41,7 @@
    </PIN>
    <PIN pinname="Fullscreen Depthbuffer Format" slicecount="1" values="NONE">
    </PIN>
-   <PIN pinname="Fullscreen Dimensions" slicecount="1" values="|480 x 640|">
+   <PIN pinname="Fullscreen Dimensions" slicecount="1" values="|1024 x 768|">
    </PIN>
    <PIN pinname="Fullscreen Antialiasing Quality Level" slicecount="1" values="NONE">
    </PIN>
@@ -93,5 +93,21 @@
    <LINK dstnodeid="40" dstpinname="Layers" srcnodeid="3" srcpinname="Layer">
    </LINK>
    <LINK dstnodeid="3" dstpinname="World Texture" srcnodeid="39" srcpinname="Output Node">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="43" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="2460" top="165" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2460" top="165" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="spread">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="43" srcpinname="Y Output Value" dstnodeid="3" dstpinname="spread">
    </LINK>
    </PATCH>
