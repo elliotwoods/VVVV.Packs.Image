@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace VVVV.Nodes.OpenCV
 {
+	[Serializable()]
 	public class Intrinsics
 	{
 		public IntrinsicCameraParameters intrinsics {get; private set;}

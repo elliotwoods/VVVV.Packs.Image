@@ -29,10 +29,10 @@ namespace VVVV.Nodes.Ximea
 		#region fields & pins
 		IPluginHost FHost;
 
-		[Input("Device ID", IsSingle=true)]
+		[Input("Device ID")]
 		ISpread<int> FInDeviceID;
 
-		[Input("Timeout", IsSingle = true, MinValue = 0, DefaultValue=500)]
+		[Input("Timeout", MinValue = 0, DefaultValue=500)]
 		ISpread<int> FInTimeout;
 
 		[Input("Wait For Frame")]
@@ -88,8 +88,11 @@ namespace VVVV.Nodes.Ximea
 
 			if (this.FInDeviceID.IsChanged)
 			{
-				this.FDevice.DeviceID = this.FInDeviceID[0];
-				MaybeReinitialised = true;
+				if (this.FDevice.DeviceID != this.FInDeviceID[0])
+				{
+					this.FDevice.DeviceID = this.FInDeviceID[0];
+					MaybeReinitialised = true;
+				}
 			}
 
 			if (this.FInEnabled.IsChanged)
@@ -103,7 +106,7 @@ namespace VVVV.Nodes.Ximea
 				FOutSpecification[0] = FDevice.DeviceSpecification;
 			}
 
-			if (FInParameterSet.IsChanged && FInParameterSet[0] != null)
+			if ((FInParameterSet.IsChanged || MaybeReinitialised) && FInParameterSet[0] != null)
 			{
 				foreach (var parameter in FInParameterSet[0])
 				{

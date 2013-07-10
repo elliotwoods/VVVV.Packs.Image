@@ -105,7 +105,7 @@ namespace VVVV.Nodes.OpenCV
 
 				for (int i=0; i<nImages; i++)
 				{
-					objectPoints[i] = MatrixUtils.ObjectPoints(FPinInObject);
+					objectPoints[i] = MatrixUtils.ObjectPoints(FPinInObject, true);
 				}
 
 				try

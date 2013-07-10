@@ -22,17 +22,15 @@ namespace VVVV.Nodes.OpenCV
 			{
 				Matrix<double> t = extrinsics.ExtrinsicMatrix;
 
-				Matrix4x4 m = new Matrix4x4();
+				var translate = VVVV.Utils.VMath.VMath.Translate(t[0, 3], t[1, 3], t[2, 3]);
+
+				Matrix4x4 rotate = VVVV.Utils.VMath.VMath.IdentityMatrix;
+
 				for (int x = 0; x < 3; x++)
-					for (int y = 0; y < 4; y++)
-						m[y, x] = t[x, y];
+					for (int y = 0; y < 3; y++)
+						rotate[y, x] = t[x, y];
 
-				m[0, 3] = 0;
-				m[1, 3] = 0;
-				m[2, 3] = 0;
-				m[3, 3] = 1;
-
-				return m;
+				return rotate * translate;
 			}
 		}
 

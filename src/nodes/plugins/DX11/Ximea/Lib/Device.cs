@@ -165,6 +165,10 @@ namespace VVVV.Nodes.Ximea
 					}
 				}
 			}
+			get
+			{
+				return FDeviceID;
+			}
 		}
 
 		ITrigger FTrigger = null;
@@ -326,7 +330,6 @@ namespace VVVV.Nodes.Ximea
 							break;
 						case Instruction.StartAcquisition:
 							FDevice.StartAcquisition();
-							FDevice.SetParam(PRM.TRG_SOFTWARE, 0);
 							FRunning = true;
 							break;
 					}
@@ -352,7 +355,7 @@ namespace VVVV.Nodes.Ximea
 								FDevice.SetParam(PRM.EXPOSURE, operation.Value);
 								break;
 							case IntParameter.Gain:
-								FDevice.SetParam(PRM.GAIN, operation.Value);
+								FDevice.SetParam(PRM.GAIN, (float) operation.Value);
 								break;
 							case IntParameter.RegionHeight:
 								int value = operation.Value;
@@ -379,7 +382,6 @@ namespace VVVV.Nodes.Ximea
 				catch (Exception e)
 				{
 					FParameterChangeQueue.Content.Clear();
-					FLogger.Log(e);
 				}
 			}
 		}
@@ -389,10 +391,11 @@ namespace VVVV.Nodes.Ximea
 			do
 			{
 				ProcessInstructionQueue();
-				ProcessParameterQueue();
 				
 				if (FRunning)
 				{
+					ProcessParameterQueue();
+
 					int width = FDevice.GetParamInt(PRM.WIDTH);
 					int height = FDevice.GetParamInt(PRM.HEIGHT);
 					int size = width * height;

@@ -43,15 +43,15 @@ namespace VVVV.Nodes.OpenCV
 			return imagePoints;
 		}
 
-		public static MCvPoint3D32f[] ObjectPoints(ISpread<Vector3D> input)
+		public static MCvPoint3D32f[] ObjectPoints(ISpread<Vector3D> input, bool toVVVV)
 		{
 			MCvPoint3D32f[] objectPoints = new MCvPoint3D32f[input.SliceCount];
 
 			for (int i = 0; i < input.SliceCount; i++)
 			{
 				objectPoints[i].x = (float)input[i].x;
-				objectPoints[i].y = (float)input[i].y;
-				objectPoints[i].z = (float)input[i].z;
+				objectPoints[i].y = toVVVV ? - (float)input[i].y : (float) input[i].y;
+				objectPoints[i].z = toVVVV ? - (float)input[i].z : (float) input[i].z;
 			}
 
 			return objectPoints;
@@ -59,9 +59,7 @@ namespace VVVV.Nodes.OpenCV
 
 		public static Matrix4x4 ConvertToVVVV(Matrix4x4 OpenCVMatrix)
 		{
-			Matrix4x4 flipy = VMath.Scale(1.0, -1.0, 1.0);
-			Matrix4x4 flipz = VMath.Scale(1.0, 1.0, -1.0);
-			return OpenCVMatrix * flipz;
+			return VMath.Scale(1, -1, -1) * OpenCVMatrix * VMath.Scale(1, -1, -1);
 		}
 	}
 }
