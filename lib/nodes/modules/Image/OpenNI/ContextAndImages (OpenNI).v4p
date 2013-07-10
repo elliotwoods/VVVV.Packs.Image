@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenNI\ContextAndImages (OpenNI).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.OpenNI\Samples\Modules\ContextAndImages (OpenNI).v4p" systemname="ContextAndImages (OpenNI)">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.1.dtd" >
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenNI\ContextAndImages (OpenNI).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.OpenNI\Samples\Modules\ContextAndImages (OpenNI).v4p" systemname="ContextAndImages (OpenNI)">
    <BOUNDS height="5745" left="5685" top="8865" type="Window" width="9825">
    </BOUNDS>
    <NODE componentmode="InABox" id="8" nodename="IOBox (String)" systemname="IOBox (String)">
@@ -19,7 +19,7 @@
    </BOUNDS>
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="|RGB Texture|">
    </PIN>
-   <PIN pinname="Input Node" visible="1">
+   <PIN pinname="Input Node" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <NODE componentmode="InABox" id="10" nodename="IOBox (Node)" systemname="IOBox (Node)">
@@ -29,7 +29,7 @@
    </BOUNDS>
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="|Depth Texture|">
    </PIN>
-   <PIN pinname="Input Node" visible="1">
+   <PIN pinname="Input Node" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <NODE componentmode="InABox" id="11" nodename="IOBox (Node)" systemname="IOBox (Node)">
@@ -69,7 +69,7 @@
    </BOUNDS>
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="|World Texture|">
    </PIN>
-   <PIN pinname="Input Node" visible="1">
+   <PIN pinname="Input Node" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <NODE componentmode="InABox" id="17" nodename="IOBox (Node)" systemname="IOBox (Node)">
@@ -92,36 +92,6 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Mode">
    </PIN>
    </NODE>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="18" nodename="AsTexture (OpenCV)" systemname="AsTexture (OpenCV)">
-   <BOUNDS height="100" left="2220" top="3915" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Texture Out" visible="1">
-   </PIN>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="9" dstpinname="Input Node" srcnodeid="18" srcpinname="Texture Out">
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="19" nodename="AsTexture (OpenCV)" systemname="AsTexture (OpenCV)">
-   <BOUNDS height="100" left="4560" top="3915" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Texture Out" visible="1">
-   </PIN>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="10" dstpinname="Input Node" srcnodeid="19" srcpinname="Texture Out">
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="20" nodename="AsTexture (OpenCV)" systemname="AsTexture (OpenCV)">
-   <BOUNDS height="100" left="6810" top="3915" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Texture Out" visible="1">
-   </PIN>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="15" dstpinname="Input Node" srcnodeid="20" srcpinname="Texture Out">
-   </LINK>
    <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.OpenNI.dll" id="6" nodename="Context (OpenCV OpenNI)" systemname="Context (OpenCV OpenNI)">
    <BOUNDS height="270" left="1170" top="1575" type="Node" width="6510">
    </BOUNDS>
@@ -168,24 +138,6 @@
    </LINK>
    <LINK dstnodeid="22" dstpinname="Mode" srcnodeid="23" srcpinname="Output Enum">
    </LINK>
-   <LINK dstnodeid="18" dstpinname="Image" linkstyle="VHV" srcnodeid="22" srcpinname="Image">
-   <LINKPOINT x="1245" y="3338">
-   </LINKPOINT>
-   <LINKPOINT x="2220" y="3338">
-   </LINKPOINT>
-   </LINK>
-   <LINK dstnodeid="19" dstpinname="Image" linkstyle="VHV" srcnodeid="22" srcpinname="Depth">
-   <LINKPOINT x="3420" y="3330">
-   </LINKPOINT>
-   <LINKPOINT x="4545" y="3330">
-   </LINKPOINT>
-   </LINK>
-   <LINK dstnodeid="20" dstpinname="Image" linkstyle="VHV" srcnodeid="22" srcpinname="World">
-   <LINKPOINT x="5610" y="3330">
-   </LINKPOINT>
-   <LINKPOINT x="6795" y="3330">
-   </LINKPOINT>
-   </LINK>
    <LINK dstnodeid="22" dstpinname="Context" srcnodeid="6" srcpinname="Context">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="24" systemname="IOBox (Value Advanced)">
@@ -195,7 +147,7 @@
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Units" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
@@ -203,9 +155,57 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Enabled" encoded="0">
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Enabled">
    </PIN>
    </NODE>
    <LINK srcnodeid="24" srcpinname="Y Output Value" dstnodeid="6" dstpinname="Enabled">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="18" nodename="AsTexture (OpenCV EX9.Texture)" systemname="AsTexture (OpenCV EX9.Texture)">
+   <BOUNDS height="100" left="2220" top="3915" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="9" dstpinname="Input Node" srcnodeid="18" srcpinname="Texture Out">
+   </LINK>
+   <LINK dstnodeid="18" dstpinname="Image" linkstyle="VHV" srcnodeid="22" srcpinname="Image">
+   <LINKPOINT x="1245" y="3338">
+   </LINKPOINT>
+   <LINKPOINT x="2220" y="3338">
+   </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="19" nodename="AsTexture (OpenCV EX9.Texture)" systemname="AsTexture (OpenCV EX9.Texture)">
+   <BOUNDS height="100" left="4560" top="3915" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="10" dstpinname="Input Node" srcnodeid="19" srcpinname="Texture Out">
+   </LINK>
+   <LINK dstnodeid="19" dstpinname="Image" linkstyle="VHV" srcnodeid="22" srcpinname="Depth">
+   <LINKPOINT x="3420" y="3330">
+   </LINKPOINT>
+   <LINKPOINT x="4545" y="3330">
+   </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="20" nodename="AsTexture (OpenCV EX9.Texture)" systemname="AsTexture (OpenCV EX9.Texture)">
+   <BOUNDS height="100" left="6810" top="3915" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="15" dstpinname="Input Node" srcnodeid="20" srcpinname="Texture Out">
+   </LINK>
+   <LINK dstnodeid="20" dstpinname="Image" linkstyle="VHV" srcnodeid="22" srcpinname="World">
+   <LINKPOINT x="5610" y="3330">
+   </LINKPOINT>
+   <LINKPOINT x="6795" y="3330">
+   </LINKPOINT>
    </LINK>
    </PATCH>
