@@ -292,7 +292,7 @@ namespace VVVV.Nodes.OpenCV
 
 		public static Texture CreateTexture(CVImageAttributes attributes, Device device)
 		{ 
-			TColorFormat format = attributes.ColourFormat;
+			TColorFormat format = attributes.ColorFormat;
 			TColorFormat newFormat;
 			bool useConverted = NeedsConversion(format, out newFormat);
 
@@ -455,7 +455,7 @@ namespace VVVV.Nodes.OpenCV
 
 		public static unsafe Spread<double> GetPixelAsDoubles(CVImage source, uint column, uint row)
 		{
-			TColorFormat format = source.ImageAttributes.ColourFormat;
+			TColorFormat format = source.ImageAttributes.ColorFormat;
 			uint channelCount = (uint)ChannelCount(format);
 
 			if (channelCount == 0)
