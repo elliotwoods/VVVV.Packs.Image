@@ -77,7 +77,9 @@ namespace VVVV.Nodes.OpenCV
                 case TColorFormat.L32F:
                     return SlimDX.DXGI.Format.R32_Float;
                 case TColorFormat.RGBA8:
-                    return SlimDX.DXGI.Format.R8G8B8A8_UNorm;
+                    return SlimDX.DXGI.Format.B8G8R8A8_UNorm;
+				case TColorFormat.RGB32F:
+					return SlimDX.DXGI.Format.R32G32B32_Float;
                 case TColorFormat.RGBA32F:
                     return SlimDX.DXGI.Format.R32G32B32A32_Float;
 				default:
@@ -103,7 +105,7 @@ namespace VVVV.Nodes.OpenCV
 				{
 					tex = new DX11DynamicTexture2D(context, Width, Height, GetFormat(FBuffer.ImageAttributes.ColorFormat));
 					this.OutputSlice[context] = tex;
-					FNeedsRefresh.Add(context, true);
+					FNeedsRefresh[context] = true;
 				}
 				else
 				{
