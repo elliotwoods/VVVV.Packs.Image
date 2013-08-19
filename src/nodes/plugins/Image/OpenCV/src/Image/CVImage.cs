@@ -27,7 +27,7 @@ namespace VVVV.Nodes.OpenCV
 
 		public void Initialise(CVImageAttributes attributes)
 		{
-			Initialise(attributes.Size, attributes.ColourFormat);
+			Initialise(attributes.Size, attributes.ColorFormat);
 		}
 
 		public bool Initialise(System.Drawing.Size size, TColorFormat format)
@@ -67,7 +67,7 @@ namespace VVVV.Nodes.OpenCV
                 target.Initialise(this.ImageAttributes);
             }
 
-            GetImage(target.ImageAttributes.ColourFormat, target);
+            GetImage(target.ImageAttributes.ColorFormat, target);
 		}
 
 		public unsafe bool SetImage(IImage source)

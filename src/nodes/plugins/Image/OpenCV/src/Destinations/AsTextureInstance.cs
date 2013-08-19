@@ -45,7 +45,7 @@ namespace VVVV.Nodes.OpenCV
 
 		public override void Allocate()
 		{
-			FNeedsConversion = ImageUtils.NeedsConversion(FInput.ImageAttributes.ColourFormat, out FConvertedFormat);
+			FNeedsConversion = ImageUtils.NeedsConversion(FInput.ImageAttributes.ColorFormat, out FConvertedFormat);
 			if (FNeedsConversion)
 			{
 				FBufferConverted = new CVImageDoubleBuffer();

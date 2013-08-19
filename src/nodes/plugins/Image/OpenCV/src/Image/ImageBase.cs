@@ -39,7 +39,7 @@ namespace VVVV.Nodes.OpenCV
 		{
 			get
 			{
-				return ImageAttributes.ColourFormat;
+				return ImageAttributes.ColorFormat;
 			}
 		}
 

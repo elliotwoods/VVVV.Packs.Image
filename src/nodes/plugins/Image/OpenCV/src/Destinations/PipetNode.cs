@@ -45,7 +45,7 @@ namespace VVVV.Nodes.OpenCV
 
 			lock (FLock)
 			{
-				ChannelCount = ImageUtils.ChannelCount(FInput.ImageAttributes.ColourFormat);
+				ChannelCount = ImageUtils.ChannelCount(FInput.ImageAttributes.ColorFormat);
 				FReturn.SliceCount = FLookup.SliceCount;
 
 				for (var i = 0; i < FLookup.SliceCount; i++)

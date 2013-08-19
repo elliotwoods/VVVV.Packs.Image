@@ -19,11 +19,11 @@ namespace VVVV.Nodes.OpenCV
 		TColorFormat FOutFormat;
 		public override void Allocate()
 		{
-			FOutFormat = ImageUtils.MakeGrayscale(FInput.ImageAttributes.ColourFormat);
+			FOutFormat = ImageUtils.MakeGrayscale(FInput.ImageAttributes.ColorFormat);
 
 			//if we can't convert or it's already grayscale, just pass through
 			if (FOutFormat == TColorFormat.UnInitialised)
-				FOutFormat = FInput.ImageAttributes.ColourFormat;
+				FOutFormat = FInput.ImageAttributes.ColorFormat;
 
 			FOutput.Image.Initialise(FInput.Image.ImageAttributes.Size, FOutFormat);
 		}
