@@ -41,11 +41,16 @@ namespace VVVV.Nodes.OpenCV
 
         public override void Allocate()
         {
-            FNeedsConversion = ImageUtils.NeedsConversion(FInput.ImageAttributes.ColorFormat, out FConvertedFormat);
+            FNeedsConversion = ImageUtils.NeedsConversion(FInput.ImageAttributes.ColourFormat, out FConvertedFormat);
             if (FNeedsConversion)
             {
                 FBufferConverted = new CVImageDoubleBuffer();
                 FBufferConverted.Initialise(new CVImageAttributes(FInput.ImageAttributes.Size, FConvertedFormat));
+            }
+            else
+            {
+                FBufferConverted = new CVImageDoubleBuffer();
+                FBufferConverted.Initialise(new CVImageAttributes(FInput.ImageAttributes.Size, FInput.ImageAttributes.ColourFormat));
             }
 
             FNeedsTexture = true;
@@ -109,6 +114,8 @@ namespace VVVV.Nodes.OpenCV
         {
             switch (format)
             {
+                case TColorFormat.L8:
+                    return SlimDX.DXGI.Format.R8_UNorm;
                 case TColorFormat.L16 :
                     return SlimDX.DXGI.Format.R16_UNorm;
                 case TColorFormat.L32F:
@@ -116,7 +123,7 @@ namespace VVVV.Nodes.OpenCV
                 case TColorFormat.RGB8:
                     return SlimDX.DXGI.Format.R8G8B8A8_UNorm;
                 case TColorFormat.RGBA8:
-                    return SlimDX.DXGI.Format.R8G8B8A8_UNorm;
+                    return SlimDX.DXGI.Format.B8G8R8A8_UNorm;
                 case TColorFormat.RGB32F:
                     return SlimDX.DXGI.Format.R32G32B32A32_Float;
                 case TColorFormat.RGBA32F:
@@ -137,15 +144,38 @@ namespace VVVV.Nodes.OpenCV
                     if (FNeedsConversion)
                     {
                         CVImageAttributes attr = FBufferConverted.ImageAttributes.Clone() as CVImageAttributes;
-                        SlimDX.DXGI.Format format = GetFormat(attr.ColorFormat);
+                        SlimDX.DXGI.Format format = GetFormat(attr.ColourFormat);
                         output = new DX11DynamicTexture2D(context, attr.Width, attr.Height, format);
                     }                     
                     else
                     {
-                        CVImageAttributes attr = FBufferConverted.ImageAttributes as CVImageAttributes;
-                        SlimDX.DXGI.Format format = GetFormat(attr.ColorFormat);
-                        output = new DX11DynamicTexture2D(context, attr.Width, attr.Height, format);
+                        // it was like this (the same like on top??):
+                        //CVImageAttributes attr = FBufferConverted.ImageAttributes.Clone() as CVImageAttributes; // that line throws an exception
+                        //SlimDX.DXGI.Format format = GetFormat(attr.ColourFormat);
+                        //output = new DX11DynamicTexture2D(context, attr.Width, attr.Height, format);
 
+                        // this is how it works manually (only for grayscale texture from CLeye):
+                        //SlimDX.DXGI.Format format = SlimDX.DXGI.Format.R8_UNorm;
+                        //output = new DX11DynamicTexture2D(context, 640, 480, format);
+
+                        SlimDX.DXGI.Format format = GetFormat(FInput.ImageAttributes.ColourFormat);
+
+                        int w = FInput.ImageAttributes.Width;
+                        int h = FInput.ImageAttributes.Height;
+
+                        output = new DX11DynamicTexture2D(context, w, h, format);
+
+                        /*try
+                        {
+                            output = new DX11DynamicTexture2D(context, w, h, format);
+                        }
+                        catch (Exception e)
+                        {
+                            // just need this to avoid error when using more than one AsTexture Nodes
+                            // to fix this, AsTextureDX11Node should made able to deal with spreads
+                            ImageUtils.Log(e);
+                            output = new DX11DynamicTexture2D(context, w, h, format);
+                        }*/
                     }
 
                     FNeedsRefresh.Add(output, true);
@@ -156,7 +186,7 @@ namespace VVVV.Nodes.OpenCV
             }
         }
 
-	    private void ConvertData()
+	    private void ConvertData()      // this isn't ever needed - but should be in order to fix the rgb > bgr conversion?
 	    {
 			var brgb = (byte*)FImageData.ToPointer();
 			var brgba = (byte*)FRgbaImageData.ToPointer();
@@ -212,6 +242,20 @@ namespace VVVV.Nodes.OpenCV
                                 throw (new Exception());
 
 							texture.WriteData(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.BytesPerFrame);
+                            /*
+                            // vux' idea: ( is that the right place?)
+                            int channels = 3;
+
+                            if (FBufferConverted.ImageAttributes.Width * FBufferConverted.ImageAttributes.Height * channels == texture.GetRowPitch())
+                            {
+                                //texture.WriteData(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.BytesPerFrame);
+                                texture.WriteData(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.Width * FBufferConverted.ImageAttributes.Height * channels);
+                            }
+                            else
+                            {
+                                texture.WriteDataPitch(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.Width * FBufferConverted.ImageAttributes.Height * channels);
+                            }*/
+                            
                             FNeedsRefresh[texture] = false;
                         }
                         catch (Exception e)
