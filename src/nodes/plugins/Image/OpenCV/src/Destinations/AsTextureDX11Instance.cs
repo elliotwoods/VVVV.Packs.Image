@@ -5,69 +5,47 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using FeralTic.DX11.Resources;
 using FeralTic.DX11;
+using VVVV.DX11;
 
 namespace VVVV.Nodes.OpenCV
 {
-    public unsafe class AsTextureDX11Instance : IDestinationInstance
+    public unsafe class AsTextureDX11Instance : IDestinationInstance, IDisposable
     {
         public int Width { get; private set; }
         public int Height { get; private set; }
 
-        CVImageDoubleBuffer FBufferConverted;
+		public DX11Resource<DX11DynamicTexture2D> OutputSlice = null;
+		Dictionary<DX11RenderContext, bool> FNeedsRefresh = new Dictionary<DX11RenderContext, bool>();
+		
+		CVImageDoubleBuffer FBuffer;
         TColorFormat FConvertedFormat;
         bool FNeedsConversion;
+		bool FInputOk = false;
 
-		private IntPtr FImageData = IntPtr.Zero;
-		private IntPtr FRgbaImageData = IntPtr.Zero;
-	    private long FRgbaSize;
-	    private int FPixelsCount;
+		Object FLockTexture = new Object();
+		Object FLockImageAllocation = new Object();
 
-	    private readonly Object FLockTexture = new Object();
-        private readonly Dictionary<DX11DynamicTexture2D, bool> FNeedsRefresh = new Dictionary<DX11DynamicTexture2D, bool>();
-
-        private bool FNeedsTexture;
-        public bool NeedsTexture
-        {
-            get
-            {
-                if (FNeedsTexture)
-                {
-                    FNeedsTexture = false;
-                    return true;
-                }
-                return false;
-            }
-        }
 
         public override void Allocate()
         {
-            FNeedsConversion = ImageUtils.NeedsConversion(FInput.ImageAttributes.ColourFormat, out FConvertedFormat);
-            if (FNeedsConversion)
-            {
-                FBufferConverted = new CVImageDoubleBuffer();
-                FBufferConverted.Initialise(new CVImageAttributes(FInput.ImageAttributes.Size, FConvertedFormat));
-            }
-            else
-            {
-                FBufferConverted = new CVImageDoubleBuffer();
-                FBufferConverted.Initialise(new CVImageAttributes(FInput.ImageAttributes.Size, FInput.ImageAttributes.ColourFormat));
-            }
-
-            FNeedsTexture = true;
-
-			if (FImageData != IntPtr.Zero)
+			lock (FLockImageAllocation)
 			{
-				Marshal.FreeCoTaskMem(FImageData);
+				FInputOk = false;
+				FNeedsConversion = ImageUtils.NeedsConversion(FInput.ImageAttributes.ColorFormat, out FConvertedFormat);
+				FBuffer = new CVImageDoubleBuffer();
+				if (FNeedsConversion)
+				{
+					FBuffer.Initialise(new CVImageAttributes(FInput.ImageAttributes.Size, FConvertedFormat));
+				}
+				else
+				{
+					FBuffer.Initialise(FInput.ImageAttributes);
+				}
+
+				this.Width = FInput.ImageAttributes.Width;
+				this.Height = FInput.ImageAttributes.Height;
+				FInputOk = true;
 			}
-
-	        var width = FInput.ImageAttributes.Width;
-	        var height = FInput.ImageAttributes.Height;
-
-	        FRgbaSize = width * height * 4;
-			FPixelsCount = width * height;
-
-			FImageData = Marshal.AllocCoTaskMem(width * height * 3);
-			FRgbaImageData = Marshal.AllocCoTaskMem((int)FRgbaSize);
         }
 
         public override void Process()
@@ -83,32 +61,10 @@ namespace VVVV.Nodes.OpenCV
 
 	        if (!FNeedsConversion) return;
 	        
-			FInput.GetImage(FBufferConverted);
-	        FBufferConverted.Swap();
+			FInput.GetImage(FBuffer);
+	        FBuffer.Swap();
         }
 
-        private bool InputOk
-        {
-            get
-            {
-                if (FNeedsConversion)
-                {
-                    if (FBufferConverted == null)
-                        return false;
-                    if (!FBufferConverted.Allocated)
-                        return false;
-                }
-                else
-                {
-                    if (FInput == null)
-                        return false;
-                    if (!FInput.Allocated)
-                        return false;
-                }
-
-                return true;
-            }
-        }
 
         public static SlimDX.DXGI.Format GetFormat(TColorFormat format)
         {
@@ -120,172 +76,80 @@ namespace VVVV.Nodes.OpenCV
                     return SlimDX.DXGI.Format.R16_UNorm;
                 case TColorFormat.L32F:
                     return SlimDX.DXGI.Format.R32_Float;
-                case TColorFormat.RGB8:
-                    return SlimDX.DXGI.Format.R8G8B8A8_UNorm;
                 case TColorFormat.RGBA8:
-                    return SlimDX.DXGI.Format.B8G8R8A8_UNorm;
-                case TColorFormat.RGB32F:
-                    return SlimDX.DXGI.Format.R32G32B32A32_Float;
+                    return SlimDX.DXGI.Format.R8G8B8A8_UNorm;
                 case TColorFormat.RGBA32F:
                     return SlimDX.DXGI.Format.R32G32B32A32_Float;
-
-            }
-            return SlimDX.DXGI.Format.Unknown;
-        }
-
-        public DX11DynamicTexture2D CreateTexture(DX11RenderContext context)
-        {
-            lock (FLockTexture)
-            {
-	            if (InputOk)
-                {
-
-                    DX11DynamicTexture2D output;
-                    if (FNeedsConversion)
-                    {
-                        CVImageAttributes attr = FBufferConverted.ImageAttributes.Clone() as CVImageAttributes;
-                        SlimDX.DXGI.Format format = GetFormat(attr.ColourFormat);
-                        output = new DX11DynamicTexture2D(context, attr.Width, attr.Height, format);
-                    }                     
-                    else
-                    {
-                        // it was like this (the same like on top??):
-                        //CVImageAttributes attr = FBufferConverted.ImageAttributes.Clone() as CVImageAttributes; // that line throws an exception
-                        //SlimDX.DXGI.Format format = GetFormat(attr.ColourFormat);
-                        //output = new DX11DynamicTexture2D(context, attr.Width, attr.Height, format);
-
-                        // this is how it works manually (only for grayscale texture from CLeye):
-                        //SlimDX.DXGI.Format format = SlimDX.DXGI.Format.R8_UNorm;
-                        //output = new DX11DynamicTexture2D(context, 640, 480, format);
-
-                        SlimDX.DXGI.Format format = GetFormat(FInput.ImageAttributes.ColourFormat);
-
-                        int w = FInput.ImageAttributes.Width;
-                        int h = FInput.ImageAttributes.Height;
-
-                        output = new DX11DynamicTexture2D(context, w, h, format);
-
-                        /*try
-                        {
-                            output = new DX11DynamicTexture2D(context, w, h, format);
-                        }
-                        catch (Exception e)
-                        {
-                            // just need this to avoid error when using more than one AsTexture Nodes
-                            // to fix this, AsTextureDX11Node should made able to deal with spreads
-                            ImageUtils.Log(e);
-                            output = new DX11DynamicTexture2D(context, w, h, format);
-                        }*/
-                    }
-
-                    FNeedsRefresh.Add(output, true);
-                    return output;
-                }
-	            
-				return context.DefaultTextures.WhiteTexture;
+				default:
+					throw (new Exception("Image type not supported by DX11 texture"));
             }
         }
 
-	    private void ConvertData()      // this isn't ever needed - but should be in order to fix the rgb > bgr conversion?
-	    {
-			var brgb = (byte*)FImageData.ToPointer();
-			var brgba = (byte*)FRgbaImageData.ToPointer();
+		public void DropContext(DX11RenderContext context)
+		{
+			this.OutputSlice[context].Dispose();
+			this.FNeedsRefresh.Remove(context);
+		}
 
-			for (var i = 0; i < FPixelsCount; i++)
-			{
-				brgba[i * 4] = brgb[i * 3 + 2];
-				brgba[i * 4 + 1] = brgb[i * 3 + 1];
-				brgba[i * 4 + 2] = brgb[i * 3];
-			}
-	    }
-
-        public void UpdateTexture(DX11DynamicTexture2D texture)
+        public void UpdateTexture(DX11RenderContext context)
         {
             lock (FLockTexture)
             {
-                if (!InputOk)
+                if (!FInputOk)
                     return;
 
-                if (!FNeedsRefresh.ContainsKey(texture))
-                {
-                    FNeedsTexture = true;
-                    return;
-                }
+				DX11DynamicTexture2D tex;
+				if (!this.OutputSlice.Contains(context))
+				{
+					tex = new DX11DynamicTexture2D(context, Width, Height, GetFormat(FBuffer.ImageAttributes.ColorFormat));
+					this.OutputSlice[context] = tex;
+					FNeedsRefresh.Add(context, true);
+				}
+				else
+				{
+					tex = this.OutputSlice[context];
+					if (tex.Width != this.Width || tex.Height != this.Height || tex.Format != GetFormat(FBuffer.ImageAttributes.ColorFormat))
+					{
+						tex.Dispose();
+						tex = new DX11DynamicTexture2D(context, Width, Height, GetFormat(FBuffer.ImageAttributes.ColorFormat));
+						this.OutputSlice[context] = tex;
+					}
+				}
 
-                if (!FNeedsRefresh[texture])
-                    return;
-
-                if (FInput.ImageAttributesChanged)
-                {
-                    //reset flag we just dropped
-                    FInput.ImageAttributesChanged = true;
-                    return;
-                }
+               if (!FNeedsRefresh[context])
+				   return;
 
                 try
                 {
-                    Size imageSize = FNeedsConversion ? FBufferConverted.ImageAttributes.Size : FInput.ImageAttributes.Size;
+					Size imageSize = FBuffer.ImageAttributes.Size;
 
-                    if (texture.Width != imageSize.Width || texture.Height != imageSize.Height)
-                    {
-                        throw (new Exception("AsTextureInstance : srf dimensions don't match image dimensions"));
-                    }
+					FBuffer.LockForReading();
+					try
+					{
+						if (!FBuffer.FrontImage.Allocated)
+							throw (new Exception());
 
-                    if (FNeedsConversion)
-                    {
-                        FInput.GetImage(FBufferConverted);
-                        FBufferConverted.Swap();
-                        FBufferConverted.LockForReading();
-                        try
-                        {
-                            if (!FBufferConverted.FrontImage.Allocated)
-                                throw (new Exception());
+						int rowPitch = tex.GetRowPitch();
 
-							texture.WriteData(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.BytesPerFrame);
-                            /*
-                            // vux' idea: ( is that the right place?)
-                            int channels = 3;
+						if (FBuffer.ImageAttributes.Stride == rowPitch)
+						{
+							tex.WriteData(FBuffer.FrontImage.Data, FBuffer.ImageAttributes.BytesPerFrame);
+						}
+						else
+						{
+							tex.WriteDataPitch(FBuffer.FrontImage.Data, (int) FBuffer.ImageAttributes.BytesPerFrame, FBuffer.ImageAttributes.Stride / FBuffer.ImageAttributes.Width);
+						}
 
-                            if (FBufferConverted.ImageAttributes.Width * FBufferConverted.ImageAttributes.Height * channels == texture.GetRowPitch())
-                            {
-                                //texture.WriteData(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.BytesPerFrame);
-                                texture.WriteData(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.Width * FBufferConverted.ImageAttributes.Height * channels);
-                            }
-                            else
-                            {
-                                texture.WriteDataPitch(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.Width * FBufferConverted.ImageAttributes.Height * channels);
-                            }*/
-                            
-                            FNeedsRefresh[texture] = false;
-                        }
-                        catch (Exception e)
-                        {
-                            ImageUtils.Log(e);
-                        }
-                        finally
-                        {
-                            FBufferConverted.ReleaseForReading();
-                        }
-
-                    }
-                    else
-                    {
-                        FInput.LockForReading();
-                        try
-                        {
-                            texture.WriteData(FInput.Data, FInput.ImageAttributes.BytesPerFrame);
-                            FNeedsRefresh[texture] = false;
-                        }
-                        catch (Exception e)
-                        {
-                            ImageUtils.Log(e);
-                        }
-                        finally
-                        {
-                            FInput.ReleaseForReading();
-                        }
-                    }
-
+						FNeedsRefresh[context] = false;
+					}
+					catch (Exception e)
+					{
+						ImageUtils.Log(e);
+					}
+					finally
+					{
+						FBuffer.ReleaseForReading();
+					}
                 }
                 catch (Exception e)
                 {
@@ -293,5 +157,13 @@ namespace VVVV.Nodes.OpenCV
                 }
             }
         }
-    }
+
+		void Dispose()
+		{
+			foreach (var context in FNeedsRefresh)
+			{
+				OutputSlice[context.Key].Dispose();
+			}
+		}
+	}
 }
