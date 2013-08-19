@@ -14,7 +14,7 @@ namespace VVVV.Nodes.OpenCV
 		ISpread<CVImageLink> FPinInImage;
 
 		[Output("Texture Out")]
-		ISpread<DX11Resource<DX11DynamicTexture2D>> FTextureOutput;
+		Pin<DX11Resource<DX11DynamicTexture2D>> FTextureOutput;
 
 		private ProcessDestination<AsTextureDX11Instance> FProcessor;
 
