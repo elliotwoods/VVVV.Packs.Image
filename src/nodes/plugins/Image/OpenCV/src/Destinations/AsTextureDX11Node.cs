@@ -7,70 +7,61 @@ using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.OpenCV
 {
-	[PluginInfo(Name = "AsTexture", Category = "OpenCV", Version = "DX11", Help = "Converts IPLImage to DX11 Texture", Tags = "")]
+	[PluginInfo(Name = "AsTexture", Category = "OpenCV", Version = "DX11.Texture2D", Help = "Converts CVImage to DX11 Texture", Tags = "")]
 	public class AsTextureDX11Node : IPluginEvaluate, IDX11ResourceProvider, IDisposable
 	{
 		[Input("Image")]
-		Pin<CVImageLink> FPinInImage;
+		ISpread<CVImageLink> FPinInImage;
 
-		[Output("Texture Out", IsSingle = true)]
-		protected Pin<DX11Resource<DX11DynamicTexture2D>> FTextureOutput;
+		[Output("Texture Out")]
+		Pin<DX11Resource<DX11DynamicTexture2D>> FTextureOutput;
 
 		private ProcessDestination<AsTextureDX11Instance> FProcessor;
-		private bool FNeedsInit;
-
-		private DX11DynamicTexture2D FTexture;
 
 		public void Evaluate(int SpreadMax)
 		{
 			if (FProcessor == null)
 				FProcessor = new ProcessDestination<AsTextureDX11Instance>(FPinInImage);
 
-			if (FTextureOutput[0] == null) FTextureOutput[0] = new DX11Resource<DX11DynamicTexture2D>();
-
-			FNeedsInit = FProcessor.CheckInputSize();
-			for (var i = 0; i < FProcessor.SliceCount; i++)
-				FNeedsInit |= FProcessor[i].NeedsTexture;
+			bool needsInit = FProcessor.CheckInputSize();
+			
+			if (needsInit)
+			{
+				foreach (var textureOut in FTextureOutput)
+				{
+					if (textureOut != null)
+						textureOut.Dispose();
+				}
+				FTextureOutput.SliceCount = FProcessor.SliceCount;
+				for (int i = 0; i < FProcessor.SliceCount; i++)
+				{
+					var textureSlice = new DX11Resource<DX11DynamicTexture2D>();
+					FProcessor[i].OutputSlice = textureSlice;
+					FTextureOutput[i] = textureSlice;
+				}
+			}
 		}
 
 		public void Update(IPluginIO pin, DX11RenderContext context)
 		{
-			if (!FPinInImage.PluginIO.IsConnected || FProcessor.SliceCount == 0)
-				return;
-
-			if (FPinInImage[0].ImageAttributes.Width < 640 && FPinInImage[0].ImageAttributes.Height < 480)
-				return;
-
-			if (FNeedsInit)
+			foreach (var processor in FProcessor)
 			{
-				if (FProcessor.SliceCount > 0 && FProcessor.GetProcessor(0) != null)
-				{
-					FTexture = FProcessor.GetProcessor(0).CreateTexture(context);
-				}
-					
-				
-				if (FTextureOutput[0].Contains(context))
-					FTextureOutput[0].Dispose(context);
+				processor.UpdateTexture(context);
 			}
-
-			if(FTexture == null) return;
-
-			FProcessor.GetProcessor(0).UpdateTexture(FTexture);
-
-			FTextureOutput[0][context] = FTexture;
 		}
 
 		public void Destroy(IPluginIO pin, DX11RenderContext context, bool force)
 		{
-			FTextureOutput[0].Dispose(context);
+			foreach (var processor in FProcessor)
+			{
+				processor.DropContext(context);
+			}
 		}
 
 		public void Dispose()
 		{
 			if (FProcessor != null)
 				FProcessor.Dispose();
-
-			FTextureOutput[0].Dispose();
 		}
 	}
 }

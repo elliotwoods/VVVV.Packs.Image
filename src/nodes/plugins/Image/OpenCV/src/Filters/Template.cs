@@ -44,7 +44,7 @@ namespace VVVV.Nodes.OpenCV
 			FHalfSize.Width /=2;
 			FHalfSize.Height /=2;
 
-			FOutput.Image.Initialise(FHalfSize, FInput.ImageAttributes.ColourFormat);
+			FOutput.Image.Initialise(FHalfSize, FInput.ImageAttributes.ColorFormat);
 		}
 
 		public override void Process()
@@ -65,7 +65,7 @@ namespace VVVV.Nodes.OpenCV
 			CvInvoke.cvPyrDown(FInput.CvMat, FOutput.CvMat, FILTER_TYPE.CV_GAUSSIAN_5x5);
 			FInput.ReleaseForReading(); //and  this after you've finished with FImage
 
-			if (FInput.ImageAttributes.ColourFormat==TColorFormat.RGB8)
+			if (FInput.ImageAttributes.ColorFormat==TColorFormat.RGB8)
 				PixelWiseAdd();
 			
 			FOutput.Send();

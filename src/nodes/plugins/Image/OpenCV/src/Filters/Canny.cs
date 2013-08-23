@@ -42,8 +42,8 @@ namespace VVVV.Nodes.OpenCV
 
 		public override void Allocate()
 		{
-			TColorFormat AsGrayscale = TypeUtils.ToGrayscale(FInput.ImageAttributes.ColourFormat);
-			FNeedsConversion = (AsGrayscale != FInput.ImageAttributes.ColourFormat);
+			TColorFormat AsGrayscale = TypeUtils.ToGrayscale(FInput.ImageAttributes.ColorFormat);
+			FNeedsConversion = (AsGrayscale != FInput.ImageAttributes.ColorFormat);
 
 			if (FNeedsConversion)
 			{

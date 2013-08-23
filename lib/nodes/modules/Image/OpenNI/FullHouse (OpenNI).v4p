@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha29.3.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenNI\FullHouse (OpenNI).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.OpenNI\Samples\Modules\FullHouse (OpenNI).v4p" systemname="FullHouse (OpenNI)">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.1.dtd" >
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenNI\FullHouse (OpenNI).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.OpenNI\Samples\Modules\FullHouse (OpenNI).v4p" systemname="FullHouse (OpenNI)">
    <BOUNDS height="10395" left="6540" top="3315" type="Window" width="10800">
    </BOUNDS>
    <NODE componentmode="Hidden" hiddenwhenlocked="1" id="27" nodename="Cons (EX9.Texture)" systemname="Cons (EX9.Texture)">
@@ -403,9 +403,9 @@
    <LINK dstnodeid="28" dstpinname="Mode" srcnodeid="42" srcpinname="Output Enum">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="43" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Node" left="4035" top="60" width="0" height="0">
+   <BOUNDS type="Node" left="2985" top="60" width="0" height="0">
    </BOUNDS>
-   <BOUNDS type="Box" left="4035" top="60" width="480" height="480">
+   <BOUNDS type="Box" left="2985" top="60" width="480" height="480">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
@@ -421,17 +421,5 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="43" srcpinname="Y Output Value" dstnodeid="28" dstpinname="Enabled">
-   </LINK>
-   <NODE nodename="IOBox (Node)" componentmode="InABox" id="44" systemname="IOBox (Node)">
-   <BOUNDS type="Node" left="2955" top="75" width="0" height="0">
-   </BOUNDS>
-   <BOUNDS type="Box" left="2955" top="75" width="795" height="240">
-   </BOUNDS>
-   <PIN pinname="Input Node" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Context">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="44" srcpinname="Output Node" dstnodeid="28" dstpinname="Context">
    </LINK>
    </PATCH>

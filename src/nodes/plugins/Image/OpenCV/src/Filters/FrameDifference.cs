@@ -72,8 +72,8 @@ namespace VVVV.Nodes.OpenCV
 
 			if (FThresholdEnabled)
 			{
-				if (FInput.ImageAttributes.ColourFormat != TColorFormat.L8)
-					Status = "Cannot perform threshold on image type " + FInput.ImageAttributes.ColourFormat.ToString() + ". Can only perform threshold on L8";
+				if (FInput.ImageAttributes.ColorFormat != TColorFormat.L8)
+					Status = "Cannot perform threshold on image type " + FInput.ImageAttributes.ColorFormat.ToString() + ". Can only perform threshold on L8";
 				else
 					CvInvoke.cvThreshold(FOutput.CvMat, FOutput.CvMat, 255.0d * Threshold, 255, THRESH.CV_THRESH_BINARY);
 			}

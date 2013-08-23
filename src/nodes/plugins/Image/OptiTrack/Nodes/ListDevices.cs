@@ -57,19 +57,23 @@ namespace VVVV.Nodes.OptiTrack
 			if (FPinInRefresh[0] || FFirstRun)
 			{
 				Refresh();
-				FFirstRun = false;
-			}
+                FFirstRun = false;
+            }
 		}
 
 		void Refresh()
 		{
-			var Cameras = MCameraManager.GetCameras();
+            MCameraManager.WaitForInitialization();
+            var Cameras = MCameraManager.GetCameras();
 			FPinOutCameras.SliceCount = 0;
 
 			foreach (var Camera in Cameras)
 			{
-				FPinOutCameras.Add(Camera);
+                if (Camera.IsValid())
+                {
+                    FPinOutCameras.Add(Camera);
+                }
 			}
-		}
+        }
 	}
 }

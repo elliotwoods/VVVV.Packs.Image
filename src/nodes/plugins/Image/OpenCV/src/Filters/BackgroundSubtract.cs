@@ -38,7 +38,7 @@ namespace VVVV.Nodes.OpenCV
 			FBackground.Initialise(FInput.ImageAttributes.Size, TColorFormat.L8);
 		}
 
-		private bool NeedsConversion { get { return FInput.ImageAttributes.ColourFormat != TColorFormat.L8; } }
+		private bool NeedsConversion { get { return FInput.ImageAttributes.ColorFormat != TColorFormat.L8; } }
 
 		public override void Process()
 		{

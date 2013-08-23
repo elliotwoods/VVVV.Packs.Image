@@ -291,15 +291,19 @@ namespace VVVV.Nodes.OpenCV
 		}
 
 		public static Texture CreateTexture(CVImageAttributes attributes, Device device)
-		{
-			TColorFormat format = attributes.ColourFormat;
+		{ 
+			TColorFormat format = attributes.ColorFormat;
 			TColorFormat newFormat;
 			bool useConverted = NeedsConversion(format, out newFormat);
 
-            var usage = Usage.None & ~Usage.AutoGenerateMipMap;
+
+			bool ex = device is DeviceEx;
+			var pool = ex ? Pool.Default : Pool.Managed;
+			var usage = (ex ? Usage.Dynamic : Usage.None) & ~Usage.AutoGenerateMipMap;
+
 			try
 			{
-				return new Texture(device, Math.Max(attributes.Width, 1), Math.Max(attributes.Height, 1), 1, usage, GetDXFormat(useConverted ? newFormat : format), Pool.Managed);
+				return new Texture(device, Math.Max(attributes.Width, 1), Math.Max(attributes.Height, 1), 1, usage, GetDXFormat(useConverted ? newFormat : format), pool);
 			}
 			catch (Exception e)
 			{
@@ -451,7 +455,7 @@ namespace VVVV.Nodes.OpenCV
 
 		public static unsafe Spread<double> GetPixelAsDoubles(CVImage source, uint column, uint row)
 		{
-			TColorFormat format = source.ImageAttributes.ColourFormat;
+			TColorFormat format = source.ImageAttributes.ColorFormat;
 			uint channelCount = (uint)ChannelCount(format);
 
 			if (channelCount == 0)

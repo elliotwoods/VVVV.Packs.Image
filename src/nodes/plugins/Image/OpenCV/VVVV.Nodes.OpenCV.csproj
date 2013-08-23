@@ -39,14 +39,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Dependencies\EmguCV\Emgu.Util.dll</HintPath>
     </Reference>
+    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\packs\DX11\core\FeralTic.dll</HintPath>
+    </Reference>
     <Reference Include="SlimDX">
       <HintPath>..\..\..\..\..\..\..\common\src\thirdparty\$(Platform)\SlimDX.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.Codeplex">
       <HintPath>..\..\..\..\..\..\lib\core\System.ComponentModel.Composition.Codeplex.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -55,6 +57,14 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\packs\DX11\core\VVVV.DX11.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="VVVV.DX11.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\packs\DX11\core\VVVV.DX11.Lib.dll</HintPath>
+    </Reference>
     <Reference Include="ZedGraph">
       <HintPath>Dependencies\EmguCV\ZedGraph.dll</HintPath>
     </Reference>
@@ -62,16 +72,18 @@
   <ItemGroup>
     <Compile Include="ManageDependencies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\CameraCalibration\CalibrateCamera.cs" />
-    <Compile Include="src\CameraCalibration\Extrinsics.cs" />
-    <Compile Include="src\CameraCalibration\Homography.cs" />
-    <Compile Include="src\CameraCalibration\Intrinsics.cs" />
-    <Compile Include="src\CameraCalibration\StereoCalibrate.cs" />
-    <Compile Include="src\CameraCalibration\ExtrinsicsSplitNode.cs" />
-    <Compile Include="src\CameraCalibration\FindBoardInstance.cs" />
-    <Compile Include="src\CameraCalibration\FindBoardNode.cs" />
-    <Compile Include="src\CameraCalibration\IntrinsicsSplitNode.cs" />
-    <Compile Include="src\CameraCalibration\ProjectPointsNode.cs" />
+    <Compile Include="src\Calibration\CalibrateCamera.cs" />
+    <Compile Include="src\Calibration\Extrinsics.cs" />
+    <Compile Include="src\Calibration\Homography.cs" />
+    <Compile Include="src\Calibration\Intrinsics.cs" />
+    <Compile Include="src\Calibration\IntrinsicsReader.cs" />
+    <Compile Include="src\Calibration\IntrinsicsWriter.cs" />
+    <Compile Include="src\Calibration\StereoCalibrate.cs" />
+    <Compile Include="src\Calibration\ExtrinsicsSplitNode.cs" />
+    <Compile Include="src\Calibration\FindBoardInstance.cs" />
+    <Compile Include="src\Calibration\FindBoardNode.cs" />
+    <Compile Include="src\Calibration\IntrinsicsSplitNode.cs" />
+    <Compile Include="src\Calibration\ProjectPointsNode.cs" />
     <None Include="src\Incomplete\GenericFilterNode.cs" />
     <None Include="src\Features\Stitch.cs" />
     <Compile Include="src\Destinations\AsTextureDX11Instance.cs" />
@@ -83,13 +95,14 @@
     <None Include="src\Features\FilterFeatures.cs" />
     <Compile Include="src\Features\Criteria\ICriteria.cs" />
     <Compile Include="src\Features\MatchFeatures.cs" />
-    <Compile Include="src\Filters\CropNode.cs" />
+    <Compile Include="src\Filters\Crop.cs" />
     <Compile Include="src\Filters\RotateContinuous.cs" />
     <Compile Include="src\Filters\RotateStep.cs" />
+    <Compile Include="src\Sources\AsImageDX11.cs" />
     <Compile Include="src\Sources\VideoPlayer.cs" />
     <Compile Include="src\Utilities\TypeUtils.cs" />
-    <Compile Include="src\CameraCalibration\FindExtrinsicsNode.cs" />
-    <Compile Include="src\CameraCalibration\SolvePnP.cs" />
+    <Compile Include="src\Calibration\FindExtrinsicsNode.cs" />
+    <Compile Include="src\Calibration\SolvePnP.cs" />
     <Compile Include="src\Destinations\AsTextureInstance.cs" />
     <Compile Include="src\Destinations\AsTextureNode.cs" />
     <Compile Include="src\Destinations\AvgSdvNode.cs" />
@@ -171,40 +184,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\..\..\dx11-vvvv\Core\VVVV.DX11.Core\VVVV.DX11.Core.csproj">
-      <Project>{71C0786D-2640-4E39-AA7B-83602F36F3A3}</Project>
-      <Name>VVVV.DX11.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\..\..\dx11-vvvv\FeralTic\Core\FeralTic.csproj">
-      <Project>{9EAD0F44-E6AA-4363-BE4D-D944C1D35044}</Project>
-      <Name>FeralTic</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\..\common\src\core\Core\Core.csproj">
       <Project>{6AD35106-187B-4A3A-A801-E665CD12E020}</Project>
       <Name>Core %28core\Core%29</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\..\common\src\core\Utils\Utils.csproj">
       <Project>{C3773330-81FA-4253-823E-1BDE1529AA99}</Project>
       <Name>Utils</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\src\core\Hosting\Hosting.csproj">
       <Project>{F9A754A6-EEA5-4761-9446-C2AAF9CF8B31}</Project>
       <Name>Hosting</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\src\core\PluginInterfaces\PluginInterfaces.csproj">
       <Project>{837C740A-485C-424C-8C38-086ED3DC73CB}</Project>
       <Name>PluginInterfaces</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\src\core\Utils3rdParty\Utils3rdParty.csproj">
       <Project>{87863121-C124-4585-B3BB-7706F03ECC64}</Project>
       <Name>Utils3rdParty</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

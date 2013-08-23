@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Package\Modules\ImageQuad.v4p" systemname="ImageQuad">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.3.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Package\Modules\ImageQuad.v4p" systemname="ImageQuad">
    <BOUNDS height="10155" left="14985" top="2805" type="Window" width="10590">
    </BOUNDS>
    <NODE componentmode="InABox" id="0" nodename="IOBox (Node)" systemname="IOBox (Node)">
@@ -266,24 +266,12 @@
    <LINKPOINT x="7215" y="3718">
    </LINKPOINT>
    </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="1" nodename="AsTexture (OpenCV)" systemname="AsTexture (OpenCV)">
-   <BOUNDS height="100" left="3765" top="6585" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Image" slicecount="1" visible="1" values="||">
-   </PIN>
-   <PIN pinname="Texture Out" visible="1">
-   </PIN>
-   <BOUNDS left="3765" top="6585" type="Box">
-   </BOUNDS>
-   </NODE>
-   <LINK dstnodeid="1" dstpinname="Image" srcnodeid="0" srcpinname="Output Node">
-   </LINK>
    <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\effects\ScaleColor.fx" id="6" nodename="ScaleColor (EX9.Effect)" systemname="ScaleColor (EX9.Effect)">
    <BOUNDS height="270" left="390" top="8220" type="Node" width="9105">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
    </PIN>
-   <PIN pinname="Texture" visible="1">
+   <PIN pinname="Texture" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Transform" visible="1" slicecount="1" values="||">
    </PIN>
@@ -310,8 +298,6 @@
    </LINK>
    <LINK dstnodeid="6" dstpinname="Mesh" srcnodeid="23" srcpinname="Mesh">
    </LINK>
-   <LINK dstnodeid="6" dstpinname="Texture" srcnodeid="1" srcpinname="Texture Out">
-   </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="27" systemname="IOBox (Node)">
    <BOUNDS type="Node" left="2655" top="8700" width="0" height="0">
    </BOUNDS>
@@ -330,8 +316,6 @@
    <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="|Texture Out|">
    </PIN>
    </NODE>
-   <LINK srcnodeid="1" srcpinname="Texture Out" dstnodeid="28" dstpinname="Input Node">
-   </LINK>
    <LINK srcnodeid="25" srcpinname="Enum" dstnodeid="6" dstpinname="Technique">
    </LINK>
    <NODE systemname="GetSlice (Node)" filename="" nodename="GetSlice (Node)" componentmode="Hidden" id="29">
@@ -423,5 +407,21 @@
    </LINKPOINT>
    <LINKPOINT x="2160" y="4950">
    </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\imagepack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="1" nodename="AsTexture (OpenCV EX9.Texture)" systemname="AsTexture (OpenCV EX9.Texture)">
+   <BOUNDS height="100" left="3765" top="6585" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Image" slicecount="1" visible="1" values="||">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <BOUNDS left="3765" top="6585" type="Box">
+   </BOUNDS>
+   </NODE>
+   <LINK dstnodeid="1" dstpinname="Image" srcnodeid="0" srcpinname="Output Node">
+   </LINK>
+   <LINK dstnodeid="6" dstpinname="Texture" srcnodeid="1" srcpinname="Texture Out">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Texture Out" dstnodeid="28" dstpinname="Input Node">
    </LINK>
    </PATCH>

@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 #endregion usings
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.Nodes.OpenCV.Calibration
 {
 	public enum TCoordinateSystem { VVVV, OpenCV };
 
@@ -91,6 +91,8 @@ namespace VVVV.Nodes.OpenCV
 			if (FPinInDo[0])
 			{
 				int nPointsPerImage = FPinInObject.SliceCount;
+				bool useVVVVCoords = FPinInCoordSystem[0] == TCoordinateSystem.VVVV;
+
 				if (nPointsPerImage == 0)
 				{
 					FStatus[0] = "Insufficient points";
@@ -111,8 +113,8 @@ namespace VVVV.Nodes.OpenCV
 					if (FPinInIntrinsics[0] == null)
 					{
 						Matrix<double> mat = intrinsicParam.IntrinsicMatrix;
-						mat[0, 0] = FPinInSensorSize[0].x;
-						mat[1, 1] = FPinInSensorSize[0].y;
+						mat[0, 0] = FPinInSensorSize[0].x / 2.0d;
+						mat[1, 1] = FPinInSensorSize[0].y / 2.0d;
 						mat[0, 2] = FPinInSensorSize[0].x / 2.0d;
 						mat[1, 2] = FPinInSensorSize[0].y / 2.0d;
 						mat[2, 2] = 1;
@@ -132,7 +134,7 @@ namespace VVVV.Nodes.OpenCV
 
 					for (int j=0; j<nPointsPerImage; j++)
 					{
-						objectPoints[i] = MatrixUtils.ObjectPoints(FPinInObject);
+						objectPoints[i] = MatrixUtils.ObjectPoints(FPinInObject, useVVVVCoords);
 					}
 				}
 
@@ -142,7 +144,10 @@ namespace VVVV.Nodes.OpenCV
 
 					Intrinsics intrinsics = new Intrinsics(intrinsicParam, imageSize);
 					FPinOutIntrinsics[0] = intrinsics;
-					FPinOutProjection[0] = intrinsics.Matrix;
+					if (useVVVVCoords)
+						FPinOutProjection[0] = intrinsics.Matrix;
+					else
+						FPinOutProjection[0] = intrinsics.Matrix;
 
 					FPinOutExtrinsics.SliceCount = nImages;
 					FPinOutView.SliceCount = nImages;
@@ -150,13 +155,11 @@ namespace VVVV.Nodes.OpenCV
 					{
 						Extrinsics extrinsics = new Extrinsics(extrinsicsPerView[i]);
 						FPinOutExtrinsics[i] = extrinsics;
-						FPinOutView[i] = extrinsics.Matrix;
-					}
 
-					if (FPinInCoordSystem[0] == TCoordinateSystem.VVVV)
-					{
-						for (int i=0; i<FPinOutView.SliceCount; i++)
-							FPinOutView[i] = MatrixUtils.ConvertToVVVV(FPinOutView[i]);
+						if (useVVVVCoords)
+							FPinOutView[i] = MatrixUtils.ConvertToVVVV(extrinsics.Matrix);
+						else
+							FPinOutView[i] = extrinsics.Matrix;
 					}
 
 					FPinOutSuccess[0] = true;

@@ -45,7 +45,7 @@ namespace VVVV.Nodes.OpenCV
 
 		public override void Allocate()
 		{
-			FNeedsConversion = ImageUtils.NeedsConversion(FInput.ImageAttributes.ColourFormat, out FConvertedFormat);
+			FNeedsConversion = ImageUtils.NeedsConversion(FInput.ImageAttributes.ColorFormat, out FConvertedFormat);
 			if (FNeedsConversion)
 			{
 				FBufferConverted = new CVImageDoubleBuffer();
@@ -140,8 +140,9 @@ namespace VVVV.Nodes.OpenCV
 					return;
 				}
 
+				bool ex = texture.Device is DeviceEx;
 				Surface srf = texture.GetSurfaceLevel(0);
-				DataRectangle rect = srf.LockRectangle(LockFlags.None);
+				DataRectangle rect = srf.LockRectangle(ex ? LockFlags.Discard : LockFlags.None);
 
 				try
 				{
