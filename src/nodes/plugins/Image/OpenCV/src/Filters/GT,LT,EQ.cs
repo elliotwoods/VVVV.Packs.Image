@@ -72,7 +72,7 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Threshold", DefaultValue = 0.5, MinValue = 0, MaxValue = 1)]
 		IDiffSpread<double> FThresholdIn;
 
-		[Input("Pass original", DefaultValue = 0)]
+		[Input("Pass original", DefaultValue = 0, IsToggle = true)]
 		IDiffSpread<bool> FPassOriginalIn;
 
 		protected override void Update(int instanceCount, bool spreadChanged)
@@ -115,15 +115,15 @@ namespace VVVV.Nodes.OpenCV
 	#endregion Instances
 
 	#region Nodes
-	[PluginInfo(Name = ">", Help = "Greater than", Category = "OpenCV", Version = "Filter Scalar")]
+	[PluginInfo(Name = ">", Help = "Greater than", Category = "OpenCV", Version = "Filter Scalar", Author = "elliotwoods")]
 	public class GTNode : CMPNode<GTInstance>
 	{ }
 
-	[PluginInfo(Name = "<", Help = "Less than", Category = "OpenCV", Version = "Filter Scalar")]
+	[PluginInfo(Name = "<", Help = "Less than", Category = "OpenCV", Version = "Filter Scalar", Author = "elliotwoods")]
 	public class LTNode : CMPNode<LTInstance>
 	{ }
 
-	[PluginInfo(Name = "=", Help = "Equal to", Category = "OpenCV", Version = "Filter Scalar")]
+	[PluginInfo(Name = "=", Help = "Equal to", Category = "OpenCV", Version = "Filter Scalar", Author = "elliotwoods")]
 	public class EQNode : CMPNode<EQInstance>
 	{ }
 	#endregion nodes
