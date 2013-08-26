@@ -1,49 +1,23 @@
-﻿#region usings
-using System;
-using System.ComponentModel.Composition;
+﻿using System;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using System.Drawing;
-
-using VVVV.PluginInterfaces.V1;
-using VVVV.PluginInterfaces.V2;
-using VVVV.Utils.VColor;
-using VVVV.Utils.VMath;
-
-using VVVV.Core.Logging;
 using Emgu.CV.UI;
-#endregion usings
+using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.OpenCV
 {
-	#region PluginInfo
-	[PluginInfo(Name = "Renderer",
-	Category = "OpenCV",
-	Help = "Render an EmguCV Image",
-	Tags = "",
-	AutoEvaluate = true)]
-	#endregion PluginInfo
-	public class RendererNode : UserControl, IPluginEvaluate, IDisposable
+	[PluginInfo(Name = "Preview", Category = "OpenCV", Help = "Preview an EmguCV Image", Author = "elliotwoods", AutoEvaluate = true)]
+	public class PreviewNode : UserControl, IPluginEvaluate, IDisposable
 	{
-		#region fields & pins
-
 		[Input("Input")]
 		ISpread<CVImageLink> FPinInInput;
 
 		[Input("Slice", IsSingle = true)]
 		ISpread<int> FPinInSlice;
 
-		[Import()]
-		ILogger FLogger;
 		private ImageBox FImageBox;
 
-		//gui controls
-
-		#endregion fields & pins
-
 		#region constructor and init
-
-		public RendererNode()
+		public PreviewNode()
 		{
 			//setup the gui
 			InitializeComponent();
@@ -51,43 +25,44 @@ namespace VVVV.Nodes.OpenCV
 
 		void InitializeComponent()
 		{
-			this.FImageBox = new Emgu.CV.UI.ImageBox();
-			((System.ComponentModel.ISupportInitialize)(this.FImageBox)).BeginInit();
-			this.SuspendLayout();
+			FImageBox = new ImageBox();
+			((System.ComponentModel.ISupportInitialize)(FImageBox)).BeginInit();
+			SuspendLayout();
+
 			// 
 			// FImageBox
 			// 
-			this.FImageBox.Location = new System.Drawing.Point(0, 0);
-			this.FImageBox.Name = "FImageBox";
-			this.FImageBox.Size = this.Size;
-			this.FImageBox.TabIndex = 2;
-			this.FImageBox.TabStop = false;
+			FImageBox.Location = new System.Drawing.Point(0, 0);
+			FImageBox.Name = "FImageBox";
+			FImageBox.Size = Size;
+			FImageBox.TabIndex = 2;
+			FImageBox.TabStop = false;
+
 			// 
 			// ImageViewNode
 			// 
-			this.Controls.Add(this.FImageBox);
-			this.Name = "ImageViewNode";
-			this.Size = new System.Drawing.Size(531, 344);
-			this.Resize += new System.EventHandler(this.ImageViewNode_Resize);
-			((System.ComponentModel.ISupportInitialize)(this.FImageBox)).EndInit();
-			this.ResumeLayout(false);
+			Controls.Add(FImageBox);
+			Name = "PreviewNode";
+			Size = new System.Drawing.Size(531, 344);
+			Resize += ImageViewNode_Resize;
+			((System.ComponentModel.ISupportInitialize)(FImageBox)).EndInit();
+			ResumeLayout(false);
 		}
 
 
-		CVImageLink FInput = null;
-		CVImage FImage = new CVImage();
+		CVImageLink FInput;
+		readonly CVImage FImage = new CVImage();
 		#endregion constructor and init
 
-		//called when data for any output pin is requested
-		public void Evaluate(int SpreadMax)
+		public void Evaluate(int spreadMax)
 		{
-			if (SpreadMax == 0)
+			if (spreadMax == 0)
 			{
 				RemoveListeners();
 				return;
 			}
 
-			int slice = FPinInSlice[0];
+			var slice = FPinInSlice[0];
 			if (FInput != FPinInInput[slice])
 			{
 				FInput = FPinInInput[slice];
@@ -100,15 +75,15 @@ namespace VVVV.Nodes.OpenCV
 			}
 		}
 
-		EventHandler FUpdate = null;
-		EventHandler<ImageAttributesChangedEventArgs> FAttributesUpdate = null;
+		EventHandler FUpdate;
+		EventHandler<ImageAttributesChangedEventArgs> FAttributesUpdate;
 
 		void AddListeners()
 		{
 			RemoveListeners();
 
-			FUpdate = new EventHandler(FInput_ImageUpdate);
-			FAttributesUpdate = new EventHandler<ImageAttributesChangedEventArgs>(FInput_ImageAttributesUpdate);
+			FUpdate = FInput_ImageUpdate;
+			FAttributesUpdate = FInput_ImageAttributesUpdate;
 
 			FInput.ImageUpdate += FUpdate;
 			FInput.ImageAttributesUpdate += FAttributesUpdate;
@@ -153,7 +128,7 @@ namespace VVVV.Nodes.OpenCV
 
 		private void ImageViewNode_Resize(object sender, EventArgs e)
 		{
-			FImageBox.Size = this.Size;
+			FImageBox.Size = Size;
 		}
 
 
