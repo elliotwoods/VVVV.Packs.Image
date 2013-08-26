@@ -6,10 +6,12 @@ using VVVV.Utils.VMath;
 
 namespace VVVV.Nodes.OpenCV
 {
-	public class InRangeInstance : IFilterInstance
+	public class WithinRangeHSVInstance : IFilterInstance
 	{
-		public Vector3D LowerEdge { private get; set; }
-		public Vector3D UpperEdge { private get; set; }
+		public Vector3D Minimum { private get; set; }
+		public Vector3D Maximum { private get; set; }
+
+		private double FMult = byte.MaxValue;
 
 		private readonly CVImage FBuffer = new CVImage();
 		private readonly CVImage FHSVImage = new CVImage();
@@ -29,6 +31,8 @@ namespace VVVV.Nodes.OpenCV
 		{
 			FBuffer.Initialise(FInput.ImageAttributes.Size, TColorFormat.L8);
 			FHSVImage.Initialise(FInput.ImageAttributes.Size, TColorFormat.HSV32F);
+
+			FMult = FInput.ImageAttributes.BytesPerPixel > 4 ? float.MaxValue : byte.MaxValue;
 		}
 
 		public override void Process()
@@ -50,18 +54,18 @@ namespace VVVV.Nodes.OpenCV
 
 		private void Compare()
 		{
-			CvInvoke.cvInRangeS(FHSVImage.CvMat, new MCvScalar(LowerEdge.x, LowerEdge.y, LowerEdge.z), new MCvScalar(UpperEdge.x, UpperEdge.y, UpperEdge.z), FBuffer.CvMat);
+			CvInvoke.cvInRangeS(FHSVImage.CvMat, new MCvScalar(Minimum.x * FMult, Minimum.y * FMult, Minimum.z * FMult), new MCvScalar(Maximum.x * FMult, Maximum.y * FMult, Maximum.z * FMult), FBuffer.CvMat);
 		}
 	}
 
-	[PluginInfo(Name = "InRange", Help = "Check if value is in target range", Category = "OpenCV", Version = "Filter, HSV")]
-	public class InRangeNode : IFilterNode<InRangeInstance>
+	[PluginInfo(Name = "WithinRange", Help = "Check if value is in target range", Category = "OpenCV", Version = "Filter HSV", Author = "alg")]
+	public class WithinRangeHSVNode : IFilterNode<WithinRangeHSVInstance>
 	{
-		[Input("Lower Value", DefaultValue = 0.5)]
-		ISpread<Vector3D> FLowerIn;
+		[Input("Minimum HSV ", DefaultValue = 0.5, MinValue = 0, MaxValue = 1)]
+		ISpread<Vector3D> FMinimumIn;
 
-		[Input("Upper Value", DefaultValue = 0.5)]
-		ISpread<Vector3D> FUpperIn;
+		[Input("Maximum HSV ", DefaultValue = 0.5, MinValue = 0, MaxValue = 1)]
+		ISpread<Vector3D> FMaximumIn;
 
 		[Input("Pass Original", DefaultValue = 0, IsToggle = true)]
 		ISpread<bool> FPassOriginalIn;
@@ -70,8 +74,8 @@ namespace VVVV.Nodes.OpenCV
 		{
 			for (var i = 0; i < instanceCount; i++)
 			{
-				FProcessor[i].LowerEdge = FLowerIn[i];
-				FProcessor[i].UpperEdge = FUpperIn[i];
+				FProcessor[i].Minimum = FMinimumIn[i];
+				FProcessor[i].Maximum = FMaximumIn[i];
 				FProcessor[i].PassOriginal = FPassOriginalIn[i];
 			}			
 		}
