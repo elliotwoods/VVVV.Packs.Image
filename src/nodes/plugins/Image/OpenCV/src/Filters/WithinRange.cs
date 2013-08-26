@@ -1,16 +1,7 @@
-﻿#region using
-using System.Collections.Generic;
-using System.Drawing;
-using Emgu.CV;
+﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
-using Emgu.CV.Structure;
-
 using VVVV.PluginInterfaces.V2;
-using VVVV.Utils.VMath;
 using System;
-using VVVV.Utils.VColor;
-
-#endregion
 
 namespace VVVV.Nodes.OpenCV
 {
@@ -42,9 +33,8 @@ namespace VVVV.Nodes.OpenCV
 		}
 
 	}
-	#region PluginInfo
-	[PluginInfo(Name = "WithinRange", Category = "OpenCV", Version = "Filter, Scalar", Help = "Less than", Author = "", Credits = "", Tags = "")]
-	#endregion PluginInfo
+
+	[PluginInfo(Name = "WithinRange", Category = "OpenCV", Version = "Filter Scalar", Help = "Check if value is in target range", Author = "elliotwoods")]
 	public class WithinRangeNode : IFilterNode<WithinRangeInstance>
 	{
 		[Input("Minimum", DefaultValue = 0)]
