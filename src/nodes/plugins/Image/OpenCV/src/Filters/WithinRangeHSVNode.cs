@@ -61,10 +61,10 @@ namespace VVVV.Nodes.OpenCV
 	[PluginInfo(Name = "WithinRange", Help = "Check if value is in target range", Category = "OpenCV", Version = "Filter HSV", Author = "alg")]
 	public class WithinRangeHSVNode : IFilterNode<WithinRangeHSVInstance>
 	{
-		[Input("Minimum HSV ", DefaultValue = 0.5, MinValue = 0, MaxValue = 1)]
+		[Input("Minimum HSV ", DefaultValues = new double[]{0,0,0}, MinValue = 0, MaxValue = 1)]
 		ISpread<Vector3D> FMinimumIn;
 
-		[Input("Maximum HSV ", DefaultValue = 0.5, MinValue = 0, MaxValue = 1)]
+		[Input("Maximum HSV ", DefaultValues = new double[] { 1, 1, 1 }, MinValue = 0, MaxValue = 1)]
 		ISpread<Vector3D> FMaximumIn;
 
 		[Input("Pass Original", DefaultValue = 0, IsToggle = true)]
