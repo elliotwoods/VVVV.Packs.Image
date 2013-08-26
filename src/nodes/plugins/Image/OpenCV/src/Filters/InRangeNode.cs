@@ -1,18 +1,19 @@
 ﻿using Emgu.CV;
-using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 
 using VVVV.PluginInterfaces.V2;
-using System;
+using VVVV.Utils.VMath;
 
 namespace VVVV.Nodes.OpenCV
 {
-	#region Interfaces
-	public abstract class InRangeInstance : IFilterInstance
+	public class InRangeInstance : IFilterInstance
 	{
-		public double Threshold = 0.5;
-		protected CVImage Buffer = new CVImage();
-		protected CVImage HSVImage = new CVImage();
+		public Vector3D LowerEdge { private get; set; }
+		public Vector3D UpperEdge { private get; set; }
+
+		private readonly CVImage FBuffer = new CVImage();
+		private readonly CVImage FHSVImage = new CVImage();
+
 
 		private bool FPassOriginal;
 		public bool PassOriginal
@@ -26,96 +27,53 @@ namespace VVVV.Nodes.OpenCV
 
 		public override void Allocate()
 		{
-			Buffer.Initialise(FInput.ImageAttributes.Size, TColorFormat.L8);
-			HSVImage.Initialise(FInput.ImageAttributes.Size, TColorFormat.L32S);
+			FBuffer.Initialise(FInput.ImageAttributes.Size, TColorFormat.L8);
+			FHSVImage.Initialise(FInput.ImageAttributes.Size, TColorFormat.HSV32F);
 		}
 
 		public override void Process()
 		{
-			FInput.GetImage(Buffer);
-			Compare(Buffer.CvMat);
+			FInput.GetImage(FHSVImage);
+			Compare();
 
 			if (FPassOriginal)
-				FOutput.Image.SetImage(FInput.Image);
-			if (FPassOriginal)
 			{
-				CvInvoke.cvNot(Buffer.CvMat, Buffer.CvMat);
-				CvInvoke.cvSet(FOutput.Image.CvMat, new MCvScalar(0.0), Buffer.CvMat);
+				FOutput.Image.SetImage(FInput.Image);
+
+				CvInvoke.cvNot(FBuffer.CvMat, FBuffer.CvMat);
+				CvInvoke.cvSet(FOutput.Image.CvMat, new MCvScalar(0.0), FBuffer.CvMat);
 				FOutput.Send();
 			}
 			else
-				FOutput.Send(Buffer);
+				FOutput.Send(FBuffer);
 		}
 
-		protected abstract void Compare(IntPtr CvMat);
+		private void Compare()
+		{
+			CvInvoke.cvInRangeS(FHSVImage.CvMat, new MCvScalar(LowerEdge.x, LowerEdge.y, LowerEdge.z), new MCvScalar(UpperEdge.x, UpperEdge.y, UpperEdge.z), FBuffer.CvMat);
+		}
 	}
 
-	public abstract class CMPNode<T> : IFilterNode<T> where T : CMPInstance, new()
+	[PluginInfo(Name = "InRange", Help = "Check if value is in target range", Category = "OpenCV", Version = "Filter, HSV")]
+	public class InRangeNode : IFilterNode<InRangeInstance>
 	{
-		[Input("Input 2", DefaultValue = 0.5)]
-		IDiffSpread<double> FThreshold;
+		[Input("Lower Value", DefaultValue = 0.5)]
+		ISpread<Vector3D> FLowerIn;
 
-		[Input("Pass original", DefaultValue = 0)]
-		IDiffSpread<bool> FPassOriginal;
+		[Input("Upper Value", DefaultValue = 0.5)]
+		ISpread<Vector3D> FUpperIn;
+
+		[Input("Pass Original", DefaultValue = 0, IsToggle = true)]
+		ISpread<bool> FPassOriginalIn;
 
 		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			if (FThreshold.IsChanged)
-				for (int i = 0; i < instanceCount; i++)
-					FProcessor[i].Threshold = FThreshold[i];
-
-			if (FPassOriginal.IsChanged)
-				for (int i = 0; i < instanceCount; i++)
-					FProcessor[i].PassOriginal = FPassOriginal[i];
+			for (var i = 0; i < instanceCount; i++)
+			{
+				FProcessor[i].LowerEdge = FLowerIn[i];
+				FProcessor[i].UpperEdge = FUpperIn[i];
+				FProcessor[i].PassOriginal = FPassOriginalIn[i];
+			}			
 		}
 	}
-	#endregion Interfaces
-
-	#region Instances
-	public class GTInstance : CMPInstance
-	{
-		protected override void Compare(IntPtr CvMat)
-		{
-			CvInvoke.cvCmpS(CvMat, Threshold, Buffer.CvMat, CMP_TYPE.CV_CMP_GT);
-		}
-	}
-
-	public class LTInstance : CMPInstance
-	{
-		protected override void Compare(IntPtr CvMat)
-		{
-			CvInvoke.cvCmpS(CvMat, Threshold, Buffer.CvMat, CMP_TYPE.CV_CMP_LT);
-		}
-	}
-
-	public class EQInstance : CMPInstance
-	{
-		protected override void Compare(IntPtr CvMat)
-		{
-			CvInvoke.cvCmpS(CvMat, Threshold, Buffer.CvMat, CMP_TYPE.CV_CMP_EQ);
-		}
-	}
-	#endregion
-
-	#region Nodes
-
-	#region PluginInfo
-	[PluginInfo(Name = ">", Help = "Greater than", Category = "OpenCV", Version = "Filter, Scalar")]
-	#endregion PluginInfo
-	public class GTNode : CMPNode<GTInstance>
-	{ }
-
-	#region PluginInfo
-	[PluginInfo(Name = "<", Help = "Less than", Category = "OpenCV", Version = "Filter, Scalar")]
-	#endregion PluginInfo
-	public class LTNode : CMPNode<LTInstance>
-	{ }
-
-	#region PluginInfo
-	[PluginInfo(Name = "=", Help = "Equal to", Category = "OpenCV", Version = "Filter, Scalar")]
-	#endregion PluginInfo
-	public class EQNode : CMPNode<EQInstance>
-	{ }
-
-	#endregion nodes
 }
