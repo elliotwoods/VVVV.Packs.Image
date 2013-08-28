@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace VVVV.Nodes.DeckLink
 {
-	class WorkerThread : IDisposable
+	public class WorkerThread : IDisposable
 	{
 		public delegate void WorkItemDelegate();
 		public static WorkerThread Singleton = new WorkerThread();

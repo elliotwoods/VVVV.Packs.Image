@@ -15,7 +15,7 @@ using DeckLinkAPI;
 namespace VVVV.Nodes.DeckLink
 {
 	#region PluginInfo
-	[PluginInfo(Name = "About", Category = "DeckLink", Help = "Report version details of BlackMagic DeckLink API", Tags = "", Author = "Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "About", Category = "DeckLink", Help = "Report version details of BlackMagic DeckLink API", Tags = "", Author = "elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class AboutNode : IPluginEvaluate
 	{

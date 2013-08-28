@@ -238,7 +238,6 @@ namespace VVVV.Nodes.DeckLink
 			{
 				if (FInSyncLoop[i] == SyncLoop.Sync && FInstances[i] != null)
 				{
-					int tries = 0;
 					var instance = FInstances[i];
 					instance.UpdateFrameAvailable();
 					while (!instance.FrameAvailable)
