@@ -100,6 +100,7 @@
     <Compile Include="src\Filters\RotateStep.cs" />
     <Compile Include="src\Sources\AsImageDX11.cs" />
     <Compile Include="src\Sources\VideoPlayer.cs" />
+    <Compile Include="src\Utilities\ThreadUtils\WorkerThread.cs" />
     <Compile Include="src\Utilities\TypeUtils.cs" />
     <Compile Include="src\Calibration\FindExtrinsicsNode.cs" />
     <Compile Include="src\Calibration\SolvePnP.cs" />

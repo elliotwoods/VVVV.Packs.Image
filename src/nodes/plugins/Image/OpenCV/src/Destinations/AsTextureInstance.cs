@@ -14,9 +14,6 @@ namespace VVVV.Nodes.OpenCV
 {
 	class AsTextureInstance : IDestinationInstance
 	{
-		//    [DllImport("msvcrt.dll", EntryPoint = "memcpy")]
-		//    public unsafe static extern void CopyMemory(IntPtr pDest, IntPtr pSrc, int length);
-
 		public int Width { get; private set; }
 		public int Height { get; private set; }
 
