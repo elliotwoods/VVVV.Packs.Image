@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\Default.Plugin.Project.settings" />
   <PropertyGroup>
@@ -1378,15 +1378,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Nodes\About.cs" />
-    <None Include="Nodes\Capture.cs" />
     <Compile Include="Lib\Framework.cs" />
     <Compile Include="ManageDependencies.cs" />
+    <Compile Include="Nodes\BatteryNode.cs" />
     <Compile Include="Nodes\Info.cs" />
     <Compile Include="Nodes\ListDevices.cs" />
     <Compile Include="Nodes\ReceivePhoto.cs" />
     <Compile Include="Nodes\TakePhoto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Nodes\VideoInImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\..\common\src\core\Core\Core.csproj">

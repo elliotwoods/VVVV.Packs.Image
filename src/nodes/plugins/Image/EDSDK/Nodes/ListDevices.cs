@@ -16,7 +16,7 @@ using System.Collections.Generic;
 namespace VVVV.Nodes.EDSDK
 {
 	#region PluginInfo
-	[PluginInfo(Name = "ListDevices", Category = "EDSDK", Help = "List connected Canon cameras using EDSDK", Tags = "Canon", Author = "Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "ListDevices", Category = "EDSDK", Help = "List connected Canon cameras using EDSDK", Tags = "Canon", Author = "elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class ListDevicesNode : IPluginEvaluate
 	{

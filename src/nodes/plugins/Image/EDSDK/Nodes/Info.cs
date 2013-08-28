@@ -16,7 +16,7 @@ using System.Collections.Generic;
 namespace VVVV.Nodes.EDSDK
 {
 	#region PluginInfo
-	[PluginInfo(Name = "Info", Category = "EDSDK", Help = "List connected Canon cameras using EDSDK", Tags = "Canon", Author = "Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "Info", Category = "EDSDK", Help = "List connected Canon cameras using EDSDK", Tags = "Canon", Author = "elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class InfoNode : IPluginEvaluate
 	{
@@ -36,6 +36,9 @@ namespace VVVV.Nodes.EDSDK
 		[Output("Owner")]
 		ISpread<string> FOutOwnerName;
 
+		[Output("Firmware")]
+		ISpread<string> FOutFirmware;
+
 		[Import]
 		ILogger FLogger;
 
@@ -54,6 +57,7 @@ namespace VVVV.Nodes.EDSDK
 				FOutSerialNumber.SliceCount = 0;
 				FOutPortName.SliceCount = 0;
 				FOutOwnerName.SliceCount = 0;
+				FOutFirmware.SliceCount = 0;
 
 				foreach(var camera in FInDevices)
 				{
@@ -64,6 +68,7 @@ namespace VVVV.Nodes.EDSDK
 					FOutProductName.Add(camera.ProductName);
 					FOutPortName.Add(camera.PortName);
 					FOutOwnerName.Add(camera.OwnerName);
+					FOutFirmware.Add(camera.FirmwareVersion);
 				}
 			}
 		}
