@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha29.3.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\modules\Chessboard (EmguCV, DX9).v4p" systemname="Chessboard (EmguCV, DX9)">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.3.dtd" >
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\modules\Chessboard (EmguCV, DX9).v4p" systemname="Chessboard (EmguCV, DX9)">
    <BOUNDS height="5505" left="3405" top="8130" type="Window" width="8790">
    </BOUNDS>
    <NODE componentmode="Hidden" id="8" nodename="Quad (DX9)" systemname="Quad (DX9)">
@@ -240,14 +240,6 @@
    <LINKPOINT x="2865" y="1080">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="ChessboardSpread (OpenCV Value)" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p" componentmode="Hidden" id="19" nodename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p">
-   <BOUNDS type="Node" left="3210" top="420" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Box" left="3210" top="420" width="4800" height="3600">
-   </BOUNDS>
-   <BOUNDS type="Window" left="9645" top="7230" width="9000" height="6000">
-   </BOUNDS>
-   </NODE>
    <NODE id="3" componentmode="Hidden" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p" nodename="ChessboardSpread (OpenCV Value)" systemname="ChessboardSpread (OpenCV Value)" hiddenwhenlocked="0" managers="">
    <PIN pinname="Board Size X" visible="1" pintype="Input" slicecount="1" values="10">
    </PIN>
@@ -298,4 +290,6 @@
    </LINK>
    <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Board Size Y">
    </LINK>
+   <INFO author="elliotwoods" description="Draw a calibration chessboard" tags="">
+   </INFO>
    </PATCH>
