@@ -61,16 +61,21 @@
       <Project>{837C740A-485C-424C-8C38-086ED3DC73CB}</Project>
       <Name>PluginInterfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Image\OpenCV\VVVV.Nodes.OpenCV.csproj">
+      <Project>{e9a7fc26-34e0-4c1e-83d8-c01a169422b2}</Project>
+      <Name>VVVV.Nodes.OpenCV</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Lib\Device.cs" />
-    <Compile Include="Lib\OldDevice.cs" />
-    <Compile Include="Lib\SoftwareLFO.cs" />
-    <Compile Include="Lib\Trigger.cs" />
+    <Compile Include="Lib\HardwareTrigger.cs" />
+    <Compile Include="Lib\ISoftwareTrigger.cs" />
+    <Compile Include="Lib\ITrigger.cs" />
     <Compile Include="ManageDependencies.cs" />
+    <Compile Include="Nodes\HardwareTriggerNode.cs" />
     <Compile Include="Nodes\ParameterJoin.cs" />
     <Compile Include="Nodes\SpecificationSplit.cs" />
-    <Compile Include="Nodes\SoftwareLFONode.cs" />
+    <Compile Include="Nodes\SoftwareLFO.cs" />
     <Compile Include="Nodes\VideoInDX11.cs" />
     <Compile Include="Nodes\ListDevices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
