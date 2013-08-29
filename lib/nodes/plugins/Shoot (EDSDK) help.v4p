@@ -25,9 +25,9 @@
    </PIN>
    </NODE>
    <NODE nodename="Shoot (EDSDK)" componentmode="Hidden" id="0" systemname="Shoot (EDSDK)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.EDSDK.dll">
-   <BOUNDS type="Node" left="880" top="7190" width="6480" height="270">
+   <BOUNDS type="Node" left="880" top="7490" width="6480" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="880" top="7190" width="0" height="0">
+   <BOUNDS type="Box" left="880" top="7490" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Device" visible="1">
    </PIN>
@@ -61,9 +61,9 @@
    <LINK srcnodeid="5" srcpinname="Y Output Value" dstnodeid="4" dstpinname="Refresh">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="6" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="7230" top="2715" width="795" height="240">
+   <BOUNDS type="Box" left="7230" top="2415" width="2760" height="525">
    </BOUNDS>
-   <BOUNDS type="Node" left="7230" top="2715" width="0" height="0">
+   <BOUNDS type="Node" left="7230" top="2415" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -71,25 +71,29 @@
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Status">
+   </PIN>
    </NODE>
    <LINK srcnodeid="4" srcpinname="Status" dstnodeid="6" dstpinname="Input String">
    </LINK>
    <NODE systemname="Info (EDSDK)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.EDSDK.dll" nodename="Info (EDSDK)" componentmode="Hidden" id="7">
-   <BOUNDS type="Node" left="1710" top="2700" width="4410" height="270">
+   <BOUNDS type="Node" left="1710" top="3000" width="5865" height="270">
    </BOUNDS>
    <PIN pinname="Device" visible="1">
    </PIN>
+   <PIN pinname="Firmware" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="4" srcpinname="Device" dstnodeid="7" dstpinname="Device" linkstyle="VHV">
-   <LINKPOINT x="960" y="2498">
+   <LINKPOINT x="960" y="2598">
    </LINKPOINT>
-   <LINKPOINT x="1710" y="2498">
+   <LINKPOINT x="1710" y="2698">
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="8" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="1710" top="3300" width="1335" height="960">
+   <BOUNDS type="Box" left="1710" top="3600" width="1335" height="960">
    </BOUNDS>
-   <BOUNDS type="Node" left="1710" top="3300" width="0" height="0">
+   <BOUNDS type="Node" left="1710" top="3600" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -107,9 +111,9 @@
    <LINK srcnodeid="7" srcpinname="Product Name" dstnodeid="8" dstpinname="Input String">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="9" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="3150" top="3300" width="1335" height="960">
+   <BOUNDS type="Box" left="3150" top="3600" width="1335" height="960">
    </BOUNDS>
-   <BOUNDS type="Node" left="3150" top="3300" width="0" height="0">
+   <BOUNDS type="Node" left="3150" top="3600" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -127,9 +131,9 @@
    <LINK srcnodeid="7" srcpinname="Serial Number" dstnodeid="9" dstpinname="Input String">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="4590" top="3300" width="1335" height="960">
+   <BOUNDS type="Box" left="4590" top="3600" width="1335" height="960">
    </BOUNDS>
-   <BOUNDS type="Node" left="4590" top="3300" width="0" height="0">
+   <BOUNDS type="Node" left="4590" top="3600" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -147,9 +151,9 @@
    <LINK srcnodeid="7" srcpinname="Port Name" dstnodeid="10" dstpinname="Input String">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="11" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="6060" top="3300" width="1335" height="960">
+   <BOUNDS type="Box" left="6060" top="3600" width="1335" height="960">
    </BOUNDS>
-   <BOUNDS type="Node" left="6060" top="3300" width="0" height="0">
+   <BOUNDS type="Node" left="6060" top="3600" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -167,7 +171,7 @@
    <LINK srcnodeid="7" srcpinname="Owner" dstnodeid="11" dstpinname="Input String">
    </LINK>
    <NODE systemname="GetSlice (Node)" nodename="GetSlice (Node)" componentmode="Hidden" id="12">
-   <BOUNDS type="Node" left="900" top="4710" width="100" height="100">
+   <BOUNDS type="Node" left="900" top="5010" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input Node" visible="1">
    </PIN>
@@ -179,9 +183,9 @@
    <LINK srcnodeid="12" srcpinname="Output Node" dstnodeid="0" dstpinname="Device">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="13" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="2505" top="5490" width="480" height="480">
+   <BOUNDS type="Box" left="2505" top="5790" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="2505" top="5490" width="0" height="0">
+   <BOUNDS type="Node" left="2505" top="5790" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
@@ -199,9 +203,9 @@
    <LINK srcnodeid="13" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Save On Camera">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="14" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="4080" top="5490" width="480" height="480">
+   <BOUNDS type="Box" left="4080" top="5790" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="4080" top="5490" width="0" height="0">
+   <BOUNDS type="Node" left="4080" top="5790" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="1">
    </PIN>
@@ -221,11 +225,11 @@
    <LINK srcnodeid="14" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Save On Computer">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="15" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="5715" top="5340" width="2700" height="240">
+   <BOUNDS type="Box" left="5715" top="5640" width="2700" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="5715" top="5340" width="0" height="0">
+   <BOUNDS type="Node" left="5715" top="5640" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" values="||" visible="1">
+   <PIN pinname="Input String" slicecount="1" visible="1" values="||">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -241,9 +245,9 @@
    <LINK srcnodeid="15" srcpinname="Output String" dstnodeid="0" dstpinname="Save Location">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="16" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="7305" top="5940" width="1125" height="1065">
+   <BOUNDS type="Box" left="7305" top="6240" width="1125" height="1065">
    </BOUNDS>
-   <BOUNDS type="Node" left="7305" top="5940" width="0" height="0">
+   <BOUNDS type="Node" left="7305" top="6240" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
@@ -263,9 +267,9 @@
    <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Shoot">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="17" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="885" top="7875" width="6480" height="240">
+   <BOUNDS type="Box" left="885" top="8175" width="6480" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="885" top="7875" width="0" height="0">
+   <BOUNDS type="Node" left="885" top="8175" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -279,7 +283,7 @@
    <LINK srcnodeid="0" srcpinname="Status" dstnodeid="17" dstpinname="Input String">
    </LINK>
    <NODE systemname="ReceivePhoto (EDSDK)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.EDSDK.dll" nodename="ReceivePhoto (EDSDK)" componentmode="Hidden" id="18">
-   <BOUNDS type="Node" left="285" top="8310" width="3300" height="270">
+   <BOUNDS type="Node" left="285" top="8610" width="3300" height="270">
    </BOUNDS>
    <PIN pinname="Device" visible="1">
    </PIN>
@@ -289,13 +293,13 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="12" srcpinname="Output Node" dstnodeid="18" dstpinname="Device" linkstyle="Bezier">
-   <LINKPOINT x="915" y="6533">
+   <LINKPOINT x="915" y="6833">
    </LINKPOINT>
-   <LINKPOINT x="315" y="6833">
+   <LINKPOINT x="315" y="7133">
    </LINKPOINT>
    </LINK>
    <NODE systemname="ImageQuad (OpenCV DX9)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" nodename="ImageQuad (OpenCV DX9)" componentmode="Hidden" id="19">
-   <BOUNDS type="Node" left="285" top="8715" width="100" height="100">
+   <BOUNDS type="Node" left="285" top="9015" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
    </PIN>
@@ -305,9 +309,9 @@
    </BOUNDS>
    </NODE>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InABox" id="20">
-   <BOUNDS type="Node" left="285" top="9765" width="100" height="100">
+   <BOUNDS type="Node" left="285" top="10065" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="285" top="9765" width="8100" height="4860">
+   <BOUNDS type="Box" left="285" top="10065" width="8100" height="4860">
    </BOUNDS>
    <BOUNDS type="Window" left="9840" top="18165" width="6240" height="5010">
    </BOUNDS>
@@ -317,7 +321,7 @@
    <LINK srcnodeid="19" srcpinname="Layer" dstnodeid="20" dstpinname="Layers">
    </LINK>
    <NODE systemname="MonoFlop (Animation)" nodename="MonoFlop (Animation)" componentmode="Hidden" id="21">
-   <BOUNDS type="Node" left="3525" top="8730" width="100" height="100">
+   <BOUNDS type="Node" left="3525" top="9030" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Set" visible="1">
    </PIN>
@@ -325,9 +329,9 @@
    <LINK srcnodeid="18" srcpinname="On Receive" dstnodeid="21" dstpinname="Set">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="22" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="3525" top="9090" width="480" height="480">
+   <BOUNDS type="Box" left="3525" top="9390" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="3525" top="9090" width="0" height="0">
+   <BOUNDS type="Node" left="3525" top="9390" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -341,7 +345,7 @@
    <LINK srcnodeid="21" srcpinname="Output" dstnodeid="22" dstpinname="Y Input Value">
    </LINK>
    <NODE systemname="ImageLoad (OpenCV FreeImage)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.FreeImage.dll" nodename="ImageLoad (OpenCV FreeImage)" componentmode="Hidden" id="23">
-   <BOUNDS type="Node" left="5385" top="8805" width="100" height="100">
+   <BOUNDS type="Node" left="5385" top="9105" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -351,7 +355,7 @@
    <LINK srcnodeid="18" srcpinname="Output" dstnodeid="19" dstpinname="Image">
    </LINK>
    <NODE systemname="SystemFolder (File)" nodename="SystemFolder (File)" componentmode="Hidden" id="24">
-   <BOUNDS type="Node" left="5700" top="4710" width="100" height="100">
+   <BOUNDS type="Node" left="5700" top="5010" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -359,5 +363,27 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="24" srcpinname="Output" dstnodeid="15" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="25" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="7515" top="3600" width="1335" height="960">
+   </BOUNDS>
+   <BOUNDS type="Node" left="7515" top="3600" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Owner">
+   </PIN>
+   <PIN pinname="Input String" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="7" srcpinname="Firmware" dstnodeid="25" dstpinname="Input String">
    </LINK>
    </PATCH>
