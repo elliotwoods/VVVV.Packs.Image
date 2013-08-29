@@ -14,7 +14,8 @@ namespace VVVV.Nodes.OpenCV.Calibration
 				Category = "OpenCV",
 				Version = "Intrinsics",
 				Help = "Read intrinsics from a file",
-				Tags = "")]
+				Tags = "",
+				AutoEvaluate=true)]
 	#endregion PluginInfo
 	public class IntrinsicsReaderNode : IPluginEvaluate
 	{

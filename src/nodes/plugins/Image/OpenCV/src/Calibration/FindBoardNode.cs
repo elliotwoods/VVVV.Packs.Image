@@ -31,11 +31,18 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Board size Y", IsSingle=true, DefaultValue=6)]
 		IDiffSpread<int> FPinInBoardSizeY;
 
+		[Input("Pre-test at 1024 resolution", IsSingle = true)]
+		IDiffSpread<bool> FPinInTestLowResolution;
+
 		[Input("Enabled", DefaultValue = 1)]
 		IDiffSpread<bool> FPinInEnabled;
 
 		[Output("Position")]
 		ISpread<ISpread<Vector2D>> FPinOutPositionXY;
+
+		[Output("Success", IsBang=true)]
+		ISpread<bool> FOutSearchSuccess;
+
 		#endregion fields & pins
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
@@ -47,16 +54,28 @@ namespace VVVV.Nodes.OpenCV
 		void CheckParams(int InstanceCount)
 		{
 			if (FPinInBoardSizeX.IsChanged || FPinInBoardSizeY.IsChanged)
+			{
 				for (int i=0; i<InstanceCount; i++)
 				{
 					FProcessor[i].SetSize(FPinInBoardSizeX[0], FPinInBoardSizeY[0]);
 				}
+			}
 
 			if (FPinInEnabled.IsChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
 				{
 					FProcessor[i].Enabled = FPinInEnabled[0];
 				}
+			}
+			
+			if (FPinInTestLowResolution.IsChanged)
+			{
+				for (int i = 0; i < InstanceCount; i++)
+				{
+					FProcessor[i].TestAtLowResolution = FPinInTestLowResolution[0];
+				}
+			}
 		}
 
 		void Output(int InstanceCount)
@@ -66,6 +85,8 @@ namespace VVVV.Nodes.OpenCV
 			for (int i = 0; i < InstanceCount; i++)
 			{
 				FPinOutPositionXY[i] = FProcessor[i].GetFoundCorners();
+				FOutSearchSuccess[i] = FProcessor[i].SearchSuccessful;
+				FProcessor[i].SearchSuccessful = false; //clear bang flag
 			}
 		}
 	}

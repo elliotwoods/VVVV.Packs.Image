@@ -12,7 +12,7 @@ using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.OpenCV
 {
-	public class FindBoardInstance : IDestinationInstance
+	public class FindBoardInstance : IDestinationInstance, IDisposable
 	{
 		#region constants
 		readonly Vector2D CMinimumSourceXY = new Vector2D(0, 0);
@@ -24,9 +24,12 @@ namespace VVVV.Nodes.OpenCV
 		Spread<Vector2D> FFoundPoints = new Spread<Vector2D>(0);
 		Object FFoundPointsLock = new Object();
 
+		public bool TestAtLowResolution = false;
 		public bool Enabled = true;
+		public bool SearchSuccessful = false;
 
 		CVImage FGrayscale = new CVImage();
+		CVImage FLowResolution = new CVImage();
 
 		public void SetSize(int x, int y)
 		{
@@ -53,14 +56,30 @@ namespace VVVV.Nodes.OpenCV
 			FInput.Image.GetImage(TColorFormat.L8, FGrayscale);
 
 			Size SizeNow = BoardSize;
-			PointF[] points = CameraCalibration.FindChessboardCorners(FGrayscale.GetImage() as Image<Gray, byte>, SizeNow, CALIB_CB_TYPE.ADAPTIVE_THRESH);
 
+			bool isOk = true;
+			if (TestAtLowResolution)
+			{
+				if (!FLowResolution.Allocated) {
+					FLowResolution.Initialise(new Size(1024, 1024), TColorFormat.L8);
+				}
+				CvInvoke.cvResize(FGrayscale.CvMat, FLowResolution.CvMat, INTER.CV_INTER_LINEAR);
+				isOk = (CameraCalibration.FindChessboardCorners(FLowResolution.GetImage() as Image<Gray, byte>, SizeNow, CALIB_CB_TYPE.ADAPTIVE_THRESH) != null);
+			}
+
+			PointF[] points = null;
+			if (isOk)
+			{
+				points = CameraCalibration.FindChessboardCorners(FGrayscale.GetImage() as Image<Gray, byte>, SizeNow, CALIB_CB_TYPE.ADAPTIVE_THRESH);
+			}
+			
 			lock (FFoundPointsLock)
 			{
 				if (points == null)
 					FFoundPoints.SliceCount = 0;
 				else
 				{
+					SearchSuccessful = true;
 					FFoundPoints.SliceCount = SizeNow.Width * SizeNow.Height;
 					for (int i = 0; i < FFoundPoints.SliceCount; i++)
 					{
@@ -69,6 +88,12 @@ namespace VVVV.Nodes.OpenCV
 				}
 			}
 
+		}
+
+		void IDisposable.Dispose()
+		{
+			FGrayscale.Dispose();
+			FLowResolution.Dispose();
 		}
 	}
 }
