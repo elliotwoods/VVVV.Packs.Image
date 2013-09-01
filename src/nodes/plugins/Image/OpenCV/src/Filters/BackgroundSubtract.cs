@@ -75,21 +75,21 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Difference Mode", DefaultEnumEntry = "AbsoluteDifference")]
 		IDiffSpread<TDifferenceMode> FDifferenceMode;
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			for (int i = 0; i < InstanceCount; i++)
+			for (int i = 0; i < instanceCount; i++)
 				FProcessor[i].Hold = FHold[i];
 
 				if (FThreshold.IsChanged)
-					for (int i = 0; i < InstanceCount; i++)
+					for (int i = 0; i < instanceCount; i++)
 						FProcessor[i].Threshold = FThreshold[i];
 
 			if (FThresholdEnabled.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].ThresholdEnabled = FThresholdEnabled[i];
 
 			if (FDifferenceMode.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].DifferenceMode = FDifferenceMode[i];
 		}
 	}

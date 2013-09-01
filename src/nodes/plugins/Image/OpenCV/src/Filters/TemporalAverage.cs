@@ -65,10 +65,10 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Frames", MinValue=1, MaxValue=64, DefaultValue=1)]
 		IDiffSpread<int> FPinInFrames;
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			if (FPinInFrames.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Frames = FPinInFrames[i];
 		}
 	}

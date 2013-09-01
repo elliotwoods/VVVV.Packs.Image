@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VVVV.Nodes.OpenCV
 {
-	public abstract class IGeneratorInstance : IInstance, IInstanceOutput, IDisposable
+	public abstract class IGeneratorInstance : IInstance, IInstanceOutput
 	{
         enum Action
         {

@@ -182,38 +182,38 @@ namespace VVVV.Nodes.OpenCV.VideoInput
 		}
 
 		//called when data for any output pin is requested
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			if (FPinInDeviceID.IsChanged)
 			{
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].DeviceID = FPinInDeviceID[i];
 			}
 
 			if (FPinInWidth.IsChanged)
 			{
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Width = FPinInWidth[i];
 			}
 
 			if (FPinInHeight.IsChanged)
 			{
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Height = FPinInHeight[i];
 			}
 
 			if (FPinInFPS.IsChanged)
 			{
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Framerate = FPinInFPS[i];
 			}
 
-			for (int i = 0; i < InstanceCount; i++)
+			for (int i = 0; i < instanceCount; i++)
 				if (FPinInShowSettings[i])
 					FProcessor[i].ShowSettings();
 
 			if (FPinInProperties.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].SetProperties(FPinInProperties[i]);
 		}
 	}

@@ -69,21 +69,21 @@ namespace VVVV.Nodes.OpenCV.Features
         [Output("Output")]
         ISpread<FeatureSet> FOutput;
 
-        protected override void Update(int InstanceCount, bool SpreadChanged)
+        protected override void Update(int instanceCount, bool spreadChanged)
         {
-            if (FInHessianThreshold.IsChanged || SpreadChanged)
+            if (FInHessianThreshold.IsChanged || spreadChanged)
             {
-                for (int i = 0; i < InstanceCount; i++)
+                for (int i = 0; i < instanceCount; i++)
                 {
                     FProcessor[i].HessianThreshold = FInHessianThreshold[i];
                 }
             }
 
-            if (SpreadChanged)
+            if (spreadChanged)
             {
-                FOutput.SliceCount = InstanceCount;
+                FOutput.SliceCount = instanceCount;
 
-                for (int i = 0; i < InstanceCount; i++)
+                for (int i = 0; i < instanceCount; i++)
                 {
                     FOutput[i] = FProcessor[i].FeaturesSet;
                 }

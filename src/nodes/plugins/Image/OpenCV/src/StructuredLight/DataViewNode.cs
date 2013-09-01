@@ -295,28 +295,28 @@ namespace VVVV.Nodes.OpenCV.StructuredLight
 
 		}
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			bool needsInit = false;
 			bool needsCalc = false;
 
 			if (FPinInDataSetType.IsChanged)
 			{
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].DataSetType = FPinInDataSetType[i];
 				needsInit = true;
 			}
 
 			if (FPinInInput.IsChanged)
 			{
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].ScanSet = FPinInInput[i];
 				needsInit = true;
 			}
 
 			if (FPinInThreshold.IsChanged)
 			{
-				for (int i=0; i<InstanceCount; i++)
+				for (int i=0; i<instanceCount; i++)
 					FProcessor[i].Threshold = FPinInThreshold[i];
 				needsCalc = true;
 			}

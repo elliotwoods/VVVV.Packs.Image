@@ -134,19 +134,19 @@ namespace VVVV.Nodes.OpenCV.StructuredLight
 
 		}
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			if (FPinInFrame.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Frame = FPinInFrame[i];
 
 			if (FPinInPayload.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Payload = FPinInPayload[i];
 
-			if (SpreadChanged)
+			if (spreadChanged)
 			{
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FPinOutTimestamps[i] = FProcessor[i].Timestamps;
 			}
 		}

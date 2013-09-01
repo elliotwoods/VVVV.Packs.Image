@@ -1,19 +1,9 @@
-﻿#region usings
-
-using System;
+﻿using System;
 using System.ComponentModel.Composition;
 using Emgu.CV.CvEnum;
 using VVVV.Core.Logging;
-using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 using Emgu.CV;
-using Emgu.CV.Structure;
-using System.Threading;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-
-#endregion usings
 
 namespace VVVV.Nodes.OpenCV
 {
@@ -36,8 +26,8 @@ namespace VVVV.Nodes.OpenCV
             }
         }
 
-        int FrameDecodedIndex = 0;
-        int FrameCount = 0;
+        int FFrameDecodedIndex;
+        int FFrameCount;
 
         public double Position { get; private set; }
         public double Length { get; private set; }
@@ -57,15 +47,14 @@ namespace VVVV.Nodes.OpenCV
 
                 FCapture = new Capture(FFilename);
                 FCapture.GetCaptureProperty(CAP_PROP.CV_CAP_PROP_FRAME_COUNT);
-                this.FrameRate = FCapture.GetCaptureProperty(CAP_PROP.CV_CAP_PROP_FPS);
-                this.FrameCount = (int) FCapture.GetCaptureProperty(CAP_PROP.CV_CAP_PROP_FRAME_COUNT);
-                this.Length = (double)this.FrameCount / this.FrameRate;
-                this.Position = 0.0;
-                this.FrameDecodedIndex = 0;
+                FrameRate = FCapture.GetCaptureProperty(CAP_PROP.CV_CAP_PROP_FPS);
+                FFrameCount = (int) FCapture.GetCaptureProperty(CAP_PROP.CV_CAP_PROP_FRAME_COUNT);
+                Length = FFrameCount / FrameRate;
+                Position = 0.0;
+                FFrameDecodedIndex = 0;
 
-                FTimer = new System.Windows.Forms.Timer();
-                FTimer.Interval = (int) (1000.0 * 1.0 / this.FrameRate);
-                FStarted = DateTime.Now;
+                FTimer = new System.Windows.Forms.Timer {Interval = (int) (1000.0*1.0/FrameRate)};
+	            FStarted = DateTime.Now;
 
                 Status = "OK";
                 return true;
@@ -99,24 +88,24 @@ namespace VVVV.Nodes.OpenCV
 
         protected override void Generate()
         {
-            int FrameTargetIndex = (int) ((DateTime.Now - FStarted).TotalSeconds * this.FrameRate);
-            bool isEnd = (FrameTargetIndex >= this.FrameCount);
+            var frameTargetIndex = (int) ((DateTime.Now - FStarted).TotalSeconds * FrameRate);
+            var isEnd = (frameTargetIndex >= FFrameCount);
             if (isEnd)
             {
-                FrameTargetIndex = this.FrameCount - 1;
+                frameTargetIndex = FFrameCount - 1;
             }
 
-            bool newFrame = false;
-            while (FrameDecodedIndex < FrameTargetIndex)
+            var newFrame = false;
+            while (FFrameDecodedIndex < frameTargetIndex)
             {
                 FOutput.Image.SetImage(FCapture.QueryFrame());
-                FrameDecodedIndex++;
+                FFrameDecodedIndex++;
                 newFrame = true;
             }
 
             if (newFrame)
             {
-                this.Position = FCapture.GetCaptureProperty(CAP_PROP.CV_CAP_PROP_POS_MSEC) / 1000.0;
+                Position = FCapture.GetCaptureProperty(CAP_PROP.CV_CAP_PROP_POS_MSEC) / 1000.0;
                 FOutput.Send();
             }
 
@@ -124,57 +113,45 @@ namespace VVVV.Nodes.OpenCV
             {
                 //rewind
                 FCapture.SetCaptureProperty(CAP_PROP.CV_CAP_PROP_POS_FRAMES, 0.0);
-                this.FrameDecodedIndex = 0;
-                this.FStarted = DateTime.Now;
+                FFrameDecodedIndex = 0;
+                FStarted = DateTime.Now;
             }
         }
     }
 
-    #region PluginInfo
-    [PluginInfo(Name = "VideoPlayer",
-              Category = "OpenCV",
-              Version = "",
-              Help = "Plays a video file to an Image stream",
-              Tags = "")]
-    #endregion PluginInfo
+    [PluginInfo(Name = "VideoPlayer", Category = "OpenCV", Version = "", Help = "Plays a video file to an Image stream", Tags = "")]
     public class VideoPlayerNode : IGeneratorNode<VideoPlayerInstance>
     {
-        #region fields & pins
         [Input("Filename", StringType=StringType.Filename)]
-        IDiffSpread<string> FFilename;
+        IDiffSpread<string> FFilenameIn;
 
         [Output("Framerate")]
-        ISpread<double> FFramerate;
+        ISpread<double> FFramerateIn;
 
         [Output("Position")]
-        ISpread<double> FPosition;
+        ISpread<double> FPositionIn;
 
         [Output("Length")]
-        ISpread<double> FLength;
+        ISpread<double> FLengthIn;
 
-        [Import]
-        ILogger FLogger;
-
-        #endregion fields & pins
-
-        protected override void Update(int InstanceCount, bool SpreadChanged)
+        protected override void Update(int instanceCount, bool spreadChanged)
         {
-            if (FFilename.IsChanged || SpreadChanged)
-                for (int i = 0; i < InstanceCount; i++)
-                    FProcessor[i].Filename = FFilename[i];
+            if (FFilenameIn.IsChanged || spreadChanged)
+                for (var i = 0; i < instanceCount; i++)
+                    FProcessor[i].Filename = FFilenameIn[i];
 
-            if (SpreadChanged)
+            if (spreadChanged)
             {
-                FFramerate.SliceCount = InstanceCount;
-                FLength.SliceCount = InstanceCount;
-                FPosition.SliceCount = InstanceCount;
+                FFramerateIn.SliceCount = instanceCount;
+                FLengthIn.SliceCount = instanceCount;
+                FPositionIn.SliceCount = instanceCount;
             }
 
-            for (int i = 0; i < InstanceCount; i++)
+            for (var i = 0; i < instanceCount; i++)
             {
-                FFramerate[i] = FProcessor[i].FrameRate;
-                FPosition[i] = FProcessor[i].Position;
-                FLength[i] = FProcessor[i].Length;
+                FFramerateIn[i] = FProcessor[i].FrameRate;
+                FPositionIn[i] = FProcessor[i].Position;
+                FLengthIn[i] = FProcessor[i].Length;
             }
         }
     }

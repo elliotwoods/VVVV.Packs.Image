@@ -1,16 +1,9 @@
-﻿#region using
-using System.Collections.Generic;
-using System.Drawing;
-using Emgu.CV;
+﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 
 using VVVV.PluginInterfaces.V2;
-using VVVV.Utils.VMath;
 using System;
-using VVVV.Utils.VColor;
-
-#endregion
 
 namespace VVVV.Nodes.OpenCV
 {
@@ -18,9 +11,10 @@ namespace VVVV.Nodes.OpenCV
 	public abstract class CMPInstance : IFilterInstance
 	{
 		public double Threshold = 0.5;
-		protected CVImage Buffer = new CVImage();
+		protected double Mult = byte.MaxValue;
+		protected readonly CVImage Buffer = new CVImage();
 
-		private bool FPassOriginal = false;
+		private bool FPassOriginal;
 		public bool PassOriginal
 		{
 			set
@@ -33,6 +27,8 @@ namespace VVVV.Nodes.OpenCV
 		public override void Allocate()
 		{
 			Buffer.Initialise(FInput.ImageAttributes.Size, TColorFormat.L8);
+
+			Mult = FInput.ImageAttributes.BytesPerPixel > 4 ? float.MaxValue : byte.MaxValue;
 		}
 
 		public override void Process()
@@ -73,31 +69,31 @@ namespace VVVV.Nodes.OpenCV
 
 	public abstract class CMPNode<T> : IFilterNode<T> where T : CMPInstance, new()
 	{
-		[Input("Input 2", DefaultValue = 0.5)]
-		IDiffSpread<double> FThreshold;
+		[Input("Threshold", DefaultValue = 0.5, MinValue = 0, MaxValue = 1)]
+		IDiffSpread<double> FThresholdIn;
 
-		[Input("Pass original", DefaultValue = 0)]
-		IDiffSpread<bool> FPassOriginal;
+		[Input("Pass original", DefaultValue = 0, IsToggle = true)]
+		IDiffSpread<bool> FPassOriginalIn;
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			if (FThreshold.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
-					FProcessor[i].Threshold = FThreshold[i];
+			if (FThresholdIn.IsChanged)
+				for (int i = 0; i < instanceCount; i++)
+					FProcessor[i].Threshold = FThresholdIn[i];
 
-			if (FPassOriginal.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
-					FProcessor[i].PassOriginal = FPassOriginal[i];
+			if (FPassOriginalIn.IsChanged)
+				for (int i = 0; i < instanceCount; i++)
+					FProcessor[i].PassOriginal = FPassOriginalIn[i];
 		}
 	}
-#endregion Interfaces
+	#endregion Interfaces
 
 	#region Instances
 	public class GTInstance : CMPInstance
 	{
 		protected override void Compare(IntPtr CvMat)
 		{
-			CvInvoke.cvCmpS(CvMat, Threshold, Buffer.CvMat, CMP_TYPE.CV_CMP_GT);
+			CvInvoke.cvCmpS(CvMat, Threshold * Mult, Buffer.CvMat, CMP_TYPE.CV_CMP_GT);
 		}
 	}
 
@@ -105,7 +101,7 @@ namespace VVVV.Nodes.OpenCV
 	{
 		protected override void Compare(IntPtr CvMat)
 		{
-			CvInvoke.cvCmpS(CvMat, Threshold, Buffer.CvMat, CMP_TYPE.CV_CMP_LT);
+			CvInvoke.cvCmpS(CvMat, Threshold * Mult, Buffer.CvMat, CMP_TYPE.CV_CMP_LT);
 		}
 	}
 
@@ -113,30 +109,22 @@ namespace VVVV.Nodes.OpenCV
 	{
 		protected override void Compare(IntPtr CvMat)
 		{
-			CvInvoke.cvCmpS(CvMat, Threshold, Buffer.CvMat, CMP_TYPE.CV_CMP_EQ);
+			CvInvoke.cvCmpS(CvMat, Threshold * Mult, Buffer.CvMat, CMP_TYPE.CV_CMP_EQ);
 		}
 	}
-	#endregion
+	#endregion Instances
 
 	#region Nodes
-
-	#region PluginInfo
-	[PluginInfo(Name = ">", Help = "Greater than", Category = "OpenCV", Version = "Filter, Scalar")]
-	#endregion PluginInfo
+	[PluginInfo(Name = ">", Help = "Greater than", Category = "OpenCV", Version = "Filter Scalar", Author = "elliotwoods")]
 	public class GTNode : CMPNode<GTInstance>
-	{	}
+	{ }
 
-	#region PluginInfo
-	[PluginInfo(Name = "<", Help = "Less than", Category = "OpenCV", Version = "Filter, Scalar")]
-	#endregion PluginInfo
+	[PluginInfo(Name = "<", Help = "Less than", Category = "OpenCV", Version = "Filter Scalar", Author = "elliotwoods")]
 	public class LTNode : CMPNode<LTInstance>
-	{	}
+	{ }
 
-	#region PluginInfo
-	[PluginInfo(Name = "=", Help = "Equal to", Category = "OpenCV", Version = "Filter, Scalar")]
-	#endregion PluginInfo
+	[PluginInfo(Name = "=", Help = "Equal to", Category = "OpenCV", Version = "Filter Scalar", Author = "elliotwoods")]
 	public class EQNode : CMPNode<EQInstance>
-	{	}
-
+	{ }
 	#endregion nodes
 }

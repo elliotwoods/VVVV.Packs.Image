@@ -91,18 +91,18 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Window size", MinValue = 3, MaxValue = 7, DefaultValue = 3)]
 		IDiffSpread<int> FWindowSize;
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			if (FThresholdMin.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].ThresholdMin = FThresholdMin[i];
 
 			if (FThresholdMax.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].ThresholdMax = FThresholdMax[i];
 
 			if (FWindowSize.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Aperture = FWindowSize[i];
 
 		}

@@ -45,7 +45,7 @@ namespace VVVV.Nodes.OpenCV
 	public class FrameDelayNode : IFilterNode<FrameDelayInstance>
 	{
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 		}
 	}

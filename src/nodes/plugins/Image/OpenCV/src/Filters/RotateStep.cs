@@ -103,10 +103,10 @@ namespace VVVV.Nodes.OpenCV
         [Input("Rotations")]
         IDiffSpread<int> FRotations;
 
-        protected override void Update(int InstanceCount, bool SpreadChanged)
+        protected override void Update(int instanceCount, bool spreadChanged)
         {
-            if (FRotations.IsChanged || SpreadChanged)
-                for (int i = 0; i < InstanceCount; i++)
+            if (FRotations.IsChanged || spreadChanged)
+                for (int i = 0; i < instanceCount; i++)
                     FProcessor[i].Rotations = FRotations[i];
         }
     }

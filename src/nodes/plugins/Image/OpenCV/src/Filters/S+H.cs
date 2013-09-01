@@ -41,9 +41,9 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Set")]
 		ISpread<bool> FPinInSet;
 
-		protected override void Update(int SpreadMax, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			for (int i = 0; i < SpreadMax; i++)
+			for (int i = 0; i < instanceCount; i++)
 			{
 				FProcessor[i].Set = FPinInSet[i];
 			}

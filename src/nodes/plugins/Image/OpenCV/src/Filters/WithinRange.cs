@@ -1,16 +1,7 @@
-﻿#region using
-using System.Collections.Generic;
-using System.Drawing;
-using Emgu.CV;
+﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
-using Emgu.CV.Structure;
-
 using VVVV.PluginInterfaces.V2;
-using VVVV.Utils.VMath;
 using System;
-using VVVV.Utils.VColor;
-
-#endregion
 
 namespace VVVV.Nodes.OpenCV
 {
@@ -42,9 +33,8 @@ namespace VVVV.Nodes.OpenCV
 		}
 
 	}
-	#region PluginInfo
-	[PluginInfo(Name = "WithinRange", Category = "OpenCV", Version = "Filter, Scalar", Help = "Less than", Author = "", Credits = "", Tags = "")]
-	#endregion PluginInfo
+
+	[PluginInfo(Name = "WithinRange", Category = "OpenCV", Version = "Filter Scalar", Help = "Check if value is in target range", Author = "elliotwoods")]
 	public class WithinRangeNode : IFilterNode<WithinRangeInstance>
 	{
 		[Input("Minimum", DefaultValue = 0)]
@@ -53,14 +43,14 @@ namespace VVVV.Nodes.OpenCV
 		[Input("Maximum", DefaultValue = 1)]
 		IDiffSpread<double> FMaximum;
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
 			if (FMinimum.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Minimum = FMinimum[i];
 
 			if (FMaximum.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Maximum = FMaximum[i];
 		}
 	}

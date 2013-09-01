@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using Emgu.CV.CvEnum;
 using Emgu.CV;
 using Emgu.CV.Structure;
@@ -28,49 +26,57 @@ namespace VVVV.Nodes.OpenCV
 			switch (src)
 			{
 				case TColorFormat.L8:
+					switch (dst)
 					{
-						switch (dst)
-						{
-							case TColorFormat.RGBA8:
-								return COLOR_CONVERSION.CV_GRAY2RGBA;
-						}
-						break;
+						case TColorFormat.RGBA8:
+							return COLOR_CONVERSION.CV_GRAY2RGBA;
 					}
+					break;
 
 				case TColorFormat.RGB8:
+					switch (dst)
 					{
-						switch (dst)
-						{
-							case TColorFormat.L8:
-								return COLOR_CONVERSION.CV_RGB2GRAY;
+						case TColorFormat.L8:
+							return COLOR_CONVERSION.CV_RGB2GRAY;
 
-							case TColorFormat.RGBA8:
-								return COLOR_CONVERSION.CV_RGB2RGBA;
-						}
-						break;
+						case TColorFormat.RGBA8:
+							return COLOR_CONVERSION.CV_RGB2RGBA;
 					}
+					break;
 				case TColorFormat.RGBA8:
+					switch (dst)
 					{
-						switch (dst)
-						{
-							case TColorFormat.L8:
-								return COLOR_CONVERSION.CV_RGBA2GRAY;
-						}
-						break;
+						case TColorFormat.L8:
+							return COLOR_CONVERSION.CV_RGBA2GRAY;
 					}
+					break;
 
 				case TColorFormat.RGB32F:
+					switch (dst)
 					{
-						switch (dst)
-						{
-							case TColorFormat.L32F:
-								return COLOR_CONVERSION.CV_RGBA2GRAY;
+						case TColorFormat.L32F:
+							return COLOR_CONVERSION.CV_RGBA2GRAY;
 
-							case TColorFormat.RGBA32F:
-								return COLOR_CONVERSION.CV_RGB2RGBA;
-						}
-						break;
+						case TColorFormat.RGBA32F:
+							return COLOR_CONVERSION.CV_RGB2RGBA;
 					}
+					break;
+
+				case TColorFormat.HSV8:
+					switch (dst)
+					{
+						case TColorFormat.RGB8:
+							return COLOR_CONVERSION.CV_HSV2RGB;
+					}
+					break;
+
+				case TColorFormat.HSV32F:
+					switch (dst)
+					{
+						case TColorFormat.RGB32F:
+							return COLOR_CONVERSION.CV_HSV2RGB;
+					}
+					break;
 			}
 
 			return COLOR_CONVERSION.CV_COLORCVT_MAX;
@@ -78,7 +84,7 @@ namespace VVVV.Nodes.OpenCV
 
 		public static IImage CreateImage(int width, int height, TColorFormat format)
 		{
-			switch(format)
+			switch (format)
 			{
 				case TColorFormat.L8:
 					return new Image<Gray, byte>(width, height);
@@ -98,6 +104,12 @@ namespace VVVV.Nodes.OpenCV
 					return new Image<Rgba, byte>(width, height);
 				case TColorFormat.RGBA32F:
 					return new Image<Rgba, float>(width, height);
+
+				case TColorFormat.HSV8:
+					return new Image<Hsv, byte>(width, height);
+
+				case TColorFormat.HSV32F:
+					return new Image<Hsv, byte>(width, height);
 			}
 
 			throw (new NotImplementedException("We have not implemented the automatic creation of this image type"));
@@ -105,30 +117,39 @@ namespace VVVV.Nodes.OpenCV
 
 		public static TColorFormat GetFormat(IImage image)
 		{
-			Image<Gray, byte> ImageL8 = image as Image<Gray, byte>;
-			if (ImageL8 != null)
+			var imageL8 = image as Image<Gray, byte>;
+			if (imageL8 != null)
 				return TColorFormat.L8;
 
-			Image<Gray, ushort> ImageL16 = image as Image<Gray, ushort>;
-			if (ImageL16 != null)
+			var imageL16 = image as Image<Gray, ushort>;
+			if (imageL16 != null)
 				return TColorFormat.L16;
-			
-			Image<Rgb, byte> ImageRGB8 = image as Image<Rgb, byte>;
-			if (ImageRGB8 != null)
+
+			var imageRgb8 = image as Image<Rgb, byte>;
+			if (imageRgb8 != null)
 				return TColorFormat.RGB8;
+			
 			//camera captures seem to arrive as bgr even though rgb
 			//may need to revisit this later on
-			Image<Bgr, byte> ImageBGR8 = image as Image<Bgr, byte>;
-			if (ImageBGR8 != null)
+			var imageBgr8 = image as Image<Bgr, byte>;
+			if (imageBgr8 != null)
 				return TColorFormat.RGB8;
 
-			Image<Rgb, float> ImageRGB32F = image as Image<Rgb, float>;
-			if (ImageRGB32F != null)
+			var imageRgb32F = image as Image<Rgb, float>;
+			if (imageRgb32F != null)
 				return TColorFormat.RGB32F;
 
-			Image<Rgba, byte> ImageRGBA8 = image as Image<Rgba, byte>;
-			if (ImageRGBA8 != null)
+			var imageRgba8 = image as Image<Rgba, byte>;
+			if (imageRgba8 != null)
 				return TColorFormat.RGBA8;
+
+			var imageHsv8 = image as Image<Hsv, byte>;
+			if (imageHsv8 != null)
+				return TColorFormat.HSV8;
+
+			var imageHsv32F = image as Image<Hsv, float>;
+			if (imageHsv32F != null)
+				return TColorFormat.HSV32F;
 
 			return TColorFormat.UnInitialised;
 		}
@@ -169,7 +190,7 @@ namespace VVVV.Nodes.OpenCV
 					return 4 * sizeof(float);
 
 				default:
-					throw(new NotImplementedException("We haven't implemented BytesPerPixel for this type"));
+					throw (new NotImplementedException("We haven't implemented BytesPerPixel for this type"));
 			}
 		}
 
@@ -193,6 +214,12 @@ namespace VVVV.Nodes.OpenCV
 
 				case TColorFormat.RGBA32F:
 					return 4;
+
+				case TColorFormat.HSV32F:
+					return 3;
+
+				case TColorFormat.HSV8:
+					return 3;
 
 				default:
 					return 0;
@@ -222,11 +249,12 @@ namespace VVVV.Nodes.OpenCV
 
 		public static TChannelFormat ChannelFormat(TColorFormat format)
 		{
-			switch(format)
+			switch (format)
 			{
 				case TColorFormat.L8:
 				case TColorFormat.RGB8:
 				case TColorFormat.RGBA8:
+				case TColorFormat.HSV8:
 					return TChannelFormat.Byte;
 
 				case TColorFormat.L16:
@@ -235,6 +263,7 @@ namespace VVVV.Nodes.OpenCV
 				case TColorFormat.L32F:
 				case TColorFormat.RGB32F:
 				case TColorFormat.RGBA32F:
+				case TColorFormat.HSV32F:
 					return TChannelFormat.Float;
 
 				default:
@@ -291,13 +320,13 @@ namespace VVVV.Nodes.OpenCV
 		}
 
 		public static Texture CreateTexture(CVImageAttributes attributes, Device device)
-		{ 
-			TColorFormat format = attributes.ColorFormat;
+		{
+			var format = attributes.ColorFormat;
 			TColorFormat newFormat;
-			bool useConverted = NeedsConversion(format, out newFormat);
+			var useConverted = NeedsConversion(format, out newFormat);
 
 
-			bool ex = device is DeviceEx;
+			var ex = device is DeviceEx;
 			var pool = ex ? Pool.Default : Pool.Managed;
 			var usage = (ex ? Usage.Dynamic : Usage.None) & ~Usage.AutoGenerateMipMap;
 
@@ -307,14 +336,14 @@ namespace VVVV.Nodes.OpenCV
 			}
 			catch (Exception e)
 			{
-				ImageUtils.Log(e);
-                return new Texture(device, 1, 1, 1, usage, Format.X8R8G8B8, Pool.Managed);
+				Log(e);
+				return new Texture(device, 1, 1, 1, usage, Format.X8R8G8B8, Pool.Managed);
 			}
 		}
 
 		public static bool NeedsConversion(TColorFormat format, out TColorFormat targetFormat)
 		{
-			switch(format)
+			switch (format)
 			{
 				case TColorFormat.RGB8:
 					targetFormat = TColorFormat.RGBA8;
@@ -359,7 +388,7 @@ namespace VVVV.Nodes.OpenCV
 
 		public static void CopyImage(byte[] source, CVImage target)
 		{
-			Marshal.Copy(source, 0, target.Data, (int) target.ImageAttributes.BytesPerFrame);
+			Marshal.Copy(source, 0, target.Data, (int)target.ImageAttributes.BytesPerFrame);
 		}
 
 		/// <summary>
@@ -384,17 +413,19 @@ namespace VVVV.Nodes.OpenCV
 
 		public static void CopyImageConverted(CVImage source, CVImage target)
 		{
-            if (target.Size != source.Size)
-            {
-                target.Initialise(source.Size, target.NativeFormat);
-            }
+			if (target.Size != source.Size)
+			{
+				target.Initialise(source.Size, target.NativeFormat);
+			}
 
 			COLOR_CONVERSION route = ConvertRoute(source.NativeFormat, target.NativeFormat);
 
 			if (route == COLOR_CONVERSION.CV_COLORCVT_MAX)
 			{
 				CvInvoke.cvConvert(source.CvMat, target.CvMat);
-			} else {
+			}
+			else
+			{
 				try
 				{
 					CvInvoke.cvCvtColor(source.CvMat, target.CvMat, route);
@@ -432,7 +463,7 @@ namespace VVVV.Nodes.OpenCV
 			if (image == null)
 				return false;
 
-			if (image.Size.Width==0 || image.Size.Height==0)
+			if (image.Size.Width == 0 || image.Size.Height == 0)
 				return false;
 
 			return true;
@@ -447,8 +478,8 @@ namespace VVVV.Nodes.OpenCV
 		/// <returns></returns>
 		public static Spread<double> GetPixelAsDoubles(CVImage source, double x, double y)
 		{
-			uint row = (uint) (x * (double)source.Width);
-			uint col = (uint) (y * (double)source.Height);
+			uint row = (uint)(x * (double)source.Width);
+			uint col = (uint)(y * (double)source.Height);
 
 			return GetPixelAsDoubles(source, row, col);
 		}
@@ -516,7 +547,7 @@ namespace VVVV.Nodes.OpenCV
 				return (byte)value;
 		}
 
-		static unsafe void PixelYUV2RGB(byte * rgb, byte y, byte u, byte v)
+		static unsafe void PixelYUV2RGB(byte* rgb, byte y, byte u, byte v)
 		{
 			int C = y - 16;
 			int D = u - 128;
@@ -529,10 +560,10 @@ namespace VVVV.Nodes.OpenCV
 
 		public static unsafe void RawYUV2RGBA(IntPtr source, IntPtr destination, uint size)
 		{
-			byte * yuv = (byte*) source;
-			byte* rgba = (byte*) destination;
+			byte* yuv = (byte*)source;
+			byte* rgba = (byte*)destination;
 
-			for (uint i=0; i<size / 2; i++)
+			for (uint i = 0; i < size / 2; i++)
 			{
 				rgba[0] = yuv[1];
 				//PixelYUV2RGB(rgba, yuv[1], yuv[0], yuv[2]);

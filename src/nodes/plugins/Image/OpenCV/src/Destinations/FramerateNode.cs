@@ -60,11 +60,11 @@ namespace VVVV.Nodes.OpenCV
 		[Output("Framerate", DimensionNames=new string[]{"fps"})]
 		ISpread<double> FFramerate;
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			FFramerate.SliceCount = InstanceCount;
+			FFramerate.SliceCount = instanceCount;
 
-			for (int i = 0; i < InstanceCount; i++)
+			for (int i = 0; i < instanceCount; i++)
 			{
 				FProcessor[i].Mode = FMode[i];
 				FFramerate[i] = FProcessor[i].Framerate;

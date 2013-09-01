@@ -224,38 +224,38 @@ namespace VVVV.Nodes.OpenCV.StructuredLight
 
 		}
 
-		protected override void Update(int InstanceCount, bool SpreadChanged)
+		protected override void Update(int instanceCount, bool spreadChanged)
 		{
-			for (int i = 0; i < InstanceCount; i++)
+			for (int i = 0; i < instanceCount; i++)
 				FProcessor[i].Apply = FPinInApply[i];
 
 			if (FPinInReset.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					if (FPinInReset[i])
 						FProcessor[i].Reset();
 
 			if (FPinInProperties.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].Payload = FPinInProperties[i];
 
 			if (FPinInTimestamps.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].TimestampRegister = FPinInTimestamps[i];
 
 			if (FPinInWaitTimestamp.IsChanged)
-				for (int i = 0; i < InstanceCount; i++)
+				for (int i = 0; i < instanceCount; i++)
 					FProcessor[i].WaitForTimestamp = FPinInWaitTimestamp[i];
 
 			//this is a little hacky /**HACK**/
-			if (SpreadChanged || FPinOutOutput[0] == null)
+			if (spreadChanged || FPinOutOutput[0] == null)
 			{
-				FPinOutOutput.SliceCount = InstanceCount;
-				FPinOutFramesDetected.SliceCount = InstanceCount;
-				for (int i = 0; i < InstanceCount; i++)
+				FPinOutOutput.SliceCount = instanceCount;
+				FPinOutFramesDetected.SliceCount = instanceCount;
+				for (int i = 0; i < instanceCount; i++)
 					FPinOutOutput[i] = FProcessor[i].ScanSet;
 			}
 
-			for (int i = 0; i < InstanceCount; i++)
+			for (int i = 0; i < instanceCount; i++)
 				FPinOutFramesDetected[i] = FProcessor[i].FramesDetected;
 		}
 
