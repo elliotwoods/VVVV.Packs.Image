@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VVVV.Nodes.OpenCV
 {
-	public abstract class IInstance : IDisposable
+	public abstract class IInstance
 	{
 		/// <summary>
 		/// This should be replaced to different functions
@@ -70,11 +70,6 @@ namespace VVVV.Nodes.OpenCV
 			else
 				lock (this)
 					Allocate();
-		}
-
-		virtual public void Dispose()
-		{
-
 		}
 	}
 }

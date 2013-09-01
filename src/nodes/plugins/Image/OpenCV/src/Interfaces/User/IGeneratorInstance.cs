@@ -181,7 +181,7 @@ namespace VVVV.Nodes.OpenCV
 			}
 		}
 
-		override public void Dispose()
+		public void Dispose()
 		{
             Stop();
 		}

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VVVV.Nodes.OpenCV
 {
-	public abstract class IFilterInstance : IInstance, IInstanceInput, IInstanceOutput, IDisposable
+	public abstract class IFilterInstance : IInstance, IInstanceInput, IInstanceOutput
 	{
 		protected CVImageInput FInput;
 		protected CVImageOutput FOutput;
