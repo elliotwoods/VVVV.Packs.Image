@@ -11,11 +11,22 @@ namespace VVVV.Nodes.OpenCV
 {
     public unsafe class AsTextureDX11Instance : IDestinationInstance, IDisposable
     {
+		class Resource : IDisposable
+		{
+			public DX11DynamicTexture2D Texture = null;
+			public bool NeedsRefresh = false;
+
+			public void Dispose()
+			{
+				this.Texture.Dispose();
+			}
+		};
+
         public int Width { get; private set; }
         public int Height { get; private set; }
 
 		public DX11Resource<DX11DynamicTexture2D> OutputSlice = null;
-		Dictionary<DX11RenderContext, bool> FNeedsRefresh = new Dictionary<DX11RenderContext, bool>();
+		Dictionary<DX11RenderContext, Resource> FTextures = new Dictionary<DX11RenderContext, Resource>();
 		
 		CVImageDoubleBuffer FBuffer;
         TColorFormat FConvertedFormat;
@@ -28,6 +39,7 @@ namespace VVVV.Nodes.OpenCV
 
         public override void Allocate()
         {
+			//allocate w.r.t. incoming image
 			lock (FLockImageAllocation)
 			{
 				FInputOk = false;
@@ -50,19 +62,23 @@ namespace VVVV.Nodes.OpenCV
 
         public override void Process()
         {
+			//called on upstream image update
+
             lock (FLockTexture)
             {
                 //ImageChanged so mark needs refresh on created textures
-                foreach (var key in FNeedsRefresh.Keys.ToList())
+                foreach (var texture in FTextures)
                 {
-                    FNeedsRefresh[key] = true;
+					var resource = texture.Value;
+					resource.NeedsRefresh = true;
                 }
             }
 
-	        if (!FNeedsConversion) return;
-	        
-			FInput.GetImage(FBuffer);
-	        FBuffer.Swap();
+			if (FNeedsConversion)
+			{
+				FInput.GetImage(FBuffer);
+				FBuffer.Swap();
+			}
         }
 
 
@@ -87,84 +103,116 @@ namespace VVVV.Nodes.OpenCV
             }
         }
 
-		public void DropContext(DX11RenderContext context)
+		public void DestroyTexture(DX11RenderContext context)
 		{
-			this.OutputSlice[context].Dispose();
-			this.FNeedsRefresh.Remove(context);
+			this.FTextures[context].Dispose();
+			this.FTextures.Remove(context);
 		}
 
         public void UpdateTexture(DX11RenderContext context)
         {
-            lock (FLockTexture)
-            {
-                if (!FInputOk)
-                    return;
+			lock (FLockTexture)
+			{
+				if (!FInputOk || !FBuffer.FrontImage.Allocated)
+					return;
 
-				DX11DynamicTexture2D tex;
-				if (!this.OutputSlice.Contains(context))
+				CheckTextureAllocation(context);
+
+				var resource = FTextures[context];
+
+				if (resource.NeedsRefresh)
 				{
-					tex = new DX11DynamicTexture2D(context, Width, Height, GetFormat(FBuffer.ImageAttributes.ColorFormat));
-					this.OutputSlice[context] = tex;
-					FNeedsRefresh[context] = true;
+					WriteTexture(resource);
+				}
+			}
+        }
+
+		void CheckTextureAllocation(DX11RenderContext context)
+		{
+			//check if the texture we've got allocated for this context doesn't meet the current image attributes
+			//this coule be on an OnImageAttributesChanged, but perhaps lazy reallocation is best
+			if (FTextures.ContainsKey(context))
+			{
+				var tex = FTextures[context].Texture;
+				if (tex.Width != this.Width || tex.Height != this.Height || tex.Format != GetFormat(FBuffer.ImageAttributes.ColorFormat))
+				{
+					tex.Dispose();
+					FTextures.Remove(context);
+				}
+			}
+
+			//check if we've not currently got a texture allocated for this context
+			if (!FTextures.ContainsKey(context))
+			{
+				var tex = new DX11DynamicTexture2D(context, Width, Height, GetFormat(FBuffer.ImageAttributes.ColorFormat));
+				var resource = new Resource()
+				{
+					Texture = tex,
+					NeedsRefresh = this.FInput.Allocated,
+				};
+				FTextures[context] = resource;
+				this.OutputSlice[context] = tex;
+			}
+		}
+
+		void WriteTexture(Resource resource)
+		{
+			var texture = resource.Texture;
+
+			CVImage image;
+
+			if (FNeedsConversion)
+			{
+				FBuffer.LockForReading();
+				image = FBuffer.FrontImage;
+			}
+			else
+			{
+				FInput.LockForReading();
+				image = FInput.Image;
+			}
+			
+			try
+			{
+				var imageAttributes = image.ImageAttributes;
+
+				if (imageAttributes.Stride == texture.GetRowPitch())
+				{
+					//write raw
+					texture.WriteData(image.Data, imageAttributes.BytesPerFrame);
 				}
 				else
 				{
-					tex = this.OutputSlice[context];
-					if (tex.Width != this.Width || tex.Height != this.Height || tex.Format != GetFormat(FBuffer.ImageAttributes.ColorFormat))
-					{
-						tex.Dispose();
-						tex = new DX11DynamicTexture2D(context, Width, Height, GetFormat(FBuffer.ImageAttributes.ColorFormat));
-						this.OutputSlice[context] = tex;
-					}
+					//write with pitch
+					texture.WriteDataPitch(image.Data, (int)imageAttributes.BytesPerFrame, imageAttributes.Stride / imageAttributes.Width);
 				}
 
-               if (!FNeedsRefresh[context])
-				   return;
-
-                try
-                {
-					Size imageSize = FBuffer.ImageAttributes.Size;
-
-					FBuffer.LockForReading();
-					try
-					{
-						if (!FBuffer.FrontImage.Allocated)
-							throw (new Exception());
-
-						int rowPitch = tex.GetRowPitch();
-
-						if (FBuffer.ImageAttributes.Stride == rowPitch)
-						{
-							tex.WriteData(FBuffer.FrontImage.Data, FBuffer.ImageAttributes.BytesPerFrame);
-						}
-						else
-						{
-							tex.WriteDataPitch(FBuffer.FrontImage.Data, (int) FBuffer.ImageAttributes.BytesPerFrame, FBuffer.ImageAttributes.Stride / FBuffer.ImageAttributes.Width);
-						}
-
-						FNeedsRefresh[context] = false;
-					}
-					catch (Exception e)
-					{
-						ImageUtils.Log(e);
-					}
-					finally
-					{
-						FBuffer.ReleaseForReading();
-					}
-                }
-                catch (Exception e)
-                {
-                    throw (e);
-                }
-            }
-        }
-
-		void Dispose()
-		{
-			foreach (var context in FNeedsRefresh)
+				resource.NeedsRefresh = false;
+			}
+			catch (Exception e)
 			{
-				OutputSlice[context.Key].Dispose();
+				ImageUtils.Log(e);
+			}
+			finally
+			{
+				if (FNeedsConversion)
+				{
+					FBuffer.ReleaseForReading();
+				}
+				else
+				{
+					FInput.ReleaseForReading();
+				}
+            }
+		}
+
+		public void Dispose()
+		{
+			var contexts = this.FTextures.Keys.ToList();
+
+			foreach (var context in contexts)
+			{
+				this.DestroyTexture(context);
 			}
 		}
 	}
