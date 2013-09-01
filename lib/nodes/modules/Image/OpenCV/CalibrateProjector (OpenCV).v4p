@@ -1,4 +1,4 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.1.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.3.dtd" >
    <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\CalibrateProjector (OpenCV).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Build\Modules\CalibrateProjector (EmguCV).v4p" systemname="CalibrateProjector (EmguCV)">
    <BOUNDS height="6645" left="11055" top="675" type="Window" width="16320">
    </BOUNDS>
@@ -550,14 +550,6 @@
    </NODE>
    <LINK srcnodeid="55" srcpinname="Output Enum" dstnodeid="19" dstpinname="Coordinates">
    </LINK>
-   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="56" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="9210" top="240" width="1590" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="9210" top="240" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="8" values="CV_CALIB_FIX_K3,CV_CALIB_FIX_K3,CV_CALIB_FIX_K3,CV_CALIB_FIX_K3,CV_CALIB_FIX_K3,CV_CALIB_FIX_K4,CV_CALIB_FIX_K5,CV_CALIB_FIX_ASPECT_RATIO">
-   </PIN>
-   </NODE>
    <LINK srcnodeid="48" srcpinname="Output Enum" dstnodeid="19" dstpinname="Flags" linkstyle="VHV">
    <LINKPOINT x="9015" y="2693">
    </LINKPOINT>
