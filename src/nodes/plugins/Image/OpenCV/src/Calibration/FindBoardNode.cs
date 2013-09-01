@@ -40,8 +40,11 @@ namespace VVVV.Nodes.OpenCV
 		[Output("Position")]
 		ISpread<ISpread<Vector2D>> FPinOutPositionXY;
 
-		[Output("Success", IsBang=true)]
+		[Output("Success", IsBang = true)]
 		ISpread<bool> FOutSearchSuccess;
+
+		[Output("Fail", IsBang = true, Visibility=PinVisibility.OnlyInspector)]
+		ISpread<bool> FOutSearchFail;
 
 		#endregion fields & pins
 
@@ -81,12 +84,16 @@ namespace VVVV.Nodes.OpenCV
 		void Output(int InstanceCount)
 		{
 			FPinOutPositionXY.SliceCount = InstanceCount;
+			FOutSearchSuccess.SliceCount = InstanceCount;
+			FOutSearchFail.SliceCount = InstanceCount;
 
 			for (int i = 0; i < InstanceCount; i++)
 			{
 				FPinOutPositionXY[i] = FProcessor[i].GetFoundCorners();
 				FOutSearchSuccess[i] = FProcessor[i].SearchSuccessful;
+				FOutSearchFail[i] = FProcessor[i].SearchFailed;
 				FProcessor[i].SearchSuccessful = false; //clear bang flag
+				FProcessor[i].SearchFailed = false;
 			}
 		}
 	}
