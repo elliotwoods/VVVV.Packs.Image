@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.3.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Package\Modules\ImageQuad.v4p" systemname="ImageQuad">
-   <BOUNDS height="10155" left="14985" top="2805" type="Window" width="10590">
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Package\Modules\ImageQuad.v4p" systemname="ImageQuad">
+   <BOUNDS height="10155" left="2430" top="12255" type="Window" width="10590">
    </BOUNDS>
    <NODE componentmode="InABox" id="0" nodename="IOBox (Node)" systemname="IOBox (Node)">
    <BOUNDS height="100" left="3765" top="210" type="Node" width="100">
@@ -319,7 +319,7 @@
    <LINK srcnodeid="25" srcpinname="Enum" dstnodeid="6" dstpinname="Technique">
    </LINK>
    <NODE systemname="GetSlice (Node)" filename="" nodename="GetSlice (Node)" componentmode="Hidden" id="29">
-   <BOUNDS type="Node" left="735" top="7365" width="100" height="100">
+   <BOUNDS type="Node" left="735" top="7365" width="750" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -334,18 +334,6 @@
    <PIN pinname="Input Node" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="29" srcpinname="Output Node" dstnodeid="6" dstpinname="Transform" linkstyle="VHV">
-   <LINKPOINT x="765" y="7740">
-   </LINKPOINT>
-   <LINKPOINT x="2685" y="7740">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="29" srcpinname="Output Node" dstnodeid="27" dstpinname="Input Node" linkstyle="VHV">
-   <LINKPOINT x="765" y="7740">
-   </LINKPOINT>
-   <LINKPOINT x="2685" y="7740">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="I (Spreads)" nodename="I (Spreads)" componentmode="Hidden" id="30">
    <BOUNDS type="Node" left="1425" top="6990" width="100" height="100">
    </BOUNDS>
@@ -408,7 +396,7 @@
    <LINKPOINT x="2160" y="4950">
    </LINKPOINT>
    </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\imagepack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="1" nodename="AsTexture (OpenCV EX9.Texture)" systemname="AsTexture (OpenCV EX9.Texture)">
+   <NODE componentmode="Hidden" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="1" nodename="AsTexture (OpenCV EX9.Texture)" systemname="AsTexture (OpenCV EX9.Texture)">
    <BOUNDS height="100" left="3765" top="6585" type="Node" width="100">
    </BOUNDS>
    <PIN pinname="Image" slicecount="1" visible="1" values="||">
@@ -423,5 +411,17 @@
    <LINK dstnodeid="6" dstpinname="Texture" srcnodeid="1" srcpinname="Texture Out">
    </LINK>
    <LINK srcnodeid="1" srcpinname="Texture Out" dstnodeid="28" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="29" srcpinname="Output Node" dstnodeid="27" dstpinname="Input Node" linkstyle="VHV">
+   <LINKPOINT x="765" y="7740">
+   </LINKPOINT>
+   <LINKPOINT x="2685" y="7740">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="29" srcpinname="Output Node" dstnodeid="6" dstpinname="Transform" linkstyle="VHV">
+   <LINKPOINT x="765" y="7740">
+   </LINKPOINT>
+   <LINKPOINT x="2685" y="7740">
+   </LINKPOINT>
    </LINK>
    </PATCH>

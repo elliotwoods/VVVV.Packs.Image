@@ -71,9 +71,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="7" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="1725" top="3705" width="480" height="480">
+   <BOUNDS type="Box" left="1485" top="3705" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="1725" top="3705" width="0" height="0">
+   <BOUNDS type="Node" left="1485" top="3705" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -89,9 +89,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="8" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="5250" top="3705" width="795" height="240">
+   <BOUNDS type="Box" left="4320" top="3705" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="5250" top="3705" width="0" height="0">
+   <BOUNDS type="Node" left="4320" top="3705" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -105,9 +105,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="6390" top="3705" width="795" height="240">
+   <BOUNDS type="Box" left="5460" top="3705" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="6390" top="3705" width="0" height="0">
+   <BOUNDS type="Node" left="5460" top="3705" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -231,7 +231,7 @@
    <LINK srcnodeid="0" srcpinname="Running" dstnodeid="7" dstpinname="Y Input Value">
    </LINK>
    <NODE systemname="Specification (Ximea Split)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.Ximea.dll" nodename="Specification (Ximea Split)" componentmode="Hidden" id="19">
-   <BOUNDS type="Node" left="5265" top="3225" width="4545" height="270">
+   <BOUNDS type="Node" left="4335" top="3225" width="4545" height="270">
    </BOUNDS>
    <PIN pinname="Specification" visible="1">
    </PIN>
@@ -239,7 +239,7 @@
    </PIN>
    <PIN pinname="Height" visible="1">
    </PIN>
-   <BOUNDS type="Box" left="5265" top="3225">
+   <BOUNDS type="Box" left="4335" top="3225">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="0" srcpinname="Specification" dstnodeid="19" dstpinname="Specification">
@@ -249,9 +249,9 @@
    <LINK srcnodeid="19" srcpinname="Height" dstnodeid="9" dstpinname="Y Input Value">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="20" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="7500" top="3705" width="1365" height="240">
+   <BOUNDS type="Box" left="6570" top="3705" width="1365" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="7500" top="3705" width="0" height="0">
+   <BOUNDS type="Node" left="6570" top="3705" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -265,9 +265,9 @@
    <LINK srcnodeid="19" srcpinname="Name" dstnodeid="20" dstpinname="Input String">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="21" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="8625" top="4335" width="795" height="240">
+   <BOUNDS type="Box" left="7695" top="4335" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="8625" top="4335" width="0" height="0">
+   <BOUNDS type="Node" left="7695" top="4335" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -281,9 +281,9 @@
    <LINK srcnodeid="19" srcpinname="Type" dstnodeid="21" dstpinname="Input String">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="22" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="9750" top="3705" width="1365" height="240">
+   <BOUNDS type="Box" left="8820" top="3705" width="1365" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="9750" top="3705" width="0" height="0">
+   <BOUNDS type="Node" left="8820" top="3705" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -297,9 +297,9 @@
    <LINK srcnodeid="19" srcpinname="Serial" dstnodeid="22" dstpinname="Input String">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="23" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="2910" top="3705" width="795" height="240">
+   <BOUNDS type="Box" left="2415" top="3705" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="2910" top="3705" width="0" height="0">
+   <BOUNDS type="Node" left="2415" top="3705" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -311,9 +311,9 @@
    <LINK srcnodeid="0" srcpinname="Framerate" dstnodeid="23" dstpinname="Y Input Value">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="24" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="4110" top="3705" width="795" height="240">
+   <BOUNDS type="Box" left="3390" top="3705" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="4110" top="3705" width="0" height="0">
+   <BOUNDS type="Node" left="3390" top="3705" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -409,5 +409,25 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="31" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Value">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="32" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="10095" top="3225" width="1515" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="10095" top="3225" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Status">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Status" dstnodeid="32" dstpinname="Input String" linkstyle="VHV">
+   <LINKPOINT x="5330" y="3150">
+   </LINKPOINT>
+   <LINKPOINT x="10105" y="3150">
+   </LINKPOINT>
    </LINK>
    </PATCH>

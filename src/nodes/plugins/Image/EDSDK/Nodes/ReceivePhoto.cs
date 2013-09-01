@@ -9,9 +9,9 @@ using VVVV.PluginInterfaces.V2;
 namespace VVVV.Nodes.EDSDK
 {
 	#region PluginInfo
-	[PluginInfo(Name = "ReceivePhoto", Category = "EDSDK", Help = "Receives photos as OpenCV image assets", Tags = "Canon", Author = "Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "ReceivePhoto", Category = "EDSDK", Help = "Receives photos as OpenCV image assets", Tags = "Canon", Author = "elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
-	public class ReceivePhoto : IPluginEvaluate, IDisposable
+	public class ReceivePhotoNode : IPluginEvaluate, IDisposable
 	{
 		[Input("Device")]
 		IDiffSpread<EosCamera> FInDevices;
@@ -82,7 +82,9 @@ namespace VVVV.Nodes.EDSDK
 					if (FListeningTo[key] == camera)
 					{
 						FPictureTaken.Add(key);
-						FOutImage[key].Send(e.GetBitmap());
+						var bitmap = e.GetBitmap();
+						FOutImage[key].Send(bitmap);
+						bitmap.Dispose();
 					}
 				}
 			}

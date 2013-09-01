@@ -46,11 +46,23 @@ namespace VVVV.Nodes.Ximea.Nodes
 				for (int i = 0; i < SpreadMax; i++)
 				{
 					var spec = FInSpecification[i];
-					FOutWidth[i] = spec.Width;
-					FOutHeight[i] = spec.Height;
-					FOutName[i] = spec.Name;
-					FOutType[i] = spec.Type;
-					FOutSerial[i] = spec.Serial;
+
+					if (spec == null)
+					{
+						FOutWidth[i] = 0;
+						FOutHeight[i] = 0;
+						FOutName[i] = "";
+						FOutType[i] = "";
+						FOutSerial[i] = "";
+					}
+					else
+					{
+						FOutWidth[i] = spec.Width;
+						FOutHeight[i] = spec.Height;
+						FOutName[i] = spec.Name;
+						FOutType[i] = spec.Type;
+						FOutSerial[i] = spec.Serial;
+					}
 				}
 			}
 		}

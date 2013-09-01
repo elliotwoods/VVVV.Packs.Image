@@ -54,7 +54,7 @@ namespace VVVV.Nodes.OpenCV
 		{
 			foreach (var processor in FProcessor)
 			{
-				processor.DropContext(context);
+				processor.DestroyTexture(context);
 			}
 		}
 

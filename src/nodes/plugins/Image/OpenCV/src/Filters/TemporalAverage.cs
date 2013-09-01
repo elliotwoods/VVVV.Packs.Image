@@ -14,7 +14,7 @@ using VVVV.Utils.VColor;
 
 namespace VVVV.Nodes.OpenCV
 {
-	public class TemporalAverageInstance : IFilterInstance, IDisposable
+	public class TemporalAverageInstance : IFilterInstance
 	{
 		private int FFrames = 1;
 		public int Frames

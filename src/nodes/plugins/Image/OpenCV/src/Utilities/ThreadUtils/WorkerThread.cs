@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace VVVV.Nodes.DeckLink
+namespace VVVV.Nodes.OpenCV.ThreadUtils
 {
 	public class WorkerThread : IDisposable
 	{
 		public delegate void WorkItemDelegate();
-		public static WorkerThread Singleton = new WorkerThread();
 
 		Thread FThread;
 		bool FRunning;
@@ -18,30 +16,43 @@ namespace VVVV.Nodes.DeckLink
 		Queue<WorkItemDelegate> FWorkQueue = new Queue<WorkItemDelegate>();
 		Exception FException;
 
-		WorkerThread()
+		public WorkerThread()
 		{
 			FRunning = true;
-			FThread = new Thread(Loop);
-			FThread.SetApartmentState(ApartmentState.MTA);
-			FThread.Name = "DeckLink Worker";
+			FThread = new Thread(ThreadedFunction);
 			FThread.Start();
 		}
 
-		void Loop()
+		public string Name
+		{
+			get
+			{
+				return FThread.Name;
+			}
+			set
+			{
+				FThread.Name = value;
+			}
+		}
+
+		public event EventHandler ThreadWait;
+
+		void ThreadedFunction()
 		{
 			while (FRunning)
 			{
-				bool empty = true;
+				bool noWorkDone = true;
+				this.FException = null;
+
 				lock (FLock)
 				{
 					if (FWorkQueue.Count > 0)
 					{
-						empty = false;
+						noWorkDone = false;
 						var workItem = FWorkQueue.Dequeue();
 						try
 						{
 							workItem();
-							this.FException = null;
 						}
 						catch (Exception e)
 						{
@@ -49,9 +60,21 @@ namespace VVVV.Nodes.DeckLink
 						}
 					}
 				}
-				if (empty)
+				if (noWorkDone)
 				{
-					Thread.Sleep(1);
+					if (ThreadWait == null)
+						Thread.Sleep(1);
+					else
+					{
+						try
+						{
+							ThreadWait(this, EventArgs.Empty);
+						}
+						catch (Exception e)
+						{
+							this.FException = e;
+						}
+					}
 				}
 			}
 		}
@@ -103,6 +126,11 @@ namespace VVVV.Nodes.DeckLink
 		{
 			while (true)
 			{
+				if (!FRunning)
+				{
+					throw (new Exception("Thread [" + FThread.Name + "] is not running, so BlockUntilEmpty should not be called."));
+				}
+
 				lock (FLock)
 				{
 					if (FWorkQueue.Count == 0)

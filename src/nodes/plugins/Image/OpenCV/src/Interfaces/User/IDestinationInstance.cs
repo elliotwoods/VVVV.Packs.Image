@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VVVV.Nodes.OpenCV
 {
-	public abstract class IDestinationInstance : IInstance, IInstanceInput, IDisposable
+	public abstract class IDestinationInstance : IInstance, IInstanceInput
 	{
 		protected CVImageInput FInput;
 

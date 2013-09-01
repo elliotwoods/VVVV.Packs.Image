@@ -142,6 +142,10 @@ namespace VVVV.Nodes.OpenCV
 
 		override public void Allocate()
 		{
+			if (FImage != null)
+			{
+				FImage.Dispose();
+			}
 			FImage = ImageUtils.CreateImage(this.Width, this.Height, this.NativeFormat);
 			this.Timestamp = 0;
 		}

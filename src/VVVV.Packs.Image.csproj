@@ -91,6 +91,10 @@
       <Project>{98936436-EA28-437E-A2A4-CC7CAA532658}</Project>
       <Name>WinFormsViewer</Name>
     </ProjectReference>
+    <ProjectReference Include="nodes\plugins\DX11\Ximea\VVVV.Nodes.Ximea.csproj">
+      <Project>{685c0911-c080-46b4-b21f-b8bbad507d0b}</Project>
+      <Name>VVVV.Nodes.Ximea</Name>
+    </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\DeckLink\VVVV.Nodes.DeckLink.csproj">
       <Project>{450cf5db-edb3-4e59-bd5f-f1857eb76419}</Project>
       <Name>VVVV.Nodes.DeckLink</Name>
@@ -98,6 +102,10 @@
     <ProjectReference Include="nodes\plugins\Image\EDSDK\VVVV.Nodes.OpenCV.EDSDK.csproj">
       <Project>{5EDB3C6E-2685-44F6-BD71-678CFC10AB31}</Project>
       <Name>VVVV.Nodes.OpenCV.EDSDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="nodes\plugins\Image\FlyCapture\VVVV.Nodes.OpenCV.FlyCapture.csproj">
+      <Project>{998e4e7e-f3b4-4ca1-acd3-0eabacf23dd0}</Project>
+      <Name>VVVV.Nodes.OpenCV.FlyCapture</Name>
     </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\FreeImage\VVVV.Nodes.OpenCV.FreeImage.csproj">
       <Project>{7A5AC7E2-511C-4240-8D2B-5171F511F4C5}</Project>

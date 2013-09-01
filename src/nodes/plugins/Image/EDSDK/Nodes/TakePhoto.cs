@@ -8,9 +8,9 @@ using VVVV.PluginInterfaces.V2;
 namespace VVVV.Nodes.EDSDK.Nodes
 {
 	#region PluginInfo
-	[PluginInfo(Name = "Shoot", Category = "EDSDK", Help = "Takes a photo using a Canon camera", Tags = "Canon", Author = "Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "Shoot", Category = "EDSDK", Help = "Takes a photo using a Canon camera", Tags = "Canon", Author = "elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
-	public class InfoNode : IPluginEvaluate
+	public class ShootNode : IPluginEvaluate
 	{
 		[Input("Device")]
 		IDiffSpread<EosCamera> FInDevices;

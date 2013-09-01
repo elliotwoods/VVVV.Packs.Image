@@ -202,14 +202,24 @@ namespace VVVV.Nodes.OpenCV
 			StopThread();
 
 			foreach (var process in FProcess)
-				process.Dispose();
+			{
+				var disposableContainer = process as IDisposable;
+				if (disposableContainer != null)
+				{
+					disposableContainer.Dispose();
+				}
+			}
 
 			FInput.Dispose();
 		}
 
 		protected void Dispose(int i)
 		{
-			FProcess[i].Dispose();
+			var disposableContainer = FProcess[i] as IDisposable;
+			if (disposableContainer != null)
+			{
+				disposableContainer.Dispose();
+			}
 			if (i < FInput.SliceCount)
 				FInput[i].Dispose();
 		}

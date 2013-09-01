@@ -16,9 +16,9 @@ using System.Collections.Generic;
 namespace VVVV.Nodes.EDSDK
 {
 	#region PluginInfo
-	[PluginInfo(Name = "ListDevices", Category = "EDSDK", Help = "List connected Canon cameras using EDSDK", Tags = "Canon", Author = "Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "ListDevices", Category = "EDSDK", Help = "List connected Canon cameras using EDSDK", Tags = "Canon", Author = "elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
-	public class ListDevicesNode : IPluginEvaluate
+	public class ListDevicesNode : IPluginEvaluate, IDisposable
 	{
 		#region fields & pins
 		[Input("Refresh", IsBang = true, IsSingle = true)]
@@ -34,6 +34,7 @@ namespace VVVV.Nodes.EDSDK
 		ILogger FLogger;
 
 		Context FContext = new Context();
+		EosCameraCollection FCameraCollection = null;
 		bool FValid = true;
 
 		#endregion fields & pins
@@ -64,11 +65,15 @@ namespace VVVV.Nodes.EDSDK
 		{
 			try
 			{
-				var cameras = FContext.Framework.GetCameraCollection();
+				if (FCameraCollection != null)
+				{
+					FCameraCollection.Dispose();
+				}
+				FCameraCollection = FContext.Framework.GetCameraCollection();
 
 				FPinOutDevices.SliceCount = 0;
 
-				foreach(var camera in cameras)
+				foreach(var camera in FCameraCollection)
 				{
 					FPinOutDevices.Add(camera);
 				}
@@ -80,6 +85,11 @@ namespace VVVV.Nodes.EDSDK
 			{
 				FPinOutStatus[0] = "ERROR : " + e.Message;
 			}
+		}
+
+		public void Dispose()
+		{
+			FCameraCollection.Dispose();
 		}
 	}
 }
