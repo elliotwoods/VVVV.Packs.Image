@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha26.1.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Encode (Image.StructuredLight) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Encode (Image.StructuredLight) help.v4p" systemname="Encode (Image.StructuredLight) help">
-   <BOUNDS height="18465" left="-1650" top="7365" type="Window" width="19650">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug30.3.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\imagepack\lib\nodes\plugins\Encode (Image.StructuredLight) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Encode (Image.StructuredLight) help.v4p" systemname="Encode (Image.StructuredLight) help">
+   <BOUNDS height="16635" left="7395" top="495" type="Window" width="19920">
    </BOUNDS>
    <NODE componentmode="InABox" id="9" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="10140" top="270" type="Node" width="0">
@@ -34,12 +34,12 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Width">
    </PIN>
    </NODE>
-   <NODE componentmode="FullScreen" id="12" nodename="Renderer (EX9)" systemname="Renderer (EX9)">
+   <NODE componentmode="InAWindow" id="12" nodename="Renderer (EX9)" systemname="Renderer (EX9)">
    <BOUNDS height="100" left="6450" top="3990" type="Node" width="100">
    </BOUNDS>
    <BOUNDS height="2160" left="6450" top="3990" type="Box" width="2490">
    </BOUNDS>
-   <BOUNDS height="7110" left="35850" top="2220" type="Window" width="9780">
+   <BOUNDS height="7110" left="330" top="300" type="Window" width="9780">
    </BOUNDS>
    <PIN pinname="Layers" visible="1">
    </PIN>
@@ -129,7 +129,7 @@
    </PIN>
    <PIN pinname="Fullscreen Depthbuffer Format" slicecount="1" values="NONE">
    </PIN>
-   <PIN pinname="Fullscreen Dimensions" slicecount="1" values="|480 x 640|">
+   <PIN pinname="Fullscreen Dimensions" slicecount="1" values="|1024 x 768|">
    </PIN>
    <PIN pinname="Fullscreen Antialiasing Quality Level" slicecount="1" values="NONE">
    </PIN>
@@ -149,7 +149,7 @@
    </PIN>
    <PIN pinname="Fullscreen Depthbuffer Format" slicecount="1" values="NONE">
    </PIN>
-   <PIN pinname="Fullscreen Dimensions" slicecount="1" values="|480 x 640|">
+   <PIN pinname="Fullscreen Dimensions" slicecount="1" values="|1024 x 768|">
    </PIN>
    <PIN pinname="Fullscreen Antialiasing Quality Level" slicecount="1" values="NONE">
    </PIN>

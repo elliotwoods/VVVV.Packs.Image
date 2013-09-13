@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\OpenCV-help\StereoCalibrate\3D view.v4p" systemname="3D view" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\OpenCV-help\StereoCalibrate\3D view.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug31.1.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\myimagepack\nodes\plugins\OpenCV-help\StereoCalibrate\3DView.v4p" systemname="3DView" filename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\myimagepack\nodes\plugins\OpenCV-help\StereoCalibrate\3DView.v4p">
    <BOUNDS type="Window" left="435" top="4935" width="17550" height="10830">
    </BOUNDS>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InAWindow" id="16">
@@ -28,16 +28,6 @@
    <PIN pinname="Actual Backbuffer Height" visible="1">
    </PIN>
    <PIN pinname="Aspect Ratio" visible="1" slicecount="1" values="||">
-   </PIN>
-   </NODE>
-   <NODE systemname="CameraPreview (Transform DX9)" filename="%VVVV%\addonpack\lib\nodes\modules\Transform\CameraPreview (Transform DX9).v4p" nodename="CameraPreview (Transform DX9)" componentmode="Hidden" id="15">
-   <BOUNDS type="Node" left="7725" top="6690" width="2820" height="270">
-   </BOUNDS>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <PIN pinname="View" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Projection" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <NODE systemname="Camera (Transform Softimage)" filename="%VVVV%\lib\nodes\modules\Transform\Camera (Transform Softimage).v4p" nodename="Camera (Transform Softimage)" componentmode="Hidden" id="14">
@@ -100,12 +90,12 @@
    <PIN pinname="Input 2" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Perspective (OpenCV Intrinsics Transform)" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\Perspective (OpenCV Intrinsics Transform).v4p" nodename="Perspective (OpenCV Intrinsics Transform)" componentmode="Hidden" id="9">
+   <NODE systemname="Perspective (OpenCV Intrinsics Transform)" filename="%VVVV%\packs\myimagepack\nodes\modules\Image\OpenCV\Perspective (OpenCV Intrinsics Transform).v4p" nodename="Perspective (OpenCV Intrinsics Transform)" componentmode="Hidden" id="9">
    <BOUNDS type="Node" left="8625" top="5790" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Intrinsics" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Output" visible="1">
+   <PIN pinname="Output" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Near" slicecount="1" values="0.05">
    </PIN>
@@ -122,7 +112,7 @@
    <PIN pinname="Transform In" visible="-1" pintype="Input" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <NODE systemname="Chessboard (OpenCV DX9)" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9).v4p" nodename="Chessboard (OpenCV DX9)" componentmode="Hidden" id="7">
+   <NODE systemname="Chessboard (OpenCV DX9)" filename="%VVVV%\packs\myimagepack\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9).v4p" nodename="Chessboard (OpenCV DX9)" componentmode="Hidden" id="7">
    <BOUNDS type="Node" left="4725" top="6675" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Board Size X" visible="1" slicecount="1" values="9">
@@ -138,7 +128,7 @@
    <PIN pinname="Board Size Y" visible="1" slicecount="1" values="6">
    </PIN>
    </NODE>
-   <NODE systemname="Chessboard (OpenCV DX9)" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9).v4p" nodename="Chessboard (OpenCV DX9)" componentmode="Hidden" id="6">
+   <NODE systemname="Chessboard (OpenCV DX9)" filename="%VVVV%\packs\myimagepack\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9).v4p" nodename="Chessboard (OpenCV DX9)" componentmode="Hidden" id="6">
    <BOUNDS type="Node" left="1635" top="6675" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Board Size X" visible="1" slicecount="1" values="9">
@@ -346,12 +336,6 @@
    <LINKPOINT x="7320" y="9860">
    </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="15" srcpinname="Layer" dstnodeid="13" dstpinname="Layer 4" linkstyle="Bezier">
-   <LINKPOINT x="7710" y="7538">
-   </LINKPOINT>
-   <LINKPOINT x="6900" y="7538">
-   </LINKPOINT>
-   </LINK>
    <LINK srcnodeid="14" srcpinname="View" dstnodeid="16" dstpinname="View">
    </LINK>
    <LINK srcnodeid="14" srcpinname="Projection" dstnodeid="16" dstpinname="Projection" linkstyle="VHV">
@@ -364,11 +348,7 @@
    </LINK>
    <LINK srcnodeid="12" srcpinname="Layer" dstnodeid="13" dstpinname="Layer 1">
    </LINK>
-   <LINK srcnodeid="11" srcpinname="Output" dstnodeid="15" dstpinname="View">
-   </LINK>
    <LINK srcnodeid="10" srcpinname="Output" dstnodeid="9" dstpinname="Intrinsics">
-   </LINK>
-   <LINK srcnodeid="9" srcpinname="Output" dstnodeid="15" dstpinname="Projection">
    </LINK>
    <LINK srcnodeid="8" srcpinname="Transform Out" dstnodeid="16" dstpinname="Aspect Ratio" linkstyle="VHV">
    <LINKPOINT x="6900" y="9860">
@@ -479,5 +459,25 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="26" srcpinname="Transform Out" dstnodeid="11" dstpinname="Input 1">
+   </LINK>
+   <NODE systemname="CameraPreview (Transform DX9)" filename="%VVVV%\packs\myimagepack\nodes\modules\Transform\CameraPreview (Transform DX9).v4p" nodename="CameraPreview (Transform DX9)" componentmode="Hidden" id="15">
+   <BOUNDS type="Node" left="7725" top="6690" width="2820" height="270">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="View" visible="1">
+   </PIN>
+   <PIN pinname="Projection" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="15" srcpinname="Layer" dstnodeid="13" dstpinname="Layer 4" linkstyle="Bezier">
+   <LINKPOINT x="7710" y="7538">
+   </LINKPOINT>
+   <LINKPOINT x="6900" y="7538">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="11" srcpinname="Output" dstnodeid="15" dstpinname="View">
+   </LINK>
+   <LINK srcnodeid="9" srcpinname="Output" dstnodeid="15" dstpinname="Projection">
    </LINK>
    </PATCH>
