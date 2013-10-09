@@ -18,7 +18,7 @@ namespace VVVV.Nodes.EDSDK
 	#region PluginInfo
 	[PluginInfo(Name = "ListDevices", Category = "EDSDK", Help = "List connected Canon cameras using EDSDK", Tags = "Canon", Author = "elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
-	public class ListDevicesNode : IPluginEvaluate, IDisposable
+	public class ListDevicesNode : IPluginEvaluate
 	{
 		#region fields & pins
 		[Input("Refresh", IsBang = true, IsSingle = true)]
@@ -33,63 +33,45 @@ namespace VVVV.Nodes.EDSDK
 		[Import]
 		ILogger FLogger;
 
-		Context FContext = new Context();
-		EosCameraCollection FCameraCollection = null;
-		bool FValid = true;
+		bool FFirstRun = true;
 
 		#endregion fields & pins
 
 		[ImportingConstructor]
 		public ListDevicesNode(IPluginHost host)
 		{
-
 		}
 
-		bool FFirstRun = true;
 		//called when data for any output pin is requested
 		public void Evaluate(int SpreadMax)
 		{
-			if (FFirstRun)
+			if (FFirstRun || FPinInRefresh[0])
 			{
+				LoadList();
 				FFirstRun = false;
-				Refresh();
-			}
-
-			if (FPinInRefresh[0])
-			{
-				Refresh();
 			}
 		}
 
-		private void Refresh()
+		private void LoadList()
 		{
 			try
 			{
-				if (FCameraCollection != null)
-				{
-					FCameraCollection.Dispose();
-				}
-				FCameraCollection = FContext.Framework.GetCameraCollection();
-
 				FPinOutDevices.SliceCount = 0;
 
-				foreach(var camera in FCameraCollection)
+				foreach (var camera in Context.Cameras)
 				{
-					FPinOutDevices.Add(camera);
+					if (camera.IsSessionOpen)
+					{
+						FPinOutDevices.Add(camera);
+					}
 				}
 
 				FPinOutStatus[0] = "OK";
 			}
-
 			catch (Exception e)
 			{
 				FPinOutStatus[0] = "ERROR : " + e.Message;
 			}
-		}
-
-		public void Dispose()
-		{
-			FCameraCollection.Dispose();
 		}
 	}
 }

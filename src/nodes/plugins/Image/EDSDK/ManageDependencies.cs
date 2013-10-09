@@ -5,6 +5,7 @@ using System.Text;
 using VVVV.PluginInterfaces.V2;
 using System.Reflection;
 using System.IO;
+using VVVV.Nodes.EDSDK;
 
 namespace VVVV.Nodes.EDSDK
 {
@@ -18,10 +19,13 @@ namespace VVVV.Nodes.EDSDK
             var envPath = Environment.GetEnvironmentVariable("PATH");
             envPath = string.Format("{0};{1}", envPath, pathToBinFolder);
             Environment.SetEnvironmentVariable("PATH", envPath);
+
+			VVVV.Nodes.EDSDK.Context.Start();
         }
 
         public void Shutdown()
         {
-        }
+			VVVV.Nodes.EDSDK.Context.Shutdown();
+		}
     }
 }

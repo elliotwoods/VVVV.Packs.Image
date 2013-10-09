@@ -1377,14 +1377,14 @@
     <None Include="Dependencies\EDSDK\x86\icc\WideGamutRGB.icc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Nodes\About.cs" />
-    <Compile Include="Lib\Framework.cs" />
+    <Compile Include="Lib\Context.cs" />
     <Compile Include="ManageDependencies.cs" />
     <Compile Include="Nodes\BatteryNode.cs" />
     <Compile Include="Nodes\Info.cs" />
     <Compile Include="Nodes\ListDevices.cs" />
+    <Compile Include="Nodes\LiveViewNode.cs" />
     <Compile Include="Nodes\ReceivePhoto.cs" />
-    <Compile Include="Nodes\TakePhoto.cs" />
+    <Compile Include="Nodes\ShootNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

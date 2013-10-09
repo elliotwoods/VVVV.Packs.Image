@@ -45,6 +45,8 @@ namespace VVVV.Nodes.EDSDK
 
 		void AddListeners()
 		{
+			RemoveListeners();
+
 			int count = FInDevices.SliceCount;
 			SetupOutput(count);
 

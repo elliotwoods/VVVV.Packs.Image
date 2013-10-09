@@ -121,7 +121,8 @@ namespace VVVV.Nodes.OpenCV.Calibration
 					}
 					else
 					{
-						intrinsicParam = FPinInIntrinsics[0].intrinsics;
+						intrinsicParam.DistortionCoeffs = FPinInIntrinsics[0].intrinsics.DistortionCoeffs.Clone();
+						intrinsicParam.IntrinsicMatrix = FPinInIntrinsics[0].intrinsics.IntrinsicMatrix.Clone();
 					}
 
 				}

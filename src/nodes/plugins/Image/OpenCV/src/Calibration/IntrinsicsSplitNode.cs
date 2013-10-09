@@ -38,8 +38,11 @@ namespace VVVV.Nodes.OpenCV
 		[Output("Camera")]
 		ISpread<Matrix4x4> FPinOutCameraTransform;
 
-		[Output("Normalised projection")]
+		[Output("Normalised Projection")]
 		ISpread<Matrix4x4> FPinOutProjectionTransform;
+
+		[Output("Sensor Size")]
+		ISpread<Vector2D> FPinOutSensorSize;
 
 		[Import]
 		ILogger FLogger;
@@ -68,6 +71,7 @@ namespace VVVV.Nodes.OpenCV
 				FPinOutCameraTransform.SliceCount = 0;
 				FPinOutProjectionTransform.SliceCount = 0;
 				FPinOutDistiortonCoefficients.SliceCount = 0;
+				FPinOutSensorSize.SliceCount = 0;
 			}
 			else
 			{
@@ -75,6 +79,7 @@ namespace VVVV.Nodes.OpenCV
 				FPinOutCameraTransform.SliceCount = SpreadMax;
 				FPinOutCameraMatrix.SliceCount = SpreadMax;
 				FPinOutProjectionTransform.SliceCount = SpreadMax;
+				FPinOutSensorSize.SliceCount = SpreadMax;
 
 				for (int i = 0; i < SpreadMax; i++)
 				{
@@ -92,6 +97,7 @@ namespace VVVV.Nodes.OpenCV
 
 					FPinOutCameraTransform[i] = FPinInIntrinsics[i].Matrix;
 					FPinOutProjectionTransform[i] = FPinInIntrinsics[i].NormalisedMatrix;
+					FPinOutSensorSize[i] = new Vector2D((double)FPinInIntrinsics[i].SensorSize.Width, (double)FPinInIntrinsics[i].SensorSize.Height);
 				}
 			}
 		}

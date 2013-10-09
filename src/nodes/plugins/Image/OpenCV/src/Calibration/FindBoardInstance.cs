@@ -47,13 +47,17 @@ namespace VVVV.Nodes.OpenCV
 
 		public override void Allocate()
 		{
-			FGrayscale.Initialise(FInput.ImageAttributes.Size, TColorFormat.L8);
 		}
 
 		override public void Process()
 		{
 			if (!Enabled)
 				return;
+
+			if (!FGrayscale.Allocated || FGrayscale.Size != FInput.ImageAttributes.Size)
+			{
+				FGrayscale.Initialise(FInput.ImageAttributes.Size, TColorFormat.L8);
+			}
 
 			FInput.Image.GetImage(TColorFormat.L8, FGrayscale);
 
@@ -121,7 +125,7 @@ namespace VVVV.Nodes.OpenCV
 						maxY = FGrayscale.Height - 1;
 					}
 
-					Rectangle rect = new Rectangle(minX, minY, maxX-minX, maxX-minY);
+					Rectangle rect = new Rectangle(minX, minY, maxX-minX, maxY-minY);
 
 					CvInvoke.cvSetImageROI(FGrayscale.CvMat, rect);
 					FCropped.Initialise(new Size(rect.Width, rect.Height), TColorFormat.L8);
