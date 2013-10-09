@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.1.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.dtd" >
    <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\DX11.Layer\CameraPreview (DX11.Layer).v4p" filename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\DX11.Layer\CameraPreview (DX11.Layer).v4p" systemname="CameraPreview (DX11.Layer)">
-   <BOUNDS height="6855" left="13125" top="5850" type="Window" width="8235">
+   <BOUNDS height="6855" left="7140" top="10500" type="Window" width="8235">
    </BOUNDS>
    <NODE componentmode="InABox" id="6" nodename="IOBox (Node)" systemname="IOBox (Node)">
    <BOUNDS height="100" left="210" top="5565" type="Node" width="100">
@@ -13,9 +13,9 @@
    </PIN>
    </NODE>
    <NODE componentmode="InABox" id="13" nodename="IOBox (Node)" systemname="IOBox (Node)">
-   <BOUNDS height="0" left="1995" top="240" type="Node" width="0">
+   <BOUNDS height="0" left="1320" top="240" type="Node" width="0">
    </BOUNDS>
-   <BOUNDS height="240" left="1995" top="240" type="Box" width="795">
+   <BOUNDS height="240" left="1320" top="240" type="Box" width="795">
    </BOUNDS>
    <PIN pinname="Input Node" slicecount="1" values="||">
    </PIN>
@@ -25,7 +25,7 @@
    </PIN>
    </NODE>
    <NODE componentmode="Hidden" id="17" nodename="Inverse (Transform)" systemname="Inverse (Transform)">
-   <BOUNDS height="100" left="1455" top="1215" type="Node" width="100">
+   <BOUNDS height="100" left="780" top="1215" type="Node" width="100">
    </BOUNDS>
    <PIN pinname="Source" visible="1" slicecount="1" values="||">
    </PIN>
@@ -33,46 +33,6 @@
    </PIN>
    </NODE>
    <LINK dstnodeid="17" dstpinname="Source" srcnodeid="13" srcpinname="Output Node">
-   </LINK>
-   <NODE componentmode="Hidden" id="20" nodename="Translate (Transform Vector)" systemname="Translate (Transform Vector)">
-   <BOUNDS height="100" left="795" top="3270" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Transform Out" visible="1">
-   </PIN>
-   <PIN pinname="XYZ" visible="1">
-   </PIN>
-   </NODE>
-   <NODE componentmode="Hidden" id="21" nodename="ApplyTransform (Transform Vector)" systemname="ApplyTransform (Transform Vector)">
-   <BOUNDS height="100" left="1455" top="2805" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="XYZ Transformed" visible="1">
-   </PIN>
-   <PIN pinname="XYZ UnTransformed" visible="1">
-   </PIN>
-   <PIN pinname="Transform" visible="1">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="20" dstpinname="XYZ" srcnodeid="21" srcpinname="XYZ Transformed">
-   </LINK>
-   <NODE componentmode="InABox" id="22" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
-   <BOUNDS height="100" left="2610" top="1965" type="Node" width="100">
-   </BOUNDS>
-   <BOUNDS height="645" left="2610" top="1965" type="Box" width="405">
-   </BOUNDS>
-   <PIN pinname="Rows" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Y Input Value" slicecount="3" values="0,0,-1">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="3">
-   </PIN>
-   <PIN encoded="0" pinname="Default" slicecount="1" values="|0, 0, 0|">
-   </PIN>
-   <PIN pinname="Y Output Value" visible="1">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="21" dstpinname="XYZ UnTransformed" srcnodeid="22" srcpinname="Y Output Value">
-   </LINK>
-   <LINK dstnodeid="21" dstpinname="Transform" srcnodeid="17" srcpinname="Transform Out">
    </LINK>
    <NODE componentmode="InABox" id="23" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="7200" top="240" type="Node" width="0">
@@ -123,9 +83,17 @@
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
    </PIN>
-   <PIN pinname="To" slicecount="3" values="0,0,0">
+   <PIN pinname="To" slicecount="3" values="0,2,-1">
    </PIN>
    <PIN pinname="Transform" visible="1">
+   </PIN>
+   <PIN pinname="Single Input" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="VerticesXYZ" visible="1">
+   </PIN>
+   <PIN pinname="From" slicecount="3" values="0,0,-1">
+   </PIN>
+   <PIN pinname="BinSize" slicecount="1" values="3">
    </PIN>
    </NODE>
    <LINK srcnodeid="26" srcpinname="Layer" dstnodeid="25" dstpinname="Layer 1" linkstyle="VHV">
@@ -133,48 +101,6 @@
    </LINKPOINT>
    <LINKPOINT x="1920" y="4770">
    </LINKPOINT>
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="29" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="1740" top="3630" width="285" height="645">
-   </BOUNDS>
-   <BOUNDS type="Node" left="1740" top="3630" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="3" values="0,1,0">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="|0, 0, 0|">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="29" srcpinname="Y Output Value" dstnodeid="26" dstpinname="To">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="30" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="1170" top="3615" width="285" height="645">
-   </BOUNDS>
-   <BOUNDS type="Node" left="1170" top="3615" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="3" values="0,0,0">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Default" slicecount="1" values="|0, 0, 0|">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="30" srcpinname="Y Output Value" dstnodeid="26" dstpinname="From">
-   </LINK>
-   <LINK srcnodeid="20" srcpinname="Transform Out" dstnodeid="26" dstpinname="Transform">
    </LINK>
    <NODE componentmode="Hidden" filename="%VVVV%\packs\DX11\nodes\dx11\Constant.fx" id="15" nodename="Constant (DX11.Effect)" systemname="Constant (DX11.Effect)">
    <BOUNDS height="100" left="3465" top="4305" type="Node" width="100">
@@ -229,11 +155,35 @@
    <LINK srcnodeid="14" srcpinname="Geometry Out" dstnodeid="15" dstpinname="Geometry">
    </LINK>
    <LINK srcnodeid="17" srcpinname="Transform Out" dstnodeid="15" dstpinname="Transform In" linkstyle="Bezier">
-   <LINKPOINT x="1515" y="2888">
+   <LINKPOINT x="1065" y="2888">
    </LINKPOINT>
-   <LINKPOINT x="3780" y="2888">
+   <LINKPOINT x="3555" y="2888">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="23" srcpinname="Y Output Value" dstnodeid="25" dstpinname="Enabled">
+   </LINK>
+   <LINK srcnodeid="17" srcpinname="Transform Out" dstnodeid="26" dstpinname="Transform">
+   </LINK>
+   <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="31">
+   <BOUNDS type="Node" left="1275" top="2760" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="1275" top="2760" width="795" height="720">
+   </BOUNDS>
+   <PIN pinname="Rows" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="9" values="2,0,-1,0,0,-1,0,2,-1">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="|0, 0, 0|">
+   </PIN>
+   <PIN pinname="Columns" slicecount="1" values="3">
+   </PIN>
+   <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="31" srcpinname="Y Output Value" dstnodeid="26" dstpinname="VerticesXYZ">
    </LINK>
    </PATCH>
