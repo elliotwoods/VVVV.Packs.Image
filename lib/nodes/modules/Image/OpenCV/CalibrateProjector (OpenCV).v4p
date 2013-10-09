@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.3.dtd" >
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.dtd" >
    <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\CalibrateProjector (OpenCV).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Build\Modules\CalibrateProjector (EmguCV).v4p" systemname="CalibrateProjector (EmguCV)">
-   <BOUNDS height="6645" left="11055" top="675" type="Window" width="16320">
+   <BOUNDS height="8430" left="2280" top="9615" type="Window" width="16320">
    </BOUNDS>
    <NODE componentmode="InABox" id="18" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="6270" top="1050" type="Node" width="0">
@@ -207,9 +207,9 @@
    <LINK dstnodeid="19" dstpinname="Object PointsXYZ" srcnodeid="1" srcpinname="Y Output Value">
    </LINK>
    <NODE componentmode="InABox" id="23" nodename="IOBox (String)" systemname="IOBox (String)">
-   <BOUNDS height="270" left="4800" top="255" type="Node" width="4785">
+   <BOUNDS height="270" left="4200" top="255" type="Node" width="4785">
    </BOUNDS>
-   <BOUNDS height="780" left="4800" top="255" type="Box" width="2100">
+   <BOUNDS height="780" left="4200" top="255" type="Box" width="2100">
    </BOUNDS>
    <PIN encoded="0" pinname="Input String" slicecount="1" visible="0" values="|//this should cancel out. no need to change for other resolutions|">
    </PIN>
@@ -329,11 +329,11 @@
    </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="39" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Node" left="7020" top="450" width="0" height="0">
+   <BOUNDS type="Node" left="6720" top="450" width="0" height="0">
    </BOUNDS>
-   <BOUNDS type="Box" left="7020" top="450" width="795" height="240">
+   <BOUNDS type="Box" left="6720" top="450" width="795" height="240">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="0.01">
+   <PIN pinname="Y Input Value" slicecount="1" values="0.2">
    </PIN>
    <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
@@ -407,7 +407,7 @@
    </BOUNDS>
    <PIN pinname="Resolution" visible="1">
    </PIN>
-   <BOUNDS type="Window" left="3450" top="6360" width="6780" height="5250">
+   <BOUNDS type="Window" left="3450" top="6360" width="6780" height="6960">
    </BOUNDS>
    <PIN pinname="Intrinsics" visible="1">
    </PIN>
@@ -422,12 +422,6 @@
    <LINKPOINT x="5240" y="2865">
    </LINKPOINT>
    <LINKPOINT x="7510" y="2865">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="19" srcpinname="Projection" dstnodeid="47" dstpinname="Intrinsics" linkstyle="VHV">
-   <LINKPOINT x="2685" y="3818">
-   </LINKPOINT>
-   <LINKPOINT x="5835" y="3668">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="47" srcpinname="Output" dstnodeid="29" dstpinname="Transform" linkstyle="VHV">
@@ -461,11 +455,11 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="50" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="12615" top="825" width="810" height="435">
+   <BOUNDS type="Box" left="12615" top="825" width="1380" height="435">
    </BOUNDS>
    <BOUNDS type="Node" left="12615" top="825" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="2" values="|Normalis&cr;&lf;ed&cr;&lf;|,Pixels">
+   <PIN pinname="Input String" slicecount="2" values="|Normalised&cr;&lf;|,Pixels">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -497,7 +491,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="13920" top="585" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="|Normalis&cr;&lf;ed&cr;&lf;|">
+   <PIN pinname="Input Enum" slicecount="1" values="|Normalised&cr;&lf;|">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Input space|">
    </PIN>
@@ -609,5 +603,11 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="63" srcpinname="Y Output Value" dstnodeid="61" dstpinname="XYZ">
+   </LINK>
+   <LINK srcnodeid="19" srcpinname="Intrinsics" dstnodeid="47" dstpinname="Intrinsics" linkstyle="VHV">
+   <LINKPOINT x="4515" y="3743">
+   </LINKPOINT>
+   <LINKPOINT x="5820" y="3743">
+   </LINKPOINT>
    </LINK>
    </PATCH>
