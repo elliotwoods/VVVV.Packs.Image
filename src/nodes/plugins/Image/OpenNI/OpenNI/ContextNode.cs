@@ -127,8 +127,8 @@ namespace VVVV.Nodes.OpenCV.OpenNI
                 state.DepthGenerator = new DepthGenerator(context);
                 MapOutputMode depthMode = new MapOutputMode();
                 depthMode.FPS = 30;
-                depthMode.XRes = 640;
-                depthMode.YRes = 480;
+                depthMode.XRes = 320;
+                depthMode.YRes = 240;
 
                 state.DepthGenerator.MapOutputMode = depthMode;
                 state.DepthGenerator.StartGenerating();
