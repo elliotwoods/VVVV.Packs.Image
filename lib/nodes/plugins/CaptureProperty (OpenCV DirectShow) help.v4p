@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha26.1.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\CaptureProperty (OpenCV DirectShow) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\CaptureProperty (OpenCV DirectShow) help.v4p" systemname="CaptureProperty (OpenCV DirectShow) help">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug30.3.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\imagepack\lib\nodes\plugins\CaptureProperty (OpenCV DirectShow) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\CaptureProperty (OpenCV DirectShow) help.v4p" systemname="CaptureProperty (OpenCV DirectShow) help">
    <BOUNDS height="10740" left="10500" top="2535" type="Window" width="7770">
    </BOUNDS>
    <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.VideoInput.dll" id="0" nodename="CaptureProperty (OpenCV DirectShow)" systemname="CaptureProperty (OpenCV DirectShow)">
@@ -41,13 +41,13 @@
    </BOUNDS>
    <BOUNDS type="Box" left="360" top="675" width="2235" height="1005">
    </BOUNDS>
-   <PIN pinname="Default" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Default" slicecount="1" encoded="0" values="||">
    </PIN>
-   <PIN pinname="File Mask" slicecount="1" values="||" encoded="0">
+   <PIN pinname="File Mask" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|Device name|" encoded="0">
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="|Device name|">
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="5">
    </PIN>
@@ -65,13 +65,13 @@
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Units" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|Device ID|" encoded="0">
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="|Device ID|">
    </PIN>
    </NODE>
    <LINK srcnodeid="5" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Device ID">
@@ -83,7 +83,7 @@
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Units" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
@@ -91,7 +91,7 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Enabled" encoded="0">
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Enabled">
    </PIN>
    <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
@@ -105,7 +105,7 @@
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" values="Contrast">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Property" encoded="0">
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Property">
    </PIN>
    </NODE>
    <LINK srcnodeid="7" srcpinname="Output Enum" dstnodeid="0" dstpinname="Property">
@@ -117,24 +117,14 @@
    </BOUNDS>
    <PIN pinname="Y Input Value" visible="1">
    </PIN>
-   <PIN pinname="Units" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Value" encoded="0">
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Value">
    </PIN>
    </NODE>
    <LINK srcnodeid="8" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Value">
-   </LINK>
-   <NODE systemname="ImageQuad (EmguCV DX9)" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\ImageQuad (EmguCV DX9).v4p" nodename="ImageQuad (EmguCV DX9)" componentmode="Hidden" id="9">
-   <BOUNDS type="Node" left="375" top="4200" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="9" dstpinname="Image">
    </LINK>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InABox" id="10">
    <BOUNDS type="Node" left="375" top="4800" width="100" height="100">
@@ -143,11 +133,9 @@
    </BOUNDS>
    <BOUNDS type="Window" left="12540" top="11460" width="6240" height="5010">
    </BOUNDS>
-   <PIN pinname="Layers" visible="1">
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <LINK srcnodeid="9" srcpinname="Layer" dstnodeid="10" dstpinname="Layers">
-   </LINK>
    <NODE systemname="Random (Value)" nodename="Random (Value)" componentmode="Hidden" id="12">
    <BOUNDS type="Node" left="6000" top="795" width="100" height="100">
    </BOUNDS>
@@ -165,5 +153,17 @@
    <LINK srcnodeid="13" srcpinname="Change" dstnodeid="12" dstpinname="Enabled">
    </LINK>
    <LINK srcnodeid="12" srcpinname="Output" dstnodeid="8" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="ImageQuad (OpenCV DX9)" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" nodename="ImageQuad (OpenCV DX9)" componentmode="Hidden" id="9">
+   <BOUNDS type="Node" left="375" top="4200" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="9" dstpinname="Image">
+   </LINK>
+   <LINK srcnodeid="9" srcpinname="Layer" dstnodeid="10" dstpinname="Layers">
    </LINK>
    </PATCH>

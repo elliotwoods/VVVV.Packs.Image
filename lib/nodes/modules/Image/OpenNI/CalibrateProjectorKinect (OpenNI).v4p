@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenNI\CalibrateProjectorKinect (OpenNI).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.OpenNI\Build\Modules\CalibrateProjectorKinect (OpenNI).v4p" systemname="CalibrateProjectorKinect (OpenNI)">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug31.1.dtd" >
+   <PATCH nodename="C:\Users\Joreg\dev\github\VVVV.Packs.Image\lib\nodes\modules\Image\OpenNI\CalibrateProjectorKinect (OpenNI).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.OpenNI\Build\Modules\CalibrateProjectorKinect (OpenNI).v4p" systemname="CalibrateProjectorKinect (OpenNI)">
    <BOUNDS height="7425" left="1650" top="5535" type="Window" width="12210">
    </BOUNDS>
    <NODE componentmode="InABox" id="2" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
@@ -258,7 +258,7 @@
    <LINKPOINT x="4535" y="3533">
    </LINKPOINT>
    </LINK>
-   <NODE componentmode="InAWindow" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\CalibrateProjector (OpenCV).v4p" id="4" nodename="CalibrateProjector (OpenCV)" systemname="CalibrateProjector (OpenCV)">
+   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\CalibrateProjector (OpenCV).v4p" id="4" nodename="CalibrateProjector (OpenCV)" systemname="CalibrateProjector (OpenCV)">
    <PIN pinname="Solve" visible="1">
    </PIN>
    <PIN pinname="Resolution XY" pintype="Input" visible="1">

@@ -1,8 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\OpenCV-help\StereoCalibrate\Board Finder.v4p" systemname="Board Finder" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\OpenCV-help\StereoCalibrate\Board Finder.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug31.1.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\myimagepack\nodes\plugins\OpenCV-help\StereoCalibrate\BoardFinder.v4p" systemname="BoardFinder" filename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\myimagepack\nodes\plugins\OpenCV-help\StereoCalibrate\BoardFinder.v4p">
    <BOUNDS type="Window" left="3420" top="5055" width="18570" height="9780">
    </BOUNDS>
-   <NODE systemname="ImageQuad (OpenCV DX9)" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" nodename="ImageQuad (OpenCV DX9)" componentmode="Hidden" id="23">
+   <NODE systemname="ImageQuad (OpenCV DX9)" filename="%VVVV%\packs\myimagepack\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" nodename="ImageQuad (OpenCV DX9)" componentmode="Hidden" id="23">
    <BOUNDS type="Node" left="3000" top="3510" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1" slicecount="1" values="||">
@@ -16,7 +16,7 @@
    <PIN pinname="Transform Out" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="FindBoard (OpenCV)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="FindBoard (OpenCV)" componentmode="Hidden" id="21">
+   <NODE systemname="FindBoard (OpenCV)" filename="%VVVV%\packs\myimagepack\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="FindBoard (OpenCV)" componentmode="Hidden" id="21">
    <BOUNDS type="Node" left="750" top="3510" width="1845" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -34,7 +34,7 @@
    <PIN pinname="Board size Y">
    </PIN>
    </NODE>
-   <NODE systemname="Info (OpenCV)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (OpenCV)" componentmode="Hidden" id="20">
+   <NODE systemname="Info (OpenCV)" filename="%VVVV%\packs\myimagepack\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (OpenCV)" componentmode="Hidden" id="20">
    <BOUNDS type="Node" left="15855" top="3510" width="2085" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="15855" top="3510">
@@ -62,7 +62,7 @@
    </LINK>
    <LINK srcnodeid="20" srcpinname="Height" dstnodeid="19" dstpinname="Y">
    </LINK>
-   <NODE systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" componentmode="Hidden" id="18" nodename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p">
+   <NODE systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="%VVVV%\packs\myimagepack\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" componentmode="Hidden" id="18" nodename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p">
    <BOUNDS type="Node" left="3285" top="4740" width="4050" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="3285" top="4740" width="4800" height="3600">
@@ -126,7 +126,7 @@
    <LINKPOINT x="2870" y="4245">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" componentmode="Hidden" id="16" nodename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p">
+   <NODE systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="%VVVV%\packs\myimagepack\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" componentmode="Hidden" id="16" nodename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p">
    <BOUNDS type="Node" left="7485" top="4740" width="4050" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="7485" top="4740" width="4800" height="3600">
@@ -148,7 +148,7 @@
    <PIN pinname="Color" slicecount="1" values="|0.75565,0.00000,1.00000,1.00000|">
    </PIN>
    </NODE>
-   <NODE systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" componentmode="Hidden" id="15" nodename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p">
+   <NODE systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="%VVVV%\packs\myimagepack\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" componentmode="Hidden" id="15" nodename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p">
    <BOUNDS type="Node" left="11685" top="4740" width="4050" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="11685" top="4740" width="4800" height="3600">
@@ -585,13 +585,13 @@
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="7">
    </PIN>
-   <PIN pinname="Units" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|Board size Y|" encoded="0">
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="|Board size Y|">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
@@ -605,13 +605,13 @@
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="10">
    </PIN>
-   <PIN pinname="Units" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
    <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|Board size X|" encoded="0">
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="|Board size X|">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
