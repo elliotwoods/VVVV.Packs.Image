@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha26.1.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Decode (Image.StructuredLight) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Decode (Image.StructuredLight) help.v4p" systemname="Decode (Image.StructuredLight) help">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug30.3.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\imagepack\nodes\plugins\Decode (Image.StructuredLight) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Decode (Image.StructuredLight) help.v4p" systemname="Decode (Image.StructuredLight) help">
    <BOUNDS height="10365" left="5460" top="6360" type="Window" width="9240">
    </BOUNDS>
    <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="0" nodename="Encode (Image.StructuredLight)" systemname="Encode (Image.StructuredLight)">
@@ -128,24 +128,12 @@
    <LINKPOINT x="960" y="3425">
    </LINKPOINT>
    </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="7" nodename="CameraSpace (Image.StructuredLight)" systemname="CameraSpace (Image.StructuredLight)">
-   <BOUNDS height="100" left="3810" top="4800" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Enabled" slicecount="1" values="1">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="7" dstpinname="Input" srcnodeid="4" srcpinname="Output">
-   </LINK>
    <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" id="9" nodename="ImageQuad (OpenCV DX9)" systemname="ImageQuad (OpenCV DX9)">
    <BOUNDS height="100" left="3810" top="5310" type="Node" width="100">
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
    </PIN>
-   <PIN pinname="Image" visible="1">
+   <PIN pinname="Image" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Nearest Neighbour" slicecount="1" values="1">
    </PIN>
@@ -161,8 +149,6 @@
    </PIN>
    </NODE>
    <LINK dstnodeid="8" dstpinname="Layers" srcnodeid="9" srcpinname="Layer">
-   </LINK>
-   <LINK dstnodeid="9" dstpinname="Image" srcnodeid="7" srcpinname="Output">
    </LINK>
    <LINK dstnodeid="4" dstpinname="Properties" hiddenwhenlocked="1" linkstyle="Bezier" srcnodeid="1" srcpinname="Payload">
    <LINKPOINT x="5710" y="2655">
@@ -453,7 +439,7 @@
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Units" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
@@ -461,9 +447,23 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="Apply" encoded="0">
+   <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Apply">
    </PIN>
    </NODE>
    <LINK srcnodeid="35" srcpinname="Y Output Value" dstnodeid="4" dstpinname="Apply">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\imagepack\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="7" nodename="Space (Image.StructuredLight)" systemname="Space (Image.StructuredLight)">
+   <BOUNDS height="100" left="3810" top="4800" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Enabled" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="7" dstpinname="Input" srcnodeid="4" srcpinname="Output">
+   </LINK>
+   <LINK dstnodeid="9" dstpinname="Image" srcnodeid="7" srcpinname="Output">
    </LINK>
    </PATCH>
