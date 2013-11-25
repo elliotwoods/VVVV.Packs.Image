@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug31.3.dtd" >
-   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\Image\girlpower\ImageFilter - Overview.v4p" systemname="ImageFilter - Overview" filename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\Image\girlpower\ImageFilter - Overview.v4p">
+   <PATCH nodename="C:\Users\joreg\dev\repos\VVVV.Packs.Image\girlpower\ImageFilter - Overview.v4p" systemname="ImageFilter - Overview" filename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\Image\girlpower\ImageFilter - Overview.v4p">
    <BOUNDS type="Window" left="195" top="6225" width="21465" height="7845">
    </BOUNDS>
    <NODE systemname="&lt; (OpenCV Filter, Scalar)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="&lt; (OpenCV Filter, Scalar)" componentmode="Hidden" id="0">
@@ -293,7 +293,7 @@
    </PIN>
    </NODE>
    <NODE systemname="VideoIn (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="VideoIn (OpenCV)" componentmode="Hidden" id="36">
-   <BOUNDS type="Node" left="12675" top="1470" width="100" height="100">
+   <BOUNDS type="Node" left="16245" top="1620" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -301,9 +301,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="37" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="13245" top="705" width="480" height="480">
+   <BOUNDS type="Box" left="16815" top="855" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="13245" top="705" width="0" height="0">
+   <BOUNDS type="Node" left="16815" top="855" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="1">
    </PIN>
@@ -319,13 +319,13 @@
    <LINK srcnodeid="37" srcpinname="Y Output Value" dstnodeid="36" dstpinname="Enabled">
    </LINK>
    <NODE systemname="ListDevices (OpenCV DirectShow)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="ListDevices (OpenCV DirectShow)" componentmode="Hidden" id="38">
-   <BOUNDS type="Node" left="10275" top="450" width="100" height="100">
+   <BOUNDS type="Node" left="13845" top="600" width="100" height="100">
    </BOUNDS>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="39" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="10290" top="1050" width="1845" height="480">
+   <BOUNDS type="Box" left="13860" top="1200" width="1845" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="10290" top="1050" width="0" height="0">
+   <BOUNDS type="Node" left="13860" top="1200" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -546,4 +546,36 @@
    </LINK>
    <LINK srcnodeid="34" srcpinname="Output" dstnodeid="35" dstpinname="Input">
    </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="60" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="675" top="795" width="1080" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="675" top="795" width="2115" height="375">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Static filters|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="12">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="61" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="11385" top="960" width="1080" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="11385" top="960" width="2115" height="375">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|Temporal filters|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="12">
+   </PIN>
+   </NODE>
    </PATCH>
