@@ -95,6 +95,10 @@
       <Project>{685c0911-c080-46b4-b21f-b8bbad507d0b}</Project>
       <Name>VVVV.Nodes.Ximea</Name>
     </ProjectReference>
+    <ProjectReference Include="nodes\plugins\Image\CLEye\VVVV.Nodes.OpenCV.CLEye.csproj">
+      <Project>{03178df6-94f0-4bbe-a790-ae7aced17ac8}</Project>
+      <Name>VVVV.Nodes.OpenCV.CLEye</Name>
+    </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\DeckLink\VVVV.Nodes.DeckLink.csproj">
       <Project>{450cf5db-edb3-4e59-bd5f-f1857eb76419}</Project>
       <Name>VVVV.Nodes.DeckLink</Name>

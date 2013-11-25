@@ -66,6 +66,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Performance1.psess = Performance1.psess
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.CLEye", "nodes\plugins\Image\CLEye\VVVV.Nodes.OpenCV.CLEye.csproj", "{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -430,6 +432,22 @@ Global
 		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Release|x64.Build.0 = Release|x64
 		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Release|x86.ActiveCfg = Release|x86
 		{685C0911-C080-46B4-B21F-B8BBAD507D0B}.Release|x86.Build.0 = Release|x86
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Debug|x64.ActiveCfg = Debug|x64
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Debug|x64.Build.0 = Debug|x64
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Debug|x86.ActiveCfg = Debug|x86
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Debug|x86.Build.0 = Debug|x86
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Release|Mixed Platforms.Build.0 = Release|x86
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Release|x64.ActiveCfg = Release|x64
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Release|x64.Build.0 = Release|x64
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Release|x86.ActiveCfg = Release|x86
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -459,5 +477,6 @@ Global
 		{5971BE7A-0FB0-4DDF-B7D2-000E80EF6FDD} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 		{450CF5DB-EDB3-4E59-BD5F-F1857EB76419} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 		{685C0911-C080-46B4-B21F-B8BBAD507D0B} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
+		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 	EndGlobalSection
 EndGlobal
