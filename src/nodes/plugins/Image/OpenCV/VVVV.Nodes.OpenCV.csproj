@@ -104,7 +104,6 @@
     <Compile Include="src\Sources\VideoPlayer.cs" />
     <Compile Include="src\Utilities\ThreadUtils\WorkerThread.cs" />
     <Compile Include="src\Utilities\TypeUtils.cs" />
-    <Compile Include="src\Calibration\FindExtrinsicsNode.cs" />
     <Compile Include="src\Calibration\SolvePnP.cs" />
     <Compile Include="src\Destinations\AsTextureInstance.cs" />
     <Compile Include="src\Destinations\AsTextureNode.cs" />

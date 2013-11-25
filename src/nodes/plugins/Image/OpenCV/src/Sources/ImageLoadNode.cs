@@ -50,7 +50,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "ImageLoad", Category = "OpenCV", Help = "Loads RGB texture", Author = "alg", Tags = "")]
+	[PluginInfo(Name = "ImageLoad", Category = "OpenCV", Help = "Loads image file from disk.", Author = "alg", Tags = "")]
 	#endregion PluginInfo
 	public class ImageLoadNode : IGeneratorNode<ImageLoadInstance>
 	{
