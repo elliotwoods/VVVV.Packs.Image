@@ -1,9 +1,9 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\VideoIn (CLEye) help.v4p" systemname="VideoIn (CLEye) help" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\VideoIn (CLEye) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\plugins\VideoIn (CLEye) help.v4p" systemname="VideoIn (CLEye) help" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\VideoIn (CLEye) help.v4p">
    <BOUNDS type="Window" left="8070" top="1545" width="11445" height="12300">
    </BOUNDS>
    <NODE systemname="ListDevices (CLEye)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.CLEye.dll" nodename="ListDevices (CLEye)" componentmode="Hidden" id="0">
-   <BOUNDS type="Node" left="960" top="150" width="100" height="100">
+   <BOUNDS type="Node" left="960" top="150" width="1305" height="270">
    </BOUNDS>
    <PIN pinname="Devices" visible="1">
    </PIN>
@@ -37,9 +37,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="2" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="1845" top="720" width="0" height="0">
+   <BOUNDS type="Node" left="2220" top="690" width="0" height="0">
    </BOUNDS>
-   <BOUNDS type="Box" left="1845" top="720" width="795" height="240">
+   <BOUNDS type="Box" left="2220" top="690" width="2625" height="240">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" encoded="0" values="||">
    </PIN>
@@ -131,13 +131,15 @@
    <NODE nodename="IOBox (String)" componentmode="InABox" id="8" systemname="IOBox (String)">
    <BOUNDS type="Node" left="8040" top="4080" width="0" height="0">
    </BOUNDS>
-   <BOUNDS type="Box" left="8040" top="4080" width="795" height="240">
+   <BOUNDS type="Box" left="8040" top="4080" width="3060" height="750">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="File Mask" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Status">
    </PIN>
    </NODE>
    <LINK srcnodeid="1" srcpinname="Status" dstnodeid="8" dstpinname="Input String">
@@ -171,7 +173,7 @@
    </BOUNDS>
    <PIN pinname="Rows" slicecount="1" values="6">
    </PIN>
-   <PIN pinname="Y Input Value" slicecount="6" values="0,58,0,238,1,41">
+   <PIN pinname="Y Input Value" slicecount="6" values="0,0,0,500,0,0">
    </PIN>
    <PIN pinname="Vector Size" slicecount="1" values="4">
    </PIN>
@@ -233,7 +235,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="3285" top="1410" width="2280" height="240">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="CLEYE_COLOR_PROCESSED">
+   <PIN pinname="Input Enum" slicecount="1" values="CLEYE_MONO_RAW">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="|Color Mode|">
    </PIN>
@@ -269,11 +271,11 @@
    <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Value">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="17" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="3300" top="780" width="5160" height="270">
+   <BOUNDS type="Node" left="375" top="1425" width="5160" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="3300" top="780" width="2865" height="510">
+   <BOUNDS type="Box" left="375" top="1425" width="2865" height="510">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|//the &apos;PROCESSED&apos; options enable toys like &apos;HFLIP&apos; and lens undistortion|" encoded="0">
+   <PIN pinname="Input String" visible="0" slicecount="1" encoded="0" values="|//the &apos;PROCESSED&apos; options enable toys like &apos;HFLIP&apos; and lens undistortion|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
