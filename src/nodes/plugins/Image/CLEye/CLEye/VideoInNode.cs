@@ -73,12 +73,16 @@ namespace VVVV.Nodes.OpenCV.CLEye
 		}
 
 		private bool FParameterChange = false;
+		Object FParameterLock = new Object();
 		Dictionary<CLEyeCameraParameter, int> FParameters;
 		public Dictionary<CLEyeCameraParameter, int> Parameters
 		{
 			set
 			{
-				FParameters = value;
+				lock (FParameterLock)
+				{
+					FParameters = value;
+				}
 				FParameterChange = true;
 			}
 		}
@@ -88,16 +92,20 @@ namespace VVVV.Nodes.OpenCV.CLEye
 			if (FCamera == null || FParameters == null)
 				return;
 
-			foreach (var param in FParameters)
+			lock (FParameterLock)
 			{
-				FCamera.SetParameter(param.Key, param.Value);
+				foreach (var param in FParameters)
+				{
+					FCamera.SetParameter(param.Key, param.Value);
+				}
 			}
 
 			FParameterChange = false;
 		}
 
 		CLEyeCameraDevice FCamera = null;
-		override protected bool Open()
+
+		public override bool Open()
 		{
 			try
 			{
@@ -117,6 +125,15 @@ namespace VVVV.Nodes.OpenCV.CLEye
 			{
 				Status = e.Message;
 				return false;
+			}
+		}
+
+		public override void Close()
+		{
+			if (FCamera != null)
+			{
+				FCamera.Stop();
+				FCamera = null;
 			}
 		}
 
@@ -153,15 +170,6 @@ namespace VVVV.Nodes.OpenCV.CLEye
 					return TColorFormat.L8;
 				default:
 					throw (new Exception("Color mode unsupported"));
-			}
-		}
-
-		override protected void Close()
-		{
-			if (FCamera != null)
-			{
-				FCamera.Stop();
-				FCamera = null;
 			}
 		}
 

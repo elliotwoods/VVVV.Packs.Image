@@ -44,7 +44,7 @@ namespace VVVV.Nodes.OpenCV.CLEye
 		{
 			if (FPinInProperty.IsChanged || FPinInValue.IsChanged)
 			{
-				FOutput.Clear();
+				FOutput = new Dictionary<CLEyeCameraParameter, int>();
 				for (int i = 0; i < SpreadMax; i++)
 				{
 					if (!FOutput.ContainsKey(FPinInProperty[i]))
