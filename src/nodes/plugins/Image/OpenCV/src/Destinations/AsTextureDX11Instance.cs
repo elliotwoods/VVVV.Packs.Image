@@ -36,7 +36,6 @@ namespace VVVV.Nodes.OpenCV
 		Object FLockTexture = new Object();
 		Object FLockImageAllocation = new Object();
 
-
         public override void Allocate()
         {
 			//allocate w.r.t. incoming image
