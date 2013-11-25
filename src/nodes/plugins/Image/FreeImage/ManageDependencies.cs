@@ -6,7 +6,7 @@ using VVVV.PluginInterfaces.V2;
 using System.Reflection;
 using System.IO;
 
-namespace VVVV.Nodes.EDSDK
+namespace VVVV.Nodes.OpenCV.FreeImageNodes
 {
     [Startable]
     public class ManageDependencies : IStartable
