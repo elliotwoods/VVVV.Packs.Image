@@ -87,6 +87,10 @@ namespace VVVV.Nodes.OpenCV
 		{
 			get
 			{
+				if (!this.Allocated)
+				{
+					throw (new Exception("Image not allocated, can't access internal data"));
+				}
 				IntPtr value;
 
 				int step;
