@@ -78,7 +78,6 @@ namespace VVVV.Nodes.OpenCV
 		public void Dispose()
 		{
 			FInstances.ResizeAndDispose(0);
-			throw new NotImplementedException();
 		}
 	}
 }
