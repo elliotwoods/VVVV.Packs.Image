@@ -55,13 +55,23 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FMinimum.IsChanged)
+			if (FMinimum.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Minimum = FMinimum[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FMaximum.IsChanged)
+			if (FMaximum.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Maximum = FMaximum[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 		}
 	}
 }

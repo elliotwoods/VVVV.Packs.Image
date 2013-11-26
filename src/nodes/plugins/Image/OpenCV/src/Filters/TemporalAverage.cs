@@ -67,9 +67,13 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FPinInFrames.IsChanged)
+			if (FPinInFrames.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Frames = FPinInFrames[i];
+				}
+			}
 		}
 	}
 }

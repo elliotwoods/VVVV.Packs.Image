@@ -67,7 +67,7 @@ namespace VVVV.Nodes.OpenCV
 					FProcessor[i].Gamma = FPinGamma[0];
 					FProcessor[i].WeightMask = FPinWeightMask[0];
 					FProcessor[i].WeightOrig = FPinWeightOrig[0];
-					FProcessor[i].Process(); //<--this is a pretty messy approach, but anyway we need to reconsider this in beta
+					FProcessor[i].FlagForProcess();
 				}
 			}
 		}

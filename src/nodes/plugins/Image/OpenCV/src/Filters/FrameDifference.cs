@@ -101,17 +101,32 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FThreshold.IsChanged)
+			if (FThreshold.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Threshold = FThreshold[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FThresholdEnabled.IsChanged)
+			if (FThresholdEnabled.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].ThresholdEnabled = FThresholdEnabled[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FDifferenceMode.IsChanged)
+			if (FDifferenceMode.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].DifferenceMode = FDifferenceMode[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 		}
 	}
 }

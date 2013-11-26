@@ -67,13 +67,23 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FInScale.IsChanged)
+			if (FInScale.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Scale = FInScale[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FInOffset.IsChanged)
+			if (FInOffset.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Offset = FInOffset[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
 		}
 	}

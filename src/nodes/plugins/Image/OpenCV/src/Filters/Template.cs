@@ -102,9 +102,14 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int SpreadMax, bool SpreadChanged)
 		{
-			if (FColorAdd.IsChanged)
+			if (FColorAdd.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < SpreadMax; i++)
+				{
 					FProcessor[i].ColorAdd = FColorAdd[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 		}
 	}
 }

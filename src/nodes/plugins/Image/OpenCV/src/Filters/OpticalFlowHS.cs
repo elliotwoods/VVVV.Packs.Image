@@ -109,17 +109,29 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int SpreadMax, bool SpreadChanged)
 		{
-			if (FPinInLambda.IsChanged)
+			if (FPinInLambda.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < SpreadMax; i++)
+				{
 					FProcessor[i].Lambda = FPinInLambda[0];
+				}
+			}
 
-			if (FPinInIterations.IsChanged)
+			if (FPinInIterations.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < SpreadMax; i++)
+				{
 					FProcessor[i].Iterations = FPinInIterations[0];
+				}
+			}
 
-			if (FPinInUsePrevious.IsChanged)
+			if (FPinInUsePrevious.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < SpreadMax; i++)
+				{
 					FProcessor[i].UsePrevious = FPinInUsePrevious[0];
+				}
+			}
 		}
 	}
 }

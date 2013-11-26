@@ -58,7 +58,7 @@ namespace VVVV.Nodes.OpenCV
 		{
 			set
 			{
-				this.Constant = value;
+				FConstant = value;
 			}
 		}
 
@@ -71,13 +71,17 @@ namespace VVVV.Nodes.OpenCV
 		{
 			if (!FInput.LockForReading())
 				return;
-			CvInvoke.cvAdaptiveThreshold(FInput.CvMat, FOutput.CvMat, FMaximum, FMethod, FType, (int) FBlockSize, FConstant);
-			FInput.ReleaseForReading();
+			try
+			{
+				CvInvoke.cvAdaptiveThreshold(FInput.CvMat, FOutput.CvMat, FMaximum, FMethod, FType, (int)FBlockSize, FConstant);
+			}
+			finally
+			{
+				FInput.ReleaseForReading();
+			}
 
 			FOutput.Send();
-
 		}
-
 	}
 
 	#region PluginInfo
@@ -102,25 +106,50 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FPinInMaximum.IsChanged)
+			if (FPinInMaximum.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Maximum = FPinInMaximum[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FPinInMethod.IsChanged)
+			if (FPinInMethod.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Method = FPinInMethod[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FPinInType.IsChanged)
+			if (FPinInType.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Type = FPinInType[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FPinInBlockSize.IsChanged)
+			if (FPinInBlockSize.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].BlockSize = (uint)FPinInBlockSize[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FPinInConstant.IsChanged)
+			if (FPinInConstant.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Constant = (uint)FPinInConstant[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 		}
 	}
 }

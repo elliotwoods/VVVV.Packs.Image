@@ -93,18 +93,32 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FThresholdMin.IsChanged)
+			if (FThresholdMin.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].ThresholdMin = FThresholdMin[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FThresholdMax.IsChanged)
+			if (FThresholdMax.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].ThresholdMax = FThresholdMax[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FWindowSize.IsChanged)
+			if (FWindowSize.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Aperture = FWindowSize[i];
-
+					FProcessor[i].FlagForProcess();
+				}
+			}
 		}
 	}
 }

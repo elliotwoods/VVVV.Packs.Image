@@ -61,9 +61,14 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FIterations.IsChanged)
+			if (FIterations.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Iterations = FIterations[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 		}
 	}
 }

@@ -105,9 +105,14 @@ namespace VVVV.Nodes.OpenCV
 
         protected override void Update(int InstanceCount, bool SpreadChanged)
         {
-            if (FRotations.IsChanged || SpreadChanged)
-                for (int i = 0; i < InstanceCount; i++)
-                    FProcessor[i].Rotations = FRotations[i];
+			if (FRotations.IsChanged || SpreadChanged)
+			{
+				for (int i = 0; i < InstanceCount; i++)
+				{
+					FProcessor[i].Rotations = FRotations[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
         }
     }
 }

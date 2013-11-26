@@ -96,17 +96,32 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FInXOrder.IsChanged)
+			if (FInXOrder.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].XOrder = FInXOrder[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FInYOrder.IsChanged)
+			if (FInYOrder.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].YOrder = FInYOrder[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FInApertureSize.IsChanged)
+			if (FInApertureSize.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Aperture = FInApertureSize[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
 		}
 	}

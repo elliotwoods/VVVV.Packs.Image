@@ -45,9 +45,14 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FPinInWidth.IsChanged)
+			if (FPinInWidth.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Width = FPinInWidth[0];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 		}
 	}
 }

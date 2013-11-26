@@ -68,17 +68,32 @@ namespace VVVV.Nodes.OpenCV
 
         protected override void Update(int InstanceCount, bool SpreadChanged)
         {
-            if (FRotation.IsChanged || SpreadChanged)
-                for (int i = 0; i < InstanceCount; i++)
-                    FProcessor[i].Rotation = FRotation[i];
+			if (FRotation.IsChanged || SpreadChanged)
+			{
+				for (int i = 0; i < InstanceCount; i++)
+				{
+					FProcessor[i].Rotation = FRotation[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-            if (FScale.IsChanged || SpreadChanged)
-                for (int i = 0; i < InstanceCount; i++)
-                    FProcessor[i].Scale = FScale[i];
+			if (FScale.IsChanged || SpreadChanged)
+			{
+				for (int i = 0; i < InstanceCount; i++)
+				{
+					FProcessor[i].Scale = FScale[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-            if (FCenter.IsChanged || SpreadChanged)
-                for (int i = 0; i < InstanceCount; i++)
-                    FProcessor[i].Center = FCenter[i];
+			if (FCenter.IsChanged || SpreadChanged)
+			{
+				for (int i = 0; i < InstanceCount; i++)
+				{
+					FProcessor[i].Center = FCenter[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
         }
     }
 }

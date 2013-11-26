@@ -64,9 +64,14 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FWidth.IsChanged || FHeight.IsChanged)
+			if (FWidth.IsChanged || FHeight.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].SetSize(FWidth[i], FHeight[i]);
+					FProcessor[i].FlagForProcess();
+				}
+			}
 		}
 	}
 }

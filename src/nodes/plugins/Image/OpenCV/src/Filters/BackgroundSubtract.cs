@@ -30,7 +30,11 @@ namespace VVVV.Nodes.OpenCV
 
 		public TDifferenceMode DifferenceMode = TDifferenceMode.AbsoluteDifference;
 
-		public bool Hold = false;
+		bool FFlagForHold = false;
+		public void Hold()
+		{
+			FFlagForHold = true;
+		}
 
 		public override void Allocate()
 		{
@@ -42,8 +46,11 @@ namespace VVVV.Nodes.OpenCV
 
 		public override void Process()
 		{
-			if (Hold)
+			if (FFlagForHold)
+			{
 				FInput.Image.GetImage(FBackground);
+				FFlagForHold = false;
+			}
 
 			FInput.GetImage(FOutput.Image); // temporary
 
@@ -63,7 +70,7 @@ namespace VVVV.Nodes.OpenCV
 	#endregion PluginInfo
 	public class BackgroundSubtractNode : IFilterNode<BackgroundSubtractInstance>
 	{
-		[Input("Set")]
+		[Input("Set", IsBang=true)]
 		ISpread<bool> FHold;
 
 		[Input("Threshold")]
@@ -78,19 +85,39 @@ namespace VVVV.Nodes.OpenCV
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
 			for (int i = 0; i < InstanceCount; i++)
-				FProcessor[i].Hold = FHold[i];
+			{
+				if (FHold[i])
+				{
+					FProcessor[i].Hold();
+				}
+			}
 
-				if (FThreshold.IsChanged)
-					for (int i = 0; i < InstanceCount; i++)
-						FProcessor[i].Threshold = FThreshold[i];
-
-			if (FThresholdEnabled.IsChanged)
+			if (FThreshold.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
+					FProcessor[i].Threshold = FThreshold[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
+
+			if (FThresholdEnabled.IsChanged || SpreadChanged)
+			{
+				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].ThresholdEnabled = FThresholdEnabled[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FDifferenceMode.IsChanged)
+			if (FDifferenceMode.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].DifferenceMode = FDifferenceMode[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 		}
 	}
 }

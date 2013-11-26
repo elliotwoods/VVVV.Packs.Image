@@ -81,13 +81,23 @@ namespace VVVV.Nodes.OpenCV
 
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FThreshold.IsChanged)
+			if (FThreshold.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].Threshold = FThreshold[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 
-			if (FPassOriginal.IsChanged)
+			if (FPassOriginal.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
+				{
 					FProcessor[i].PassOriginal = FPassOriginal[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
 		}
 	}
 #endregion Interfaces
