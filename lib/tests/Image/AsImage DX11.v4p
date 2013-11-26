@@ -339,6 +339,8 @@
    </PIN>
    <PIN pinname="Layer Out" visible="1">
    </PIN>
+   <PIN pinname="Transform In" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="AsTexture (OpenCV DX11.Texture2D)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AsTexture (OpenCV DX11.Texture2D)" componentmode="Hidden" id="30">
    <BOUNDS type="Node" left="2925" top="7020" width="100" height="100">
@@ -417,6 +419,8 @@
    </PIN>
    <BOUNDS type="Box" left="4560" top="7020">
    </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="28" srcpinname="Output" dstnodeid="39" dstpinname="Image" linkstyle="VHV">
    <LINKPOINT x="2985" y="6870">
@@ -535,5 +539,11 @@
    <LINK srcnodeid="36" srcpinname="Output" dstnodeid="45" dstpinname="Y Input Value">
    </LINK>
    <LINK srcnodeid="45" srcpinname="Y Output Value" dstnodeid="38" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="39" srcpinname="Transform Out" dstnodeid="34" dstpinname="Transform In" linkstyle="Bezier">
+   <LINKPOINT x="5055" y="8175">
+   </LINKPOINT>
+   <LINKPOINT x="2655" y="8175">
+   </LINKPOINT>
    </LINK>
    </PATCH>
