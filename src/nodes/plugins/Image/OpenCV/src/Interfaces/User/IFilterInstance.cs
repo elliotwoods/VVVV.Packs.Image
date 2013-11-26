@@ -44,5 +44,26 @@ namespace VVVV.Nodes.OpenCV
 		{
 			return true;
 		}
+
+		bool FFlaggedForProcess = false;
+		public bool FlaggedForProcess
+		{
+			get
+			{
+				if (FFlaggedForProcess)
+				{
+					FFlaggedForProcess = false;
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+		public void FlagForProcess()
+		{
+			FFlaggedForProcess = true;
+		}
 	}
 }
