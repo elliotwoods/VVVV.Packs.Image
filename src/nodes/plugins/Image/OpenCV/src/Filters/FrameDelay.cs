@@ -14,6 +14,7 @@ using VVVV.Utils.VColor;
 
 namespace VVVV.Nodes.OpenCV
 {
+    [FilterInstance("FrameDelay")]
 	public class FrameDelayInstance : IFilterInstance
 	{
 		CVImage FBuffer = new CVImage();

@@ -42,12 +42,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenCV\VVVV.CV.Core.csproj">
-      <Project>{E9A7FC26-34E0-4C1E-83D8-C01A169422B2}</Project>
-      <Name>VVVV.CV.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="OpenNI\ContextNode.cs" />
     <Compile Include="OpenNI\ImageNode.cs" />
     <Compile Include="OpenNI\ListDevices.cs" />

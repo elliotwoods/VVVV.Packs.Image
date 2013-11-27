@@ -81,7 +81,6 @@
   <ItemGroup>
     <Compile Include="ManageDependencies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\Attributes\FilterInstanceAttribute.cs" />
     <Compile Include="src\Calibration\CalibrateCamera.cs" />
     <Compile Include="src\Calibration\Extrinsics.cs" />
     <Compile Include="src\Calibration\Homography.cs" />
@@ -94,7 +93,6 @@
     <Compile Include="src\Calibration\FindBoardNode.cs" />
     <Compile Include="src\Calibration\IntrinsicsSplitNode.cs" />
     <Compile Include="src\Calibration\ProjectPointsNode.cs" />
-    <Compile Include="src\Incomplete\GenericFilterNode.cs" />
     <None Include="packages.config" />
     <None Include="src\Features\Stitch.cs" />
     <Compile Include="src\Destinations\AsTextureDX11Instance.cs" />
@@ -114,8 +112,6 @@
     <Compile Include="src\Sources\AsImageDX11Instance.cs" />
     <Compile Include="src\Sources\AsImageRaw.cs" />
     <Compile Include="src\Sources\VideoPlayer.cs" />
-    <Compile Include="src\Utilities\ThreadUtils\WorkerThread.cs" />
-    <Compile Include="src\Utilities\TypeUtils.cs" />
     <Compile Include="src\Calibration\SolvePnP.cs" />
     <Compile Include="src\Destinations\AsTextureInstance.cs" />
     <Compile Include="src\Destinations\AsTextureNode.cs" />
@@ -148,24 +144,7 @@
     <Compile Include="src\Filters\OpticalFlowLK.cs" />
     <Compile Include="src\Filters\Template.cs" />
     <Compile Include="src\Filters\WithinRange.cs" />
-    <Compile Include="src\Image\CVImage.cs" />
-    <Compile Include="src\Image\CVImageAttributes.cs" />
-    <Compile Include="src\Image\CVImageDoubleBuffer.cs" />
-    <Compile Include="src\Image\CVImageInput.cs" />
-    <Compile Include="src\Image\CVImageInputSpread.cs" />
-    <Compile Include="src\Image\CVImageLink.cs" />
-    <Compile Include="src\Image\CVImageOutput.cs" />
-    <Compile Include="src\Image\CVImageOutputSpread.cs" />
-    <Compile Include="src\Image\ImageBase.cs" />
-    <Compile Include="src\Interfaces\User\IDeviceGeneratorInstance.cs" />
     <Compile Include="src\MultiInput\Cons.cs" />
-    <Compile Include="src\Interfaces\IInstance.cs" />
-    <Compile Include="src\Interfaces\IInstanceInput.cs" />
-    <Compile Include="src\Interfaces\IInstanceOutput.cs" />
-    <Compile Include="src\Process\IProcess.cs" />
-    <Compile Include="src\Process\ProcessDestination.cs" />
-    <Compile Include="src\Process\ProcessFilter.cs" />
-    <Compile Include="src\Process\ProcessGenerator.cs" />
     <Compile Include="src\Sources\ImageLoadNode.cs" />
     <Compile Include="src\Sources\NoiseNode.cs" />
     <Compile Include="src\Sources\VideoInNode.cs" />
@@ -181,23 +160,20 @@
     <Compile Include="src\Tracking\ContourNode.cs" />
     <Compile Include="src\Tracking\ContourPerimeterSplitNode.cs" />
     <Compile Include="src\Tracking\ObjectTrackingNode.cs" />
-    <Compile Include="src\Interfaces\INode.cs" />
-    <Compile Include="src\Interfaces\User\IStaticGeneratorInstance.cs" />
-    <Compile Include="src\Interfaces\User\IDestinationInstance.cs" />
-    <Compile Include="src\Interfaces\User\IDestinationNode.cs" />
-    <Compile Include="src\Interfaces\User\IFilterInstance.cs" />
-    <Compile Include="src\Interfaces\User\IFilterNode.cs" />
-    <Compile Include="src\Interfaces\User\IGeneratorInstance.cs" />
-    <Compile Include="src\Interfaces\User\IGeneratorNode.cs" />
-    <Compile Include="src\Utilities\MatrixUtils.cs" />
-    <Compile Include="src\Utilities\ImageUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="src\Destinations\ImageViewNode.resx">
       <DependentUpon>ImageViewNode.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\core\VVVV.CV.Core.csproj">
+      <Project>{673fdae3-3e5d-435c-8690-06378d3ed954}</Project>
+      <Name>VVVV.CV.Core</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Dependencies\OpenCV\x64\cublas64_50_35.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

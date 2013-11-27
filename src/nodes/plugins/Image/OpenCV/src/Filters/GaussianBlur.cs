@@ -10,6 +10,7 @@ namespace VVVV.Nodes.OpenCV
 {
 	public class GaussianBlurInstance : IFilterInstance
 	{
+        [Input("Width")]
 		public int Width = 3;
 
 		public override void Allocate()

@@ -7,5 +7,11 @@ namespace VVVV.Nodes.OpenCV
 {
     public class FilterInstanceAttribute : Attribute
     {
+        public string Name { get; set; }
+
+        public FilterInstanceAttribute(string name)
+        {
+            Name = name;
+        }
     }
 }

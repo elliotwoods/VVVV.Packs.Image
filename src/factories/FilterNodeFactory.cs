@@ -30,7 +30,7 @@ namespace VVVV.CV.Factories
 
         private readonly Dictionary<IPluginBase, PluginContainer> FFilterNodes;
         private readonly CompositionContainer FParentContainer;
-        private readonly Type FReflectionOnlyIFilterInstanceType;
+        private Type FReflectionOnlyIFilterInstanceType;
 
         [ImportingConstructor]
         public FilterNodeFactory(CompositionContainer parentContainer)
@@ -38,12 +38,6 @@ namespace VVVV.CV.Factories
         {
             FParentContainer = parentContainer;
             FFilterNodes = new Dictionary<IPluginBase, PluginContainer>();
-
-            var cvCoreAssemblyName = typeof(IFilterInstance).Assembly.FullName;
-            var cvCoreAssembly = Assembly.ReflectionOnlyLoad(cvCoreAssemblyName);
-            FReflectionOnlyIFilterInstanceType = cvCoreAssembly.GetExportedTypes()
-                .Where(t => t.Name == typeof(IFilterInstance).Name)
-                .First();
         }
 
         protected override bool CreateNode(INodeInfo nodeInfo, IInternalPluginHost nodeHost)
@@ -73,6 +67,15 @@ namespace VVVV.CV.Factories
 
         protected override IEnumerable<INodeInfo> LoadNodeInfos(string filename)
         {
+            if (FReflectionOnlyIFilterInstanceType == null)
+            {
+                var cvCoreAssemblyName = typeof(IFilterInstance).Assembly.FullName;
+                var cvCoreAssembly = Assembly.ReflectionOnlyLoad(cvCoreAssemblyName);
+                FReflectionOnlyIFilterInstanceType = cvCoreAssembly.GetExportedTypes()
+                    .Where(t => t.Name == typeof(IFilterInstance).Name)
+                    .First();
+            }
+
             var assembly = Assembly.ReflectionOnlyLoadFrom(filename);
             foreach (var type in assembly.GetExportedTypes())
             {
