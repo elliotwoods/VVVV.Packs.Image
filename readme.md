@@ -23,7 +23,16 @@ This plugin is distributed under the MIT license
 
 Parts of this pack may reference EmguCV which is distributed under a GPL license.
 If you wish to use these parts without the GPL restrictions, then I suggest paying for a commercial EmguCV license for this project.
-Buying said license (if bought for the VVVV.Pack.OpenCV project) will also indemnify any other users of this project from the EmguCV license conditions.
+Buying said license (if bought for the VVVV.Packs.OpenCV project) will also indemnify any other users of this project from the EmguCV license conditions.
+
+Installation
+============
+
+If you are installing this pack for development use (e.g. with Visual Studio), then you should clone this repo to be in vvvv\packs folder (aside DX11 for example).
+
+Some parts of this pack rely on the addonpack and/or DX11 pack, so be prepared to install those also.
+
+NuGet is used to manage VVVV dependencies from this pack.
 
 Usage
 =====
@@ -52,7 +61,7 @@ FOutput should not have any internal buffers, instead passing through its input 
 Links are double buffers
 
 
-Memory usage
+Memory usage notes
 ------------
 
 Examples of memory usage:
