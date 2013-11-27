@@ -303,7 +303,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="9015" top="780" width="2580" height="1620">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="8" values="CV_CALIB_FIX_K6,CV_CALIB_FIX_K6,CV_CALIB_FIX_K6,CV_CALIB_FIX_K6,CV_CALIB_FIX_K6,CV_CALIB_FIX_K6,CV_CALIB_FIX_K6,CV_CALIB_ZERO_TANGENT_DIST">
+   <PIN pinname="Input Enum" slicecount="8" values="CV_CALIB_USE_INTRINSIC_GUESS,CV_CALIB_FIX_K1,CV_CALIB_FIX_K2,CV_CALIB_FIX_K3,CV_CALIB_FIX_K4,CV_CALIB_FIX_K5,CV_CALIB_FIX_K6,CV_CALIB_ZERO_TANGENT_DIST">
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="8">
    </PIN>
