@@ -17,9 +17,8 @@
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenNI.Net, Version=1.5.4.0, Culture=neutral, PublicKeyToken=6b43d0c6cf74ee7f, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files (x86)\OpenNI\Bin\OpenNI.Net.dll</HintPath>
+    <Reference Include="OpenNI.net">
+      <HintPath>..\..\..\..\..\..\..\addonpack\lib\nodes\plugins\OpenNI.net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex">
