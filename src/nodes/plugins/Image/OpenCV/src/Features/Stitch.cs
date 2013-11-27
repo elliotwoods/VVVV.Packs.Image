@@ -10,7 +10,7 @@ using Emgu.CV.Stitching;
 namespace VVVV.Nodes.OpenCV.Features
 {
     #region PluginInfo
-    [PluginInfo(Name = "Stitch", Help = "Stitch together a spread of Images", Category = "OpenCV", Version = "Spectral")]
+    [PluginInfo(Name = "Stitch", Version = "Features", Help = "Stitch together a spread of Images", Category = "CV")]
     #endregion PluginInfo
     public class Stitch : IPluginEvaluate
     {

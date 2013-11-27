@@ -41,7 +41,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "UnsharpMask", Category = "OpenCV", Help = "Sharpen the image using the UnsharpMask algorithm", Author = "velcrome", Credits = "", Tags = "")]
+	[PluginInfo(Name = "UnsharpMask", Category = "CV", Version = "Filter", Help = "Sharpen the image using the UnsharpMask algorithm", Author = "velcrome", Credits = "", Tags = "sharpen")]
 	#endregion PluginInfo
 	public class UnsharpMaskNode : IFilterNode<UnsharpMaskInstance>
 	{

@@ -11,7 +11,7 @@ namespace VVVV.Nodes.OpenCV.Calibration
 {
 	#region PluginInfo
 	[PluginInfo(Name = "Writer",
-				Category = "OpenCV",
+				Category = "CV",
 				Version = "Intrinsics",
 				Help = "Write intrinsics to a file",
 				Tags = "",

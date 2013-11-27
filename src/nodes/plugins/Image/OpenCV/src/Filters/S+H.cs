@@ -34,7 +34,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "S+H", Category = "OpenCV", Help = "S+H an Image", Author = "", Credits = "", Tags = "")]
+	[PluginInfo(Name = "S+H", Category = "CV", Version = "Filter", Help = "S+H an Image", Author = "", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class S_HNode : IFilterNode<S_HInstance>
 	{

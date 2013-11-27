@@ -21,7 +21,7 @@ namespace VVVV.Nodes.OpenCV
 {
 
 	#region PluginInfo
-	[PluginInfo(Name = "Extrinsics", Category = "OpenCV", Version="Split", Help = "Split intrinsics out", Tags = "")]
+	[PluginInfo(Name = "Extrinsics", Category = "CV", Version="Split", Help = "Split intrinsics out", Tags = "")]
 	#endregion PluginInfo
 	public class ExtrinsicsSplitNode : IPluginEvaluate, IDisposable
 	{

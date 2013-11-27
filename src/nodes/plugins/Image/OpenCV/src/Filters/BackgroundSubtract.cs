@@ -66,7 +66,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "BackgroundSubtract", Category = "OpenCV", Version = "", Help = "Output difference between current frame and captured background", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "BackgroundSubtract", Category = "CV", Version = "Filter", Help = "Output difference between current frame and captured background", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class BackgroundSubtractNode : IFilterNode<BackgroundSubtractInstance>
 	{

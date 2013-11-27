@@ -86,7 +86,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "OpticalFlowLK", Category = "OpenCV", Help = "Perform LK optical flow on image", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "OpticalFlowLK", Category = "CV", Version = "Filter", Help = "Perform LK optical flow on image", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class OpticalFlowLKNode : IFilterNode<OpticalFlowLKInstance>
 	{

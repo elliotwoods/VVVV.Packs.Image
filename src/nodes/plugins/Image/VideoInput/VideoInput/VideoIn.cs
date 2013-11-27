@@ -149,7 +149,7 @@ namespace VVVV.Nodes.OpenCV.VideoInput
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "VideoIn", Category = "OpenCV", Version = "DirectShow", Help = "Captures video from DirectShow devices", Author = "Elliot Woods", Tags = "", AutoEvaluate = true)]
+	[PluginInfo(Name = "VideoIn", Category = "CV", Version = "DirectShow", Help = "Captures video from DirectShow devices", Author = "Elliot Woods", Tags = "", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class VideoInNode : IGeneratorNode<VideoInInstance>
 	{

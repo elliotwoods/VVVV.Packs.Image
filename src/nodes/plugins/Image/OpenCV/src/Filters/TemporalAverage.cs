@@ -58,7 +58,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Average", Category = "OpenCV", Version = "Temporal", Help = "Average input image over N frames (outputs at input framerate / N)", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Average", Category = "CV", Version = "Filter", Help = "Average input image over N frames (outputs at input framerate / N)", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class TemporalAverageNode : IFilterNode<TemporalAverageInstance>
 	{

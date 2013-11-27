@@ -27,8 +27,8 @@ namespace VVVV.Nodes.OpenCV
 {
 	#region PluginInfo
 	[PluginInfo(Name = "Info",
-				Category = "OpenCV",
-				Version = "",
+				Category = "CV",
+				Version = "Analysis",
 				Help = "Outputs information about the Images in a spread",
 				Tags = "")]
 	#endregion PluginInfo

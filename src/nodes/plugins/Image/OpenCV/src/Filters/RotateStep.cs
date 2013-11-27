@@ -96,7 +96,7 @@ namespace VVVV.Nodes.OpenCV
     }
 
     #region PluginInfo
-    [PluginInfo(Name = "Rotate", Category = "OpenCV", Version = "Step", Help = "Rotate an image in 1/4 cycle increments.", Author = "elliotwoods", Credits = "", Tags = "")]
+    [PluginInfo(Name = "Rotate", Category = "CV", Version = "Filter", Help = "Rotate an image in 1/4 cycle increments.", Author = "elliotwoods", Credits = "", Tags = "")]
     #endregion PluginInfo
     public class RotateStepNode : IFilterNode<RotateStepInstance>
     {

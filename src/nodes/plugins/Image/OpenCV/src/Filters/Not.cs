@@ -33,7 +33,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Not", Category = "OpenCV", Version = "Filter", Help = "Invert image", Author = "", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Not", Category = "CV", Version = "Filter", Help = "Invert image", Author = "", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class NotNode : IFilterNode<NotInstance>
 	{

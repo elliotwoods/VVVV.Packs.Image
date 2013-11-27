@@ -19,7 +19,7 @@ using SlimDX;
 namespace VVVV.Nodes.OpenCV
 {	
 	[PluginInfo(Name = "AsImage",
-				Category = "OpenCV",
+				Category = "CV",
 				Version = "DX11.Texture2D",
 				Help = "Converts DX11.Texture2D to CVImageLink",
 				Tags = "")]

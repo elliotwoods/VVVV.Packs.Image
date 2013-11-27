@@ -48,7 +48,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Dilate", Category = "OpenCV", Version = "", Help = "Inflate features in image, i.e. grow noise", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Dilate", Category = "CV", Version = "Filter", Help = "Inflate features in image, i.e. grow noise", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class DilateNode : IFilterNode<DilateInstance>
 	{

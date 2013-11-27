@@ -8,7 +8,7 @@ using VVVV.Nodes.OpenCV.Features.Criteria;
 namespace VVVV.Nodes.OpenCV.Features
 {
     #region PluginInfo
-    [PluginInfo(Name = "FilterFeatures", Category = "OpenCV", Help = "Find correspondeces between a pair of FeatureSet's.", Tags = "")]
+    [PluginInfo(Name = "FilterFeatures", Category = "CV", Version = "Features", Help = "Filter features given criteria.", Tags = "")]
     #endregion PluginInfo
     public class FilterFeatures : IPluginEvaluate
     {

@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.1.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\CalibrateProjector (OpenCV) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CalibrateProjector (OpenCV) help.v4p">
    <BOUNDS type="Window" left="9840" top="2085" width="13155" height="12075">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -389,7 +389,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9420" top="10560" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="|Normalis&cr;&lf;ed&cr;&lf;|">
+   <PIN pinname="Input Enum" slicecount="1" values="|Normalised&cr;&lf;|">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Input space|">
    </PIN>
@@ -485,7 +485,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="10500" top="8010" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="20" visible="1" values="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -955,36 +955,6 @@
    </LINKPOINT>
    <LINKPOINT x="1740" y="11070">
    </LINKPOINT>
-   </LINK>
-   <NODE systemname="Change (Animation)" nodename="Change (Animation)" componentmode="Hidden" id="63">
-   <BOUNDS type="Node" left="10500" top="7320" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="OnChange" visible="1">
-   </PIN>
-   <PIN pinname="Bang On Create" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="32" srcpinname="Y Output Value" dstnodeid="63" dstpinname="Input" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="3975" y="9113">
-   </LINKPOINT>
-   <LINKPOINT x="10500" y="9113">
-   </LINKPOINT>
-   </LINK>
-   <NODE systemname="OR (Boolean Spectral)" nodename="OR (Boolean Spectral)" componentmode="Hidden" id="64">
-   <BOUNDS type="Node" left="10500" top="7635" width="360" height="270">
-   </BOUNDS>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Input 1" visible="1">
-   </PIN>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="64" srcpinname="Output" dstnodeid="34" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="63" srcpinname="OnChange" dstnodeid="64" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="0" srcpinname="Projection Transform" dstnodeid="41" dstpinname="Transform In 2">
    </LINK>

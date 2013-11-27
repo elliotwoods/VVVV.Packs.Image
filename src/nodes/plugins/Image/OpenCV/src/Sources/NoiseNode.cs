@@ -68,7 +68,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Noise", Category = "OpenCV", Version = "Generator", Help = "Generator 32F noise", Author = "", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Noise", Category = "CV", Version = "Source", Help = "Generator 32F noise", Author = "", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class NoiseNode : IGeneratorNode<NoiseInstance>
 	{

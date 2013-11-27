@@ -86,7 +86,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "FrameDifference", Category = "OpenCV", Version = "", Help = "Output difference between frames", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "FrameDifference", Category = "CV", Version = "Filter", Help = "Output difference between frames", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class FrameDifferenceNode : IFilterNode<FrameDifferenceInstance>
 	{

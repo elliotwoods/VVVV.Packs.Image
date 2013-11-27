@@ -30,7 +30,7 @@
 //	}
 
 //	#region PluginInfo
-//	[PluginInfo(Name = "Crop", Category = "OpenCV", Version = "", Help = "Crop a sub-portion of an image", Author = "elliotwoods", Credits = "", Tags = "")]
+//	[PluginInfo(Name = "Crop", Category = "CV", Version = "", Help = "Crop a sub-portion of an image", Author = "elliotwoods", Credits = "", Tags = "")]
 //	#endregion PluginInfo
 //	class CropNode : IFilterNode<CropInstance>
 //	{

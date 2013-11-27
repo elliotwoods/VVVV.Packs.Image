@@ -55,7 +55,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "ConvertScale", Category = "OpenCV", Version = "", Help = "Scale and offset an Image by a Value", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "ConvertScale", Category = "CV", Version = "Filter", Help = "Scale and offset an Image by a Value", Tags = "contrast", Author = "elliotwoods", Credits = "")]
 	#endregion PluginInfo
 	public class ConvertScaleNode : IFilterNode<ConvertScaleInstance>
 	{

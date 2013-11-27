@@ -52,7 +52,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "ImageResize", Category = "OpenCV", Help = "Resize Image", Author = "elliotwoods", Credits = "alg", Tags = "")]
+	[PluginInfo(Name = "ImageResize", Category = "CV", Version = "Filter", Help = "Resize Image", Author = "elliotwoods", Credits = "alg", Tags = "")]
 	#endregion PluginInfo
 	public class ImageResizeNode : IFilterNode<ImageResizeInstance>
 	{

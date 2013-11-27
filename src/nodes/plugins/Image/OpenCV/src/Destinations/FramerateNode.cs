@@ -50,7 +50,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Framerate", Category = "OpenCV", Version = "", Help = "Report the framerate that an image is being updated at", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Framerate", Category = "CV", Version = "Animation", Help = "Report the framerate that an image is being updated at", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class FramerateNode : IDestinationNode<FramerateInstance>
 	{

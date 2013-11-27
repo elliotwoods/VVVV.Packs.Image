@@ -85,7 +85,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "AdaptiveThreshold", Category = "OpenCV", Help = "Perform an adaptive threshold over the image", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "AdaptiveThreshold", Category = "CV", Version = "Filter", Help = "Perform an adaptive threshold over the image", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class AdaptiveThresholdNode : IFilterNode<AdaptiveThresholdInstance>
 	{

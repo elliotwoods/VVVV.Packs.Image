@@ -52,7 +52,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Erode", Category = "OpenCV", Version = "", Help = "Reduce features in image, i.e. remove noise", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Erode", Category = "CV", Version = "Filter", Help = "Reduce features in image, i.e. remove noise", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class ErodeNode : IFilterNode<ErodeInstance>
 	{

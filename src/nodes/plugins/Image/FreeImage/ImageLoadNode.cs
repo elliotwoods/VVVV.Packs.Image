@@ -146,7 +146,7 @@ namespace VVVV.Nodes.OpenCV.FreeImageNodes
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "ImageLoad", Category = "OpenCV", Version = "FreeImage", Help = "Loads image file from disk.", Tags = "")]
+	[PluginInfo(Name = "ImageLoad", Category = "CV", Version = "FreeImage", Help = "Loads image file from disk.", Tags = "")]
 	#endregion PluginInfo
 	public class ImageLoadNode : IGeneratorNode<ImageLoadInstance>
 	{

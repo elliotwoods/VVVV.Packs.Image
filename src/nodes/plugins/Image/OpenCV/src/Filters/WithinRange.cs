@@ -42,8 +42,9 @@ namespace VVVV.Nodes.OpenCV
 		}
 
 	}
+
 	#region PluginInfo
-	[PluginInfo(Name = "WithinRange", Category = "OpenCV", Version = "Filter, Scalar", Help = "Less than", Author = "", Credits = "", Tags = "")]
+	[PluginInfo(Name = "WithinRange", Category = "CV", Version = "Filter", Help = "Less than", Author = "", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class WithinRangeNode : IFilterNode<WithinRangeInstance>
 	{

@@ -64,7 +64,7 @@ namespace VVVV.Nodes.OpenCV
 
 
 	#region PluginInfo
-	[PluginInfo(Name = "Writer", Category = "OpenCV", Version = "Image", Help = "Save a still image file", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Writer", Category = "CV", Version = "Image", Help = "Save a still image file", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class WriterImageNode : IDestinationNode<WriterInstance>
 	{

@@ -22,7 +22,7 @@ using VVVV.Nodes.OpenCV;
 namespace VVVV.Nodes.OpenCV.OpenNI
 {
 	#region PluginInfo
-	[PluginInfo(Name = "Users", Category = "OpenCV", Version = "OpenNI", Help = "OpenNI User Generator", Tags = "")]
+	[PluginInfo(Name = "Users", Category = "CV", Version = "OpenNI", Help = "OpenNI User Generator", Tags = "")]
 	#endregion PluginInfo
 	public class UserNode : IPluginEvaluate, IDisposable
 	{

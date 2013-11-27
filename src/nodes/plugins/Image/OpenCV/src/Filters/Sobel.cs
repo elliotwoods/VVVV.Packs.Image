@@ -81,7 +81,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Sobel", Category = "OpenCV", Version = "", Help = "Find the 2D derivative of an image using the Sobel filter", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Sobel", Category = "CV", Version = "Filter", Help = "Find the 2D derivative of an image using the Sobel filter", Tags = "edge detection")]
 	#endregion PluginInfo
 	public class SobelNode : IFilterNode<SobelInstance>
 	{

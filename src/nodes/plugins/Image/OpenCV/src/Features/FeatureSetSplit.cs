@@ -8,7 +8,7 @@ using VVVV.Utils.VMath;
 namespace VVVV.Nodes.OpenCV.Features
 {
     #region PluginInfo
-    [PluginInfo(Name = "FeatureSet", Category = "OpenCV", Version = "Features Split", Help = "Output 2D positions of feature points", Tags = "")]
+    [PluginInfo(Name = "FeatureSet", Category = "CV", Version = "Features Split", Help = "Output 2D positions of feature points", Tags = "")]
     #endregion PluginInfo
     public class FeatureSetSplit : IPluginEvaluate
     {

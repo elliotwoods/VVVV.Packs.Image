@@ -37,7 +37,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Grayscale", Category = "OpenCV", Version = "", Help = "Converts incoming images to respective grayscale versions", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Grayscale", Category = "CV", Version = "Filter", Help = "Converts incoming images to respective grayscale versions", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class GrayscaleNode : IFilterNode<GrayscaleInstance>
 	{

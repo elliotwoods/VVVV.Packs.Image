@@ -40,7 +40,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Change", Category = "OpenCV", Version = "", Help = "Report the number of image frames passed through this node between MainLoop frames", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Change", Category = "CV", Version = "Animation", Help = "Report the number of image frames passed through this node between MainLoop frames", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class ChangeNode : IDestinationNode<ChangeInstance>
 	{

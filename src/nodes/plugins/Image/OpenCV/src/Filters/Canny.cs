@@ -78,7 +78,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Canny", Category = "OpenCV", Version = "", Help = "Find edges in image using Canny filter", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Canny", Category = "CV", Version = "Filter", Help = "Find edges in image using Canny filter", Author = "elliotwoods", Credits = "", Tags = "edge detection")]
 	#endregion PluginInfo
 	public class CannyNode : IFilterNode<CannyInstance>
 	{

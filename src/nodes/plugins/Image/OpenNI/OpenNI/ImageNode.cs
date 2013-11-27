@@ -25,7 +25,7 @@ namespace VVVV.Nodes.OpenCV.OpenNI
 	enum ImageNodeMode { RGB, IR };
 
 	#region PluginInfo
-	[PluginInfo(Name = "Images", Category = "OpenCV", Version = "OpenNI", Help = "OpenNI Image generator", Tags = "")]
+	[PluginInfo(Name = "Images", Category = "CV", Version = "OpenNI", Help = "OpenNI Image generator", Tags = "")]
 	#endregion PluginInfo
 	public class ImageNode : IPluginEvaluate, IDisposable
 	{

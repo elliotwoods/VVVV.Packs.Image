@@ -131,19 +131,19 @@ namespace VVVV.Nodes.OpenCV
 	#region Nodes
 
 	#region PluginInfo
-	[PluginInfo(Name = ">", Help = "Greater than", Category = "OpenCV", Version = "Filter, Scalar")]
+	[PluginInfo(Name = ">", Help = "Greater than", Category = "CV", Version = "Filter")]
 	#endregion PluginInfo
 	public class GTNode : CMPNode<GTInstance>
 	{	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "<", Help = "Less than", Category = "OpenCV", Version = "Filter, Scalar")]
+	[PluginInfo(Name = "<", Help = "Less than", Category = "CV", Version = "Filter")]
 	#endregion PluginInfo
 	public class LTNode : CMPNode<LTInstance>
 	{	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "=", Help = "Equal to", Category = "OpenCV", Version = "Filter, Scalar")]
+	[PluginInfo(Name = "=", Help = "Equal to", Category = "CV", Version = "Filter")]
 	#endregion PluginInfo
 	public class EQNode : CMPNode<EQInstance>
 	{	}

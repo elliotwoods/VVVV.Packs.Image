@@ -93,7 +93,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Template", Category = "OpenCV", Version = "Filter", Help = "Template node for a threaded filter", Author = "", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Template", Category = "CV", Version = "Filter", Help = "Template node for a threaded filter", Author = "", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class TemplateNode : IFilterNode<TemplateInstance>
 	{

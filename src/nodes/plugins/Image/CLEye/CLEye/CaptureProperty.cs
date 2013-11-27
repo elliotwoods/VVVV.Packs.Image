@@ -11,7 +11,7 @@ using VVVV.PluginInterfaces.V1;
 namespace VVVV.Nodes.OpenCV.CLEye
 {
 	#region PluginInfo
-	[PluginInfo(Name = "CaptureProperty", Category = "OpenCV", Version = "CLEye", Help = "Set properties for CLEye camera", Tags = "", Author = "Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "CaptureProperty", Category = "CV", Version = "CLEye", Help = "Set properties for CLEye camera", Tags = "", Author = "Elliot Woods", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class CapturePropertyNode : IPluginEvaluate
 	{

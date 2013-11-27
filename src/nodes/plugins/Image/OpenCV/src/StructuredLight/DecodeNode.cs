@@ -186,7 +186,7 @@ namespace VVVV.Nodes.OpenCV.StructuredLight
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Decode", Category = "Image.StructuredLight", Help = "Decode structured light patterns", Author = "", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Decode", Category = "CV", Version = "StructuredLight", Help = "Decode structured light patterns", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class DecodeNode : IDestinationNode<DecodeInstance>
 	{

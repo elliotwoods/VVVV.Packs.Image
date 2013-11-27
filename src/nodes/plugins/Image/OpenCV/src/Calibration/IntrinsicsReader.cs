@@ -11,7 +11,7 @@ namespace VVVV.Nodes.OpenCV.Calibration
 {
 	#region PluginInfo
 	[PluginInfo(Name = "Reader",
-				Category = "OpenCV",
+				Category = "CV",
 				Version = "Intrinsics",
 				Help = "Read intrinsics from a file",
 				Tags = "",

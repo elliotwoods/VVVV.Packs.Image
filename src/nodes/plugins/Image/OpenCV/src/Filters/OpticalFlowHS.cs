@@ -94,7 +94,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "OpticalFlowHS", Category = "OpenCV", Help = "Perform HS optical flow on image", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "OpticalFlowHS", Category = "CV", Help = "Perform HS optical flow on image", Version = "Filter", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class OpticalFlowHSNode : IFilterNode<OpticalFlowHSInstance>
 	{

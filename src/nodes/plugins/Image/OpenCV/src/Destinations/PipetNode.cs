@@ -56,7 +56,7 @@ namespace VVVV.Nodes.OpenCV
 		}
 	}
 
-	[PluginInfo(Name = "Pipet", Category = "OpenCV", Version = "", Help = "Pipet in image", Tags = "")]
+	[PluginInfo(Name = "Pipet", Category = "CV", Version = "Analysis", Help = "Pipet in image using pixel coordinates", Tags = "")]
 	public class PipetNode : IDestinationNode<PipetInstance>
 	{
 		[Input("Position", DimensionNames=new string[1]{"px"})]

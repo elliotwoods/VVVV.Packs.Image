@@ -109,7 +109,7 @@ namespace VVVV.Nodes.OpenCV.StructuredLight
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Encode", Category = "Image.StructuredLight", Help = "Encode structured light patterns", Author = "", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Encode", Category = "CV", Version = "StructuredLight", Help = "Encode structured light patterns", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class EncodeNode : IGeneratorNode<EncodeInstance>
 	{

@@ -18,7 +18,7 @@ namespace VVVV.Nodes.OpenCV
 {
 	#region PluginInfo
 	[PluginInfo(Name = "Renderer",
-	Category = "OpenCV",
+	Category = "CV",
 	Help = "Render an EmguCV Image",
 	Tags = "",
 	AutoEvaluate = true)]

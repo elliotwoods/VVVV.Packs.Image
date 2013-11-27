@@ -10,7 +10,7 @@ using Emgu.CV;
 namespace VVVV.Nodes.OpenCV
 {
     #region PluginInfo
-    [PluginInfo(Name = "Homography", Category = "OpenCV", Version = "Transform", Help = "Solve homography (allows for fitting > 4 points).", Tags = "")]
+    [PluginInfo(Name = "Homography", Category = "CV", Version = "Transform", Help = "Solve homography (allows for fitting > 4 points).", Tags = "")]
     #endregion PluginInfo
     public class Homography : IPluginEvaluate
     {

@@ -20,7 +20,7 @@ using System.Collections.Generic;
 namespace VVVV.Nodes.OpenCV
 {
 	#region PluginInfo
-	[PluginInfo(Name = "FindBoard", Category = "OpenCV", Help = "Finds chessboard corners XY", Tags = "")]
+	[PluginInfo(Name = "FindBoard", Category = "CV", Help = "Finds chessboard corners XY", Tags = "")]
 	#endregion PluginInfo
 	public class FindBoardNode : IDestinationNode<FindBoardInstance>
 	{

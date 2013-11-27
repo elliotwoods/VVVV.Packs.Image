@@ -67,6 +67,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\DX11\core\VVVV.DX11.Lib.dll</HintPath>
     </Reference>
+    <Reference Include="VVVV.Nodes">
+      <HintPath>..\..\..\..\..\..\..\lib\nodes\plugins\VVVV.Nodes.dll</HintPath>
+    </Reference>
     <Reference Include="VVVV.Utils, Version=31.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\VVVV.Utils.31.3.1\lib\net40\VVVV.Utils.dll</HintPath>
     </Reference>
@@ -102,7 +105,7 @@
     <Compile Include="src\Features\Criteria\ICriteria.cs" />
     <Compile Include="src\Features\MatchFeatures.cs" />
     <Compile Include="src\Filters\Crop.cs" />
-    <Compile Include="src\Filters\RotateContinuous.cs" />
+    <Compile Include="src\Filters\Transform.cs" />
     <Compile Include="src\Filters\RotateStep.cs" />
     <Compile Include="src\Filters\UsharpMask.cs" />
     <Compile Include="src\Sources\AsImageDX11Node.cs" />
@@ -114,7 +117,7 @@
     <Compile Include="src\Calibration\SolvePnP.cs" />
     <Compile Include="src\Destinations\AsTextureInstance.cs" />
     <Compile Include="src\Destinations\AsTextureNode.cs" />
-    <Compile Include="src\Destinations\AvgSdvNode.cs" />
+    <Compile Include="src\Destinations\Average.cs" />
     <Compile Include="src\Destinations\ChangeNode.cs" />
     <Compile Include="src\Destinations\FramerateNode.cs" />
     <Compile Include="src\Destinations\ImageViewNode.cs">
@@ -126,7 +129,7 @@
     <Compile Include="src\Filters\AdaptiveThreshold.cs" />
     <Compile Include="src\Filters\BackgroundSubtract.cs" />
     <Compile Include="src\Filters\Canny.cs" />
-    <Compile Include="src\Filters\Multiply.cs" />
+    <Compile Include="src\Filters\ConvertScale.cs" />
     <Compile Include="src\Filters\Sobel.cs" />
     <Compile Include="src\Filters\S+H.cs" />
     <Compile Include="src\Filters\Not.cs" />
