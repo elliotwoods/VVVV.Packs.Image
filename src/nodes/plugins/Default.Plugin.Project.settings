@@ -30,6 +30,6 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(SolutionDir)' != '' ">
-    <OutputPath>$(MSBuildThisFileDirectory)..\..\..\lib\nodes\plugins\</OutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)..\..\..\nodes\plugins\</OutputPath>
   </PropertyGroup>
 </Project>

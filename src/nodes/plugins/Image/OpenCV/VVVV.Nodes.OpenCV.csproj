@@ -43,7 +43,7 @@
     </Reference>
     <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\packs\DX11\core\FeralTic.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\DX11\core\FeralTic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex, Version=4.1.2.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">

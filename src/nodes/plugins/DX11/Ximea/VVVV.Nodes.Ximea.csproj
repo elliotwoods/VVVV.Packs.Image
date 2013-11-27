@@ -17,8 +17,9 @@
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FeralTic">
-      <HintPath>..\..\..\..\..\..\packs\DX11\core\FeralTic.dll</HintPath>
+    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\DX11\core\FeralTic.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -35,11 +36,13 @@
     <Reference Include="VVVV.Core">
       <HintPath>..\..\..\..\packages\VVVV.Core.31.3.0\lib\net40\VVVV.Core.dll</HintPath>
     </Reference>
-    <Reference Include="VVVV.DX11.Core">
-      <HintPath>..\..\..\..\..\..\packs\DX11\core\VVVV.DX11.Core.dll</HintPath>
+    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\DX11\core\VVVV.DX11.Core.dll</HintPath>
     </Reference>
-    <Reference Include="VVVV.DX11.Lib">
-      <HintPath>..\..\..\..\..\..\packs\DX11\core\VVVV.DX11.Lib.dll</HintPath>
+    <Reference Include="VVVV.DX11.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\DX11\core\VVVV.DX11.Lib.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.Utils">
       <HintPath>..\..\..\..\packages\VVVV.Utils.31.3.0\lib\net40\VVVV.Utils.dll</HintPath>
