@@ -7,6 +7,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>VVVV.Nodes.OpenCV</RootNamespace>
     <AssemblyName>VVVV.Nodes.OpenCV</AssemblyName>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Accessibility">
@@ -329,4 +331,5 @@
   <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.0\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.0\build\net40\VVVV.SlimDX.targets')" />
   <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.31.3.1\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.31.3.1\build\net40\VVVV.PluginInterfaces.targets')" />
   <Import Project="..\..\..\..\packages\VVVV.Utils3rdParty.31.3.1\build\net40\VVVV.Utils3rdParty.targets" Condition="Exists('..\..\..\..\packages\VVVV.Utils3rdParty.31.3.1\build\net40\VVVV.Utils3rdParty.targets')" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
 </Project>

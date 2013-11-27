@@ -13,6 +13,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>VVVV.Nodes.OpenCV.VideoInput</RootNamespace>
     <AssemblyName>VVVV.Nodes.OpenCV.VideoInput</AssemblyName>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -55,6 +57,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\packages\SlimDX.1.0.0\build\net40\SlimDX.targets" Condition="Exists('..\..\..\..\packages\SlimDX.1.0.0\build\net40\SlimDX.targets')" />
   <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.31.3.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.31.3.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
