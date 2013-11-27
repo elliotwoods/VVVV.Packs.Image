@@ -1,13 +1,13 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug31.3.dtd" >
    <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CalibrateProjector (OpenCV).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Build\Modules\CalibrateProjector (EmguCV).v4p" systemname="CalibrateProjector (EmguCV)">
-   <BOUNDS height="8715" left="13935" top="4680" type="Window" width="16320">
+   <BOUNDS height="8715" left="10590" top="6210" type="Window" width="16320">
    </BOUNDS>
    <NODE componentmode="InABox" id="18" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="6270" top="1050" type="Node" width="0">
    </BOUNDS>
    <BOUNDS height="480" left="6270" top="1050" type="Box" width="795">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" values="1024,768">
+   <PIN pinname="Y Input Value" slicecount="2" values="1280,1024">
    </PIN>
    <PIN encoded="0" pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -459,6 +459,8 @@
    <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="67" nodename="CalibrateCamera (OpenCV)" systemname="CalibrateCamera (OpenCV)">
    <BOUNDS height="270" left="810" top="3015" type="Node" width="10980">
    </BOUNDS>
+   <PIN pinname="ResolutionXY" visible="1">
+   </PIN>
    </NODE>
    <LINK dstnodeid="67" dstpinname="Do" srcnodeid="10" srcpinname="Y Output Value" linkstyle="VHV">
    <LINKPOINT x="15975" y="2820">
@@ -549,5 +551,7 @@
    <LINK srcnodeid="69" srcpinname="Y Output Value" dstnodeid="24" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="69" srcpinname="Y Output Value" dstnodeid="54" dstpinname="Input 2">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Y Output Value" dstnodeid="67" dstpinname="ResolutionXY">
    </LINK>
    </PATCH>
