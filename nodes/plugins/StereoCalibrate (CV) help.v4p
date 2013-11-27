@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug31.1.dtd" >
-   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\myimagepack\nodes\plugins\StereoCalibrate (OpenCV) help.v4p" systemname="StereoCalibrate (OpenCV) help" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\StereoCalibrate (OpenCV) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\StereoCalibrate (CV) help.v4p" systemname="StereoCalibrate (OpenCV) help" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\StereoCalibrate (OpenCV) help.v4p">
    <BOUNDS type="Window" left="1830" top="1605" width="15270" height="14370">
    </BOUNDS>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InABox" id="2">
@@ -96,20 +96,6 @@
    <PIN pinname="Size" slicecount="1" values="24">
    </PIN>
    </NODE>
-   <NODE systemname="BoardObjectPoints (OpenCV)" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\BoardObjectPoints (OpenCV).v4p" nodename="BoardObjectPoints (OpenCV)" componentmode="Hidden" id="58">
-   <BOUNDS type="Node" left="7890" top="7155" width="3135" height="270">
-   </BOUNDS>
-   <PIN pinname="Board Size X">
-   </PIN>
-   <PIN pinname="Board Pitch">
-   </PIN>
-   <PIN pinname="Object XYZ" visible="1">
-   </PIN>
-   <PIN pinname="Count" visible="1">
-   </PIN>
-   <PIN pinname="Board Size Y">
-   </PIN>
-   </NODE>
    <NODE systemname="Cameras" filename=".\OpenCV-help\StereoCalibrate\Cameras.v4p" nodename=".\OpenCV-help\StereoCalibrate\Cameras.v4p" componentmode="Hidden" id="131">
    <BOUNDS type="Node" left="1065" top="1185" width="100" height="100">
    </BOUNDS>
@@ -167,7 +153,7 @@
    </PIN>
    <PIN pinname="Image Points 1XY" visible="1">
    </PIN>
-   <PIN pinname="Points per board" visible="1">
+   <PIN pinname="Points per board" visible="1" slicecount="1" values="54">
    </PIN>
    <PIN pinname="Board size Y" visible="1">
    </PIN>
@@ -197,7 +183,7 @@
    </PIN>
    <PIN pinname="Image Points 0" visible="1">
    </PIN>
-   <PIN pinname="Points per board" visible="1">
+   <PIN pinname="Points per board" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Add" visible="1" slicecount="1" values="0">
    </PIN>
@@ -246,12 +232,6 @@
    </LINK>
    <LINK srcnodeid="134" srcpinname="Image Points 0" dstnodeid="22" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="58" srcpinname="Count" dstnodeid="134" dstpinname="Points per board" linkstyle="VHV">
-   <LINKPOINT x="10965" y="7778">
-   </LINKPOINT>
-   <LINKPOINT x="3990" y="7778">
-   </LINKPOINT>
-   </LINK>
    <LINK srcnodeid="134" srcpinname="Add" dstnodeid="23" dstpinname="Insert" linkstyle="VHV" hiddenwhenlocked="1">
    <LINKPOINT x="6790" y="9305">
    </LINKPOINT>
@@ -287,7 +267,7 @@
    </PIN>
    <PIN pinname="Image Points 2XY" visible="1">
    </PIN>
-   <PIN pinname="Object PointsXYZ" visible="1">
+   <PIN pinname="Object PointsXYZ" visible="1" slicecount="3" values="0,0,0">
    </PIN>
    <PIN pinname="ResolutionXY" visible="1">
    </PIN>
@@ -295,28 +275,22 @@
    </PIN>
    <PIN pinname="Projection 2" visible="1">
    </PIN>
-   <PIN pinname="Board Transform 2" visible="1">
+   <PIN pinname="Board Transform 2" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Projection 1" visible="1">
    </PIN>
-   <PIN pinname="Board Transform 1" visible="1">
+   <PIN pinname="Board Transform 1" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="World transform" visible="1">
+   <PIN pinname="World transform" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Intrinsics 1" visible="1">
+   <PIN pinname="Intrinsics 1" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Intrinsics 2" visible="1">
+   <PIN pinname="Intrinsics 2" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <LINK srcnodeid="22" srcpinname="Output" dstnodeid="139" dstpinname="Image Points 1XY">
    </LINK>
    <LINK srcnodeid="23" srcpinname="Output" dstnodeid="139" dstpinname="Image Points 2XY">
-   </LINK>
-   <LINK srcnodeid="58" srcpinname="Object XYZ" dstnodeid="139" dstpinname="Object PointsXYZ" linkstyle="Bezier">
-   <LINKPOINT x="7905" y="9488">
-   </LINKPOINT>
-   <LINKPOINT x="6825" y="9188">
-   </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="140" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Node" left="12585" top="9495" width="0" height="0">
@@ -401,15 +375,15 @@
    </PIN>
    <PIN pinname="Count" visible="1">
    </PIN>
-   <PIN pinname="World transform" visible="1">
+   <PIN pinname="World transform" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Board Transform 1" visible="1">
+   <PIN pinname="Board Transform 1" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Intrinsics 1" visible="1">
+   <PIN pinname="Intrinsics 1" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Board Transform 2" visible="1">
+   <PIN pinname="Board Transform 2" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Intrinsics 2" visible="1">
+   <PIN pinname="Intrinsics 2" visible="1" slicecount="1" values="||">
    </PIN>
    <BOUNDS type="Window" left="435" top="4935" width="17550" height="10830">
    </BOUNDS>
@@ -432,8 +406,6 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="144" srcpinname="Y Output Value" dstnodeid="58" dstpinname="Board Size X">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="145" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Node" left="9420" top="6420" width="0" height="0">
    </BOUNDS>
@@ -452,8 +424,6 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="145" srcpinname="Y Output Value" dstnodeid="58" dstpinname="Board Size Y">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="146" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Node" left="10980" top="6420" width="0" height="0">
    </BOUNDS>
@@ -470,8 +440,6 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="146" srcpinname="Y Output Value" dstnodeid="58" dstpinname="Board Pitch">
-   </LINK>
    <NODE systemname="Vector (3d Join)" nodename="Vector (3d Join)" componentmode="Hidden" id="147" hiddenwhenlocked="1">
    <BOUNDS type="Node" left="7890" top="8175" width="3150" height="270">
    </BOUNDS>
@@ -574,12 +542,6 @@
    <LINKPOINT x="2565" y="6068">
    </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="58" srcpinname="Count" dstnodeid="133" dstpinname="Points per board" linkstyle="Bezier">
-   <LINKPOINT x="10950" y="4575">
-   </LINKPOINT>
-   <LINKPOINT x="4710" y="4575">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="150" systemname="IOBox (String)">
    <BOUNDS type="Node" left="12555" top="9150" width="2355" height="270">
    </BOUNDS>
@@ -604,6 +566,44 @@
    <LINKPOINT x="7875" y="4193">
    </LINKPOINT>
    <LINKPOINT x="2175" y="4193">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="BoardObjectPoints (CV)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardObjectPoints (CV).v4p" nodename="BoardObjectPoints (CV)" componentmode="Hidden" id="58">
+   <BOUNDS type="Node" left="7890" top="7155" width="3150" height="270">
+   </BOUNDS>
+   <PIN pinname="Board Size X">
+   </PIN>
+   <PIN pinname="Board Pitch">
+   </PIN>
+   <PIN pinname="Object XYZ" visible="1">
+   </PIN>
+   <PIN pinname="Count" visible="1">
+   </PIN>
+   <PIN pinname="Board Size Y">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="58" srcpinname="Count" dstnodeid="134" dstpinname="Points per board" linkstyle="VHV">
+   <LINKPOINT x="10965" y="7778">
+   </LINKPOINT>
+   <LINKPOINT x="3990" y="7778">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="58" srcpinname="Object XYZ" dstnodeid="139" dstpinname="Object PointsXYZ" linkstyle="Bezier">
+   <LINKPOINT x="7905" y="9488">
+   </LINKPOINT>
+   <LINKPOINT x="6825" y="9188">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="144" srcpinname="Y Output Value" dstnodeid="58" dstpinname="Board Size X">
+   </LINK>
+   <LINK srcnodeid="145" srcpinname="Y Output Value" dstnodeid="58" dstpinname="Board Size Y">
+   </LINK>
+   <LINK srcnodeid="146" srcpinname="Y Output Value" dstnodeid="58" dstpinname="Board Pitch">
+   </LINK>
+   <LINK srcnodeid="58" srcpinname="Count" dstnodeid="133" dstpinname="Points per board" linkstyle="Bezier">
+   <LINKPOINT x="10950" y="4575">
+   </LINKPOINT>
+   <LINKPOINT x="4710" y="4575">
    </LINKPOINT>
    </LINK>
    </PATCH>

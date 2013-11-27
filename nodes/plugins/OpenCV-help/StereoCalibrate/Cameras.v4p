@@ -1,21 +1,7 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\OpenCV-help\StereoCalibrate\Cameras.v4p" systemname="Cameras" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\OpenCV-help\StereoCalibrate\Cameras.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\OpenCV-help\StereoCalibrate\Cameras.v4p" systemname="Cameras" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\OpenCV-help\StereoCalibrate\Cameras.v4p">
    <BOUNDS type="Window" left="8745" top="5970" width="9000" height="6000">
    </BOUNDS>
-   <NODE systemname="VideoIn (OpenCV DirectShow)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.VideoInput.dll" nodename="VideoIn (OpenCV DirectShow)" componentmode="Hidden" id="8">
-   <BOUNDS type="Node" left="840" top="3885" width="3075" height="270">
-   </BOUNDS>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Enabled">
-   </PIN>
-   <PIN pinname="Show Settings" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Device ID" visible="1">
-   </PIN>
-   <PIN pinname="Properties" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="7" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Node" left="3870" top="2970" width="0" height="0">
    </BOUNDS>
@@ -34,14 +20,6 @@
    <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Enabled">
    </PIN>
    <PIN pinname="X Input Value" slicecount="1" values="0">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="7" srcpinname="Y Output Value" dstnodeid="8" dstpinname="Enabled">
-   </LINK>
-   <NODE systemname="ListDevices (OpenCV DirectShow)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.VideoInput.dll" nodename="ListDevices (OpenCV DirectShow)" componentmode="Hidden" id="6">
-   <BOUNDS type="Node" left="375" top="285" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Refresh" slicecount="1" values="0">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="5" systemname="IOBox (String)">
@@ -64,8 +42,6 @@
    <PIN pinname="Output String" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="6" srcpinname="Device name" dstnodeid="5" dstpinname="Input String">
-   </LINK>
    <NODE systemname="Sift (String)" nodename="Sift (String)" componentmode="Hidden" id="4">
    <BOUNDS type="Node" left="375" top="3195" width="1485" height="270">
    </BOUNDS>
@@ -79,24 +55,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="5" srcpinname="Output String" dstnodeid="4" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="4" srcpinname="Input Index" dstnodeid="8" dstpinname="Device ID">
-   </LINK>
-   <NODE systemname="CaptureProperty (OpenCV DirectShow)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.VideoInput.dll" nodename="CaptureProperty (OpenCV DirectShow)" componentmode="Hidden" id="3">
-   <BOUNDS type="Node" left="4080" top="1485" width="1725" height="270">
-   </BOUNDS>
-   <PIN pinname="PropertyPair" visible="1">
-   </PIN>
-   <PIN pinname="Property">
-   </PIN>
-   <PIN pinname="Value">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="3" srcpinname="PropertyPair" dstnodeid="8" dstpinname="Properties" linkstyle="VHV">
-   <LINKPOINT x="4210" y="2470">
-   </LINKPOINT>
-   <LINKPOINT x="3275" y="2720">
-   </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="2" systemname="IOBox (Enumerations)">
    <BOUNDS type="Node" left="4080" top="480" width="0" height="0">
@@ -112,8 +70,6 @@
    <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
    </PIN>
    </NODE>
-   <LINK srcnodeid="2" srcpinname="Output Enum" dstnodeid="3" dstpinname="Property">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="1" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Node" left="5745" top="480" width="0" height="0">
    </BOUNDS>
@@ -132,8 +88,6 @@
    <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
    </PIN>
    </NODE>
-   <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Value">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="0" systemname="IOBox (String)">
    <BOUNDS type="Node" left="855" top="2535" width="0" height="0">
    </BOUNDS>
@@ -158,8 +112,6 @@
    <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Output">
    </PIN>
    </NODE>
-   <LINK srcnodeid="8" srcpinname="Output" dstnodeid="9" dstpinname="Input Node">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
    <BOUNDS type="Node" left="2205" top="2505" width="4920" height="270">
    </BOUNDS>
@@ -174,4 +126,52 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <NODE systemname="ListDevices (CV DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="ListDevices (CV DirectShow)" componentmode="Hidden" id="6">
+   <BOUNDS type="Node" left="375" top="285" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Refresh" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="6" srcpinname="Device name" dstnodeid="5" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="CaptureProperty (CV DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="CaptureProperty (CV DirectShow)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="4080" top="1485" width="1725" height="270">
+   </BOUNDS>
+   <PIN pinname="PropertyPair" visible="1">
+   </PIN>
+   <PIN pinname="Property">
+   </PIN>
+   <PIN pinname="Value">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="Output Enum" dstnodeid="3" dstpinname="Property">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Value">
+   </LINK>
+   <NODE systemname="VideoIn (CV DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (CV DirectShow)" componentmode="Hidden" id="8">
+   <BOUNDS type="Node" left="840" top="3885" width="3075" height="270">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Enabled">
+   </PIN>
+   <PIN pinname="Show Settings" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Device ID" visible="1">
+   </PIN>
+   <PIN pinname="Properties" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="7" srcpinname="Y Output Value" dstnodeid="8" dstpinname="Enabled">
+   </LINK>
+   <LINK srcnodeid="4" srcpinname="Input Index" dstnodeid="8" dstpinname="Device ID">
+   </LINK>
+   <LINK srcnodeid="8" srcpinname="Output" dstnodeid="9" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="PropertyPair" dstnodeid="8" dstpinname="Properties" linkstyle="VHV">
+   <LINKPOINT x="4210" y="2470">
+   </LINKPOINT>
+   <LINKPOINT x="3275" y="2720">
+   </LINKPOINT>
+   </LINK>
    </PATCH>

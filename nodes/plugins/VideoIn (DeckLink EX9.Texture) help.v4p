@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.1.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p" systemname="VideoIn (DeckLink EX9.Texture) help" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p" systemname="VideoIn (DeckLink EX9.Texture) help" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p">
    <BOUNDS type="Window" left="3900" top="1545" width="13275" height="13215">
    </BOUNDS>
    <NODE systemname="ListDevices (DeckLink)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.KC.DeckLink.dll" nodename="ListDevices (DeckLink)" componentmode="Hidden" id="0">
@@ -137,7 +137,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="9015" top="1590" width="480" height="480">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="0" visible="1">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
@@ -304,7 +304,7 @@
    </NODE>
    <LINK srcnodeid="1" srcpinname="Frame Received" dstnodeid="28" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="ColorSpaceConversion (EX9.Texture)" filename="%VVVV%\imagepack\lib\nodes\modules\DeckLink\ColorSpaceConversion (EX9.Texture).v4p" nodename="ColorSpaceConversion (EX9.Texture)" componentmode="InAWindow" id="30">
+   <NODE systemname="ColorSpaceConversion (EX9.Texture)" filename="%VVVV%\imagepack\lib\nodes\modules\DeckLink\ColorSpaceConversion (EX9.Texture).v4p" nodename="ColorSpaceConversion (EX9.Texture)" componentmode="Hidden" id="30">
    <BOUNDS type="Node" left="1185" top="3615" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">

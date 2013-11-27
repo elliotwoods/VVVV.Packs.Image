@@ -1,49 +1,7 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha26.1.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Pipet (OpenCV) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Pipet (OpenCV) help.v4p" systemname="Pipet (OpenCV) help">
-   <BOUNDS height="11985" left="4500" top="11400" type="Window" width="9600">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\Pipet (CV Analysis) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Pipet (OpenCV) help.v4p" systemname="Pipet (OpenCV) help">
+   <BOUNDS height="11985" left="7290" top="7635" type="Window" width="9600">
    </BOUNDS>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="0" nodename="Pipet (OpenCV)" systemname="Pipet (OpenCV)">
-   <BOUNDS height="100" left="6450" top="1785" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="6450" top="1785">
-   </BOUNDS>
-   <PIN pinname="Position px" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="VideoIn (OpenCV)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="VideoIn (OpenCV)" componentmode="Hidden" id="1">
-   <BOUNDS type="Node" left="3480" top="705" width="3675" height="270">
-   </BOUNDS>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Enabled" slicecount="1" values="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="0" dstpinname="Input" linkstyle="VHV">
-   <LINKPOINT x="3540" y="1365">
-   </LINKPOINT>
-   <LINKPOINT x="6450" y="1365">
-   </LINKPOINT>
-   </LINK>
-   <NODE systemname="ImageQuad (OpenCV DX9)" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" nodename="ImageQuad (OpenCV DX9)" componentmode="Hidden" id="2">
-   <BOUNDS type="Node" left="675" top="1785" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="675" top="1785">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="2" dstpinname="Image" linkstyle="VHV">
-   <LINKPOINT x="3065" y="1290">
-   </LINKPOINT>
-   <LINKPOINT x="1150" y="1440">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InABox" id="3">
    <BOUNDS type="Node" left="675" top="4035" width="100" height="100">
    </BOUNDS>
@@ -99,7 +57,7 @@
    </PIN>
    <PIN pinname="Vector Size" slicecount="1" values="2">
    </PIN>
-   <PIN pinname="Default" slicecount="1" values="|0, 0|" encoded="0">
+   <PIN pinname="Default" slicecount="1" encoded="0" values="|0, 0|">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
@@ -131,7 +89,7 @@
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Units" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Units" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
@@ -149,51 +107,31 @@
    </PIN>
    <PIN pinname="Vector Size" slicecount="1" values="2">
    </PIN>
-   <PIN pinname="Default" slicecount="1" values="|0, 0|" encoded="0">
+   <PIN pinname="Default" slicecount="1" encoded="0" values="|0, 0|">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="7" dstpinname="Destination Maximum">
    </LINK>
-   <NODE systemname="Info (OpenCV)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (OpenCV)" componentmode="Hidden" id="12">
-   <BOUNDS type="Node" left="3480" top="1785" width="1710" height="270">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="3480" top="1785">
-   </BOUNDS>
-   <PIN pinname="Allocated" visible="1">
-   </PIN>
-   <PIN pinname="Width" visible="1">
-   </PIN>
-   <PIN pinname="Height" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="12" dstpinname="Image">
-   </LINK>
    <NODE systemname="Vector (2d Join)" nodename="Vector (2d Join)" componentmode="Hidden" id="13">
    <BOUNDS type="Node" left="4020" top="2235" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="X" visible="1">
+   <PIN pinname="X" visible="1" slicecount="1" values="0">
    </PIN>
-   <PIN pinname="Y" visible="1">
+   <PIN pinname="Y" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="XY" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="13" srcpinname="XY" dstnodeid="11" dstpinname="Y Input Value" hiddenwhenlocked="1">
    </LINK>
-   <LINK srcnodeid="12" srcpinname="Width" dstnodeid="13" dstpinname="X">
-   </LINK>
-   <LINK srcnodeid="12" srcpinname="Height" dstnodeid="13" dstpinname="Y">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="14" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Node" left="675" top="9930" width="0" height="0">
    </BOUNDS>
    <BOUNDS type="Box" left="675" top="9930" width="795" height="480">
    </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="px" encoded="0">
+   <PIN pinname="Units" slicecount="1" encoded="0" values="px">
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="0">
    </PIN>
@@ -203,37 +141,29 @@
    </PIN>
    <PIN pinname="Vector Size" slicecount="1" values="2">
    </PIN>
-   <PIN pinname="Default" slicecount="1" values="|0, 0|" encoded="0">
+   <PIN pinname="Default" slicecount="1" encoded="0" values="|0, 0|">
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="7" srcpinname="Output" dstnodeid="14" dstpinname="Y Input Value">
    </LINK>
-   <LINK srcnodeid="14" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Position px" linkstyle="Bezier">
-   <LINKPOINT x="735" y="6265">
-   </LINKPOINT>
-   <LINKPOINT x="6915" y="5915">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="FormatValue (String)" nodename="FormatValue (String)" componentmode="Hidden" id="15">
    <BOUNDS type="Node" left="6450" top="2220" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    <PIN pinname="Characters after Comma" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="15" dstpinname="Input">
-   </LINK>
    <NODE systemname="Add (String Spectral)" nodename="Add (String Spectral)" componentmode="Hidden" id="16">
    <BOUNDS type="Node" left="6450" top="2625" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
-   <PIN pinname="Intersperse String" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Intersperse String" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Intersperse" slicecount="1" values="CarriageReturnLineFeed">
    </PIN>
@@ -269,14 +199,12 @@
    </BOUNDS>
    <PIN pinname="Layer" visible="1">
    </PIN>
-   <PIN pinname="Layer 1" visible="1">
+   <PIN pinname="Layer 1" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Layer 2" visible="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="18" srcpinname="Layer" dstnodeid="3" dstpinname="Layers">
-   </LINK>
-   <LINK srcnodeid="2" srcpinname="Layer" dstnodeid="18" dstpinname="Layer 1">
    </LINK>
    <LINK srcnodeid="17" srcpinname="Layer" dstnodeid="18" dstpinname="Layer 2">
    </LINK>
@@ -321,7 +249,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="6885" top="4065" width="2190" height="1170">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|//Note that the colour values may be switched from what you expect. This is because OpenCV internally stores BGR images (rather than RGB)|" encoded="0">
+   <PIN pinname="Input String" visible="0" slicecount="1" encoded="0" values="|//Note that the colour values may be switched from what you expect. This is because OpenCV internally stores BGR images (rather than RGB)|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -330,4 +258,76 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <NODE systemname="VideoIn (CV Source)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="VideoIn (CV Source)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="3480" top="705" width="3675" height="270">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Enabled" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Info (CV Analysis)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV Analysis)" componentmode="Hidden" id="12">
+   <BOUNDS type="Node" left="3480" top="1785" width="1710" height="270">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="3480" top="1785">
+   </BOUNDS>
+   <PIN pinname="Allocated" visible="1">
+   </PIN>
+   <PIN pinname="Width" visible="1">
+   </PIN>
+   <PIN pinname="Height" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="12" srcpinname="Width" dstnodeid="13" dstpinname="X">
+   </LINK>
+   <LINK srcnodeid="12" srcpinname="Height" dstnodeid="13" dstpinname="Y">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="12" dstpinname="Image">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="0" nodename="Pipet (CV Analysis)" systemname="Pipet (CV Analysis)">
+   <BOUNDS height="100" left="6450" top="1785" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="6450" top="1785">
+   </BOUNDS>
+   <PIN pinname="Position px" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="14" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Position px" linkstyle="Bezier">
+   <LINKPOINT x="735" y="6265">
+   </LINKPOINT>
+   <LINKPOINT x="6915" y="5915">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="15" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="0" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="3540" y="1365">
+   </LINKPOINT>
+   <LINKPOINT x="6450" y="1365">
+   </LINKPOINT>
+   </LINK>
+   <NODE systemname="ImageQuad (CV DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="2">
+   <BOUNDS type="Node" left="675" top="1785" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="675" top="1785">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="Layer" dstnodeid="18" dstpinname="Layer 1">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="2" dstpinname="Image" linkstyle="VHV">
+   <LINKPOINT x="3065" y="1290">
+   </LINKPOINT>
+   <LINKPOINT x="1150" y="1440">
+   </LINKPOINT>
+   </LINK>
    </PATCH>

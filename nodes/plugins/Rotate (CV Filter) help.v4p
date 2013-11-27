@@ -1,25 +1,7 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha29.3.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\Rotate (OpenCV Step) help.v4p" systemname="Rotate (OpenCV Step) help" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\Rotate (OpenCV Step) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\Rotate (CV Filter) help.v4p" systemname="Rotate (OpenCV Step) help" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\Rotate (OpenCV Step) help.v4p">
    <BOUNDS type="Window" left="9210" top="4935" width="14505" height="8085">
    </BOUNDS>
-   <NODE systemname="VideoIn (OpenCV DirectShow)" filename="%VVVV%\imagepack\lib\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (OpenCV DirectShow)" componentmode="Hidden" id="0">
-   <BOUNDS type="Node" left="270" top="1365" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Enabled" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <NODE systemname="ImageQuad (OpenCV DX9)" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" nodename="ImageQuad (OpenCV DX9)" componentmode="Hidden" id="5">
-   <BOUNDS type="Node" left="285" top="2430" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="285" top="2430">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InABox" id="6">
    <BOUNDS type="Node" left="285" top="2895" width="100" height="100">
    </BOUNDS>
@@ -27,15 +9,13 @@
    </BOUNDS>
    <BOUNDS type="Window" left="12240" top="9420" width="6240" height="5010">
    </BOUNDS>
-   <PIN pinname="Layers" visible="1">
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="X" visible="1">
    </PIN>
    <PIN pinname="Y" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="5" srcpinname="Layer" dstnodeid="6" dstpinname="Layers">
-   </LINK>
    <NODE systemname="LFO (Animation)" nodename="LFO (Animation)" componentmode="Hidden" id="8">
    <BOUNDS type="Node" left="1755" top="1335" width="100" height="100">
    </BOUNDS>
@@ -76,38 +56,6 @@
    <PIN pinname="Size" slicecount="1" values="12">
    </PIN>
    </NODE>
-   <NODE systemname="Rotate (OpenCV Step)" filename="%VVVV%\imagepack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Rotate (OpenCV Step)" componentmode="Hidden" id="1">
-   <BOUNDS type="Node" left="285" top="1890" width="2205" height="270">
-   </BOUNDS>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Rotation" visible="1">
-   </PIN>
-   <PIN pinname="Scale" visible="1">
-   </PIN>
-   <PIN pinname="Rotations" visible="1" slicecount="1" values="114">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="1" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="5" dstpinname="Image">
-   </LINK>
-   <NODE systemname="Info (OpenCV)" filename="%VVVV%\imagepack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (OpenCV)" componentmode="Hidden" id="14">
-   <BOUNDS type="Node" left="6585" top="2430" width="3330" height="270">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="6585" top="2430">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="14" dstpinname="Image" linkstyle="VHV">
-   <LINKPOINT x="295" y="2280">
-   </LINKPOINT>
-   <LINKPOINT x="6635" y="2280">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="15" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Node" left="6570" top="2955" width="0" height="0">
    </BOUNDS>
@@ -124,8 +72,6 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="Allocated">
    </PIN>
    </NODE>
-   <LINK srcnodeid="14" srcpinname="Allocated" dstnodeid="15" dstpinname="Y Input Value">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="16" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Node" left="7680" top="2955" width="0" height="0">
    </BOUNDS>
@@ -140,8 +86,6 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="Width">
    </PIN>
    </NODE>
-   <LINK srcnodeid="14" srcpinname="Width" dstnodeid="16" dstpinname="Y Input Value">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="17" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Node" left="8775" top="2955" width="0" height="0">
    </BOUNDS>
@@ -156,8 +100,6 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="Height">
    </PIN>
    </NODE>
-   <LINK srcnodeid="14" srcpinname="Height" dstnodeid="17" dstpinname="Y Input Value">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="18" systemname="IOBox (String)">
    <BOUNDS type="Node" left="9855" top="2955" width="0" height="0">
    </BOUNDS>
@@ -172,10 +114,6 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="Format">
    </PIN>
    </NODE>
-   <LINK srcnodeid="14" srcpinname="Format" dstnodeid="18" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="8" srcpinname="Cycles" dstnodeid="1" dstpinname="Rotations">
-   </LINK>
    <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InABox" id="19">
    <BOUNDS type="Node" left="6630" top="3810" width="100" height="100">
    </BOUNDS>
@@ -219,5 +157,67 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="21" srcpinname="frames per second" dstnodeid="22" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="VideoIn (CV DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (CV DirectShow)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="270" top="1365" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Enabled" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Rotate (CV Filter)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Rotate (CV Filter)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="285" top="1890" width="2205" height="270">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Rotation" visible="1">
+   </PIN>
+   <PIN pinname="Scale" visible="1">
+   </PIN>
+   <PIN pinname="Rotations" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="8" srcpinname="Cycles" dstnodeid="1" dstpinname="Rotations">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="1" dstpinname="Input">
+   </LINK>
+   <NODE systemname="ImageQuad (CV DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="5">
+   <BOUNDS type="Node" left="285" top="2430" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="285" top="2430">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="5" srcpinname="Layer" dstnodeid="6" dstpinname="Layers">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="5" dstpinname="Image">
+   </LINK>
+   <NODE systemname="Info (CV Analysis)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV Analysis)" componentmode="Hidden" id="14">
+   <BOUNDS type="Node" left="6585" top="2430" width="3330" height="270">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="6585" top="2430">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="14" srcpinname="Allocated" dstnodeid="15" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="14" srcpinname="Width" dstnodeid="16" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="14" srcpinname="Height" dstnodeid="17" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="14" srcpinname="Format" dstnodeid="18" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="14" dstpinname="Image" linkstyle="VHV">
+   <LINKPOINT x="295" y="2280">
+   </LINKPOINT>
+   <LINKPOINT x="6635" y="2280">
+   </LINKPOINT>
    </LINK>
    </PATCH>

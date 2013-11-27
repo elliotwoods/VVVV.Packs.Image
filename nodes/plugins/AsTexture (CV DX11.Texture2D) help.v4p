@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.3.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\AsTexture (OpenCV DX11.Texture2D) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\AsTexture (CV DX11.Texture2D) help.v4p">
    <BOUNDS type="Window" left="5715" top="2445" width="17295" height="12255">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -22,16 +22,6 @@
    <PIN pinname="Input String" slicecount="1" visible="0" values="|Converts CVImage to DX11 Texture|">
    </PIN>
    <PIN pinname="Output String" visible="0">
-   </PIN>
-   </NODE>
-   <NODE nodename="AsTexture (OpenCV DX11.Texture2D)" componentmode="Hidden" id="0" systemname="AsTexture (OpenCV DX11.Texture2D)" filename="%VVVV%\imagepack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll">
-   <BOUNDS type="Node" left="715" top="4820" width="0" height="0">
-   </BOUNDS>
-   <BOUNDS type="Box" left="715" top="4820" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   <PIN pinname="Texture Out" visible="1">
    </PIN>
    </NODE>
    <NODE systemname="SystemFolder (File)" nodename="SystemFolder (File)" componentmode="Hidden" id="4">
@@ -58,18 +48,6 @@
    </NODE>
    <LINK srcnodeid="4" srcpinname="Output" dstnodeid="5" dstpinname="Directory">
    </LINK>
-   <NODE systemname="ImageLoad (OpenCV)" filename="%VVVV%\imagepack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ImageLoad (OpenCV)" componentmode="Hidden" id="6">
-   <BOUNDS type="Node" left="720" top="4290" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Filename" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Reload" slicecount="1" visible="1" values="0">
-   </PIN>
-   <PIN pinname="Enabled" slicecount="1" values="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="7" systemname="IOBox (Enumerations)">
    <BOUNDS type="Box" left="900" top="1035" width="1590" height="240">
    </BOUNDS>
@@ -104,8 +82,6 @@
    </NODE>
    <LINK srcnodeid="5" srcpinname="Filenames" dstnodeid="9" dstpinname="Input String">
    </LINK>
-   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="0" dstpinname="Image">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="10" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="2805" top="975" width="480" height="480">
    </BOUNDS>
@@ -132,14 +108,16 @@
    <LINKPOINT x="1425" y="1755">
    </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="9" srcpinname="Output String" dstnodeid="6" dstpinname="Filename">
-   </LINK>
-   <NODE systemname="Quad (DX11.Layer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="11">
+   <NODE systemname="QUAD (DX11.LAYER)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="240" top="5310" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Texture In" visible="1" slicecount="1" values="||">
+   <PIN pinname="Texture" visible="1" slicecount="1" values="||">
    </PIN>
-   <PIN pinname="Transform In" visible="1">
+   <PIN pinname="Transform" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Texture In" visible="1">
    </PIN>
    <PIN pinname="Layer Out" visible="1">
    </PIN>
@@ -374,50 +352,24 @@
    <LINKPOINT x="11175" y="4200">
    </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="46" dstpinname="Input" hiddenwhenlocked="1">
-   </LINK>
-   <LINK srcnodeid="35" srcpinname="Output Node" dstnodeid="11" dstpinname="Transform In" hiddenwhenlocked="1">
+   <LINK srcnodeid="35" srcpinname="Output Node" dstnodeid="11" dstpinname="Transform" hiddenwhenlocked="1">
    </LINK>
    <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="47">
-   <BOUNDS type="Node" left="225" top="5820" width="100" height="100">
+   <BOUNDS type="Node" left="75" top="5820" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="225" top="5820" width="9150" height="5730">
+   <BOUNDS type="Box" left="75" top="5820" width="9150" height="5730">
    </BOUNDS>
    <BOUNDS type="Window" left="0" top="9030" width="6240" height="5010">
    </BOUNDS>
-   <PIN pinname="Layers" visible="1">
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <LINK srcnodeid="11" srcpinname="Layer Out" dstnodeid="47" dstpinname="Layers" linkstyle="VHV">
-   <LINKPOINT x="300" y="5685">
-   </LINKPOINT>
-   <LINKPOINT x="765" y="5685">
-   </LINKPOINT>
-   </LINK>
-   <NODE systemname="Info (OpenCV)" filename="%VVVV%\imagepack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (OpenCV)" componentmode="Hidden" id="48">
-   <BOUNDS type="Node" left="9645" top="7305" width="2370" height="270">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="48" dstpinname="Image" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="780" y="5918">
-   </LINKPOINT>
-   <LINKPOINT x="9645" y="5918">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="Info (DX11.Texture 2d)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Info (DX11.Texture 2d)" componentmode="Hidden" id="49">
    <BOUNDS type="Node" left="13095" top="7305" width="4665" height="270">
    </BOUNDS>
-   <PIN pinname="Texture In" visible="1">
+   <PIN pinname="Texture In" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <LINK srcnodeid="0" srcpinname="Texture Out" dstnodeid="49" dstpinname="Texture In" linkstyle="Bezier" hiddenwhenlocked="1">
-   <LINKPOINT x="780" y="6180">
-   </LINKPOINT>
-   <LINKPOINT x="13095" y="6180">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="50" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="9630" top="7815" width="480" height="2415">
    </BOUNDS>
@@ -440,8 +392,6 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="48" srcpinname="Allocated" dstnodeid="50" dstpinname="Y Input Value">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="51" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="10200" top="7815" width="795" height="2415">
    </BOUNDS>
@@ -462,8 +412,6 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="48" srcpinname="Width" dstnodeid="51" dstpinname="Y Input Value">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="52" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="11070" top="7815" width="795" height="2415">
    </BOUNDS>
@@ -484,8 +432,6 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="48" srcpinname="Height" dstnodeid="52" dstpinname="Y Input Value">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="53" systemname="IOBox (String)">
    <BOUNDS type="Box" left="11955" top="7815" width="795" height="2415">
    </BOUNDS>
@@ -506,8 +452,6 @@
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="48" srcpinname="Format" dstnodeid="53" dstpinname="Input String">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="54" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="13110" top="7815" width="795" height="2415">
    </BOUNDS>
@@ -582,6 +526,62 @@
    </LINK>
    <LINK srcnodeid="58" srcpinname="Transform Out" dstnodeid="35" dstpinname="Input Node" hiddenwhenlocked="1">
    </LINK>
+   <NODE systemname="ImageLoad (CV FreeImage)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.FreeImage.dll" nodename="ImageLoad (CV FreeImage)" componentmode="Hidden" id="6">
+   <BOUNDS type="Node" left="720" top="4290" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Filename" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Reload" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Enabled" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="9" srcpinname="Output String" dstnodeid="6" dstpinname="Filename">
+   </LINK>
+   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="46" dstpinname="Input" hiddenwhenlocked="1">
+   </LINK>
+   <NODE nodename="AsTexture (CV DX11.Texture2D)" componentmode="Hidden" id="0" systemname="AsTexture (CV DX11.Texture2D)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll">
+   <BOUNDS type="Node" left="715" top="4820" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="715" top="4820" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Texture Out" dstnodeid="49" dstpinname="Texture In" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="780" y="6180">
+   </LINKPOINT>
+   <LINKPOINT x="13095" y="6180">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="0" dstpinname="Image">
+   </LINK>
    <LINK srcnodeid="0" srcpinname="Texture Out" dstnodeid="11" dstpinname="Texture In">
+   </LINK>
+   <LINK srcnodeid="11" srcpinname="Layer Out" dstnodeid="47" dstpinname="Layers">
+   </LINK>
+   <NODE systemname="Info (CV Analysis)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV Analysis)" componentmode="Hidden" id="48">
+   <BOUNDS type="Node" left="9645" top="7305" width="2370" height="270">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="48" srcpinname="Allocated" dstnodeid="50" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="48" srcpinname="Width" dstnodeid="51" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="48" srcpinname="Height" dstnodeid="52" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="48" srcpinname="Format" dstnodeid="53" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="6" srcpinname="Output" dstnodeid="48" dstpinname="Image" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="780" y="5918">
+   </LINKPOINT>
+   <LINKPOINT x="9645" y="5918">
+   </LINKPOINT>
    </LINK>
    </PATCH>

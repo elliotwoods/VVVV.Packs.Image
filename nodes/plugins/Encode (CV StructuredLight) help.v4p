@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug30.3.dtd" >
-   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\imagepack\lib\nodes\plugins\Encode (Image.StructuredLight) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Encode (Image.StructuredLight) help.v4p" systemname="Encode (Image.StructuredLight) help">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\Encode (Image.StructuredLight) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Encode (Image.StructuredLight) help.v4p" systemname="Encode (Image.StructuredLight) help">
    <BOUNDS height="16635" left="7395" top="495" type="Window" width="19920">
    </BOUNDS>
    <NODE componentmode="InABox" id="9" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
@@ -41,7 +41,7 @@
    </BOUNDS>
    <BOUNDS height="7110" left="330" top="300" type="Window" width="9780">
    </BOUNDS>
-   <PIN pinname="Layers" visible="1">
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Fullscreen Depthbuffer Format" slicecount="1" values="NONE">
    </PIN>
@@ -67,7 +67,7 @@
    </PIN>
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="|Frame Count|">
    </PIN>
-   <PIN pinname="Y Input Value">
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <NODE componentmode="InABox" id="14" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
@@ -125,7 +125,7 @@
    </BOUNDS>
    <BOUNDS height="5010" left="7605" top="5130" type="Window" width="6240">
    </BOUNDS>
-   <PIN pinname="Layers" visible="1">
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Fullscreen Depthbuffer Format" slicecount="1" values="NONE">
    </PIN>
@@ -145,7 +145,7 @@
    </BOUNDS>
    <BOUNDS height="5010" left="7605" top="5130" type="Window" width="6240">
    </BOUNDS>
-   <PIN pinname="Layers" visible="1">
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Fullscreen Depthbuffer Format" slicecount="1" values="NONE">
    </PIN>
@@ -181,7 +181,7 @@
    </BOUNDS>
    <PIN pinname="Input 1" visible="1">
    </PIN>
-   <PIN pinname="Input 2" visible="1">
+   <PIN pinname="Input 2" visible="1" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
@@ -201,7 +201,7 @@
    </PIN>
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Status">
    </PIN>
-   <PIN pinname="Input String">
+   <PIN pinname="Input String" slicecount="1" values="||">
    </PIN>
    </NODE>
    <NODE componentmode="Hidden" id="27" nodename="LFO (Animation)" systemname="LFO (Animation)">
@@ -220,178 +220,6 @@
    </LINK>
    <LINK dstnodeid="29" dstpinname="Input 1" srcnodeid="27" srcpinname="Cycles">
    </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="0" nodename="Payload (Image.StructuredLight)" systemname="Payload (Image.StructuredLight)">
-   <BOUNDS height="270" left="8940" top="960" type="Node" width="3660">
-   </BOUNDS>
-   <PIN pinname="Payload" visible="1">
-   </PIN>
-   <PIN pinname="Width">
-   </PIN>
-   <PIN pinname="Height">
-   </PIN>
-   <PIN pinname="Mode">
-   </PIN>
-   <PIN pinname="Balanced">
-   </PIN>
-   <PIN pinname="Frame Count" visible="1">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="0" dstpinname="Height" srcnodeid="9" srcpinname="Y Output Value">
-   </LINK>
-   <LINK dstnodeid="0" dstpinname="Width" srcnodeid="10" srcpinname="Y Output Value">
-   </LINK>
-   <LINK dstnodeid="13" dstpinname="Y Input Value" srcnodeid="0" srcpinname="Frame Count">
-   </LINK>
-   <LINK dstnodeid="0" dstpinname="Mode" srcnodeid="15" srcpinname="Output Enum">
-   </LINK>
-   <LINK dstnodeid="0" dstpinname="Balanced" srcnodeid="16" srcpinname="Y Output Value">
-   </LINK>
-   <LINK dstnodeid="29" dstpinname="Input 2" linkstyle="VHV" srcnodeid="0" srcpinname="Frame Count">
-   <LINKPOINT x="12280" y="1320">
-   </LINKPOINT>
-   <LINKPOINT x="11015" y="1320">
-   </LINKPOINT>
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="1" nodename="Encode (Image.StructuredLight)" systemname="Encode (Image.StructuredLight)">
-   <BOUNDS height="270" left="6450" top="2805" type="Node" width="5040">
-   </BOUNDS>
-   <PIN pinname="Properties" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Frame">
-   </PIN>
-   <PIN pinname="Enabled">
-   </PIN>
-   <PIN pinname="Payload" visible="1">
-   </PIN>
-   <PIN pinname="Timestamps" visible="1">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="1" dstpinname="Frame" linkstyle="VHV" srcnodeid="14" srcpinname="Y Output Value">
-   <LINKPOINT x="6245" y="2520">
-   </LINKPOINT>
-   <LINKPOINT x="6475" y="2520">
-   </LINKPOINT>
-   </LINK>
-   <LINK dstnodeid="1" dstpinname="Properties" linkstyle="VHV" srcnodeid="0" srcpinname="Payload">
-   <LINKPOINT x="8765" y="1793">
-   </LINKPOINT>
-   <LINKPOINT x="8230" y="2213">
-   </LINKPOINT>
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" id="11" nodename="ImageQuad (OpenCV DX9)" systemname="ImageQuad (OpenCV DX9)">
-   <BOUNDS height="100" left="6450" top="3525" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <PIN pinname="Nearest Neighbour" slicecount="1" values="1">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="12" dstpinname="Layers" srcnodeid="11" srcpinname="Layer">
-   </LINK>
-   <LINK dstnodeid="11" dstpinname="Image" linkstyle="VHV" srcnodeid="1" srcpinname="Output">
-   <LINKPOINT x="7735" y="3320">
-   </LINKPOINT>
-   <LINKPOINT x="5225" y="3250">
-   </LINKPOINT>
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" id="21" nodename="ImageQuad (OpenCV DX9)" systemname="ImageQuad (OpenCV DX9)">
-   <BOUNDS height="100" left="3045" top="9075" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <PIN pinname="Nearest Neighbour" slicecount="1" values="1">
-   </PIN>
-   <BOUNDS left="3045" top="9075" type="Box">
-   </BOUNDS>
-   </NODE>
-   <LINK dstnodeid="20" dstpinname="Layers" srcnodeid="21" srcpinname="Layer">
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="32" nodename="Decode (Image.StructuredLight)" systemname="Decode (Image.StructuredLight)">
-   <BOUNDS height="270" left="3495" top="6900" type="Node" width="6840">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Frame" visible="1">
-   </PIN>
-   <PIN pinname="Apply" slicecount="1" visible="1" values="1">
-   </PIN>
-   <PIN pinname="Reset" visible="1">
-   </PIN>
-   <PIN pinname="Properties" visible="1">
-   </PIN>
-   <PIN pinname="Threshold">
-   </PIN>
-   <PIN pinname="Timestamps" visible="1">
-   </PIN>
-   <PIN pinname="Thread mode" slicecount="1" values="Independant">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="32" dstpinname="Reset" hiddenwhenlocked="1" linkstyle="Bezier" srcnodeid="28" srcpinname="Y Output Value">
-   <LINKPOINT x="5400" y="3795">
-   </LINKPOINT>
-   <LINKPOINT x="6225" y="3795">
-   </LINKPOINT>
-   </LINK>
-   <LINK dstnodeid="32" dstpinname="Frame" srcnodeid="41" srcpinname="Y Output Value">
-   </LINK>
-   <LINK dstnodeid="32" dstpinname="Properties" hiddenwhenlocked="1" srcnodeid="0" srcpinname="Payload">
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" id="26" nodename="ImageQuad (OpenCV DX9)" systemname="ImageQuad (OpenCV DX9)">
-   <BOUNDS height="100" left="11115" top="9075" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <PIN pinname="Nearest Neighbour" slicecount="1" values="0">
-   </PIN>
-   <BOUNDS left="11115" top="9075" type="Box">
-   </BOUNDS>
-   </NODE>
-   <LINK dstnodeid="25" dstpinname="Layers" srcnodeid="26" srcpinname="Layer">
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.VideoInput.dll" id="34" nodename="VideoIn (OpenCV DirectShow)" systemname="VideoIn (OpenCV DirectShow)">
-   <BOUNDS height="100" left="3030" top="5940" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   <PIN pinname="Width" slicecount="1" values="1296">
-   </PIN>
-   <PIN pinname="Height" slicecount="1" values="972">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Enabled">
-   </PIN>
-   <PIN pinname="Properties" visible="1">
-   </PIN>
-   <PIN pinname="Timestamp delay ms" pintype="Input" visible="1">
-   </PIN>
-   </NODE>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.VideoInput.dll" id="45" nodename="CaptureProperty (OpenCV DirectShow)" systemname="CaptureProperty (OpenCV DirectShow)">
-   <BOUNDS height="270" left="300" top="5370" type="Node" width="1830">
-   </BOUNDS>
-   <PIN pinname="PropertyPair" visible="1">
-   </PIN>
-   <PIN pinname="Property">
-   </PIN>
-   <PIN pinname="Value">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="34" dstpinname="Properties" linkstyle="VHV" srcnodeid="45" srcpinname="PropertyPair">
-   <LINKPOINT x="1160" y="5775">
-   </LINKPOINT>
-   <LINKPOINT x="2905" y="5775">
-   </LINKPOINT>
-   </LINK>
    <NODE componentmode="InABox" id="46" nodename="IOBox (Enumerations)" systemname="IOBox (Enumerations)">
    <BOUNDS height="0" left="300" top="3330" type="Node" width="0">
    </BOUNDS>
@@ -408,8 +236,6 @@
    <PIN pinname="Show SliceIndex" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK dstnodeid="45" dstpinname="Property" srcnodeid="46" srcpinname="Output Enum">
-   </LINK>
    <NODE componentmode="InABox" id="47" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="2085" top="3330" type="Node" width="0">
    </BOUNDS>
@@ -430,8 +256,6 @@
    <PIN pinname="Show SliceIndex" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK dstnodeid="45" dstpinname="Value" srcnodeid="47" srcpinname="Y Output Value">
-   </LINK>
    <NODE componentmode="InABox" id="48" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="13035" top="6555" type="Node" width="0">
    </BOUNDS>
@@ -540,12 +364,6 @@
    <PIN pinname="Maximum Characters" slicecount="1" values="-1">
    </PIN>
    </NODE>
-   <LINK dstnodeid="55" dstpinname="Input String" srcnodeid="34" srcpinname="Status">
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.VideoInput.dll" id="56" nodename="ListDevices (OpenCV DirectShow)" systemname="ListDevices (OpenCV DirectShow)">
-   <BOUNDS height="100" left="315" top="660" type="Node" width="100">
-   </BOUNDS>
-   </NODE>
    <NODE componentmode="InABox" id="57" nodename="IOBox (String)" systemname="IOBox (String)">
    <BOUNDS height="0" left="315" top="1140" type="Node" width="0">
    </BOUNDS>
@@ -564,8 +382,6 @@
    <PIN pinname="Show SliceIndex" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK dstnodeid="57" dstpinname="Input String" srcnodeid="56" srcpinname="Device name">
-   </LINK>
    <NODE componentmode="InABox" id="58" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="11430" top="1815" type="Node" width="0">
    </BOUNDS>
@@ -584,8 +400,6 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Enabled">
    </PIN>
    </NODE>
-   <LINK dstnodeid="1" dstpinname="Enabled" srcnodeid="58" srcpinname="Y Output Value">
-   </LINK>
    <NODE componentmode="InABox" id="59" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="4170" top="5190" type="Node" width="0">
    </BOUNDS>
@@ -604,10 +418,6 @@
    <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <LINK dstnodeid="34" dstpinname="Enabled" srcnodeid="59" srcpinname="Y Output Value">
-   </LINK>
-   <LINK dstnodeid="1" dstpinname="Payload" srcnodeid="0" srcpinname="Payload">
-   </LINK>
    <NODE componentmode="InABox" id="60" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="2895" top="210" type="Node" width="0">
    </BOUNDS>
@@ -644,12 +454,6 @@
    <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="62" nodename="Framerate (OpenCV)" systemname="Framerate (OpenCV)">
-   <BOUNDS height="100" left="12690" top="8595" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   </NODE>
    <NODE componentmode="InABox" id="68" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="12675" top="9090" type="Node" width="0">
    </BOUNDS>
@@ -659,11 +463,9 @@
    </PIN>
    <PIN pinname="Precision" slicecount="1" values="4">
    </PIN>
+   <PIN pinname="Y Input Value" visible="1">
+   </PIN>
    </NODE>
-   <LINK dstnodeid="68" dstpinname="Y Input Value" srcnodeid="62" srcpinname="Framerate">
-   </LINK>
-   <LINK dstnodeid="32" dstpinname="Timestamps" srcnodeid="1" srcpinname="Timestamps">
-   </LINK>
    <NODE componentmode="InABox" id="69" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="10260" top="7575" type="Node" width="0">
    </BOUNDS>
@@ -680,8 +482,6 @@
    <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
    </NODE>
-   <LINK dstnodeid="69" dstpinname="Y Input Value" srcnodeid="32" srcpinname="Frames detected">
-   </LINK>
    <NODE componentmode="InABox" id="70" nodename="IOBox (String)" systemname="IOBox (String)">
    <BOUNDS height="270" left="870" top="5955" type="Node" width="5265">
    </BOUNDS>
@@ -696,48 +496,6 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <LINK dstnodeid="32" dstpinname="Input" linkstyle="VHV" srcnodeid="34" srcpinname="Output">
-   <LINKPOINT x="3090" y="6555">
-   </LINKPOINT>
-   <LINKPOINT x="3495" y="6555">
-   </LINKPOINT>
-   </LINK>
-   <LINK dstnodeid="21" dstpinname="Image" srcnodeid="34" srcpinname="Output">
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="24" nodename="Space (Image.StructuredLight)" systemname="Space (Image.StructuredLight)">
-   <BOUNDS height="270" left="11115" top="7800" type="Node" width="5805">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Threshold">
-   </PIN>
-   <PIN pinname="Enabled">
-   </PIN>
-   <PIN pinname="Dataset">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="37" dstpinname="Input String" srcnodeid="24" srcpinname="Status">
-   </LINK>
-   <LINK dstnodeid="24" dstpinname="Input" linkstyle="VHV" srcnodeid="32" srcpinname="Output">
-   <LINKPOINT x="4855" y="7395">
-   </LINKPOINT>
-   <LINKPOINT x="9815" y="7545">
-   </LINKPOINT>
-   </LINK>
-   <LINK dstnodeid="26" dstpinname="Image" srcnodeid="24" srcpinname="Output">
-   </LINK>
-   <LINK dstnodeid="24" dstpinname="Threshold" srcnodeid="48" srcpinname="Y Output Value">
-   </LINK>
-   <LINK dstnodeid="24" dstpinname="Enabled" srcnodeid="61" srcpinname="Y Output Value">
-   </LINK>
-   <LINK dstnodeid="62" dstpinname="Input" linkstyle="VHV" srcnodeid="24" srcpinname="Output">
-   <LINKPOINT x="11175" y="8318">
-   </LINKPOINT>
-   <LINKPOINT x="12690" y="8318">
-   </LINKPOINT>
-   </LINK>
    <NODE componentmode="InABox" id="71" nodename="IOBox (Enumerations)" systemname="IOBox (Enumerations)">
    <BOUNDS height="0" left="14955" top="6555" type="Node" width="0">
    </BOUNDS>
@@ -752,20 +510,6 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Dataset">
    </PIN>
    </NODE>
-   <LINK dstnodeid="24" dstpinname="Dataset" srcnodeid="71" srcpinname="Output Enum">
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="72" nodename="Info (OpenCV)" systemname="Info (OpenCV)">
-   <BOUNDS height="270" left="3495" top="8070" type="Node" width="2925">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="72" dstpinname="Image" linkstyle="VHV" srcnodeid="34" srcpinname="Output">
-   <LINKPOINT x="3060" y="7905">
-   </LINKPOINT>
-   <LINKPOINT x="3525" y="7905">
-   </LINKPOINT>
-   </LINK>
    <NODE componentmode="InABox" id="73" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="4440" top="8610" type="Node" width="0">
    </BOUNDS>
@@ -780,8 +524,6 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Width">
    </PIN>
    </NODE>
-   <LINK dstnodeid="73" dstpinname="Y Input Value" srcnodeid="72" srcpinname="Width">
-   </LINK>
    <NODE componentmode="InABox" id="74" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="5415" top="8610" type="Node" width="0">
    </BOUNDS>
@@ -796,8 +538,6 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Height">
    </PIN>
    </NODE>
-   <LINK dstnodeid="74" dstpinname="Y Input Value" srcnodeid="72" srcpinname="Height">
-   </LINK>
    <NODE componentmode="InABox" id="75" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="4005" top="4455" type="Node" width="0">
    </BOUNDS>
@@ -814,8 +554,6 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="|Timestamp delay ms|">
    </PIN>
    </NODE>
-   <LINK dstnodeid="34" dstpinname="Timestamp delay ms" srcnodeid="75" srcpinname="Y Output Value">
-   </LINK>
    <NODE componentmode="InABox" id="76" nodename="IOBox (String)" systemname="IOBox (String)">
    <BOUNDS height="270" left="11130" top="15045" type="Node" width="2100">
    </BOUNDS>
@@ -847,13 +585,271 @@
    <NODE systemname="GetSlice (Node)" nodename="GetSlice (Node)" componentmode="Hidden" id="78">
    <BOUNDS type="Node" left="11130" top="15600" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input Node" visible="1">
+   <PIN pinname="Input Node" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Output Node" visible="1">
    </PIN>
    <PIN pinname="Index" slicecount="1" values="1">
    </PIN>
    </NODE>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="0" nodename="Payload (CV StructuredLight)" systemname="Payload (CV StructuredLight)">
+   <BOUNDS height="270" left="8940" top="960" type="Node" width="3660">
+   </BOUNDS>
+   <PIN pinname="Payload" visible="1">
+   </PIN>
+   <PIN pinname="Width">
+   </PIN>
+   <PIN pinname="Height">
+   </PIN>
+   <PIN pinname="Mode">
+   </PIN>
+   <PIN pinname="Balanced">
+   </PIN>
+   <PIN pinname="Frame Count" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="0" dstpinname="Height" srcnodeid="9" srcpinname="Y Output Value">
+   </LINK>
+   <LINK dstnodeid="0" dstpinname="Width" srcnodeid="10" srcpinname="Y Output Value">
+   </LINK>
+   <LINK dstnodeid="13" dstpinname="Y Input Value" srcnodeid="0" srcpinname="Frame Count">
+   </LINK>
+   <LINK dstnodeid="0" dstpinname="Mode" srcnodeid="15" srcpinname="Output Enum">
+   </LINK>
+   <LINK dstnodeid="0" dstpinname="Balanced" srcnodeid="16" srcpinname="Y Output Value">
+   </LINK>
+   <LINK dstnodeid="29" dstpinname="Input 2" linkstyle="VHV" srcnodeid="0" srcpinname="Frame Count">
+   <LINKPOINT x="12280" y="1320">
+   </LINKPOINT>
+   <LINKPOINT x="11015" y="1320">
+   </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="1" nodename="Encode (CV StructuredLight)" systemname="Encode (CV StructuredLight)">
+   <BOUNDS height="270" left="6450" top="2805" type="Node" width="5040">
+   </BOUNDS>
+   <PIN pinname="Properties" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Frame">
+   </PIN>
+   <PIN pinname="Enabled">
+   </PIN>
+   <PIN pinname="Payload" visible="1">
+   </PIN>
+   <PIN pinname="Timestamps" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="1" dstpinname="Frame" linkstyle="VHV" srcnodeid="14" srcpinname="Y Output Value">
+   <LINKPOINT x="6245" y="2520">
+   </LINKPOINT>
+   <LINKPOINT x="6475" y="2520">
+   </LINKPOINT>
+   </LINK>
+   <LINK dstnodeid="1" dstpinname="Enabled" srcnodeid="58" srcpinname="Y Output Value">
+   </LINK>
+   <LINK dstnodeid="1" dstpinname="Payload" srcnodeid="0" srcpinname="Payload">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" id="11" nodename="ImageQuad (CV DX9)" systemname="ImageQuad (CV DX9)">
+   <BOUNDS height="100" left="6450" top="3525" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Nearest Neighbour" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="12" dstpinname="Layers" srcnodeid="11" srcpinname="Layer">
+   </LINK>
+   <LINK dstnodeid="11" dstpinname="Image" linkstyle="VHV" srcnodeid="1" srcpinname="Output">
+   <LINKPOINT x="7735" y="3320">
+   </LINKPOINT>
+   <LINKPOINT x="5225" y="3250">
+   </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" id="56" nodename="ListDevices (CV DirectShow)" systemname="ListDevices (CV DirectShow)">
+   <BOUNDS height="100" left="315" top="660" type="Node" width="100">
+   </BOUNDS>
+   </NODE>
+   <LINK dstnodeid="57" dstpinname="Input String" srcnodeid="56" srcpinname="Device name">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" id="45" nodename="CaptureProperty (CV DirectShow)" systemname="CaptureProperty (CV DirectShow)">
+   <BOUNDS height="270" left="300" top="5370" type="Node" width="1830">
+   </BOUNDS>
+   <PIN pinname="PropertyPair" visible="1">
+   </PIN>
+   <PIN pinname="Property">
+   </PIN>
+   <PIN pinname="Value">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="45" dstpinname="Property" srcnodeid="46" srcpinname="Output Enum">
+   </LINK>
+   <LINK dstnodeid="45" dstpinname="Value" srcnodeid="47" srcpinname="Y Output Value">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" id="34" nodename="VideoIn (CV DirectShow)" systemname="VideoIn (CV DirectShow)">
+   <BOUNDS height="100" left="3030" top="5940" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Width" slicecount="1" values="1296">
+   </PIN>
+   <PIN pinname="Height" slicecount="1" values="972">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Enabled">
+   </PIN>
+   <PIN pinname="Properties" visible="1">
+   </PIN>
+   <PIN pinname="Timestamp delay ms" pintype="Input" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="55" dstpinname="Input String" srcnodeid="34" srcpinname="Status">
+   </LINK>
+   <LINK dstnodeid="34" dstpinname="Enabled" srcnodeid="59" srcpinname="Y Output Value">
+   </LINK>
+   <LINK dstnodeid="34" dstpinname="Timestamp delay ms" srcnodeid="75" srcpinname="Y Output Value">
+   </LINK>
+   <LINK dstnodeid="34" dstpinname="Properties" linkstyle="VHV" srcnodeid="45" srcpinname="PropertyPair">
+   <LINKPOINT x="1160" y="5775">
+   </LINKPOINT>
+   <LINKPOINT x="2905" y="5775">
+   </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="32" nodename="Decode (CV StructuredLight)" systemname="Decode (CV StructuredLight)">
+   <BOUNDS height="270" left="3495" top="6900" type="Node" width="6840">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Frame" visible="1">
+   </PIN>
+   <PIN pinname="Apply" slicecount="1" visible="1" values="1">
+   </PIN>
+   <PIN pinname="Reset" visible="1">
+   </PIN>
+   <PIN pinname="Properties" visible="1">
+   </PIN>
+   <PIN pinname="Threshold">
+   </PIN>
+   <PIN pinname="Timestamps" visible="1">
+   </PIN>
+   <PIN pinname="Thread mode" slicecount="1" values="Independant">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="32" dstpinname="Reset" hiddenwhenlocked="1" linkstyle="Bezier" srcnodeid="28" srcpinname="Y Output Value">
+   <LINKPOINT x="5400" y="3795">
+   </LINKPOINT>
+   <LINKPOINT x="6225" y="3795">
+   </LINKPOINT>
+   </LINK>
+   <LINK dstnodeid="69" dstpinname="Y Input Value" srcnodeid="32" srcpinname="Frames detected">
+   </LINK>
+   <LINK dstnodeid="32" dstpinname="Properties" hiddenwhenlocked="1" srcnodeid="0" srcpinname="Payload">
+   </LINK>
+   <LINK dstnodeid="32" dstpinname="Timestamps" srcnodeid="1" srcpinname="Timestamps">
+   </LINK>
+   <LINK dstnodeid="32" dstpinname="Input" linkstyle="VHV" srcnodeid="34" srcpinname="Output">
+   <LINKPOINT x="3090" y="6555">
+   </LINKPOINT>
+   <LINKPOINT x="3495" y="6555">
+   </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="72" nodename="Info (CV Analysis)" systemname="Info (CV Analysis)">
+   <BOUNDS height="270" left="3495" top="8070" type="Node" width="2925">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="73" dstpinname="Y Input Value" srcnodeid="72" srcpinname="Width">
+   </LINK>
+   <LINK dstnodeid="74" dstpinname="Y Input Value" srcnodeid="72" srcpinname="Height">
+   </LINK>
+   <LINK dstnodeid="72" dstpinname="Image" linkstyle="VHV" srcnodeid="34" srcpinname="Output">
+   <LINKPOINT x="3060" y="7905">
+   </LINKPOINT>
+   <LINKPOINT x="3525" y="7905">
+   </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" id="21" nodename="ImageQuad (CV DX9)" systemname="ImageQuad (CV DX9)">
+   <BOUNDS height="100" left="3045" top="9075" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Nearest Neighbour" slicecount="1" values="1">
+   </PIN>
+   <BOUNDS left="3045" top="9075" type="Box">
+   </BOUNDS>
+   </NODE>
+   <LINK dstnodeid="20" dstpinname="Layers" srcnodeid="21" srcpinname="Layer">
+   </LINK>
+   <LINK dstnodeid="21" dstpinname="Image" srcnodeid="34" srcpinname="Output">
+   </LINK>
+   <NODE id="24" componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Space (CV StructuredLight)" systemname="Space (CV StructuredLight)">
+   <BOUNDS type="Node" height="270" left="11115" top="7800" width="5805">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Threshold">
+   </PIN>
+   <PIN pinname="Enabled">
+   </PIN>
+   <PIN pinname="Dataset">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="32" srcpinname="Output" dstnodeid="24" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="4855" y="7395">
+   </LINKPOINT>
+   <LINKPOINT x="9815" y="7545">
+   </LINKPOINT>
+   </LINK>
    <LINK srcnodeid="24" srcpinname="Output" dstnodeid="78" dstpinname="Input Node">
+   </LINK>
+   <LINK srcnodeid="71" srcpinname="Output Enum" dstnodeid="24" dstpinname="Dataset">
+   </LINK>
+   <LINK srcnodeid="61" srcpinname="Y Output Value" dstnodeid="24" dstpinname="Enabled">
+   </LINK>
+   <LINK srcnodeid="48" srcpinname="Y Output Value" dstnodeid="24" dstpinname="Threshold">
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="Status" dstnodeid="37" dstpinname="Input String">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" id="26" nodename="ImageQuad (CV DX9)" systemname="ImageQuad (CV DX9)">
+   <BOUNDS height="100" left="11115" top="9075" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Nearest Neighbour" slicecount="1" values="0">
+   </PIN>
+   <BOUNDS left="11115" top="9075" type="Box">
+   </BOUNDS>
+   </NODE>
+   <LINK dstnodeid="25" dstpinname="Layers" srcnodeid="26" srcpinname="Layer">
+   </LINK>
+   <LINK srcnodeid="24" srcpinname="Output" dstnodeid="26" dstpinname="Image">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="62" nodename="Framerate (CV Animation)" systemname="Framerate (CV Animation)">
+   <BOUNDS height="100" left="12690" top="8595" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Framerate fps" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="24" srcpinname="Output" dstnodeid="62" dstpinname="Input" linkstyle="VHV">
+   <LINKPOINT x="11175" y="8318">
+   </LINKPOINT>
+   <LINKPOINT x="12690" y="8318">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="62" srcpinname="Framerate fps" dstnodeid="68" dstpinname="Y Input Value">
    </LINK>
    </PATCH>

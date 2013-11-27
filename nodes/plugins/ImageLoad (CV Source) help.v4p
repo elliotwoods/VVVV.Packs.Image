@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\plugins\ImageLoad (OpenCV) help.v4p">
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\ImageLoad (CV) help.v4p">
    <BOUNDS type="Window" left="15735" top="4005" width="10125" height="12825">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -24,20 +24,6 @@
    <PIN pinname="Output String" visible="0">
    </PIN>
    </NODE>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" id="16" nodename="ImageQuad (OpenCV DX9)" systemname="ImageQuad (OpenCV DX9)">
-   <BOUNDS height="100" left="660" top="3795" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <PIN pinname="MaxRange" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="MinRange" slicecount="1" values="0">
-   </PIN>
-   <BOUNDS type="Box" left="660" top="3795">
-   </BOUNDS>
-   </NODE>
    <NODE componentmode="InABox" id="15" nodename="Renderer (EX9)" systemname="Renderer (EX9)">
    <BOUNDS height="100" left="660" top="5040" type="Node" width="100">
    </BOUNDS>
@@ -45,11 +31,9 @@
    </BOUNDS>
    <BOUNDS height="5010" left="7440" top="14010" type="Window" width="6240">
    </BOUNDS>
-   <PIN pinname="Layers" visible="1">
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <LINK dstnodeid="15" dstpinname="Layers" srcnodeid="16" srcpinname="Layer">
-   </LINK>
    <NODE componentmode="InABox" id="14" nodename="IOBox (String)" systemname="IOBox (String)">
    <BOUNDS height="0" left="3330" top="2385" type="Node" width="0">
    </BOUNDS>
@@ -106,12 +90,6 @@
    <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="11" nodename="Info (OpenCV)" systemname="Info (OpenCV)">
-   <BOUNDS height="270" left="2220" top="3180" type="Node" width="3390">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1" slicecount="1" values="||">
-   </PIN>
-   </NODE>
    <NODE componentmode="InABox" id="10" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="2220" top="3795" type="Node" width="0">
    </BOUNDS>
@@ -128,8 +106,6 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Allocated">
    </PIN>
    </NODE>
-   <LINK dstnodeid="10" dstpinname="Y Input Value" srcnodeid="11" srcpinname="Allocated">
-   </LINK>
    <NODE componentmode="InABox" id="9" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="3315" top="3795" type="Node" width="0">
    </BOUNDS>
@@ -144,8 +120,6 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Width">
    </PIN>
    </NODE>
-   <LINK dstnodeid="9" dstpinname="Y Input Value" srcnodeid="11" srcpinname="Width">
-   </LINK>
    <NODE componentmode="InABox" id="8" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="4455" top="3795" type="Node" width="0">
    </BOUNDS>
@@ -160,8 +134,6 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Height">
    </PIN>
    </NODE>
-   <LINK dstnodeid="8" dstpinname="Y Input Value" srcnodeid="11" srcpinname="Height">
-   </LINK>
    <NODE componentmode="InABox" id="7" nodename="IOBox (String)" systemname="IOBox (String)">
    <BOUNDS height="0" left="5535" top="3795" type="Node" width="0">
    </BOUNDS>
@@ -176,14 +148,6 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Format">
    </PIN>
    </NODE>
-   <LINK dstnodeid="7" dstpinname="Input String" srcnodeid="11" srcpinname="Format">
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="6" nodename="AvgSdv (OpenCV Mean)" systemname="AvgSdv (OpenCV Mean)">
-   <BOUNDS height="270" left="6900" top="3180" type="Node" width="2490">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   </NODE>
    <NODE componentmode="InABox" id="5" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="6900" top="3795" type="Node" width="0">
    </BOUNDS>
@@ -195,7 +159,7 @@
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Y Input Value">
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Vector Size" slicecount="1" values="3">
    </PIN>
@@ -204,8 +168,6 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Average">
    </PIN>
    </NODE>
-   <LINK dstnodeid="5" dstpinname="Y Input Value" srcnodeid="6" srcpinname="Average">
-   </LINK>
    <NODE componentmode="InABox" id="4" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="8535" top="3795" type="Node" width="0">
    </BOUNDS>
@@ -217,7 +179,7 @@
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="4">
    </PIN>
-   <PIN pinname="Y Input Value">
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Vector Size" slicecount="1" values="3">
    </PIN>
@@ -226,9 +188,7 @@
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="|Standard Deviation|">
    </PIN>
    </NODE>
-   <LINK dstnodeid="4" dstpinname="Y Input Value" srcnodeid="6" srcpinname="Standard Deviation">
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="17" nodename="ImageLoad (OpenCV)" systemname="ImageLoad (OpenCV)">
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="17" nodename="ImageLoad (CV Source)" systemname="ImageLoad (CV Source)">
    <BOUNDS height="270" left="660" top="1935" type="Node" width="2730">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
@@ -240,19 +200,59 @@
    <PIN pinname="Enabled" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <LINK dstnodeid="16" dstpinname="Image" srcnodeid="17" srcpinname="Output">
-   </LINK>
    <LINK dstnodeid="14" dstpinname="Input String" srcnodeid="17" srcpinname="Status">
    </LINK>
    <LINK dstnodeid="17" dstpinname="Filename" srcnodeid="13" srcpinname="Output String">
    </LINK>
    <LINK dstnodeid="17" dstpinname="Reload" srcnodeid="12" srcpinname="Y Output Value">
    </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" id="16" nodename="ImageQuad (CV DX9)" systemname="ImageQuad (CV DX9)">
+   <BOUNDS height="100" left="660" top="3795" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="MaxRange" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="MinRange" slicecount="1" values="0">
+   </PIN>
+   <BOUNDS type="Box" left="660" top="3795">
+   </BOUNDS>
+   </NODE>
+   <LINK dstnodeid="15" dstpinname="Layers" srcnodeid="16" srcpinname="Layer">
+   </LINK>
+   <LINK dstnodeid="16" dstpinname="Image" srcnodeid="17" srcpinname="Output">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="11" nodename="Info (CV Analysis)" systemname="Info (CV Analysis)">
+   <BOUNDS height="270" left="2220" top="3180" type="Node" width="3390">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="10" dstpinname="Y Input Value" srcnodeid="11" srcpinname="Allocated">
+   </LINK>
+   <LINK dstnodeid="9" dstpinname="Y Input Value" srcnodeid="11" srcpinname="Width">
+   </LINK>
+   <LINK dstnodeid="8" dstpinname="Y Input Value" srcnodeid="11" srcpinname="Height">
+   </LINK>
+   <LINK dstnodeid="7" dstpinname="Input String" srcnodeid="11" srcpinname="Format">
+   </LINK>
    <LINK dstnodeid="11" dstpinname="Image" linkstyle="VHV" srcnodeid="17" srcpinname="Output">
    <LINKPOINT x="720" y="2678">
    </LINKPOINT>
    <LINKPOINT x="2220" y="2678">
    </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="6" nodename="Average (CV Analysis)" systemname="Average (CV Analysis)">
+   <BOUNDS height="270" left="6900" top="3180" type="Node" width="2490">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="5" dstpinname="Y Input Value" srcnodeid="6" srcpinname="Average">
+   </LINK>
+   <LINK dstnodeid="4" dstpinname="Y Input Value" srcnodeid="6" srcpinname="Standard Deviation">
    </LINK>
    <LINK dstnodeid="6" dstpinname="Input" linkstyle="VHV" srcnodeid="17" srcpinname="Output">
    <LINKPOINT x="920" y="2678">
