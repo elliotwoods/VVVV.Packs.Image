@@ -7,6 +7,7 @@ using VVVV.Core.Logging;
 using Emgu.CV;
 using Emgu.CV.Structure;
 using System.Collections.Generic;
+using System;
 
 namespace VVVV.Nodes.OpenCV.Tracking
 {
@@ -167,6 +168,7 @@ namespace VVVV.Nodes.OpenCV.Tracking
 
 		protected override void Update(int instanceCount, bool spreadChanged)
 		{
+			FStatusOut.SliceCount = instanceCount;
 			CheckParams(instanceCount);
 			Output(instanceCount);
 		}
@@ -175,13 +177,22 @@ namespace VVVV.Nodes.OpenCV.Tracking
 		{
 			for (var i = 0; i < instanceCount; i++)
 			{
-				if (FHaarPathIn.IsChanged) FProcessor[i].LoadHaarCascade(FHaarPathIn[i]);
-				
-				FProcessor[i].MinSize = new Size((int)FMinSizeIn[i].x, (int)FMaxSizeIn[i].y);
-				FProcessor[i].MaxSize = new Size((int)FMaxSizeIn[i].x, (int)FMaxSizeIn[i].y);
-				FProcessor[i].MinNeighbors = FMinNeighborsIn[i];
-				FProcessor[i].ScaleFactor = FScaleFactorIn[i];
-				FProcessor[i].AllowGpu = FAllowGpuIn[i];
+				try
+				{
+					if (FHaarPathIn.IsChanged) FProcessor[i].LoadHaarCascade(FHaarPathIn[i]);
+
+					FProcessor[i].MinSize = new Size((int)FMinSizeIn[i].x, (int)FMaxSizeIn[i].y);
+					FProcessor[i].MaxSize = new Size((int)FMaxSizeIn[i].x, (int)FMaxSizeIn[i].y);
+					FProcessor[i].MinNeighbors = FMinNeighborsIn[i];
+					FProcessor[i].ScaleFactor = FScaleFactorIn[i];
+					FProcessor[i].AllowGpu = FAllowGpuIn[i];
+					
+					FStatusOut[i] = "OK";
+				}
+				catch(Exception e)
+				{
+					FStatusOut[i] = e.Message;
+				}
 			}
 		}
 

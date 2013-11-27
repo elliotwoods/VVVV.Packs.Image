@@ -31,6 +31,8 @@ namespace VVVV.Nodes.OpenCV
 			}
 		}
 
+		public bool UseCenter = false;
+
         public override void Allocate()
         {
             FOutput.Image.Initialise(FInput.Image.ImageAttributes);
@@ -39,15 +41,31 @@ namespace VVVV.Nodes.OpenCV
         public override void Process()
         {
 			var matrix = new Emgu.CV.Matrix<double>(2, 3);
+
+			Matrix4x4 transform = new Matrix4x4();
 			lock (FTransformLock)
 			{
-				matrix[0, 0] = FTrasform[0, 0];
-				matrix[1, 0] = FTrasform[1, 0];
-				matrix[0, 1] = FTrasform[0, 1];
-				matrix[1, 1] = FTrasform[1, 1];
-				matrix[0, 2] = FTrasform[0, 3];
-				matrix[1, 2] = FTrasform[1, 3];
+				//copy the transform out
+				for (int i = 0; i < 16; i++)
+				{
+					transform[i] = FTrasform[i];
+				}
 			}
+
+			if (UseCenter)
+			{
+				double halfWidth = FInput.ImageAttributes.Width / 2;
+				double halfHeight = FInput.ImageAttributes.Height / 2;
+
+				transform = VMath.Translate(-halfWidth, -halfHeight, 0) * transform * VMath.Translate(halfWidth, halfHeight, 0);
+			}
+
+			matrix[0, 0] = transform[0, 0];
+			matrix[1, 0] = transform[0, 1];
+			matrix[0, 1] = transform[1, 0];
+			matrix[1, 1] = transform[1, 1];
+			matrix[0, 2] = transform[3, 0];
+			matrix[1, 2] = transform[3, 1];
 
             if (FInput.LockForReading())
             {
@@ -74,6 +92,9 @@ namespace VVVV.Nodes.OpenCV
         [Input("Transform")]
         IDiffSpread<Matrix4x4> FInTransform;
 
+		[Input("Apply To Image Center")]
+		IDiffSpread<bool> FInUseCenter;
+
         protected override void Update(int InstanceCount, bool SpreadChanged)
         {
 			if (FInTransform.IsChanged || SpreadChanged)
@@ -81,6 +102,15 @@ namespace VVVV.Nodes.OpenCV
 				for (int i = 0; i < InstanceCount; i++)
 				{
 					FProcessor[i].Transform = FInTransform[i];
+					FProcessor[i].FlagForProcess();
+				}
+			}
+
+			if (FInUseCenter.IsChanged || SpreadChanged)
+			{
+				for (int i = 0; i < InstanceCount; i++)
+				{
+					FProcessor[i].UseCenter = FInUseCenter[i];
 					FProcessor[i].FlagForProcess();
 				}
 			}
