@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha29.3.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\ImageToProjection (OpenCV 2D).v4p" systemname="ImageToProjection (OpenCV 2D)" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\ImageToProjection (OpenCV 2D).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageToProjection (CV 2D).v4p" systemname="ImageToProjection (OpenCV 2D)" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\ImageToProjection (OpenCV 2D).v4p">
    <BOUNDS type="Window" left="7410" top="9090" width="9105" height="6660">
    </BOUNDS>
    <NODE systemname="CameraCoordsView (Transform)" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\CameraCoordsView (Transform).v4p" nodename="CameraCoordsView (Transform)" componentmode="Hidden" id="0">
@@ -119,6 +119,8 @@
    </PIN>
    <PIN pinname="Input 2" visible="1">
    </PIN>
+   <PIN pinname="Input 1" visible="1">
+   </PIN>
    </NODE>
    <NODE systemname="GT (Value)" nodename="GT (Value)" componentmode="Hidden" id="16">
    <BOUNDS type="Node" left="3510" top="2130" width="100" height="100">
@@ -175,5 +177,7 @@
    <LINK srcnodeid="1" srcpinname="Y Transformed" dstnodeid="18" dstpinname="Y">
    </LINK>
    <LINK srcnodeid="18" srcpinname="XY" dstnodeid="10" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Transform Out" dstnodeid="15" dstpinname="Input 1">
    </LINK>
    </PATCH>
