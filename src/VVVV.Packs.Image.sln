@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{95D686
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Factory", "factories\VVVV.CV.Factory.csproj", "{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -133,6 +135,14 @@ Global
 		{91A6F321-89A6-409E-996A-693CB93EC22D}.Release|x64.Build.0 = Release|x64
 		{91A6F321-89A6-409E-996A-693CB93EC22D}.Release|x86.ActiveCfg = Release|x86
 		{91A6F321-89A6-409E-996A-693CB93EC22D}.Release|x86.Build.0 = Release|x86
+		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}.Debug|x64.ActiveCfg = Debug|x64
+		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}.Debug|x64.Build.0 = Debug|x64
+		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}.Debug|x86.ActiveCfg = Debug|x86
+		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}.Debug|x86.Build.0 = Debug|x86
+		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}.Release|x64.ActiveCfg = Release|x64
+		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}.Release|x64.Build.0 = Release|x64
+		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}.Release|x86.ActiveCfg = Release|x86
+		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -148,5 +158,6 @@ Global
 		{450CF5DB-EDB3-4E59-BD5F-F1857EB76419} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 		{685C0911-C080-46B4-B21F-B8BBAD507D0B} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
+		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 	EndGlobalSection
 EndGlobal

@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using VVVV.PluginInterfaces.V2;
+using VVVV.PluginInterfaces.V2.NonGeneric;
 
-namespace VVVV.Nodes.OpenCV.src.Incomplete
+namespace VVVV.Nodes.OpenCV
 {
-    public class FilterNode<TFilterInstance> : IFilterNode<TFilterInstance> where TFilterInstance : IFilterInstance
+    public class FilterNode<TFilterInstance> : IFilterNode<TFilterInstance> 
+        where TFilterInstance : IFilterInstance, new()
     {
-        private readonly List<System.Reflection.PropertyInfo> FInputProperties = new List<System.Reflection.PropertyInfo>();
-        private readonly List<System.Reflection.PropertyInfo> FOutputProperties = new List<System.Reflection.PropertyInfo>();
+        private readonly List<PropertyInfo> FInputProperties = new List<PropertyInfo>();
+        private readonly List<PropertyInfo> FOutputProperties = new List<PropertyInfo>();
         private readonly List<IDiffSpread> FInputs = new List<IDiffSpread>();
         private readonly List<object> FOutputs = new List<object>();
 
@@ -42,7 +46,7 @@ namespace VVVV.Nodes.OpenCV.src.Incomplete
                 var input = FInputs[inputIndex];
                 if (input.IsChanged || SpreadChanged)
                 {
-                    var inputProperty = FInputProperties[];
+                    var inputProperty = FInputProperties[inputIndex];
                     for (int i = 0; i < InstanceCount; i++)
                     {
                         var filterInstance = FProcessor[i];
