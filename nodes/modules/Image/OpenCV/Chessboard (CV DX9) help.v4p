@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.3.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9) help.v4p">
-   <BOUNDS type="Window" left="6945" top="8910" width="11055" height="10845">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (CV DX9) help.v4p">
+   <BOUNDS type="Window" left="7260" top="4350" width="11055" height="10845">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
    <BOUNDS type="Node" left="150" top="150" width="5000" height="450">
@@ -24,18 +24,6 @@
    <PIN pinname="Output String" visible="0">
    </PIN>
    </NODE>
-   <NODE systemname="Chessboard (OpenCV DX9)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9).v4p" nodename="Chessboard (OpenCV DX9)" componentmode="Hidden" id="11">
-   <BOUNDS type="Node" left="1125" top="2430" width="4425" height="270">
-   </BOUNDS>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <PIN pinname="Board Size X" visible="1">
-   </PIN>
-   <PIN pinname="Board Size Y" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="1125" top="2430">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InAWindow" id="10">
    <BOUNDS type="Node" left="1125" top="3015" width="100" height="100">
    </BOUNDS>
@@ -43,7 +31,7 @@
    </BOUNDS>
    <BOUNDS type="Window" left="1380" top="1950" width="10650" height="9315">
    </BOUNDS>
-   <PIN pinname="Layers" visible="1">
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Background Color" slicecount="1" values="|1.00000,1.00000,1.00000,1.00000|">
    </PIN>
@@ -52,8 +40,6 @@
    <PIN pinname="Actual Backbuffer Height" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="11" srcpinname="Layer" dstnodeid="10" dstpinname="Layers">
-   </LINK>
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="9">
    <BOUNDS type="Node" left="7650" top="2430" width="100" height="100">
    </BOUNDS>
@@ -192,16 +178,6 @@
    </NODE>
    <LINK srcnodeid="12" srcpinname="Output" dstnodeid="14" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="BoardObjectPoints (OpenCV)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\BoardObjectPoints (OpenCV).v4p" nodename="BoardObjectPoints (OpenCV)" componentmode="Hidden" id="15">
-   <BOUNDS type="Node" left="765" top="6870" width="5145" height="270">
-   </BOUNDS>
-   <PIN pinname="Board Size Y" visible="1">
-   </PIN>
-   <PIN pinname="Board Pitch" visible="1">
-   </PIN>
-   <PIN pinname="Object XYZ" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="16" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="765" top="1290" width="810" height="240">
    </BOUNDS>
@@ -220,14 +196,6 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="15" dstpinname="Board Size X">
-   </LINK>
-   <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Board Size X" linkstyle="VHV">
-   <LINKPOINT x="830" y="1965">
-   </LINKPOINT>
-   <LINKPOINT x="2215" y="1965">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="17" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="3300" top="1290" width="810" height="240">
    </BOUNDS>
@@ -246,10 +214,6 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Board Size Y">
-   </LINK>
-   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="15" dstpinname="Board Size Y" hiddenwhenlocked="1">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="19" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="4380" top="1290" width="795" height="240">
    </BOUNDS>
@@ -266,14 +230,6 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="19" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Board Pitch">
-   </LINK>
-   <LINK srcnodeid="19" srcpinname="Y Output Value" dstnodeid="15" dstpinname="Board Pitch" linkstyle="Bezier">
-   <LINKPOINT x="4410" y="4200">
-   </LINKPOINT>
-   <LINKPOINT x="5865" y="4200">
-   </LINKPOINT>
-   </LINK>
    <NODE systemname="Multiply (Value)" nodename="Multiply (Value)" componentmode="Hidden" id="21">
    <BOUNDS type="Node" left="765" top="8115" width="1470" height="270">
    </BOUNDS>
@@ -323,15 +279,13 @@
    <NODE systemname="Divide (Value)" nodename="Divide (Value)" componentmode="Hidden" id="25">
    <BOUNDS type="Node" left="780" top="7680" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Input" visible="1">
+   <PIN pinname="Input" visible="1" slicecount="1" values="1">
    </PIN>
    <PIN pinname="Input 2" slicecount="1" values="2">
    </PIN>
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="15" srcpinname="Object XYZ" dstnodeid="25" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="25" srcpinname="Output" dstnodeid="21" dstpinname="Input 1">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="26" systemname="IOBox (Value Advanced)">
@@ -376,4 +330,50 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <NODE systemname="Chessboard (CV DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (CV DX9).v4p" nodename="Chessboard (CV DX9)" componentmode="Hidden" id="11">
+   <BOUNDS type="Node" left="1125" top="2430" width="4425" height="270">
+   </BOUNDS>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Board Size X" visible="1">
+   </PIN>
+   <PIN pinname="Board Size Y" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="1125" top="2430">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Layer" dstnodeid="10" dstpinname="Layers">
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Board Size X" linkstyle="VHV">
+   <LINKPOINT x="830" y="1965">
+   </LINKPOINT>
+   <LINKPOINT x="2215" y="1965">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Board Size Y">
+   </LINK>
+   <LINK srcnodeid="19" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Board Pitch">
+   </LINK>
+   <NODE systemname="BoardObjectPoints (CV)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardObjectPoints (CV).v4p" nodename="BoardObjectPoints (CV)" componentmode="Hidden" id="15">
+   <BOUNDS type="Node" left="765" top="6870" width="5160" height="270">
+   </BOUNDS>
+   <PIN pinname="Board Size Y" visible="1">
+   </PIN>
+   <PIN pinname="Board Pitch" visible="1">
+   </PIN>
+   <PIN pinname="Object XYZ" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="15" dstpinname="Board Size X">
+   </LINK>
+   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="15" dstpinname="Board Size Y" hiddenwhenlocked="1">
+   </LINK>
+   <LINK srcnodeid="19" srcpinname="Y Output Value" dstnodeid="15" dstpinname="Board Pitch" linkstyle="Bezier">
+   <LINKPOINT x="4410" y="4200">
+   </LINKPOINT>
+   <LINKPOINT x="5865" y="4200">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="15" srcpinname="Object XYZ" dstnodeid="25" dstpinname="Input">
+   </LINK>
    </PATCH>

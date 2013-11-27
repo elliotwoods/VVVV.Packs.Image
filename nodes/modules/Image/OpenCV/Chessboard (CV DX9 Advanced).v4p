@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9 Advanced).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\subpatches\GenerateChessboard.v4p" systemname="GenerateChessboard">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (CV DX9 Advanced).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\subpatches\GenerateChessboard.v4p" systemname="GenerateChessboard">
    <BOUNDS height="8205" left="14910" top="1785" type="Window" width="9330">
    </BOUNDS>
    <NODE componentmode="InABox" id="3" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
@@ -25,7 +25,7 @@
    </PIN>
    </NODE>
    <NODE componentmode="Hidden" id="7" nodename="Vector (2d Join)" systemname="Vector (2d Join)">
-   <BOUNDS height="100" left="750" top="4905" type="Node" width="100">
+   <BOUNDS height="270" left="750" top="4905" type="Node" width="645">
    </BOUNDS>
    <PIN pinname="X" visible="1">
    </PIN>
@@ -41,7 +41,7 @@
    <NODE componentmode="Hidden" id="6" nodename="ApplyTransform (Transform Vector)" systemname="ApplyTransform (Transform Vector)">
    <BOUNDS height="100" left="735" top="3915" type="Node" width="100">
    </BOUNDS>
-   <PIN pinname="XYZ UnTransformed" visible="1">
+   <PIN pinname="XYZ UnTransformed" visible="1" slicecount="3" values="0,0,0">
    </PIN>
    <PIN pinname="XYZ Transformed" visible="1">
    </PIN>
@@ -115,7 +115,7 @@
    </PIN>
    <PIN pinname="Layer" visible="1">
    </PIN>
-   <PIN pinname="Layer 2" visible="1">
+   <PIN pinname="Layer 2" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <LINK dstnodeid="16" dstpinname="Input Node" srcnodeid="17" srcpinname="Layer">
@@ -180,50 +180,6 @@
    </LINK>
    <LINK dstnodeid="4" dstpinname="Resolution" srcnodeid="10" srcpinname="Y Output Value">
    </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\BoardObjectPoints (OpenCV).v4p" id="9" nodename="BoardObjectPoints (OpenCV)" systemname="BoardObjectPoints (OpenCV)">
-   <BOUNDS height="100" left="1890" top="2820" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Board Pitch" visible="1">
-   </PIN>
-   <PIN pinname="Object XYZ" visible="1">
-   </PIN>
-   <PIN pinname="Board Size X" visible="1">
-   </PIN>
-   <PIN pinname="Board Size Y" visible="1">
-   </PIN>
-   <BOUNDS type="Window" left="7410" top="8565" width="5730" height="7785">
-   </BOUNDS>
-   </NODE>
-   <LINK dstnodeid="9" dstpinname="Board Pitch" linkstyle="Bezier" srcnodeid="3" srcpinname="Y Output Value" hiddenwhenlocked="1">
-   <LINKPOINT x="6475" y="1673">
-   </LINKPOINT>
-   <LINKPOINT x="3530" y="1673">
-   </LINKPOINT>
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9).v4p" id="29" nodename="Chessboard (OpenCV DX9)" systemname="Chessboard (OpenCV DX9)">
-   <BOUNDS height="270" left="4470" top="4035" type="Node" width="2760">
-   </BOUNDS>
-   <PIN pinname="Lightness" visible="1">
-   </PIN>
-   <PIN pinname="Board Pitch" visible="1">
-   </PIN>
-   <PIN pinname="Board Size Y" visible="1">
-   </PIN>
-   <PIN pinname="Board Size X" visible="1">
-   </PIN>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <PIN pinname="Color" visible="1">
-   </PIN>
-   <PIN pinname="Transform In" visible="1" slicecount="1" values="||">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="29" dstpinname="Lightness" srcnodeid="21" srcpinname="Y Output Value">
-   </LINK>
-   <LINK dstnodeid="29" dstpinname="Board Pitch" srcnodeid="3" srcpinname="Y Output Value">
-   </LINK>
-   <LINK dstnodeid="17" dstpinname="Layer 2" hiddenwhenlocked="1" srcnodeid="29" srcpinname="Layer">
-   </LINK>
    <NODE componentmode="InABox" id="30" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="5160" top="75" type="Node" width="0">
    </BOUNDS>
@@ -258,28 +214,6 @@
    </NODE>
    <LINK srcnodeid="30" srcpinname="Y Output Value" dstnodeid="31" dstpinname="XY">
    </LINK>
-   <LINK srcnodeid="31" srcpinname="X" dstnodeid="9" dstpinname="Board Size X" linkstyle="Bezier">
-   <LINKPOINT x="5145" y="1950">
-   </LINKPOINT>
-   <LINKPOINT x="1950" y="1950">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="31" srcpinname="Y" dstnodeid="9" dstpinname="Board Size Y" linkstyle="Bezier">
-   <LINKPOINT x="5820" y="1950">
-   </LINKPOINT>
-   <LINKPOINT x="2745" y="1950">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="31" srcpinname="X" dstnodeid="29" dstpinname="Board Size X">
-   </LINK>
-   <LINK srcnodeid="31" srcpinname="Y" dstnodeid="29" dstpinname="Board Size Y">
-   </LINK>
-   <LINK srcnodeid="22" srcpinname="Output" dstnodeid="29" dstpinname="Color" linkstyle="VHV">
-   <LINKPOINT x="7440" y="3923">
-   </LINKPOINT>
-   <LINKPOINT x="7230" y="3923">
-   </LINKPOINT>
-   </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="32" systemname="IOBox (Node)">
    <BOUNDS type="Node" left="3660" top="465" width="0" height="0">
    </BOUNDS>
@@ -293,12 +227,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="18" srcpinname="Layer" dstnodeid="17" dstpinname="Layer 1">
-   </LINK>
-   <LINK srcnodeid="32" srcpinname="Output Node" dstnodeid="29" dstpinname="Transform In" linkstyle="VHV">
-   <LINKPOINT x="3695" y="2370">
-   </LINKPOINT>
-   <LINKPOINT x="4480" y="2370">
-   </LINKPOINT>
    </LINK>
    <NODE systemname="Multiply (Transform)" nodename="Multiply (Transform)" componentmode="Hidden" id="33">
    <BOUNDS type="Node" left="735" top="2865" width="615" height="270">
@@ -410,8 +338,6 @@
    <LINKPOINT x="5070" y="2843">
    </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="9" srcpinname="Object XYZ" dstnodeid="6" dstpinname="XYZ UnTransformed">
-   </LINK>
    <LINK srcnodeid="32" srcpinname="Output Node" dstnodeid="33" dstpinname="Transform In 2">
    </LINK>
    <NODE systemname="Scale (Transform)" nodename="Scale (Transform)" componentmode="Hidden" id="38">
@@ -422,4 +348,76 @@
    <PIN pinname="Y" slicecount="1" values="-1">
    </PIN>
    </NODE>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardObjectPoints (CV).v4p" id="9" nodename="BoardObjectPoints (CV)" systemname="BoardObjectPoints (CV)">
+   <BOUNDS height="100" left="1845" top="2820" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Board Pitch" visible="1">
+   </PIN>
+   <PIN pinname="Object XYZ" visible="1">
+   </PIN>
+   <PIN pinname="Board Size X" visible="1">
+   </PIN>
+   <PIN pinname="Board Size Y" visible="1">
+   </PIN>
+   <BOUNDS type="Window" left="7410" top="8565" width="5730" height="7785">
+   </BOUNDS>
+   </NODE>
+   <LINK dstnodeid="9" dstpinname="Board Pitch" linkstyle="Bezier" srcnodeid="3" srcpinname="Y Output Value" hiddenwhenlocked="1">
+   <LINKPOINT x="6460" y="1673">
+   </LINKPOINT>
+   <LINKPOINT x="3500" y="1673">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="X" dstnodeid="9" dstpinname="Board Size X" linkstyle="Bezier">
+   <LINKPOINT x="5130" y="1950">
+   </LINKPOINT>
+   <LINKPOINT x="1920" y="1950">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="Y" dstnodeid="9" dstpinname="Board Size Y" linkstyle="Bezier">
+   <LINKPOINT x="5805" y="1950">
+   </LINKPOINT>
+   <LINKPOINT x="2715" y="1950">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="9" srcpinname="Object XYZ" dstnodeid="6" dstpinname="XYZ UnTransformed">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (CV DX9).v4p" id="29" nodename="Chessboard (CV DX9)" systemname="Chessboard (CV DX9)">
+   <BOUNDS height="270" left="4470" top="4035" type="Node" width="2715">
+   </BOUNDS>
+   <PIN pinname="Lightness" visible="1">
+   </PIN>
+   <PIN pinname="Board Pitch" visible="1">
+   </PIN>
+   <PIN pinname="Board Size Y" visible="1">
+   </PIN>
+   <PIN pinname="Board Size X" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Color" visible="1">
+   </PIN>
+   <PIN pinname="Transform In" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="29" dstpinname="Board Pitch" srcnodeid="3" srcpinname="Y Output Value">
+   </LINK>
+   <LINK dstnodeid="17" dstpinname="Layer 2" hiddenwhenlocked="1" srcnodeid="29" srcpinname="Layer">
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="X" dstnodeid="29" dstpinname="Board Size X">
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="Y" dstnodeid="29" dstpinname="Board Size Y">
+   </LINK>
+   <LINK srcnodeid="22" srcpinname="Output" dstnodeid="29" dstpinname="Color" linkstyle="VHV">
+   <LINKPOINT x="7440" y="3923">
+   </LINKPOINT>
+   <LINKPOINT x="7230" y="3923">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="32" srcpinname="Output Node" dstnodeid="29" dstpinname="Transform In" linkstyle="VHV">
+   <LINKPOINT x="3695" y="2370">
+   </LINKPOINT>
+   <LINKPOINT x="4480" y="2370">
+   </LINKPOINT>
+   </LINK>
    </PATCH>

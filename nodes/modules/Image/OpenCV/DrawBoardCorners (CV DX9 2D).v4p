@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha29.3.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" locked="0">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\DrawBoardCorners (CV DX9 2D).v4p" systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" locked="0">
    <BOUNDS type="Window" left="18330" top="2745" width="10170" height="12975">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="79" systemname="IOBox (Value Advanced)">
@@ -523,7 +523,7 @@
    <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="85">
    <BOUNDS type="Node" left="1485" top="8430" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="XY" visible="1">
+   <PIN pinname="XY" visible="1" slicecount="2" values="0,0">
    </PIN>
    <PIN pinname="X" visible="1">
    </PIN>
@@ -533,22 +533,6 @@
    <LINK srcnodeid="85" srcpinname="X" dstnodeid="84" dstpinname="X">
    </LINK>
    <LINK srcnodeid="85" srcpinname="Y" dstnodeid="84" dstpinname="Y">
-   </LINK>
-   <NODE systemname="MapCameraToNormalised (OpenCV 2D)" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\MapCameraToNormalised (OpenCV 2D).v4p" nodename="MapCameraToNormalised (OpenCV 2D)" componentmode="Hidden" id="86">
-   <BOUNDS type="Node" left="1485" top="8010" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <PIN pinname="Resolution" visible="1">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="83" srcpinname="Output" dstnodeid="86" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="77" srcpinname="Y Output Value" dstnodeid="86" dstpinname="Resolution">
-   </LINK>
-   <LINK srcnodeid="86" srcpinname="Output" dstnodeid="85" dstpinname="XY">
    </LINK>
    <NODE systemname="UniformScale (Transform)" nodename="UniformScale (Transform)" componentmode="Hidden" id="87">
    <BOUNDS type="Node" left="1305" top="9885" width="100" height="100">
@@ -581,5 +565,21 @@
    <LINK srcnodeid="57" srcpinname="Output" dstnodeid="84" dstpinname="Transform In">
    </LINK>
    <LINK srcnodeid="53" srcpinname="Output" dstnodeid="82" dstpinname="Input">
+   </LINK>
+   <NODE systemname="MapCameraToNormalised (CV 2D)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\MapCameraToNormalised (CV 2D).v4p" nodename="MapCameraToNormalised (CV 2D)" componentmode="Hidden" id="86">
+   <BOUNDS type="Node" left="1485" top="8010" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Resolution" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="83" srcpinname="Output" dstnodeid="86" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="77" srcpinname="Y Output Value" dstnodeid="86" dstpinname="Resolution">
+   </LINK>
+   <LINK srcnodeid="86" srcpinname="Output" dstnodeid="85" dstpinname="XY">
    </LINK>
    </PATCH>

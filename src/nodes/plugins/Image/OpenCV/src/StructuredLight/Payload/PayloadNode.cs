@@ -9,7 +9,7 @@ namespace VVVV.Nodes.OpenCV.StructuredLight.Payload
 	public enum PayloadMode { Graycode };
 
 	#region PluginInfo
-	[PluginInfo(Name = "Payload", Category = "Image.StructuredLight", Help = "Setup a payload", Author = "", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Payload", Category = "CV", Version = "StructuredLight", Help = "Setup a payload", Author = "", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class PayloadNode : IPluginEvaluate
 	{

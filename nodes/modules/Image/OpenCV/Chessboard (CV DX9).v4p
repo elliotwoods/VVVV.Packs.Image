@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.3.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\Chessboard (OpenCV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\modules\Chessboard (EmguCV, DX9).v4p" systemname="Chessboard (EmguCV, DX9)">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (CV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\modules\Chessboard (EmguCV, DX9).v4p" systemname="Chessboard (EmguCV, DX9)">
    <BOUNDS height="5505" left="3405" top="8130" type="Window" width="8790">
    </BOUNDS>
    <NODE componentmode="Hidden" id="8" nodename="Quad (DX9)" systemname="Quad (DX9)">
@@ -240,10 +240,12 @@
    <LINKPOINT x="2865" y="1080">
    </LINKPOINT>
    </LINK>
-   <NODE id="3" componentmode="Hidden" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p" nodename="ChessboardSpread (OpenCV Value)" systemname="ChessboardSpread (OpenCV Value)" hiddenwhenlocked="0" managers="">
-   <PIN pinname="Board Size X" visible="1" pintype="Input" slicecount="1" values="10">
+   <INFO author="elliotwoods" description="Draw a calibration chessboard" tags="">
+   </INFO>
+   <NODE id="3" componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ChessboardSpread (CV Value).v4p" nodename="ChessboardSpread (CV Value)" systemname="ChessboardSpread (CV Value)" hiddenwhenlocked="0" managers="">
+   <PIN pinname="Board Size X" visible="1" pintype="Input">
    </PIN>
-   <PIN pinname="Board Size Y" visible="1" pintype="Input" slicecount="1" values="7">
+   <PIN pinname="Board Size Y" visible="1" pintype="Input">
    </PIN>
    <BOUNDS type="Node" height="270" left="3660" top="1635" width="1665">
    </BOUNDS>
@@ -282,14 +284,12 @@
    <LINKPOINT x="3690" y="2000">
    </LINKPOINT>
    </LINK>
-   <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Rows">
-   </LINK>
-   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Columns">
-   </LINK>
-   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Board Size X">
+   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Board Size X" linkstyle="Bezier">
+   <LINKPOINT x="2415" y="1080">
+   </LINKPOINT>
+   <LINKPOINT x="3645" y="1080">
+   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Board Size Y">
    </LINK>
-   <INFO author="elliotwoods" description="Draw a calibration chessboard" tags="">
-   </INFO>
    </PATCH>

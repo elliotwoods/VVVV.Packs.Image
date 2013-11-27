@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.3.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\ContourPerimeter (DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Package\Modules\Perimeter (DX9).v4p" systemname="Perimeter (DX9)">
-   <BOUNDS height="5790" left="1680" top="7935" type="Window" width="8640">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ContourPerimeter (DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Package\Modules\Perimeter (DX9).v4p" systemname="Perimeter (DX9)">
+   <BOUNDS height="5790" left="1680" top="7935" type="Window" width="10290">
    </BOUNDS>
    <NODE componentmode="InABox" id="1" nodename="IOBox (Node)" systemname="IOBox (Node)">
    <BOUNDS height="0" left="1500" top="495" type="Node" width="0">
@@ -66,7 +66,11 @@
    <PIN pinname="Count" visible="1">
    </PIN>
    </NODE>
-   <LINK dstnodeid="6" dstpinname="Spread Count" srcnodeid="7" srcpinname="Count">
+   <LINK dstnodeid="6" dstpinname="Spread Count" srcnodeid="7" srcpinname="Count" linkstyle="VHV">
+   <LINKPOINT x="6255" y="2745">
+   </LINKPOINT>
+   <LINKPOINT x="7095" y="2745">
+   </LINKPOINT>
    </LINK>
    <NODE componentmode="Hidden" id="9" nodename="Vector (3d Join)" systemname="Vector (3d Join)">
    <BOUNDS height="270" left="1485" top="2805" type="Node" width="1170">
@@ -96,24 +100,6 @@
    <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Width">
    </PIN>
    </NODE>
-   <NODE componentmode="Hidden" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="0" nodename="ContourPerimeter (OpenCV Split)" systemname="ContourPerimeter (OpenCV Split)">
-   <BOUNDS height="270" left="1485" top="1695" type="Node" width="4770">
-   </BOUNDS>
-   <PIN pinname="Input" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="PositionXY" visible="1">
-   </PIN>
-   <PIN pinname="Length" visible="1">
-   </PIN>
-   <PIN pinname="Position Bin Size" visible="1">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="0" dstpinname="Input" srcnodeid="1" srcpinname="Output Node">
-   </LINK>
-   <LINK dstnodeid="5" dstpinname="XY" srcnodeid="0" srcpinname="PositionXY">
-   </LINK>
-   <LINK dstnodeid="7" dstpinname="Input" srcnodeid="0" srcpinname="Length">
-   </LINK>
    <NODE nodename="IOBox (Node)" componentmode="InABox" id="11" systemname="IOBox (Node)">
    <BOUNDS type="Node" left="3780" top="465" width="0" height="0">
    </BOUNDS>
@@ -146,8 +132,8 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Select (Node)" nodename="Select (Node)" componentmode="Hidden" id="13" filename="%VVVV%\addonpack\lib\nodes\modules\Node\Select (Node).v4p">
-   <BOUNDS type="Node" left="3090" top="3570" width="100" height="100">
+   <NODE systemname="SELECT (NODE)" nodename="Select (Node)" componentmode="Hidden" id="13" filename="%VVVV%\addonpack\lib\nodes\modules\Node\Select (Node).v4p">
+   <BOUNDS type="Node" left="2640" top="3570" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Select" visible="1">
    </PIN>
@@ -157,19 +143,19 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="12" srcpinname="Y Output Value" dstnodeid="13" dstpinname="Select" linkstyle="Bezier">
-   <LINKPOINT x="2640" y="2145">
+   <LINKPOINT x="2490" y="2145">
    </LINKPOINT>
-   <LINKPOINT x="3855" y="2145">
+   <LINKPOINT x="3555" y="2145">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="11" srcpinname="Output Node" dstnodeid="13" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="3795" y="2138">
+   <LINKPOINT x="3645" y="2138">
    </LINKPOINT>
-   <LINKPOINT x="3120" y="2138">
+   <LINKPOINT x="2820" y="2138">
    </LINKPOINT>
    </LINK>
    <NODE componentmode="Hidden" id="3" nodename="Line (EX9.Geometry)" systemname="Line (EX9.Geometry)" filename="">
-   <BOUNDS height="270" left="870" top="4155" type="Node" width="6735">
+   <BOUNDS height="270" left="870" top="4155" type="Node" width="8055">
    </BOUNDS>
    <PIN pinname="VerticesXYZ" visible="1">
    </PIN>
@@ -179,9 +165,9 @@
    </PIN>
    <PIN pinname="Width">
    </PIN>
-   <PIN pinname="BinSize" visible="1">
+   <PIN pinname="BinSize" visible="1" slicecount="1" values="-1">
    </PIN>
-   <PIN pinname="Transform" visible="1">
+   <PIN pinname="Transform" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Single Input">
    </PIN>
@@ -202,12 +188,30 @@
    </LINK>
    <LINK srcnodeid="10" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Width" linkstyle="PolyLine">
    </LINK>
+   <LINK srcnodeid="13" srcpinname="Output" dstnodeid="3" dstpinname="Transform">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="0" nodename="ContourPerimeter (CV Analysis Contour Split)" systemname="ContourPerimeter (CV Analysis Contour Split)">
+   <BOUNDS height="270" left="1485" top="1695" type="Node" width="4770">
+   </BOUNDS>
+   <PIN pinname="Input" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="PositionXY" visible="1">
+   </PIN>
+   <PIN pinname="Length" visible="1">
+   </PIN>
+   <PIN pinname="Position Bin Size" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="0" dstpinname="Input" srcnodeid="1" srcpinname="Output Node">
+   </LINK>
+   <LINK dstnodeid="5" dstpinname="XY" srcnodeid="0" srcpinname="PositionXY">
+   </LINK>
+   <LINK dstnodeid="7" dstpinname="Input" srcnodeid="0" srcpinname="Length">
+   </LINK>
    <LINK dstnodeid="3" dstpinname="BinSize" linkstyle="VHV" srcnodeid="0" srcpinname="Position Bin Size">
    <LINKPOINT x="3180" y="3495">
    </LINKPOINT>
    <LINKPOINT x="1530" y="3495">
    </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="13" srcpinname="Output" dstnodeid="3" dstpinname="Transform">
    </LINK>
    </PATCH>
