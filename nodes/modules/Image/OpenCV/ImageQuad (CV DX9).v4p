@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.3.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Package\Modules\ImageQuad.v4p" systemname="ImageQuad">
-   <BOUNDS height="10155" left="2430" top="12255" type="Window" width="10590">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Package\Modules\ImageQuad.v4p" systemname="ImageQuad">
+   <BOUNDS height="10155" left="8235" top="3195" type="Window" width="10590">
    </BOUNDS>
    <NODE componentmode="InABox" id="0" nodename="IOBox (Node)" systemname="IOBox (Node)">
    <BOUNDS height="100" left="3765" top="210" type="Node" width="100">
@@ -396,7 +396,19 @@
    <LINKPOINT x="2160" y="4950">
    </LINKPOINT>
    </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="1" nodename="AsTexture (OpenCV EX9.Texture)" systemname="AsTexture (OpenCV EX9.Texture)">
+   <LINK srcnodeid="29" srcpinname="Output Node" dstnodeid="27" dstpinname="Input Node" linkstyle="VHV">
+   <LINKPOINT x="765" y="7740">
+   </LINKPOINT>
+   <LINKPOINT x="2685" y="7740">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="29" srcpinname="Output Node" dstnodeid="6" dstpinname="Transform" linkstyle="VHV">
+   <LINKPOINT x="765" y="7740">
+   </LINKPOINT>
+   <LINKPOINT x="2685" y="7740">
+   </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="1" nodename="AsTexture (CV EX9.Texture)" systemname="AsTexture (CV EX9.Texture)">
    <BOUNDS height="100" left="3765" top="6585" type="Node" width="100">
    </BOUNDS>
    <PIN pinname="Image" slicecount="1" visible="1" values="||">
@@ -411,17 +423,5 @@
    <LINK dstnodeid="6" dstpinname="Texture" srcnodeid="1" srcpinname="Texture Out">
    </LINK>
    <LINK srcnodeid="1" srcpinname="Texture Out" dstnodeid="28" dstpinname="Input Node">
-   </LINK>
-   <LINK srcnodeid="29" srcpinname="Output Node" dstnodeid="27" dstpinname="Input Node" linkstyle="VHV">
-   <LINKPOINT x="765" y="7740">
-   </LINKPOINT>
-   <LINKPOINT x="2685" y="7740">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="29" srcpinname="Output Node" dstnodeid="6" dstpinname="Transform" linkstyle="VHV">
-   <LINKPOINT x="765" y="7740">
-   </LINKPOINT>
-   <LINKPOINT x="2685" y="7740">
-   </LINKPOINT>
    </LINK>
    </PATCH>
