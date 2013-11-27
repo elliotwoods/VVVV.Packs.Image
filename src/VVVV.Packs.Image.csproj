@@ -90,9 +90,9 @@
       <Project>{7a5ac7e2-511c-4240-8d2b-5171f511f4c5}</Project>
       <Name>VVVV.Nodes.OpenCV.FreeImage</Name>
     </ProjectReference>
-    <ProjectReference Include="nodes\plugins\Image\OpenCV\VVVV.Nodes.OpenCV.csproj">
+    <ProjectReference Include="nodes\plugins\Image\OpenCV\VVVV.CV.Core.csproj">
       <Project>{e9a7fc26-34e0-4c1e-83d8-c01a169422b2}</Project>
-      <Name>VVVV.Nodes.OpenCV</Name>
+      <Name>VVVV.CV.Core</Name>
     </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\OpenNI\VVVV.Nodes.OpenCV.OpenNI.csproj">
       <Project>{d9d17924-98d5-468f-840e-3a3f8308be35}</Project>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "image", "image", "{1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV", "nodes\plugins\Image\OpenCV\VVVV.Nodes.OpenCV.csproj", "{E9A7FC26-34E0-4C1E-83D8-C01A169422B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Core", "nodes\plugins\Image\OpenCV\VVVV.CV.Core.csproj", "{E9A7FC26-34E0-4C1E-83D8-C01A169422B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.VideoInput", "nodes\plugins\Image\VideoInput\VVVV.Nodes.OpenCV.VideoInput.csproj", "{C111EF2E-E57C-480C-9E76-C6304AC02D79}"
 EndProject

@@ -53,9 +53,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Image\OpenCV\VVVV.Nodes.OpenCV.csproj">
+    <ProjectReference Include="..\..\Image\OpenCV\VVVV.CV.Core.csproj">
       <Project>{e9a7fc26-34e0-4c1e-83d8-c01a169422b2}</Project>
-      <Name>VVVV.Nodes.OpenCV</Name>
+      <Name>VVVV.CV.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
