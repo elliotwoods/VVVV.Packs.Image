@@ -32,7 +32,6 @@ namespace VVVV.Nodes.OpenCV
 			}
 			
 			FOutput.Send();
-
 		}
 	}
 }

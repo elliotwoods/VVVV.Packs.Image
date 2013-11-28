@@ -159,7 +159,7 @@
     <Compile Include="src\Filters\Template.cs" />
     <Compile Include="src\Filters\WithinRange.cs" />
     <Compile Include="src\MultiInput\Cons.cs" />
-    <Compile Include="src\Sources\ImageLoadNode.cs" />
+    <Compile Include="src\Sources\FileImageNode.cs" />
     <Compile Include="src\Sources\NoiseNode.cs" />
     <Compile Include="src\Sources\VideoInNode.cs" />
     <Compile Include="src\StructuredLight\DataViewNode.cs" />

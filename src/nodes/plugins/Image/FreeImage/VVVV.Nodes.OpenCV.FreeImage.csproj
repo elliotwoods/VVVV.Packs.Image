@@ -37,7 +37,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImageLoadNode.cs" />
+    <Compile Include="FileImageNode.cs" />
     <Compile Include="ManageDependencies.cs" />
   </ItemGroup>
   <ItemGroup>
