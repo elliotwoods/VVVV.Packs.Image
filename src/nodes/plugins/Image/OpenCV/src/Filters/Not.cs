@@ -14,7 +14,8 @@ using VVVV.Utils.VColor;
 
 namespace VVVV.Nodes.OpenCV
 {
-	public class NotInstance : IFilterInstance
+	[FilterInstance("NOT", Help = "Invert image")]
+	public class NOTInstance : IFilterInstance
 	{
 		public override void Allocate()
 		{
@@ -30,15 +31,5 @@ namespace VVVV.Nodes.OpenCV
 			FOutput.Send();
 		}
 
-	}
-
-	#region PluginInfo
-	[PluginInfo(Name = "Not", Category = "CV", Version = "Filter", Help = "Invert image", Author = "", Credits = "", Tags = "")]
-	#endregion PluginInfo
-	public class NotNode : IFilterNode<NotInstance>
-	{
-		protected override void Update(int SpreadMax, bool SpreadChanged)
-		{
-		}
 	}
 }

@@ -17,9 +17,9 @@ using Emgu.CV.UI;
 namespace VVVV.Nodes.OpenCV
 {
 	#region PluginInfo
-	[PluginInfo(Name = "Renderer",
-	Category = "CV",
-	Help = "Render an EmguCV Image",
+	[PluginInfo(Name = "Inspektor",
+	Category = "CV.Image",
+	Help = "Render a CVImage using Emgu. Note : likely to be depreciated",
 	Tags = "",
 	AutoEvaluate = true)]
 	#endregion PluginInfo

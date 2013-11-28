@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VVVV.Nodes.OpenCV")]
-[assembly: AssemblyDescription("OpenCV wrapper nodes for VVVV (employing EmguCV)")]
+[assembly: AssemblyTitle("VVVV.CV.Nodes")]
+[assembly: AssemblyDescription("OpenCV wrapper nodes for VVVV")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Kimchi and Chips")]
-[assembly: AssemblyProduct("VVVV.Nodes.OpenCV")]
-[assembly: AssemblyCopyright("Copyright ©  2011 Elliot Woods")]
+[assembly: AssemblyProduct("VVVV.CV.Nodes")]
+[assembly: AssemblyCopyright("Copyright ©  2013 Elliot Woods")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

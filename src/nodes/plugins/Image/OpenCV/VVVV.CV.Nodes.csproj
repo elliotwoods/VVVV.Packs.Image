@@ -144,16 +144,16 @@
     <Compile Include="src\Filters\ConvertScale.cs" />
     <Compile Include="src\Filters\Sobel.cs" />
     <Compile Include="src\Filters\S+H.cs" />
-    <Compile Include="src\Filters\Not.cs" />
+    <Compile Include="src\Filters\NOT.cs" />
     <Compile Include="src\Filters\Grayscale.cs" />
-    <Compile Include="src\Filters\TemporalAverage.cs" />
+    <Compile Include="src\Filters\Average.cs" />
     <Compile Include="src\Filters\Dilate.cs" />
     <Compile Include="src\Filters\Erode.cs" />
     <Compile Include="src\Filters\FrameDelay.cs" />
     <Compile Include="src\Filters\FrameDifference.cs" />
     <Compile Include="src\Filters\GaussianBlur.cs" />
     <Compile Include="src\Filters\GT,LT,EQ.cs" />
-    <Compile Include="src\Filters\ImageResize.cs" />
+    <Compile Include="src\Filters\Resize.cs" />
     <Compile Include="src\Filters\OpticalFlowHS.cs" />
     <Compile Include="src\Filters\OpticalFlowLK.cs" />
     <Compile Include="src\Filters\Template.cs" />
@@ -173,7 +173,7 @@
     <Compile Include="src\Tracking\ContourDelauneyNode.cs" />
     <Compile Include="src\Tracking\ContourNode.cs" />
     <Compile Include="src\Tracking\ContourPerimeterSplitNode.cs" />
-    <Compile Include="src\Tracking\ObjectTrackingNode.cs" />
+    <Compile Include="src\Tracking\TrackObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="src\Destinations\ImageViewNode.resx">

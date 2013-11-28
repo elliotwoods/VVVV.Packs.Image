@@ -15,7 +15,7 @@ using VideoInputSharp;
 namespace VVVV.Nodes.OpenCV.VideoInput
 {
 	#region PluginInfo
-	[PluginInfo(Name = "ListDevices", Category = "CV", Version = "DirectShow", Help = "List DirectShow video capture devices", Tags = "", Author = "Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "ListDevices", Category = "CV.Image", Version = "DirectShow", Help = "List DirectShow video capture devices", Tags = "", Author = "elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class ListDevicesNode : IPluginEvaluate
 	{

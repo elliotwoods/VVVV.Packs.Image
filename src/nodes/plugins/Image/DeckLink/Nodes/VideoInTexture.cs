@@ -27,8 +27,8 @@ namespace VVVV.Nodes.DeckLink
 	[PluginInfo(Name = "VideoIn",
 				Category = "DeckLink",
 				Version = "EX9.Texture",
-				Help = "Basic template which creates a texture",
-				Author = "Elliot Woods",
+				Help = "Capture a video stream to a texture",
+				Author = "elliotwoods",
 				Credits = "Lumacoustics",
 				Tags = "")]
 	#endregion PluginInfo

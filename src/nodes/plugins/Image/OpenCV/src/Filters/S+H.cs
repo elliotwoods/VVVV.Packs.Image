@@ -14,9 +14,20 @@ using VVVV.Utils.VColor;
 
 namespace VVVV.Nodes.OpenCV
 {
+	[FilterInstance("S+H")]
 	public class S_HInstance : IFilterInstance
 	{
-		public bool Set = false;
+		bool FFlagForSet = false;
+		[Input("Set")]
+		public bool Set {
+			set
+			{
+				if (value)
+				{
+					FFlagForSet = true;
+				}
+			}
+		}
 
 		public override void Allocate()
 		{
@@ -24,29 +35,13 @@ namespace VVVV.Nodes.OpenCV
 
 		public override void Process()
 		{
-			if (Set)
+			if (FFlagForSet)
 			{
 				FOutput.Image = FInput.Image;
 				FOutput.Send();
+				FFlagForSet = false;
 			}
 		}
 
-	}
-
-	#region PluginInfo
-	[PluginInfo(Name = "S+H", Category = "CV", Version = "Filter", Help = "S+H an Image", Author = "", Credits = "", Tags = "")]
-	#endregion PluginInfo
-	public class S_HNode : IFilterNode<S_HInstance>
-	{
-		[Input("Set")]
-		ISpread<bool> FPinInSet;
-
-		protected override void Update(int SpreadMax, bool SpreadChanged)
-		{
-			for (int i = 0; i < SpreadMax; i++)
-			{
-				FProcessor[i].Set = FPinInSet[i];
-			}
-		}
 	}
 }

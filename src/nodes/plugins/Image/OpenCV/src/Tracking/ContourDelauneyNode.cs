@@ -21,7 +21,7 @@ namespace VVVV.Nodes.OpenCV
 {
 
 	#region PluginInfo
-	[PluginInfo(Name = "Delauney", Category = "CV", Version="Analysis Contour", Help = "Convert contour perimeter to triangles", Tags = "")]
+	[PluginInfo(Name = "Delauney", Category = "CV.Contour", Help = "Convert contour perimeter to triangles", Tags = "")]
 	#endregion PluginInfo
 	public class ContourDelauneyNode : IPluginEvaluate, IDisposable
 	{

@@ -16,7 +16,7 @@ using System.Collections.Generic;
 namespace VVVV.Nodes.DeckLink
 {
 	#region PluginInfo
-	[PluginInfo(Name = "ListDevices", Category = "DeckLink", Help = "List BlackMagic DeckLink devices", Tags = "", Author = "Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "ListDevices", Category = "DeckLink", Help = "List BlackMagic DeckLink devices", Tags = "", Author = "elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class ListDevicesNode : IPluginEvaluate
 	{

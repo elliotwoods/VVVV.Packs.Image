@@ -22,7 +22,7 @@ namespace VVVV.Nodes.OpenCV.Calibration
 	public enum TCoordinateSystem { VVVV, OpenCV };
 
 	#region PluginInfo
-	[PluginInfo(Name = "CalibrateCamera", Category = "CV", Help = "Finds intrinsics for a single camera", Tags = "", AutoEvaluate=true)]
+	[PluginInfo(Name = "CalibrateCamera", Category = "CV.Transform", Help = "Finds intrinsics for a single camera", Tags = "calibration", AutoEvaluate=true)]
 	#endregion PluginInfo
 	public class CalibrateCameraNode : IPluginEvaluate, IDisposable
 	{

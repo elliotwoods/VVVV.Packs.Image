@@ -135,8 +135,8 @@ namespace VVVV.Nodes.OpenCV
 
 	#region PluginInfo
 	[PluginInfo(Name = "VideoIn",
-			  Category = "CV",
-			  Version = "Source",
+			  Category = "CV.Image",
+			  Version = "VfW",
 			  Help = "Captures from DShow device to IPLImage",
 			  Tags = "")]
 	#endregion PluginInfo

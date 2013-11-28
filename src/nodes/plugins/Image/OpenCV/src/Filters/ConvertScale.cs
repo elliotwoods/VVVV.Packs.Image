@@ -14,6 +14,7 @@ using VVVV.Utils.VColor;
 
 namespace VVVV.Nodes.OpenCV
 {
+	[FilterInstance("ConvertScale", Help = "Scale and offset an Image by a Value", Tags = "contrast", Author = "elliotwoods", Credits = "")]
 	public class ConvertScaleInstance : IFilterInstance
 	{
 		public override void Allocate()
@@ -21,70 +22,24 @@ namespace VVVV.Nodes.OpenCV
 			FOutput.Image.Initialise(FInput.ImageAttributes);
 		}
 
-		double FScale = 1.0;
-		public double Scale		{
-			set
-			{
-				this.FScale = value;
-			}
-		}
+		[Input("Scale")]
+		public double Scale = 1.0;
 
-		double FOffset = 0.0;
-		public double Offset
-		{
-			set
-			{
-				this.FOffset = value;
-			}
-		}
+		[Input("Offset")]
+		public double Offset = 0.0;
 
 		public override void Process()
 		{
 			FInput.LockForReading();
 			try
 			{
-				CvInvoke.cvConvertScale(FInput.CvMat, FOutput.CvMat, FScale, FOffset);
+				CvInvoke.cvConvertScale(FInput.CvMat, FOutput.CvMat, Scale, Offset);
 			}
 			finally
 			{
 				FInput.ReleaseForReading();
 			}
 			FOutput.Send();
-		}
-
-	}
-
-	#region PluginInfo
-	[PluginInfo(Name = "ConvertScale", Category = "CV", Version = "Filter", Help = "Scale and offset an Image by a Value", Tags = "contrast", Author = "elliotwoods", Credits = "")]
-	#endregion PluginInfo
-	public class ConvertScaleNode : IFilterNode<ConvertScaleInstance>
-	{
-		[Input("Scale", DefaultValue = 1.0)]
-		IDiffSpread<double> FInScale;
-
-		[Input("Offset", DefaultValue = 0.0)]
-		IDiffSpread<double> FInOffset;
-
-		protected override void Update(int InstanceCount, bool SpreadChanged)
-		{
-			if (FInScale.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Scale = FInScale[i];
-					FProcessor[i].FlagForProcess();
-				}
-			}
-
-			if (FInOffset.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Offset = FInOffset[i];
-					FProcessor[i].FlagForProcess();
-				}
-			}
-
 		}
 	}
 }

@@ -7,7 +7,7 @@ using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.OpenCV
 {
-	[PluginInfo(Name = "AsTexture", Category = "CV", Version = "DX11.Texture2D", Help = "Converts CVImage to DX11 Texture", Tags = "")]
+	[PluginInfo(Name = "AsTexture", Category = "CV.Image", Version = "DX11.Texture2D", Help = "Converts CVImage to DX11 Texture", Tags = "")]
 	public class AsTextureDX11Node : IPluginEvaluate, IDX11ResourceProvider, IDisposable
 	{
 		[Input("Image")]

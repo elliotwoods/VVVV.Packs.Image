@@ -21,7 +21,7 @@ namespace VVVV.Nodes.OpenCV
 {
 
 	#region PluginInfo
-	[PluginInfo(Name = "StereoCalibrate", Category = "CV", Help = "Finds extrinsics between 2 cameras", Tags = "")]
+	[PluginInfo(Name = "StereoCalibrate", Category = "CV.Transform", Help = "Finds extrinsics between 2 cameras", Tags = "")]
 	#endregion PluginInfo
 	public class StereoCalibrateNode : IPluginEvaluate, IDisposable
 	{

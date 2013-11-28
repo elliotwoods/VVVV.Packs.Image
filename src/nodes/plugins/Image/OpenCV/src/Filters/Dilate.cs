@@ -14,9 +14,11 @@ using VVVV.Utils.VColor;
 
 namespace VVVV.Nodes.OpenCV
 {
+	[FilterInstance("Dilate", Help = "Inflate features in image, i.e. grow noise", Author = "elliotwoods", Tags = "denoise")]
 	public class DilateInstance : IFilterInstance
 	{
 		private int FIterations = 1;
+		[Input("Iterations", MinValue = 0, MaxValue = 64, DefaultValue = 1)]
 		public int Iterations
 		{
 			set
@@ -43,28 +45,6 @@ namespace VVVV.Nodes.OpenCV
 			FInput.ReleaseForReading();
 
 			FOutput.Send();
-		}
-
-	}
-
-	#region PluginInfo
-	[PluginInfo(Name = "Dilate", Category = "CV", Version = "Filter", Help = "Inflate features in image, i.e. grow noise", Author = "elliotwoods", Credits = "", Tags = "")]
-	#endregion PluginInfo
-	public class DilateNode : IFilterNode<DilateInstance>
-	{
-		[Input("Iterations", MinValue = 0, MaxValue = 64, DefaultValue = 1)]
-		IDiffSpread<int> FIterations;
-
-		protected override void Update(int InstanceCount, bool SpreadChanged)
-		{
-			if (FIterations.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Iterations = FIterations[i];
-					FProcessor[i].FlagForProcess();
-				}
-			}
 		}
 	}
 }

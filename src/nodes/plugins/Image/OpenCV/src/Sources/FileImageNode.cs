@@ -50,7 +50,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "FileImage", Category = "CV", Version = "Source", Help = "Loads image file from disk.", Author = "alg", Tags = "")]
+	[PluginInfo(Name = "FileImage", Category = "CV.Image", Help = "Loads image file from disk.", Author = "alg", Tags = "")]
 	#endregion PluginInfo
 	public class FileImageNode : IGeneratorNode<FileImageInstance>
 	{

@@ -132,8 +132,7 @@ namespace VVVV.Nodes.OpenCV
 
     #region PluginInfo
     [PluginInfo(Name = "VideoPlayer",
-              Category = "CV",
-              Version = "Source",
+              Category = "CV.Image",
               Help = "Plays a video file to an Image stream",
               Tags = "")]
     #endregion PluginInfo

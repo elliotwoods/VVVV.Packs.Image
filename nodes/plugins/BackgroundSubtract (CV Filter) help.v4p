@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
    <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\BackgroundSubtract (CV Filter) help.v4p">
-   <BOUNDS type="Window" left="7830" top="7065" width="9000" height="6000">
+   <BOUNDS type="Window" left="7830" top="7065" width="8175" height="6165">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
    <BOUNDS type="Node" left="150" top="150" width="5000" height="450">
@@ -25,9 +25,9 @@
    </PIN>
    </NODE>
    <NODE nodename="BackgroundSubtract (CV Filter)" componentmode="Hidden" id="0" systemname="BackgroundSubtract (CV Filter)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll">
-   <BOUNDS type="Node" left="445" top="3770" width="4950" height="270">
+   <BOUNDS type="Node" left="445" top="4220" width="4950" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="445" top="3770" width="0" height="0">
+   <BOUNDS type="Box" left="445" top="4220" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
    </PIN>
@@ -45,7 +45,7 @@
    </PIN>
    </NODE>
    <NODE systemname="VideoOut (CV)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\VideoOut (CV).v4p" nodename="VideoOut (CV)" componentmode="Hidden" id="5">
-   <BOUNDS type="Node" left="465" top="4485" width="100" height="100">
+   <BOUNDS type="Node" left="465" top="4935" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
    </PIN>
@@ -55,15 +55,15 @@
    <LINK srcnodeid="0" srcpinname="Output" dstnodeid="5" dstpinname="Image">
    </LINK>
    <NODE systemname="LFO (Animation)" nodename="LFO (Animation)" componentmode="Hidden" id="7">
-   <BOUNDS type="Node" left="1305" top="2100" width="100" height="100">
+   <BOUNDS type="Node" left="6195" top="2760" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Change" visible="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="8" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="1650" top="2640" width="480" height="480">
+   <BOUNDS type="Box" left="5340" top="3450" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="1650" top="2640" width="0" height="0">
+   <BOUNDS type="Node" left="5340" top="3450" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -80,12 +80,16 @@
    </NODE>
    <LINK srcnodeid="8" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Set">
    </LINK>
-   <LINK srcnodeid="7" srcpinname="Change" dstnodeid="8" dstpinname="Y Input Value">
+   <LINK srcnodeid="7" srcpinname="Change" dstnodeid="8" dstpinname="Y Input Value" linkstyle="VHV">
+   <LINKPOINT x="6540" y="3240">
+   </LINKPOINT>
+   <LINKPOINT x="5400" y="3240">
+   </LINKPOINT>
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="9" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="2880" top="2640" width="795" height="240">
+   <BOUNDS type="Box" left="1665" top="2760" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="2880" top="2640" width="0" height="0">
+   <BOUNDS type="Node" left="1665" top="2760" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="0.1">
    </PIN>
@@ -99,9 +103,9 @@
    <LINK srcnodeid="9" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Threshold">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="2850" top="2310" width="2370" height="270">
+   <BOUNDS type="Node" left="1635" top="2430" width="2370" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="2850" top="2310" width="2370" height="270">
+   <BOUNDS type="Box" left="1635" top="2430" width="2370" height="270">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|This value is normalised (0..1)|">
    </PIN>
@@ -113,9 +117,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="11" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="4125" top="2640" width="480" height="480">
+   <BOUNDS type="Box" left="2910" top="2760" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="4125" top="2640" width="0" height="0">
+   <BOUNDS type="Node" left="2910" top="2760" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" values="1">
    </PIN>
@@ -135,9 +139,9 @@
    <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Threshold Enabled">
    </LINK>
    <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="12" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="5325" top="2640" width="1590" height="240">
+   <BOUNDS type="Box" left="4110" top="2760" width="1590" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="5325" top="2640" width="0" height="0">
+   <BOUNDS type="Node" left="4110" top="2760" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Input Enum" slicecount="1" values="AbsoluteDifference">
    </PIN>

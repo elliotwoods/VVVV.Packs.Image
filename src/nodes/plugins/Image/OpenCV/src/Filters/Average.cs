@@ -14,9 +14,12 @@ using VVVV.Utils.VColor;
 
 namespace VVVV.Nodes.OpenCV
 {
+	[FilterInstance("Average", Tags = "temporal", Help = "Average input image over N frames (outputs at input framerate / N)", Author = "elliotwoods")]
 	public class TemporalAverageInstance : IFilterInstance
 	{
 		private int FFrames = 1;
+
+		[Input("Frames", MinValue = 1, MaxValue = 64, DefaultValue = 1)]
 		public int Frames
 		{
 			set
@@ -53,26 +56,6 @@ namespace VVVV.Nodes.OpenCV
 				FOutput.Send();
 				CvInvoke.cvSet(FOutput.CvMat, new MCvScalar(0.0), IntPtr.Zero);
 				FFrame = 0;
-			}
-		}
-	}
-
-	#region PluginInfo
-	[PluginInfo(Name = "Average", Category = "CV", Version = "Filter", Help = "Average input image over N frames (outputs at input framerate / N)", Author = "elliotwoods", Credits = "", Tags = "")]
-	#endregion PluginInfo
-	public class TemporalAverageNode : IFilterNode<TemporalAverageInstance>
-	{
-		[Input("Frames", MinValue=1, MaxValue=64, DefaultValue=1)]
-		IDiffSpread<int> FPinInFrames;
-
-		protected override void Update(int InstanceCount, bool SpreadChanged)
-		{
-			if (FPinInFrames.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Frames = FPinInFrames[i];
-				}
 			}
 		}
 	}

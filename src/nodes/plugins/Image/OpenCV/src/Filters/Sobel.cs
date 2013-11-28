@@ -14,9 +14,11 @@ using VVVV.Utils.VColor;
 
 namespace VVVV.Nodes.OpenCV
 {
+	[FilterInstance("Sobel", Help = "Find the 2D derivative of an image using the Sobel filter", Tags = "edge detection")]
 	public class SobelInstance : IFilterInstance
 	{
-		private int FAperture = 5;
+		private int FAperture = 3;
+		[Input("Aperture size", MinValue = 3, MaxValue = 7, DefaultValue = 3)]
 		public int Aperture
 		{
 			set
@@ -34,6 +36,7 @@ namespace VVVV.Nodes.OpenCV
 		}
 
 		private int FXOrder = 1;
+		[Input("X Order", DefaultValue = 1)]
 		public int XOrder
 		{
 			set
@@ -47,6 +50,7 @@ namespace VVVV.Nodes.OpenCV
 		}
 
 		private int FYOrder = 1;
+		[Input("Y Order", DefaultValue = 1)]
 		public int YOrder
 		{
 			set
@@ -76,53 +80,6 @@ namespace VVVV.Nodes.OpenCV
 				FInput.ReleaseForReading();
 			}
 			FOutput.Send();
-		}
-
-	}
-
-	#region PluginInfo
-	[PluginInfo(Name = "Sobel", Category = "CV", Version = "Filter", Help = "Find the 2D derivative of an image using the Sobel filter", Tags = "edge detection")]
-	#endregion PluginInfo
-	public class SobelNode : IFilterNode<SobelInstance>
-	{
-		[Input("X Order", DefaultValue = 1)]
-		IDiffSpread<int> FInXOrder;
-
-		[Input("Y Order", DefaultValue = 1)]
-		IDiffSpread<int> FInYOrder;
-
-		[Input("Aperture size", MinValue = 3, MaxValue = 7, DefaultValue = 3)]
-		IDiffSpread<int> FInApertureSize;
-
-		protected override void Update(int InstanceCount, bool SpreadChanged)
-		{
-			if (FInXOrder.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].XOrder = FInXOrder[i];
-					FProcessor[i].FlagForProcess();
-				}
-			}
-
-			if (FInYOrder.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].YOrder = FInYOrder[i];
-					FProcessor[i].FlagForProcess();
-				}
-			}
-
-			if (FInApertureSize.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Aperture = FInApertureSize[i];
-					FProcessor[i].FlagForProcess();
-				}
-			}
-
 		}
 	}
 }

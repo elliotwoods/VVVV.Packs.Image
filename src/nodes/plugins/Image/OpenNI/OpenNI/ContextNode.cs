@@ -20,7 +20,7 @@ namespace VVVV.Nodes.OpenCV.OpenNI
 {
 
 	#region PluginInfo
-	[PluginInfo(Name = "Context", Category = "CV", Version = "OpenNI", Help = "OpenNI context loader", Tags = "", AutoEvaluate=true)]
+	[PluginInfo(Name = "Context", Category = "CV.Image", Version = "OpenNI", Help = "OpenNI context loader", Tags = "", AutoEvaluate=true)]
 	#endregion PluginInfo
 	public class ContextNode : IPluginEvaluate, IDisposable
 	{

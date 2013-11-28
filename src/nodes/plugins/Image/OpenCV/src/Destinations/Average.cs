@@ -76,7 +76,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Average", Category = "CV", Version = "Analysis", Help = "Returns the mean and standard deviation of the pixel values within an image.", Author = "elliotwoods", Credits = "", Tags = "mean, standard deviation")]
+	[PluginInfo(Name = "Average", Category = "CV.Image", Help = "Returns the mean and standard deviation of the pixel values within an image.", Author = "elliotwoods", Credits = "", Tags = "mean, standard deviation")]
 	#endregion PluginInfo
 	public class AverageNode : IDestinationNode<AverageInstance>
 	{

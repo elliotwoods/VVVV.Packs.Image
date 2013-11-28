@@ -28,7 +28,7 @@ namespace VVVV.Nodes.OpenCV.Features.Criteria
     }
 
     #region PluginInfo
-    [PluginInfo(Name = "ImageRegion", Category = "CV", Version = "Features Criteria Position", Help = "Filter features based on a position boundary in the image", Tags = "")]
+    [PluginInfo(Name = "ImageRegion", Category = "CV.Features", Help = "Filter features based on a position boundary in the image", Tags = "criteria")]
     #endregion PluginInfo
     public class ImageRegionNode : IPluginEvaluate
     {

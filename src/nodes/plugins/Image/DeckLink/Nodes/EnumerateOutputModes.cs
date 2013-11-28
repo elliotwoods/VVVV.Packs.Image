@@ -11,7 +11,7 @@ using VVVV.PluginInterfaces.V2;
 namespace VVVV.Nodes.DeckLink.Nodes
 {
 	#region PluginInfo
-	[PluginInfo(Name = "EnumerateModes", Category = "DeckLink", Version = "Output", Help = "Enumerate available output modes for attached BlackMagic devices.", Tags = "", Author = "Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "EnumerateModes", Category = "DeckLink", Version = "Output", Help = "Enumerate available output modes for attached BlackMagic devices.", Tags = "", Author = "elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class EnumerateOutputModes : IPluginEvaluate
 	{

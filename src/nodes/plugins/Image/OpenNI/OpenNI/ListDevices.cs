@@ -19,7 +19,7 @@ using OpenNI;
 namespace VVVV.Nodes.OpenCV.OpenNI
 {
     #region PluginInfo
-	[PluginInfo(Name = "ListDevices", Category = "CV", Version = "OpenNI", Help = "OpenNI context loader", Tags = "", AutoEvaluate = true)]
+	[PluginInfo(Name = "ListDevices", Category = "CV.Image", Version = "OpenNI", Help = "OpenNI context loader", Tags = "", AutoEvaluate = true)]
     #endregion PluginInfo
     public class ListDevicesNode : IPluginEvaluate, IDisposable
     {

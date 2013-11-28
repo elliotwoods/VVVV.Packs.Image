@@ -193,7 +193,7 @@ namespace VVVV.Nodes.DeckLink
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "VideoIn", Category = "DeckLink", Version = "Image", Help = "Captures video from BlackMagic DeckLink devices", Author = "Elliot Woods", Tags = "", AutoEvaluate = true)]
+	[PluginInfo(Name = "VideoIn", Category = "DeckLink", Version = "Image", Help = "Captures video from BlackMagic DeckLink devices", Author = "elliotwoods", Tags = "", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class VideoInNode : IGeneratorNode<VideoInInstance>
 	{

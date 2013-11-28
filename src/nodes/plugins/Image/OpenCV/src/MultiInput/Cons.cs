@@ -10,7 +10,7 @@ using VVVV.Core.Logging;
 namespace VVVV.Nodes.OpenCV
 {
 	#region PluginInfo
-	[PluginInfo(Name = "Cons", Category = "CV", Help = "Cons 2 inputs (temporary, will replace with templated version when i find it, i.e. >2 inputs. but dont need that right now)", Tags = "")]
+	[PluginInfo(Name = "Cons", Category = "CV.Image")]
 	#endregion PluginInfo
 	public class ConsNode : Cons<CVImageLink>
 	{

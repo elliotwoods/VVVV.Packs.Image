@@ -16,9 +16,11 @@ using System.Linq;
 
 namespace VVVV.Nodes.OpenCV
 {
+	[FilterInstance("Rotate", Help = "Rotate an image in 1/4 cycle increments.", Author = "elliotwoods")]
     public class RotateStepInstance : IFilterInstance
     {
-        public int Rotations;
+		[Input("Rotations")]
+		public int Rotations = 0;
 
         public override void Allocate()
         {
@@ -89,30 +91,7 @@ namespace VVVV.Nodes.OpenCV
                     }
                     break;
             }
-
             FOutput.Send();
-        }
-
-    }
-
-    #region PluginInfo
-    [PluginInfo(Name = "Rotate", Category = "CV", Version = "Filter", Help = "Rotate an image in 1/4 cycle increments.", Author = "elliotwoods", Credits = "", Tags = "")]
-    #endregion PluginInfo
-    public class RotateStepNode : IFilterNode<RotateStepInstance>
-    {
-        [Input("Rotations")]
-        IDiffSpread<int> FRotations;
-
-        protected override void Update(int InstanceCount, bool SpreadChanged)
-        {
-			if (FRotations.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Rotations = FRotations[i];
-					FProcessor[i].FlagForProcess();
-				}
-			}
         }
     }
 }

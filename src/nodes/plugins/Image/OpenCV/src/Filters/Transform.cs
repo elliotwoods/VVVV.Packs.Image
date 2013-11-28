@@ -16,8 +16,10 @@ using System.Linq;
 
 namespace VVVV.Nodes.OpenCV
 {
-    public class RotateContinuousInstance : IFilterInstance
+	[FilterInstance("Transform", Help = "Apply an affine transformation to an image (e.g. translate, rotate, scale, skew).", Author = "elliotwoods")]
+    public class TransformInstance : IFilterInstance
     {
+		[Input("Transform")]
 		Matrix4x4 FTrasform = new Matrix4x4();
 		Object FTransformLock = new Object();
 		public Matrix4x4 Transform
@@ -31,6 +33,7 @@ namespace VVVV.Nodes.OpenCV
 			}
 		}
 
+		[Input("Apply To Image Center")]
 		public bool UseCenter = false;
 
         public override void Allocate()
@@ -78,42 +81,7 @@ namespace VVVV.Nodes.OpenCV
                     FInput.ReleaseForReading();
                 }
             }
-
             FOutput.Send();
-        }
-
-    }
-
-    #region PluginInfo
-    [PluginInfo(Name = "Transform", Category = "CV", Version = "Filter", Help = "Apply an affine transformation to an image (e.g. translate, rotate, scale, skew).", Author = "elliotwoods")]
-    #endregion PluginInfo
-    public class RotateContinuousNode : IFilterNode<RotateContinuousInstance>
-    {
-        [Input("Transform")]
-        IDiffSpread<Matrix4x4> FInTransform;
-
-		[Input("Apply To Image Center")]
-		IDiffSpread<bool> FInUseCenter;
-
-        protected override void Update(int InstanceCount, bool SpreadChanged)
-        {
-			if (FInTransform.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Transform = FInTransform[i];
-					FProcessor[i].FlagForProcess();
-				}
-			}
-
-			if (FInUseCenter.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].UseCenter = FInUseCenter[i];
-					FProcessor[i].FlagForProcess();
-				}
-			}
         }
     }
 }

@@ -14,9 +14,13 @@ using VVVV.Utils.VColor;
 
 namespace VVVV.Nodes.OpenCV
 {
+	[FilterInstance("WithinRange")]
 	public class WithinRangeInstance : IFilterInstance
 	{
+		[Input("Minimum", DefaultValue = 0)]
 		public double Minimum = 0;
+
+		[Input("Maximum", DefaultValue = 1)]
 		public double Maximum = 1;
 
 		CVImage FImageGT = new CVImage();
@@ -39,40 +43,6 @@ namespace VVVV.Nodes.OpenCV
 
 			CvInvoke.cvAnd(FImageGT.CvMat, FImageLT.CvMat, FOutput.CvMat, IntPtr.Zero);
 			FOutput.Send();
-		}
-
-	}
-
-	#region PluginInfo
-	[PluginInfo(Name = "WithinRange", Category = "CV", Version = "Filter", Help = "Less than", Author = "", Credits = "", Tags = "")]
-	#endregion PluginInfo
-	public class WithinRangeNode : IFilterNode<WithinRangeInstance>
-	{
-		[Input("Minimum", DefaultValue = 0)]
-		IDiffSpread<double> FMinimum;
-
-		[Input("Maximum", DefaultValue = 1)]
-		IDiffSpread<double> FMaximum;
-
-		protected override void Update(int InstanceCount, bool SpreadChanged)
-		{
-			if (FMinimum.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Minimum = FMinimum[i];
-					FProcessor[i].FlagForProcess();
-				}
-			}
-
-			if (FMaximum.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Maximum = FMaximum[i];
-					FProcessor[i].FlagForProcess();
-				}
-			}
 		}
 	}
 }

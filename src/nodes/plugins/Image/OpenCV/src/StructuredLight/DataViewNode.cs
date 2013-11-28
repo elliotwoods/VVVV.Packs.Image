@@ -263,7 +263,7 @@ namespace VVVV.Nodes.OpenCV.StructuredLight
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Space", Category = "CV", Version = "StructuredLight", Help = "Preview structured light data", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Space", Category = "CV.StructuredLight", Help = "Preview structured light data", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class SpaceNode : IGeneratorNode<SpaceInstance>
 	{

@@ -231,7 +231,7 @@ namespace VVVV.Nodes.OpenCV
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Contour", Category = "CV", Version = "Analysis", Help = "Finds contours in binary image", Tags = "")]
+	[PluginInfo(Name = "Contour", Category = "CV.Image", Version = "", Help = "Finds contours in binary image", Tags = "analysis")]
 	#endregion PluginInfo
 	public class ContourNode : IDestinationNode<ContourInstance>
 	{

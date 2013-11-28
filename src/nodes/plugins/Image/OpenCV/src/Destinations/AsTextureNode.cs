@@ -29,7 +29,7 @@ namespace VVVV.Nodes.OpenCV
 {
 	#region PluginInfo
 	[PluginInfo(Name = "AsTexture",
-				Category = "CV",
+				Category = "CV.Image",
 				Version = "EX9.Texture",
 				Help = "Converts CVImage to Texture",
 				Tags = "")]

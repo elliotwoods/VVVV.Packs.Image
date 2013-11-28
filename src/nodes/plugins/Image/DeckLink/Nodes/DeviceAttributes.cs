@@ -15,7 +15,7 @@ using DeckLinkAPI;
 namespace VVVV.Nodes.DeckLink
 {
 	#region PluginInfo
-	[PluginInfo(Name = "DeviceAttributes", Category = "DeckLink", Help = "Report attributes of a BlackMagic DeckLink device", Tags = "", Author = "Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "DeviceAttributes", Category = "DeckLink", Help = "Report attributes of a BlackMagic DeckLink device", Tags = "", Author = "elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class DeviceAttributesNode : IPluginEvaluate
 	{

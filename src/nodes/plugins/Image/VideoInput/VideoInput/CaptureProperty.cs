@@ -16,7 +16,7 @@ using System.Collections.Generic;
 namespace VVVV.Nodes.OpenCV.VideoInput
 {
 	#region PluginInfo
-	[PluginInfo(Name = "CaptureProperty", Category = "CV", Version = "DirectShow", Help = "Set properties for DirectShow video", Tags = "", Author="Elliot Woods", AutoEvaluate = true)]
+	[PluginInfo(Name = "CaptureProperty", Category = "CV.Image", Version = "DirectShow", Help = "Set properties for DirectShow video", Tags = "", Author="elliotwoods", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class CapturePropertyNode : IPluginEvaluate
 	{

@@ -59,7 +59,7 @@ namespace VVVV.Nodes.OpenCV.Features
     }
 
     #region PluginInfo
-    [PluginInfo(Name = "DetectFeatures", Category = "CV", Version = "Analysis Features", Help = "Find feature points in 2D image", Tags = "SURF")]
+    [PluginInfo(Name = "DetectFeatures", Category = "CV.Image", Help = "Find feature points in 2D image", Tags = "SURF")]
     #endregion PluginInfo
     public class DetectFeaturesNode : IDestinationNode<DetectFeaturesInstance>
     {

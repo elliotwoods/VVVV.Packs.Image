@@ -114,8 +114,8 @@ namespace VVVV.CV.Factories
 
             var nodeInfo = FNodeInfoFactory.CreateNodeInfo(
                 name,
-                "CV",
-                "Filter",
+                "CV.Image",
+                "",
                 filename,
                 true);
 

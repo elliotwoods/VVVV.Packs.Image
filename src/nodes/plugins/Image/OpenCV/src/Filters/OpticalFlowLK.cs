@@ -8,6 +8,7 @@ using Emgu.CV.Structure;
 
 namespace VVVV.Nodes.OpenCV
 {
+	[FilterInstance("OpticalFlow", Version = "Lucas-Kanade", Help = "Perform LK optical flow on image", Author = "elliotwoods")]
 	public class OpticalFlowLKInstance : IFilterInstance
 	{
 		private Size FSize;
@@ -18,6 +19,7 @@ namespace VVVV.Nodes.OpenCV
 		private CVImage FVelocityY = new CVImage();
 
 		private Size FWindowSize = new Size(5, 5);
+		[Input("Window Size", IsSingle = true, DefaultValue = 5, MinValue = 1, MaxValue = 15)]
 		public int WindowSize
 		{
 			get
@@ -82,22 +84,6 @@ namespace VVVV.Nodes.OpenCV
 				*dest++ = *sourcey++;
 				*dest++ = 0.0f;
 			}
-		}
-	}
-
-	#region PluginInfo
-	[PluginInfo(Name = "OpticalFlowLK", Category = "CV", Version = "Filter", Help = "Perform LK optical flow on image", Author = "elliotwoods", Credits = "", Tags = "")]
-	#endregion PluginInfo
-	public class OpticalFlowLKNode : IFilterNode<OpticalFlowLKInstance>
-	{
-		[Input("Window Size", IsSingle = true, DefaultValue=5, MinValue=1, MaxValue=15)]
-		IDiffSpread<int> FPinInWindowSize;
-
-		protected override void Update(int SpreadMax, bool SpreadChanged)
-		{
-			if (FPinInWindowSize.IsChanged || SpreadChanged)
-				for (int i=0; i<SpreadMax; i++)
-					FProcessor[i].WindowSize = FPinInWindowSize[0];
 		}
 	}
 }

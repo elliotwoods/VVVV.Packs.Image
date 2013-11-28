@@ -11,7 +11,7 @@ using System.Diagnostics;
 namespace VVVV.Nodes.OpenCV.Features
 {
     #region PluginInfo
-    [PluginInfo(Name = "MatchFeatures", Category = "CV", Version = "Features", Help = "Find correspondeces between a pair of FeatureSet's.", Tags = "")]
+    [PluginInfo(Name = "MatchFeatures", Category = "CV.Features", Help = "Find correspondeces between a pair of FeatureSet's.", Tags = "")]
     #endregion PluginInfo
     public class MatchFeatures : IPluginEvaluate
     {

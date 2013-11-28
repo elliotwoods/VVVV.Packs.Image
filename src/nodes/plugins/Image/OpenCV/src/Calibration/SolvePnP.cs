@@ -20,7 +20,7 @@ using System.Collections.Generic;
 namespace VVVV.Nodes.OpenCV
 {
 	#region PluginInfo
-	[PluginInfo(Name = "SolvePnP", Category = "CV", Help = "Find extrinsics of object given camera intrinsics and some image<>object correspondences", Tags = "FindExtrinsics")]
+	[PluginInfo(Name = "SolvePnP", Category = "CV.Transform", Help = "Find extrinsics of object given camera intrinsics and some image<>object correspondences", Tags = "FindExtrinsics")]
 	#endregion PluginInfo
 	public class SolvePnPNode : IPluginEvaluate, IDisposable
 	{

@@ -8,14 +8,20 @@ using Emgu.CV.Structure;
 
 namespace VVVV.Nodes.OpenCV
 {
+	[FilterInstance("UnsharpMask", Help = "Sharpen the image using the UnsharpMask algorithm", Author = "velcrome", Credits = "", Tags = "sharpen")]
 	public class UnsharpMaskInstance : IFilterInstance
 	{
+		[Input("Width", IsSingle = true, DefaultValue = 3, MinValue = 0, MaxValue = 64)]
 		public int Width = 3;
 
-		public double WeightMask = 0.5;
-		public double WeightOrig = 1.5;
-
+		[Input("Gamma", IsSingle = true, DefaultValue = 0.5)]
 		public double Gamma = 0.5;
+
+		[Input("WeightMask", IsSingle = true, DefaultValue = 0.5)]
+		public double WeightMask = 0.5;
+
+		[Input("WeightOrig", IsSingle = true, DefaultValue = 1.5)]
+		public double WeightOrig = 1.5;
 
 		public override void Allocate()
 		{
@@ -37,39 +43,6 @@ namespace VVVV.Nodes.OpenCV
 			}
 
 			FOutput.Send();
-		}
-	}
-
-	#region PluginInfo
-	[PluginInfo(Name = "UnsharpMask", Category = "CV", Version = "Filter", Help = "Sharpen the image using the UnsharpMask algorithm", Author = "velcrome", Credits = "", Tags = "sharpen")]
-	#endregion PluginInfo
-	public class UnsharpMaskNode : IFilterNode<UnsharpMaskInstance>
-	{
-		[Input("Width", IsSingle = true, DefaultValue = 3, MinValue = 0, MaxValue = 64)]
-		IDiffSpread<int> FPinInWidth;
-
-		[Input("Gamma", IsSingle = true, DefaultValue = 0.5)]
-		IDiffSpread<double> FPinGamma;
-
-		[Input("WeightMask", IsSingle = true, DefaultValue = 0.5)]
-		IDiffSpread<double> FPinWeightMask;
-
-		[Input("WeightOrig", IsSingle = true, DefaultValue = 1.5)]
-		IDiffSpread<double> FPinWeightOrig;
-
-		protected override void Update(int InstanceCount, bool SpreadChanged)
-		{
-			if (SpreadChanged || FPinInWidth.IsChanged || FPinGamma.IsChanged || FPinWeightMask.IsChanged || FPinWeightOrig.IsChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Width = FPinInWidth[0];
-					FProcessor[i].Gamma = FPinGamma[0];
-					FProcessor[i].WeightMask = FPinWeightMask[0];
-					FProcessor[i].WeightOrig = FPinWeightOrig[0];
-					FProcessor[i].FlagForProcess();
-				}
-			}
 		}
 	}
 }
