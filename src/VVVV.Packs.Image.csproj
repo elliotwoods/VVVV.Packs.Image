@@ -66,6 +66,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="factories\VVVV.CV.Factory.csproj">
+      <Project>{0fbadfb2-3c92-4079-be0e-cf0f7adf9108}</Project>
+      <Name>VVVV.CV.Factory</Name>
+    </ProjectReference>
     <ProjectReference Include="nodes\plugins\DX11\Ximea\VVVV.Nodes.Ximea.csproj">
       <Project>{685c0911-c080-46b4-b21f-b8bbad507d0b}</Project>
       <Name>VVVV.Nodes.Ximea</Name>
@@ -90,9 +94,9 @@
       <Project>{7a5ac7e2-511c-4240-8d2b-5171f511f4c5}</Project>
       <Name>VVVV.Nodes.OpenCV.FreeImage</Name>
     </ProjectReference>
-    <ProjectReference Include="nodes\plugins\Image\OpenCV\VVVV.CV.Core.csproj">
+    <ProjectReference Include="nodes\plugins\Image\OpenCV\VVVV.CV.Nodes.csproj">
       <Project>{e9a7fc26-34e0-4c1e-83d8-c01a169422b2}</Project>
-      <Name>VVVV.CV.Core</Name>
+      <Name>VVVV.CV.Nodes</Name>
     </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\OpenNI\VVVV.Nodes.OpenCV.OpenNI.csproj">
       <Project>{d9d17924-98d5-468f-840e-3a3f8308be35}</Project>

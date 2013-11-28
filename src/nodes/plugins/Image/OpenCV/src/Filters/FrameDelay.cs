@@ -14,6 +14,7 @@ using VVVV.Utils.VColor;
 
 namespace VVVV.Nodes.OpenCV
 {
+    [FilterInstance("FrameDelay")]
 	public class FrameDelayInstance : IFilterInstance
 	{
 		CVImage FBuffer = new CVImage();
@@ -36,10 +37,11 @@ namespace VVVV.Nodes.OpenCV
 				FBuffer.SetImage(FInput.Image);
 			}
 		}
+
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "FrameDelay", Category = "CV", Version = "Filter", Help = "Delay output by 1 frame", Author = "elliotwoods", Credits = "", Tags = "")]
+	[PluginInfo(Name = "FrameDelay", Category = "OpenCV", Version = "", Help = "Delay output by 1 frame", Author = "elliotwoods", Credits = "", Tags = "")]
 	#endregion PluginInfo
 	public class FrameDelayNode : IFilterNode<FrameDelayInstance>
 	{
