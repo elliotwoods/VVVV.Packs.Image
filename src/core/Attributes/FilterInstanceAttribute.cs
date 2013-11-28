@@ -8,6 +8,10 @@ namespace VVVV.Nodes.OpenCV
     public class FilterInstanceAttribute : Attribute
     {
         public string Name { get; set; }
+		public string Help { get; set; }
+		public string Author { get; set; }
+		public string Credits { get; set; }
+		public string Tags { get; set; }
 
         public FilterInstanceAttribute(string name)
         {

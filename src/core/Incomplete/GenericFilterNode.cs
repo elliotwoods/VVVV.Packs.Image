@@ -131,6 +131,7 @@ namespace VVVV.Nodes.OpenCV
                             var propertyInfo = inputMember as PropertyInfo;
                             propertyInfo.SetValue(filterInstance, input[i], null);
                         }
+						FProcessor[i].FlagForProcess();
                     }
                 }
             }
