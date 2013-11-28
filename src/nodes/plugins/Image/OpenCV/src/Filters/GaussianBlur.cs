@@ -8,6 +8,7 @@ using Emgu.CV.Structure;
 
 namespace VVVV.Nodes.OpenCV
 {
+    [FilterInstance("GaussianBlur")]
 	public class GaussianBlurInstance : IFilterInstance
 	{
         [Input("Width")]
@@ -32,28 +33,6 @@ namespace VVVV.Nodes.OpenCV
 			
 			FOutput.Send();
 
-		}
-
-	}
-
-	#region PluginInfo
-	[PluginInfo(Name = "GaussianBlur", Category = "OpenCV", Help = "Perform LK optical flow on image", Author = "elliotwoods", Credits = "", Tags = "")]
-	#endregion PluginInfo
-	public class GaussianBlurNode : IFilterNode<GaussianBlurInstance>
-	{
-		[Input("Width", IsSingle = true, DefaultValue=3, MinValue=0, MaxValue=64)]
-		IDiffSpread<int> FPinInWidth;
-
-		protected override void Update(int InstanceCount, bool SpreadChanged)
-		{
-			if (FPinInWidth.IsChanged || SpreadChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Width = FPinInWidth[0];
-					FProcessor[i].FlagForProcess();
-				}
-			}
 		}
 	}
 }
