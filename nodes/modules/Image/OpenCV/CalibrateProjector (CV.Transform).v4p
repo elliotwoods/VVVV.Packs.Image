@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CalibrateProjector (CV).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Build\Modules\CalibrateProjector (EmguCV).v4p" systemname="CalibrateProjector (EmguCV)">
-   <BOUNDS height="8715" left="10590" top="6210" type="Window" width="16320">
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CalibrateProjector (CV.Transform).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Build\Modules\CalibrateProjector (EmguCV).v4p" systemname="CalibrateProjector (EmguCV)">
+   <BOUNDS height="8715" left="9420" top="6210" type="Window" width="17490">
    </BOUNDS>
    <NODE componentmode="InABox" id="18" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="4470" top="1050" type="Node" width="0">
@@ -476,7 +476,7 @@
    </LINK>
    <LINK srcnodeid="69" srcpinname="Y Output Value" dstnodeid="54" dstpinname="Input 2">
    </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="67" nodename="CalibrateCamera (CV)" systemname="CalibrateCamera (CV)">
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="67" nodename="CalibrateCamera (CV.Transform)" systemname="CalibrateCamera (CV.Transform)">
    <BOUNDS height="270" left="810" top="3015" type="Node" width="10980">
    </BOUNDS>
    <PIN pinname="ResolutionXY" visible="1">
@@ -514,7 +514,7 @@
    </LINK>
    <LINK srcnodeid="18" srcpinname="Y Output Value" dstnodeid="67" dstpinname="ResolutionXY">
    </LINK>
-   <NODE systemname="Perspective (CV Intrinsics Transform)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Perspective (CV Intrinsics Transform).v4p" nodename="Perspective (CV Intrinsics Transform)" componentmode="Hidden" id="47">
+   <NODE systemname="Perspective (CV.Transform)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Perspective (CV.Transform).v4p" nodename="Perspective (CV.Transform)" componentmode="Hidden" id="47">
    <BOUNDS type="Node" left="5835" top="4230" width="1830" height="270">
    </BOUNDS>
    <PIN pinname="Resolution" visible="1">
