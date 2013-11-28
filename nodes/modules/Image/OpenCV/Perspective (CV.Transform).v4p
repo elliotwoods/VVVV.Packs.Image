@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Perspective (CV Intrinsics Transform).v4p" systemname="Perspective (OpenCV Intrinsics Transform)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\Perspective (OpenCV Intrinsics Transform).v4p">
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Perspective (CV.Transform).v4p" systemname="Perspective (OpenCV Intrinsics Transform)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\Perspective (OpenCV Intrinsics Transform).v4p">
    <BOUNDS type="Window" left="3450" top="6360" width="6645" height="6525">
    </BOUNDS>
    <NODE componentmode="Hidden" id="3" nodename="Multiply (Transform)" systemname="Multiply (Transform)">
@@ -74,7 +74,7 @@
    <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Output">
    </PIN>
    </NODE>
-   <INFO author="elliot woods" description="create a vvvv type perspective transform from a camera transform created by Intrinisics" tags="">
+   <INFO author="elliotwoods" description="create a vvvv type perspective transform from a camera transform created by Intrinisics" tags="intrinsics">
    </INFO>
    <LINK srcnodeid="1" srcpinname="Transform Out" dstnodeid="3" dstpinname="Transform In 3" linkstyle="VHV" hiddenwhenlocked="1">
    <LINKPOINT x="3240" y="2168">
@@ -156,10 +156,10 @@
    <LINKPOINT x="1920" y="3315">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="Intrinsics (CV Split)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Intrinsics (CV Split)" componentmode="Hidden" id="9">
+   <NODE systemname="Intrinsics (CV.Transform Split)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Intrinsics (CV.Transform Split)" componentmode="Hidden" id="9">
    <BOUNDS type="Node" left="405" top="1050" width="2640" height="270">
    </BOUNDS>
-   <PIN pinname="Intrinsics" visible="1">
+   <PIN pinname="Intrinsics" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Camera" visible="1">
    </PIN>

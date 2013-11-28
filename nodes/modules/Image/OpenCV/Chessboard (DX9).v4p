@@ -135,7 +135,7 @@
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
-   <PIN pinname="Y Input Value" slicecount="2" values="9">
+   <PIN pinname="Y Input Value" slicecount="2" values="9,9">
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="2">
    </PIN>

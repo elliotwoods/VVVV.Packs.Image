@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha29.3.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\MapCameraToNormalised (OpenCV 2D).v4p" systemname="MapCameraToNormalised (OpenCV 2D)" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\MapCameraToNormalised (OpenCV 2D).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\MapCameraToNormalised (CV.Transform).v4p" systemname="MapCameraToNormalised (OpenCV 2D)" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\MapCameraToNormalised (OpenCV 2D).v4p">
    <BOUNDS type="Window" left="3585" top="10530" width="9000" height="6000">
    </BOUNDS>
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="4">
@@ -114,4 +114,6 @@
    </LINK>
    <LINK srcnodeid="3" srcpinname="Transform Out" dstnodeid="2" dstpinname="Transform">
    </LINK>
+   <INFO author="elliotwoods" description="Convert 2d coordinates from image space to normalised space" tags="2d">
+   </INFO>
    </PATCH>

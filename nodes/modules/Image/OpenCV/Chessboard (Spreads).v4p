@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha29.3.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p" systemname="ChessboardSpread (OpenCV Value)" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (Spreads).v4p" systemname="ChessboardSpread (OpenCV Value)" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\modules\Image\OpenCV\ChessboardSpread (OpenCV Value).v4p">
    <BOUNDS type="Window" left="4155" top="9615" width="10170" height="6000">
    </BOUNDS>
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="0">
@@ -146,6 +146,6 @@
    </LINK>
    <LINK srcnodeid="10" srcpinname="Output" dstnodeid="4" dstpinname=".. To [">
    </LINK>
-   <INFO author="" description="" tags="">
+   <INFO author="elliotwoods" description="" tags="cv">
    </INFO>
    </PATCH>

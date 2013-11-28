@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\DrawBoardCorners (CV DX9 2D).v4p" systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" locked="0">
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardCorners (DX9).v4p" systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" locked="0">
    <BOUNDS type="Window" left="18330" top="2745" width="10170" height="12975">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="79" systemname="IOBox (Value Advanced)">
@@ -582,4 +582,6 @@
    </LINK>
    <LINK srcnodeid="86" srcpinname="Output" dstnodeid="85" dstpinname="XY">
    </LINK>
+   <INFO author="elliotwoods" description="" tags="cv, 2d">
+   </INFO>
    </PATCH>

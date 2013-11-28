@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha28.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\BoardObjectPoints (OpenCV).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\subpatches\BoardObjectPoints (EmguCV).v4p" systemname="BoardObjectPoints (EmguCV)">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardCorners (3d).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\subpatches\BoardObjectPoints (EmguCV).v4p" systemname="BoardObjectPoints (EmguCV)">
    <BOUNDS height="7785" left="7410" top="8565" type="Window" width="5730">
    </BOUNDS>
    <NODE componentmode="InABox" id="0" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
@@ -246,4 +246,6 @@
    </LINK>
    <LINK srcnodeid="18" srcpinname="Output" dstnodeid="11" dstpinname="Input 1">
    </LINK>
+   <INFO author="elliotwoods" description="Get the object points for chessboard corners" tags="cv">
+   </INFO>
    </PATCH>
