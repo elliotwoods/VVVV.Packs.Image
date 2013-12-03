@@ -14,10 +14,11 @@ using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
 using ThreadState = System.Threading.ThreadState;
 using System.Collections.Generic;
+using VVVV.CV.Core;
 
 #endregion usings
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	#region PluginInfo
 	[PluginInfo(Name = "SolvePnP", Category = "CV.Transform", Help = "Find extrinsics of object given camera intrinsics and some image<>object correspondences", Tags = "FindExtrinsics")]

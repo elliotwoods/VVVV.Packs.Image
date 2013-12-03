@@ -6,7 +6,7 @@ using VVVV.Utils.VMath;
 using Emgu.CV;
 using System.Drawing;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	[Serializable()]
 	public class Intrinsics

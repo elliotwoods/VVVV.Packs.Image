@@ -10,10 +10,11 @@ using VVVV.Utils.VMath;
 using System;
 using VVVV.Utils.VColor;
 using System.Diagnostics;
+using VVVV.CV.Core;
 
 #endregion
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	public class ChangeInstance : IDestinationInstance
 	{

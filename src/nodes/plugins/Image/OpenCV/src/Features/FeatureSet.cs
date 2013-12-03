@@ -5,10 +5,10 @@ using System.Text;
 using Emgu.CV.Features2D;
 using Emgu.CV.Util;
 using Emgu.CV;
-using VVVV.Nodes.OpenCV.Features.Criteria;
 using Emgu.CV.Structure;
+using VVVV.CV.Nodes.Features.Criteria;
 
-namespace VVVV.Nodes.OpenCV.Features
+namespace VVVV.CV.Nodes.Features
 {
     /// <summary>
     /// Describes a SURF feature set for 

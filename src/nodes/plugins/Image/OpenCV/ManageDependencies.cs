@@ -6,7 +6,7 @@ using VVVV.PluginInterfaces.V2;
 using System.Reflection;
 using System.IO;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
     [Startable(Lazy=false)]
     public class ManageDependencies : IStartable

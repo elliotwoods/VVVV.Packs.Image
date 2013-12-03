@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Nodes.OpenCV.StructuredLight.Payload
+namespace VVVV.CV.Nodes.StructuredLight.Payload
 {
 	public enum PayloadMode { Graycode };
 

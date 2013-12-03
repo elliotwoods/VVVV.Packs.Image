@@ -1,8 +1,9 @@
 ﻿using System;
+using VVVV.CV.Core;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	public class PipetInstance : IDestinationInstance
 	{

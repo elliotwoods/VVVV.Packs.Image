@@ -6,8 +6,10 @@ using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
+using VVVV.Nodes;
+using VVVV.CV.Core;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	#region PluginInfo
 	[PluginInfo(Name = "Cons", Category = "CV.Image")]

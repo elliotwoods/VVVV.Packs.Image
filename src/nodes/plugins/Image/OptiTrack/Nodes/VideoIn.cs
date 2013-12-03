@@ -13,7 +13,8 @@ using System.Collections.Generic;
 
 using OptiTrackNET;
 
-using VVVV.Nodes.OpenCV;
+using VVVV.CV.Core;
+using VVVV.CV.Core;
 
 #endregion usings
 

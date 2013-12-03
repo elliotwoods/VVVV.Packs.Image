@@ -5,7 +5,7 @@
 //using Emgu.CV;
 //using VVVV.PluginInterfaces.V2;
 
-//namespace VVVV.Nodes.OpenCV
+//namespace VVVV.CV.Nodes
 //{
 //	class CropInstance : IFilterInstance
 //	{

@@ -125,6 +125,7 @@
     <Compile Include="src\Sources\AsImageDX11Node.cs" />
     <Compile Include="src\Sources\AsImageDX11Instance.cs" />
     <Compile Include="src\Sources\AsImageRaw.cs" />
+    <Compile Include="src\Sources\Lena.cs" />
     <Compile Include="src\Sources\VideoPlayer.cs" />
     <Compile Include="src\Calibration\SolvePnP.cs" />
     <Compile Include="src\Destinations\AsTextureInstance.cs" />

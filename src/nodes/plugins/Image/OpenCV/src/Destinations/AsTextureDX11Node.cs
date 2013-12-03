@@ -1,11 +1,12 @@
 ﻿using System;
 using FeralTic.DX11;
 using FeralTic.DX11.Resources;
+using VVVV.CV.Core;
 using VVVV.DX11;
 using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	[PluginInfo(Name = "AsTexture", Category = "CV.Image", Version = "DX11.Texture2D", Help = "Converts CVImage to DX11 Texture", Tags = "")]
 	public class AsTextureDX11Node : IPluginEvaluate, IDX11ResourceProvider, IDisposable

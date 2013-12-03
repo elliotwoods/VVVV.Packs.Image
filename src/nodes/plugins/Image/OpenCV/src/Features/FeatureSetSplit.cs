@@ -5,7 +5,7 @@ using System.Text;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
 
-namespace VVVV.Nodes.OpenCV.Features
+namespace VVVV.CV.Nodes.Features
 {
     #region PluginInfo
     [PluginInfo(Name = "FeatureSet", Category = "CV.Features", Version = "Split", Help = "Output 2D positions of feature points", Tags = "")]

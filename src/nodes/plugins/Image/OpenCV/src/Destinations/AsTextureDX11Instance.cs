@@ -6,8 +6,9 @@ using System.Runtime.InteropServices;
 using FeralTic.DX11.Resources;
 using FeralTic.DX11;
 using VVVV.DX11;
+using VVVV.CV.Core;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
     public unsafe class AsTextureDX11Instance : IDestinationInstance, IDisposable
     {

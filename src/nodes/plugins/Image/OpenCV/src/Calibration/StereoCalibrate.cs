@@ -14,10 +14,11 @@ using Emgu.CV.Structure;
 using Emgu.CV.CvEnum;
 using ThreadState = System.Threading.ThreadState;
 using System.Collections.Generic;
+using VVVV.CV.Core;
 
 #endregion usings
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 
 	#region PluginInfo

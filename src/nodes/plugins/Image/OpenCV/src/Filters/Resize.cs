@@ -4,8 +4,9 @@ using Emgu.CV;
 using Emgu.CV.CvEnum;
 using VVVV.PluginInterfaces.V2;
 using System;
+using VVVV.CV.Core;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	[FilterInstance("Resize", Help = "Resize an image", Author = "elliotwoods", Credits = "alg")]
 	public class ResizeInstance : IFilterInstance

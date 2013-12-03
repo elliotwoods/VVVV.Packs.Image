@@ -5,7 +5,7 @@ using System.Text;
 using Emgu.CV;
 using VVVV.Utils.VMath;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	public class Extrinsics
 	{

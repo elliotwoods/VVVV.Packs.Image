@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Nodes.OpenCV;
+using VVVV.CV.Core;
 using System.ComponentModel.Composition;
 using VVVV.PluginInterfaces.V1;
 using System.Drawing;
@@ -15,9 +15,10 @@ using SlimDX.DXGI;
 using VVVV.Core.Logging;
 using SlimDX.Direct3D11;
 using SlimDX;
+using VVVV.CV.Core;
 
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 class AsImageDX11Instance : IDisposable
 	{

@@ -8,9 +8,10 @@ using Emgu.CV.Structure;
 using VVVV.Core.Logging;
 using VVVV.PluginInterfaces.V2;
 using System.Collections.Generic;
+using VVVV.CV.Core;
 #endregion
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	public class NoiseInstance : IStaticGeneratorInstance
 	{

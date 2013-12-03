@@ -11,9 +11,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 
-using VVVV.Nodes.OpenCV;
+using VVVV.CV.Core;
 using VideoInputSharp;
 using System.Runtime.InteropServices;
+using VVVV.CV.Core;
 
 namespace VVVV.Nodes.OpenCV.VideoInput
 {

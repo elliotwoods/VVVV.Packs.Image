@@ -10,7 +10,7 @@ using FeralTic.DX11.Resources;
 using VVVV.Core.Logging;
 using VVVV.DX11;
 using VVVV.DX11.Lib;
-using VVVV.Nodes.OpenCV.ThreadUtils;
+using VVVV.CV.Core.ThreadUtils;
 using xiApi.NET;
 
 namespace VVVV.Nodes.Ximea

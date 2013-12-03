@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VVVV.CV.Core;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes 
 {
 	public class WriterInstance : IDestinationInstance
 	{

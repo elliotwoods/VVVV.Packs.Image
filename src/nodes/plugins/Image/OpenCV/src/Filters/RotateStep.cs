@@ -11,10 +11,11 @@ using VVVV.Utils.VMath;
 using System;
 using VVVV.Utils.VColor;
 using System.Linq;
+using VVVV.CV.Core;
 
 #endregion
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	[FilterInstance("Rotate", Help = "Rotate an image in 1/4 cycle increments.", Author = "elliotwoods")]
     public class RotateStepInstance : IFilterInstance

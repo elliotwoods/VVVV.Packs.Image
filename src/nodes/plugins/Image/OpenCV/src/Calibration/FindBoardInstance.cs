@@ -9,8 +9,9 @@ using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using VVVV.PluginInterfaces.V2;
+using VVVV.CV.Core;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	public class FindBoardInstance : IDestinationInstance, IDisposable
 	{

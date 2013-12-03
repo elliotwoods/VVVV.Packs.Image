@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using VVVV.Nodes.OpenCV.Features;
 
-namespace VVVV.Nodes.OpenCV.Features.Criteria
+namespace VVVV.CV.Nodes.Features.Criteria
 {
     public abstract class ICriteria
     {

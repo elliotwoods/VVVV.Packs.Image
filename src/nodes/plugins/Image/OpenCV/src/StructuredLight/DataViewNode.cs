@@ -12,9 +12,10 @@ using VVVV.PluginInterfaces.V2;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
+using VVVV.CV.Core;
 #endregion
 
-namespace VVVV.Nodes.OpenCV.StructuredLight
+namespace VVVV.CV.Nodes.StructuredLight
 {
 	public enum TDataSet { ProjectorInCamera, CameraInProjector, LuminanceInCamera }
 

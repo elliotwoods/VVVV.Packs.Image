@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Threading;
 using System.Runtime.InteropServices;
 
-namespace VVVV.Nodes.OpenCV.StructuredLight
+namespace VVVV.CV.Nodes.StructuredLight
 {
 	public class ScanSet
 	{

@@ -9,10 +9,11 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
 using System;
 using VVVV.Utils.VColor;
+using VVVV.CV.Core;
 
 #endregion
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	[FilterInstance("ConvertScale", Help = "Scale and offset an Image by a Value", Tags = "contrast", Author = "elliotwoods", Credits = "")]
 	public class ConvertScaleInstance : IFilterInstance

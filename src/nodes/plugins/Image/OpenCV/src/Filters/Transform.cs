@@ -11,10 +11,11 @@ using VVVV.Utils.VMath;
 using System;
 using VVVV.Utils.VColor;
 using System.Linq;
+using VVVV.CV.Core;
 
 #endregion
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	[FilterInstance("Transform", Help = "Apply an affine transformation to an image (e.g. translate, rotate, scale, skew).", Author = "elliotwoods")]
     public class TransformInstance : IFilterInstance

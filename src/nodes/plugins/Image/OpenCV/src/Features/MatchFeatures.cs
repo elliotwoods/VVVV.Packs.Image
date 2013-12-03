@@ -8,7 +8,7 @@ using Emgu.CV;
 using VVVV.Utils.VMath;
 using System.Diagnostics;
 
-namespace VVVV.Nodes.OpenCV.Features
+namespace VVVV.CV.Nodes.Features
 {
     #region PluginInfo
     [PluginInfo(Name = "MatchFeatures", Category = "CV.Features", Help = "Find correspondeces between a pair of FeatureSet's.", Tags = "")]

@@ -5,7 +5,7 @@ using System.Text;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
 
-namespace VVVV.Nodes.OpenCV.Features.Criteria
+namespace VVVV.CV.Nodes.Features.Criteria
 {
     class ImageRegion : ICriteria
     {

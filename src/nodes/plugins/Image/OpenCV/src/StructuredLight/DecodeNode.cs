@@ -10,9 +10,10 @@ using VVVV.PluginInterfaces.V2;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using VVVV.CV.Core;
 #endregion
 
-namespace VVVV.Nodes.OpenCV.StructuredLight
+namespace VVVV.CV.Nodes.StructuredLight
 {
 	public class DecodeInstance : IDestinationInstance
 	{

@@ -7,8 +7,9 @@ using System.ComponentModel.Composition;
 using System;
 using System.IO;
 using System.Drawing;
+using VVVV.CV.Core;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	public class AsImageRawInstance : IStaticGeneratorInstance
 	{

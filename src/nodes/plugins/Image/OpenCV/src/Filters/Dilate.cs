@@ -9,10 +9,11 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
 using System;
 using VVVV.Utils.VColor;
+using VVVV.CV.Core;
 
 #endregion
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	[FilterInstance("Dilate", Help = "Inflate features in image, i.e. grow noise", Author = "elliotwoods", Tags = "denoise")]
 	public class DilateInstance : IFilterInstance

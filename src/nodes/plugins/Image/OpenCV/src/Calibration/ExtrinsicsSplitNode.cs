@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 #endregion usings
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 
 	#region PluginInfo

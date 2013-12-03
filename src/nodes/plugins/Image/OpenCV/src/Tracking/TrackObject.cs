@@ -8,8 +8,9 @@ using Emgu.CV;
 using Emgu.CV.Structure;
 using System.Collections.Generic;
 using System;
+using VVVV.CV.Core;
 
-namespace VVVV.Nodes.OpenCV.Tracking
+namespace VVVV.CV.Nodes.Tracking
 {
 	public class TrackingObject
 	{

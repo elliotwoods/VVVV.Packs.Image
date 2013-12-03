@@ -9,8 +9,9 @@ using SlimDX;
 using VVVV.Utils.SlimDX;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
+using VVVV.CV.Core;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	class AsTextureInstance : IDestinationInstance
 	{

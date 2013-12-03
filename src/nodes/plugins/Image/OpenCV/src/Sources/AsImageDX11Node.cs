@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using VVVV.PluginInterfaces.V2;
-using VVVV.Nodes.OpenCV;
+using VVVV.CV.Core;
 using System.ComponentModel.Composition;
 using VVVV.PluginInterfaces.V1;
 using System.Drawing;
@@ -16,7 +16,7 @@ using VVVV.Core.Logging;
 using SlimDX.Direct3D11;
 using SlimDX;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {	
 	[PluginInfo(Name = "AsImage",
 				Category = "CV.Image",

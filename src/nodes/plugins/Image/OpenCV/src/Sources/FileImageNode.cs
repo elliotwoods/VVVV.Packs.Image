@@ -5,8 +5,9 @@ using VVVV.PluginInterfaces.V2;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System;
+using VVVV.CV.Core;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	public class FileImageInstance : IStaticGeneratorInstance
 	{

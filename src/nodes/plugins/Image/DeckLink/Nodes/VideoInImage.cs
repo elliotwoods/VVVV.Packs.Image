@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 
-using VVVV.Nodes.OpenCV;
+using VVVV.CV.Core;
 using System.Runtime.InteropServices;
 using DeckLinkAPI;
 using Emgu.CV;

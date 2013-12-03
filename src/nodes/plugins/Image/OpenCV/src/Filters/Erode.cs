@@ -11,10 +11,11 @@ using VVVV.Utils.VMath;
 using System;
 using VVVV.Utils.VColor;
 using System.Linq;
+using VVVV.CV.Core;
 
 #endregion
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	[FilterInstance("Erode", Help = "Deflate features in image, i.e. kill small features", Author = "elliotwoods", Tags = "denoise")]
 	public class ErodeInstance : IFilterInstance

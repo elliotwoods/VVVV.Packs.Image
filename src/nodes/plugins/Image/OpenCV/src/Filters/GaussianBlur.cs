@@ -5,8 +5,9 @@ using Emgu.CV.CvEnum;
 using VVVV.PluginInterfaces.V2;
 using System;
 using Emgu.CV.Structure;
+using VVVV.CV.Core;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
     [FilterInstance("GaussianBlur")]
 	public class GaussianBlurInstance : IFilterInstance

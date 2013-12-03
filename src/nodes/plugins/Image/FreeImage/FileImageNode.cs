@@ -5,9 +5,10 @@ using System.ComponentModel.Composition;
 using System;
 using FreeImageAPI;
 
-using VVVV.Nodes.OpenCV;
+using VVVV.CV.Core;
 using System.Drawing.Imaging;
 using System.Drawing;
+using VVVV.CV.Core;
 
 namespace VVVV.Nodes.OpenCV.FreeImageNodes
 {

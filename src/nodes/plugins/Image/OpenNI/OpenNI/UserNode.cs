@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using OpenNI;
 using System.Runtime.InteropServices;
 
-using VVVV.Nodes.OpenCV;
+using VVVV.CV.Core;
 
 #endregion usings
 

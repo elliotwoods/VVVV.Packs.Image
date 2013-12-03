@@ -9,10 +9,11 @@ using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
 using System;
 using VVVV.Utils.VColor;
+using VVVV.CV.Core;
 
 #endregion
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	[FilterInstance("Average", Tags = "temporal", Help = "Average input image over N frames (outputs at input framerate / N)", Author = "elliotwoods")]
 	public class TemporalAverageInstance : IFilterInstance

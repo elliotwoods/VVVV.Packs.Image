@@ -5,8 +5,9 @@ using Emgu.CV.CvEnum;
 using VVVV.PluginInterfaces.V2;
 using System;
 using Emgu.CV.Structure;
+using VVVV.CV.Core;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Nodes
 {
 	[FilterInstance("UnsharpMask", Help = "Sharpen the image using the UnsharpMask algorithm", Author = "velcrome", Credits = "", Tags = "sharpen")]
 	public class UnsharpMaskInstance : IFilterInstance
@@ -38,7 +39,7 @@ namespace VVVV.Nodes.OpenCV
 				CvInvoke.cvAddWeighted(FInput.CvMat, WeightOrig, FOutput.CvMat, -WeightMask, Gamma, FOutput.CvMat);
 			}
 			finally
-			{
+			{ 
 				FInput.ReleaseForReading();
 			}
 
