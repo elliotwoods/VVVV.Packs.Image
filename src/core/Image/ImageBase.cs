@@ -8,7 +8,7 @@ using Emgu.CV.Structure;
 using Emgu.Util;
 using System.Runtime.InteropServices;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public abstract class ImageBase
 	{

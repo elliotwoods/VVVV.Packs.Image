@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public abstract class IDestinationNode<T> : INode, IDisposable where T : IDestinationInstance, new()
 	{

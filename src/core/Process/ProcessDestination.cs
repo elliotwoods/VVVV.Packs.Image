@@ -5,7 +5,7 @@ using System.Text;
 using VVVV.PluginInterfaces.V2;
 using System.Threading;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public class ProcessDestination<T> : IProcess<T>, IDisposable where T : IDestinationInstance, new()
 	{

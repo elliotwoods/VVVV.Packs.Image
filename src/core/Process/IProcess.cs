@@ -6,7 +6,7 @@ using VVVV.PluginInterfaces.V2;
 using System.Threading;
 using System.Collections;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public abstract class IProcess<T> : IEnumerable<T>
 	{

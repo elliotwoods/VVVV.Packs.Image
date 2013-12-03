@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace VVVV.Nodes.OpenCV.ThreadUtils
+namespace VVVV.CV.Core.ThreadUtils
 {
 	public class WorkerThread : IDisposable
 	{

@@ -6,7 +6,7 @@ using VVVV.PluginInterfaces.V2;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public class ProcessGenerator<T> : IProcess<T>, IDisposable where T : IGeneratorInstance, new()
 	{

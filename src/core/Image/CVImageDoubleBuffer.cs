@@ -6,7 +6,7 @@ using Emgu.CV;
 using System.Threading;
 using System.Drawing;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public class CVImageDoubleBuffer : IDisposable
 	{

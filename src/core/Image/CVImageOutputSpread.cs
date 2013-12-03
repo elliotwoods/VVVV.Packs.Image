@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public class CVImageOutputSpread : IDisposable
 	{

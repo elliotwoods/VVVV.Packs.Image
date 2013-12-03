@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public enum TColorFormat { UnInitialised, RGB8, RGB32F, RGBA8, RGBA32F, L8, L16, L32S, L32F };
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public enum ThreadMode { Independant, UpstreamThread_experimental }
 

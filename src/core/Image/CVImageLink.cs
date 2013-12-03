@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	/// <summary>
 	/// The link used between EmguCV nodes in the VVVV graph

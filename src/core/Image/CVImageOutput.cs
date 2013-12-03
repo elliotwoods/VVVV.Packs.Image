@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	/// <summary>
 	/// An object instantiated inside an IGeneratorInstance or IFilterInstance

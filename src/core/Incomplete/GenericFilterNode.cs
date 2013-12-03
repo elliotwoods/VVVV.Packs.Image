@@ -8,7 +8,7 @@ using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 using VVVV.PluginInterfaces.V2.NonGeneric;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
     [Export(typeof(IPluginBase))]
     public class FilterNode<TFilterInstance> : IFilterNode<TFilterInstance> 

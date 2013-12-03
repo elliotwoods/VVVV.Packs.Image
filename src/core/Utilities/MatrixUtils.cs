@@ -7,7 +7,7 @@ using VVVV.Utils.VMath;
 using System.Drawing;
 using Emgu.CV.Structure;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public class MatrixUtils
 	{

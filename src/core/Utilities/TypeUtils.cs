@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public class TypeUtils
 	{

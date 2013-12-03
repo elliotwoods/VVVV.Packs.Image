@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using Emgu.CV.CvEnum;
 using System.Drawing;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public class CVImage : ImageBase, IDisposable
 	{
@@ -152,7 +152,7 @@ namespace VVVV.Nodes.OpenCV
 
 		public void LoadFile(string filename)
 		{
-			this.SetImage(new Image<Bgr, byte>(filename));
+			this.SetImage(new Image<Bgr,  byte>(filename));
 		}
 
 		public void SaveFile(string filename)

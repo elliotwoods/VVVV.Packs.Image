@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using VVVV.PluginInterfaces.V2;
 using System.Drawing.Imaging;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public class ImageUtils
 	{

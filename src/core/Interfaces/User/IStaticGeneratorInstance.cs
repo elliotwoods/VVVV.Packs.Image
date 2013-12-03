@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	/// <summary>
 	/// Inherit from this if you have a Generator which doesn't need to open and close a device

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VVVV.PluginInterfaces.V2;
 
-namespace VVVV.Nodes.OpenCV
+namespace VVVV.CV.Core
 {
 	public abstract class IGeneratorNode<T> : INode, IDisposable where T : IGeneratorInstance, new()
 	{
