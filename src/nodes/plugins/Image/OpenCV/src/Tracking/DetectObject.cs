@@ -132,7 +132,7 @@ namespace VVVV.CV.Nodes.Tracking
 		}
 	}
 
-	[PluginInfo(Name = "TrackObject", Category = "CV.Image", Help = "Tracks faces and eyes", Author = "alg", Credits = "elliotwoods", Tags = "face, haar")]
+	[PluginInfo(Name = "DetectObject", Category = "CV.Image", Help = "Tracks faces and eyes", Author = "alg", Credits = "elliotwoods", Tags = "tracking, face, eye, haar")]
 	public class ObjectTrackingNode : IDestinationNode<TrackingInstance>
 	{
 		#region fields & pins
