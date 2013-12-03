@@ -224,7 +224,27 @@
    </LINK>
    <INFO author="elliotwoods" description="Draw a calibration chessboard (e.g. to preview its transform)" tags="">
    </INFO>
-   <NODE id="3" componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ChessboardSpread (CV Value).v4p" nodename="ChessboardSpread (CV Value)" systemname="ChessboardSpread (CV Value)" hiddenwhenlocked="0" managers="">
+   <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="19">
+   <BOUNDS type="Node" left="2355" top="1005" width="2955" height="270">
+   </BOUNDS>
+   <PIN pinname="XY" visible="1">
+   </PIN>
+   <PIN pinname="X" visible="1">
+   </PIN>
+   <PIN pinname="Y" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="19" dstpinname="XY">
+   </LINK>
+   <LINK srcnodeid="19" srcpinname="X" dstnodeid="5" dstpinname="Input 1">
+   </LINK>
+   <LINK srcnodeid="19" srcpinname="Y" dstnodeid="4" dstpinname="Input 1" linkstyle="Bezier">
+   <LINKPOINT x="5250" y="1440">
+   </LINKPOINT>
+   <LINKPOINT x="2865" y="1440">
+   </LINKPOINT>
+   </LINK>
+   <NODE id="3" componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\ValueChessBoardSpread\ValueChessBoardSpread.csproj" nodename="ChessBoardSpread (Value)" systemname="ChessBoardSpread (Value)" hiddenwhenlocked="0" managers="">
    <PIN pinname="Board Size X" visible="1" pintype="Input">
    </PIN>
    <PIN pinname="Board Size Y" visible="1" pintype="Input">
@@ -266,30 +286,10 @@
    <LINKPOINT x="3690" y="2000">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="19">
-   <BOUNDS type="Node" left="2355" top="1005" width="2955" height="270">
-   </BOUNDS>
-   <PIN pinname="XY" visible="1">
-   </PIN>
-   <PIN pinname="X" visible="1">
-   </PIN>
-   <PIN pinname="Y" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="11" srcpinname="Y Output Value" dstnodeid="19" dstpinname="XY">
-   </LINK>
-   <LINK srcnodeid="19" srcpinname="X" dstnodeid="5" dstpinname="Input 1">
-   </LINK>
    <LINK srcnodeid="19" srcpinname="X" dstnodeid="3" dstpinname="Board Size X" linkstyle="Bezier">
    <LINKPOINT x="2415" y="1440">
    </LINKPOINT>
    <LINKPOINT x="3660" y="1440">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="19" srcpinname="Y" dstnodeid="4" dstpinname="Input 1" linkstyle="Bezier">
-   <LINKPOINT x="5250" y="1440">
-   </LINKPOINT>
-   <LINKPOINT x="2865" y="1440">
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="19" srcpinname="Y" dstnodeid="3" dstpinname="Board Size Y">

@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha30.3.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\plugins\Shoot (EDSDK) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\Shoot (EDSDK) help.v4p">
    <BOUNDS type="Window" left="2595" top="3345" width="10320" height="17190">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -298,16 +298,6 @@
    <LINKPOINT x="315" y="7133">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="ImageQuad (OpenCV DX9)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" nodename="ImageQuad (OpenCV DX9)" componentmode="Hidden" id="19">
-   <BOUNDS type="Node" left="285" top="9015" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Image" visible="1">
-   </PIN>
-   <PIN pinname="Layer" visible="1">
-   </PIN>
-   <BOUNDS type="Window" left="4020" top="18795" width="10590" height="10155">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InABox" id="20">
    <BOUNDS type="Node" left="285" top="10065" width="100" height="100">
    </BOUNDS>
@@ -315,11 +305,9 @@
    </BOUNDS>
    <BOUNDS type="Window" left="9840" top="18165" width="6240" height="5010">
    </BOUNDS>
-   <PIN pinname="Layers" visible="1">
+   <PIN pinname="Layers" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <LINK srcnodeid="19" srcpinname="Layer" dstnodeid="20" dstpinname="Layers">
-   </LINK>
    <NODE systemname="MonoFlop (Animation)" nodename="MonoFlop (Animation)" componentmode="Hidden" id="21">
    <BOUNDS type="Node" left="3525" top="9030" width="100" height="100">
    </BOUNDS>
@@ -343,16 +331,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="21" srcpinname="Output" dstnodeid="22" dstpinname="Y Input Value">
-   </LINK>
-   <NODE systemname="ImageLoad (OpenCV FreeImage)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.FreeImage.dll" nodename="ImageLoad (OpenCV FreeImage)" componentmode="Hidden" id="23">
-   <BOUNDS type="Node" left="5385" top="9105" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Filename" slicecount="1" values="..\..\..\..\..\..\Users\kimchips\Desktop\treeimages2\image09.bin.png">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="18" srcpinname="Output" dstnodeid="19" dstpinname="Image">
    </LINK>
    <NODE systemname="SystemFolder (File)" nodename="SystemFolder (File)" componentmode="Hidden" id="24">
    <BOUNDS type="Node" left="5700" top="5010" width="100" height="100">
@@ -385,5 +363,19 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="7" srcpinname="Firmware" dstnodeid="25" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="GridView (DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\GridView (DX9).v4p" nodename="GridView (DX9)" componentmode="Hidden" id="19">
+   <BOUNDS type="Node" left="285" top="9015" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <BOUNDS type="Window" left="4020" top="18795" width="10590" height="10155">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="19" srcpinname="Layer" dstnodeid="20" dstpinname="Layers">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Output" dstnodeid="19" dstpinname="Image">
    </LINK>
    </PATCH>

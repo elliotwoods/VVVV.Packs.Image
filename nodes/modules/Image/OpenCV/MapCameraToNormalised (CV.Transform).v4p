@@ -102,8 +102,10 @@
    </NODE>
    <LINK srcnodeid="0" srcpinname="XY" dstnodeid="6" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="CameraCoordsView (Transform)" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\CameraCoordsView (Transform).v4p" nodename="CameraCoordsView (Transform)" componentmode="Hidden" id="3">
-   <BOUNDS type="Node" left="1200" top="1680" width="3315" height="270">
+   <INFO author="elliotwoods" description="Convert 2d coordinates from image space to normalised space" tags="2d">
+   </INFO>
+   <NODE systemname="CameraCoordsView (CV.Transform)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CameraCoordsView (CV.Transform).v4p" nodename="CameraCoordsView (CV.Transform)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="1200" top="1680" width="3330" height="270">
    </BOUNDS>
    <PIN pinname="Resolution" visible="1">
    </PIN>
@@ -114,6 +116,4 @@
    </LINK>
    <LINK srcnodeid="3" srcpinname="Transform Out" dstnodeid="2" dstpinname="Transform">
    </LINK>
-   <INFO author="elliotwoods" description="Convert 2d coordinates from image space to normalised space" tags="2d">
-   </INFO>
    </PATCH>

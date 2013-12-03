@@ -9,27 +9,13 @@
    </PIN>
    <PIN pinname="Transform Out" visible="1">
    </PIN>
-   <PIN pinname="Transform In 2" visible="1">
+   <PIN pinname="Transform In 2" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Transform In Count" slicecount="1" values="3">
    </PIN>
    <PIN pinname="Transform In 3" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
-   <NODE componentmode="Hidden" filename="CameraCoordsView (Transform).v4p" id="2" nodename="CameraCoordsView (Transform)" systemname="CameraCoordsView (Transform)">
-   <BOUNDS height="100" left="1455" top="1635" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Transform Out" visible="1">
-   </PIN>
-   <PIN pinname="Resolution" visible="1" slicecount="2" values="1920,1080">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="3" dstpinname="Transform In 2" hiddenwhenlocked="0" linkstyle="VHV" srcnodeid="2" srcpinname="Transform Out">
-   <LINKPOINT x="895" y="2125">
-   </LINKPOINT>
-   <LINKPOINT x="1565" y="2225">
-   </LINKPOINT>
-   </LINK>
    <NODE componentmode="Hidden" id="1" nodename="Scale (Transform)" systemname="Scale (Transform)">
    <BOUNDS height="100" left="3240" top="1620" type="Node" width="100">
    </BOUNDS>
@@ -169,6 +155,20 @@
    <LINK srcnodeid="8" srcpinname="Output Node" dstnodeid="9" dstpinname="Intrinsics">
    </LINK>
    <LINK srcnodeid="9" srcpinname="Camera" dstnodeid="3" dstpinname="Transform In 1">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CameraCoordsView (CV.Transform).v4p" id="2" nodename="CameraCoordsView (CV.Transform)" systemname="CameraCoordsView (CV.Transform)">
+   <BOUNDS height="100" left="1455" top="1635" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="Resolution" visible="1">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="3" dstpinname="Transform In 2" hiddenwhenlocked="0" linkstyle="VHV" srcnodeid="2" srcpinname="Transform Out">
+   <LINKPOINT x="895" y="2125">
+   </LINKPOINT>
+   <LINKPOINT x="1565" y="2225">
+   </LINKPOINT>
    </LINK>
    <LINK srcnodeid="9" srcpinname="Sensor SizeXY" dstnodeid="2" dstpinname="Resolution">
    </LINK>

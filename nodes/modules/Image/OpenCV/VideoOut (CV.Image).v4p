@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\VideoOut (CV).v4p" systemname="VideoOut (OpenCV)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\VideoOut (OpenCV).v4p">
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\VideoOut (CV.Image).v4p" systemname="VideoOut (OpenCV)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\VideoOut (OpenCV).v4p">
    <BOUNDS type="Window" left="945" top="1725" width="3885" height="2760">
    </BOUNDS>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InAWindow" id="1">
@@ -24,10 +24,10 @@
    <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Image">
    </PIN>
    </NODE>
-   <NODE systemname="ImageQuad (CV DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="0">
+   <NODE systemname="ImageQuad (DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (DX9).v4p" nodename="ImageQuad (DX9)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="795" top="945" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Image" visible="1" slicecount="1" values="||">
+   <PIN pinname="Image" visible="1">
    </PIN>
    <PIN pinname="Layer" visible="1">
    </PIN>

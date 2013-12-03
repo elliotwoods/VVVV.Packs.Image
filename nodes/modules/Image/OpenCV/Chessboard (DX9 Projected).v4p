@@ -55,7 +55,7 @@
    </BOUNDS>
    <PIN pinname="Transform Out" visible="1">
    </PIN>
-   <PIN pinname="Source" visible="1">
+   <PIN pinname="Source" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Transform In" visible="1" slicecount="1" values="||">
    </PIN>
@@ -134,22 +134,6 @@
    <PIN pinname="Color" visible="1">
    </PIN>
    </NODE>
-   <NODE componentmode="Hidden" filename="CameraCoordsView (Transform).v4p" id="4" nodename="CameraCoordsView (Transform)" systemname="CameraCoordsView (Transform)">
-   <BOUNDS height="100" left="1815" top="1740" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Transform Out" visible="1">
-   </PIN>
-   <PIN pinname="Resolution">
-   </PIN>
-   </NODE>
-   <LINK dstnodeid="5" dstpinname="Source" srcnodeid="4" srcpinname="Transform Out">
-   </LINK>
-   <LINK dstnodeid="4" dstpinname="Resolution" srcnodeid="10" srcpinname="Y Output Value" linkstyle="VHV">
-   <LINKPOINT x="1905" y="1203">
-   </LINKPOINT>
-   <LINKPOINT x="3360" y="1303">
-   </LINKPOINT>
-   </LINK>
    <NODE componentmode="InABox" id="30" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="5160" top="315" type="Node" width="0">
    </BOUNDS>
@@ -318,41 +302,7 @@
    <PIN pinname="Y" slicecount="1" values="-1">
    </PIN>
    </NODE>
-   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardObjectPoints (CV).v4p" id="9" nodename="BoardObjectPoints (CV)" systemname="BoardObjectPoints (CV)">
-   <BOUNDS height="100" left="1845" top="3120" type="Node" width="100">
-   </BOUNDS>
-   <PIN pinname="Board Pitch" visible="1">
-   </PIN>
-   <PIN pinname="Object XYZ" visible="1">
-   </PIN>
-   <PIN pinname="Board Size X" visible="1">
-   </PIN>
-   <PIN pinname="Board Size Y" visible="1">
-   </PIN>
-   <BOUNDS type="Window" left="7410" top="8565" width="5730" height="7785">
-   </BOUNDS>
-   </NODE>
-   <LINK dstnodeid="9" dstpinname="Board Pitch" linkstyle="Bezier" srcnodeid="3" srcpinname="Y Output Value" hiddenwhenlocked="1">
-   <LINKPOINT x="6290" y="1773">
-   </LINKPOINT>
-   <LINKPOINT x="3415" y="1873">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="31" srcpinname="X" dstnodeid="9" dstpinname="Board Size X" linkstyle="Bezier">
-   <LINKPOINT x="5130" y="2250">
-   </LINKPOINT>
-   <LINKPOINT x="1920" y="2250">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="31" srcpinname="Y" dstnodeid="9" dstpinname="Board Size Y" linkstyle="Bezier">
-   <LINKPOINT x="5805" y="2250">
-   </LINKPOINT>
-   <LINKPOINT x="2715" y="2250">
-   </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="9" srcpinname="Object XYZ" dstnodeid="6" dstpinname="XYZ UnTransformed">
-   </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (DX9).v4p" id="29" nodename="Chessboard (DX9)" systemname="Chessboard (DX9)">
+   <NODE componentmode="InAWindow" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (DX9).v4p" id="29" nodename="Chessboard (DX9)" systemname="Chessboard (DX9)">
    <BOUNDS height="270" left="4470" top="4335" type="Node" width="2715">
    </BOUNDS>
    <PIN pinname="Lightness" visible="1">
@@ -401,5 +351,55 @@
    <LINK srcnodeid="39" srcpinname="Color Output" dstnodeid="29" dstpinname="Color">
    </LINK>
    <LINK srcnodeid="39" srcpinname="Color Output" dstnodeid="18" dstpinname="Color">
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CameraCoordsView (CV.Transform).v4p" id="4" nodename="CameraCoordsView (CV.Transform)" systemname="CameraCoordsView (CV.Transform)">
+   <BOUNDS height="100" left="1815" top="1740" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="Resolution">
+   </PIN>
+   </NODE>
+   <LINK dstnodeid="5" dstpinname="Source" srcnodeid="4" srcpinname="Transform Out">
+   </LINK>
+   <LINK dstnodeid="4" dstpinname="Resolution" srcnodeid="10" srcpinname="Y Output Value" linkstyle="VHV">
+   <LINKPOINT x="1905" y="1203">
+   </LINKPOINT>
+   <LINKPOINT x="3360" y="1303">
+   </LINKPOINT>
+   </LINK>
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardCorners (3d).v4p" id="9" nodename="BoardCorners (3d)" systemname="BoardCorners (3d)">
+   <BOUNDS height="100" left="1845" top="3120" type="Node" width="100">
+   </BOUNDS>
+   <PIN pinname="Board Pitch" visible="1">
+   </PIN>
+   <PIN pinname="Object XYZ" visible="1">
+   </PIN>
+   <PIN pinname="Board Size X" visible="1">
+   </PIN>
+   <PIN pinname="Board Size Y" visible="1">
+   </PIN>
+   <BOUNDS type="Window" left="7410" top="8565" width="5730" height="7785">
+   </BOUNDS>
+   </NODE>
+   <LINK dstnodeid="9" dstpinname="Board Pitch" linkstyle="Bezier" srcnodeid="3" srcpinname="Y Output Value" hiddenwhenlocked="1">
+   <LINKPOINT x="6290" y="1773">
+   </LINKPOINT>
+   <LINKPOINT x="3415" y="1873">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="X" dstnodeid="9" dstpinname="Board Size X" linkstyle="Bezier">
+   <LINKPOINT x="5130" y="2250">
+   </LINKPOINT>
+   <LINKPOINT x="1920" y="2250">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="Y" dstnodeid="9" dstpinname="Board Size Y" linkstyle="Bezier">
+   <LINKPOINT x="5805" y="2250">
+   </LINKPOINT>
+   <LINKPOINT x="2715" y="2250">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="9" srcpinname="Object XYZ" dstnodeid="6" dstpinname="XYZ UnTransformed">
    </LINK>
    </PATCH>

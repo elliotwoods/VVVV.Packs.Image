@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CalibrateProjector (CV) help.v4p">
+   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CalibrateProjector (CV.Transform) help.v4p">
    <BOUNDS type="Window" left="675" top="510" width="13140" height="10095">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -220,8 +220,8 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <NODE nodename="CalibrateProjector (CV)" componentmode="Hidden" id="0" systemname="CalibrateProjector (CV)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CalibrateProjector (CV).v4p">
-   <BOUNDS type="Node" left="2070" top="5325" width="3990" height="270">
+   <NODE nodename="CalibrateProjector (CV.Transform)" componentmode="Hidden" id="0" systemname="CalibrateProjector (CV.Transform)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CalibrateProjector (CV.Transform).v4p">
+   <BOUNDS type="Node" left="2070" top="5325" width="4020" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="2070" top="5325" width="0" height="0">
    </BOUNDS>

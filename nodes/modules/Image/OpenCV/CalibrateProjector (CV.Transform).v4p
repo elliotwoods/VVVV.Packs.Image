@@ -1,13 +1,13 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
    <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CalibrateProjector (CV.Transform).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Build\Modules\CalibrateProjector (EmguCV).v4p" systemname="CalibrateProjector (EmguCV)">
-   <BOUNDS height="8715" left="9420" top="6210" type="Window" width="17490">
+   <BOUNDS height="8715" left="13935" top="4680" type="Window" width="16320">
    </BOUNDS>
    <NODE componentmode="InABox" id="18" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="4470" top="1050" type="Node" width="0">
    </BOUNDS>
    <BOUNDS height="480" left="4470" top="1050" type="Box" width="795">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" values="1280,1024">
+   <PIN pinname="Y Input Value" slicecount="2" values="1024,768">
    </PIN>
    <PIN encoded="0" pinname="Units" slicecount="1" values="||">
    </PIN>

@@ -566,7 +566,9 @@
    </LINK>
    <LINK srcnodeid="53" srcpinname="Output" dstnodeid="82" dstpinname="Input">
    </LINK>
-   <NODE systemname="MapCameraToNormalised (CV 2D)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\MapCameraToNormalised (CV 2D).v4p" nodename="MapCameraToNormalised (CV 2D)" componentmode="Hidden" id="86">
+   <INFO author="elliotwoods" description="" tags="cv, 2d">
+   </INFO>
+   <NODE systemname="MapCameraToNormalised (CV.Transform)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\MapCameraToNormalised (CV.Transform).v4p" nodename="MapCameraToNormalised (CV.Transform)" componentmode="Hidden" id="86">
    <BOUNDS type="Node" left="1485" top="8010" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -582,6 +584,4 @@
    </LINK>
    <LINK srcnodeid="86" srcpinname="Output" dstnodeid="85" dstpinname="XY">
    </LINK>
-   <INFO author="elliotwoods" description="" tags="cv, 2d">
-   </INFO>
    </PATCH>
