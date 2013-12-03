@@ -21,7 +21,7 @@ using VVVV.CV.Core;
 namespace VVVV.CV.Nodes
 {
 	#region PluginInfo
-	[PluginInfo(Name = "SolvePnP", Category = "CV.Transform", Help = "Find extrinsics of object given camera intrinsics and some image<>object correspondences", Tags = "FindExtrinsics")]
+	[PluginInfo(Name = "SolvePnP", Category = "CV.Transform", Help = "Find extrinsics of object given camera intrinsics and some image<>object correspondences", Tags = "FindExtrinsics, calibration")]
 	#endregion PluginInfo
 	public class SolvePnPNode : IPluginEvaluate, IDisposable
 	{

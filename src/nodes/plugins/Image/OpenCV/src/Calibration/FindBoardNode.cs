@@ -21,7 +21,7 @@ using VVVV.CV.Core;
 namespace VVVV.CV.Nodes
 {
 	#region PluginInfo
-	[PluginInfo(Name = "FindBoard", Category = "CV.Image", Help = "Finds chessboard corners XY", Tags = "camera calibration")]
+	[PluginInfo(Name = "FindBoard", Category = "CV.Image", Help = "Finds chessboard corners XY", Tags = "camera, calibration")]
 	#endregion PluginInfo
 	public class FindBoardNode : IDestinationNode<FindBoardInstance>
 	{
