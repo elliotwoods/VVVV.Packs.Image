@@ -171,6 +171,7 @@
     <Compile Include="src\StructuredLight\Payload\PayloadNode.cs" />
     <Compile Include="src\StructuredLight\ScanSet.cs" />
     <Compile Include="src\StructuredLight\TimestampRegister.cs" />
+    <Compile Include="src\StructuredLight\Timing.cs" />
     <Compile Include="src\Tracking\ContourDelauneyNode.cs" />
     <Compile Include="src\Tracking\ContourNode.cs" />
     <Compile Include="src\Tracking\ContourPerimeterSplitNode.cs" />
