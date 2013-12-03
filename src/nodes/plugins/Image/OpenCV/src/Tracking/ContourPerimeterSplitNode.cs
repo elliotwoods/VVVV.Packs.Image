@@ -21,7 +21,7 @@ namespace VVVV.CV.Nodes
 {
 
 	#region PluginInfo
-	[PluginInfo(Name = "ContourPerimeter", Category = "CV.Contour", Version="Split", Help = "Split contour perimeter out", Tags = "")]
+	[PluginInfo(Name = "Perimeter", Category = "CV.Contour", Version="Split", Help = "Split contour perimeter out", Tags = "")]
 	#endregion PluginInfo
 	public class ContourPerimeterSplitNode : IPluginEvaluate, IDisposable
 	{
