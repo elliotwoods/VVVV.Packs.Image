@@ -107,7 +107,7 @@ namespace VVVV.CV.Nodes
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "AsImage", Category = "CV.Image", Version = "Raw", Help = "Loads Raw stream into image", Tags = "source")]
+	[PluginInfo(Name = "AsImage", Category = "Raw", Version = "", Help = "Loads Raw stream into image", Tags = "cv, source")]
 	#endregion PluginInfo
 	public class AsImageRawNode : IGeneratorNode<AsImageRawInstance>
 	{
