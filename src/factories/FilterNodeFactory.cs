@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using VVVV.Hosting.Factories;
 using VVVV.Hosting.Interfaces;
 using VVVV.Hosting.IO;
-using VVVV.Nodes.OpenCV;
+using VVVV.CV.Core;
 using VVVV.PluginInterfaces.V1;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.Collections;
