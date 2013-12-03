@@ -69,7 +69,7 @@ namespace VVVV.CV.Nodes
 	}
 
 	#region PluginInfo
-	[PluginInfo(Name = "Noise", Category = "CV.Image", Help = "Generator 32F noise", Author = "", Credits = "", Tags = "")]
+	[PluginInfo(Name = "Noise", Category = "CV.Image", Help = "Generator 32F noise", Author = "", Credits = "", Tags = "source")]
 	#endregion PluginInfo
 	public class NoiseNode : IGeneratorNode<NoiseInstance>
 	{

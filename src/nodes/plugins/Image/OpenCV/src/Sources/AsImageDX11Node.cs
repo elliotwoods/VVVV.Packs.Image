@@ -22,7 +22,7 @@ namespace VVVV.CV.Nodes
 				Category = "CV.Image",
 				Version = "DX11.Texture2D",
 				Help = "Converts DX11.Texture2D to CVImageLink",
-				Tags = "")]
+				Tags = "source")]
 	public unsafe class AsImageDX11Node : IPluginEvaluate, IDX11ResourceDataRetriever, IDisposable
 	{
 		[Input("Input")]

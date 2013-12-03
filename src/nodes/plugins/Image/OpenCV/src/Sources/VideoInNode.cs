@@ -139,7 +139,7 @@ namespace VVVV.CV.Nodes
 			  Category = "CV.Image",
 			  Version = "VfW",
 			  Help = "Captures from DShow device to IPLImage",
-			  Tags = "")]
+			  Tags = "source")]
 	#endregion PluginInfo
 	public class CaptureVideoNode : IGeneratorNode<CaptureVideoInstance>
 	{

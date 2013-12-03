@@ -12,7 +12,7 @@ using VVVV.CV.Core;
 namespace VVVV.CV.Nodes
 {
 	#region PluginInfo
-	[PluginInfo(Name = "Lena", Category = "CV.Image", Tags = "sample")]
+	[PluginInfo(Name = "Lena", Category = "CV.Image", Tags = "sample, source")]
 	#endregion PluginInfo
 	public class Lena : IPluginEvaluate, IDisposable
 	{
