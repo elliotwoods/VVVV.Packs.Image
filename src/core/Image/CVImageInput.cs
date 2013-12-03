@@ -122,14 +122,12 @@ namespace VVVV.CV.Core
 		{
 			get
 			{
-				if (FImageFresh)
-				{
-					FImageFresh = false;
-					return true;
-				}
-				else
-					return false;
+				return FImageFresh;
 			}
+		}
+		public void ClearImageChanged()
+		{
+			FImageFresh = false;
 		}
 
 		public bool ImageAttributesChanged
@@ -139,19 +137,18 @@ namespace VVVV.CV.Core
 				if (!Allocated)
 					return false;
 
-				if (FImageAttributesFresh)
-				{
-					FImageAttributesFresh = false;
-					return true;
-				}
-				else
-					return false;
+				return FImageAttributesFresh;
 			}
 			set
 			{
 				FImageAttributesFresh = value;
 			}
 		}
+		public void ClearImageAttributesChanged()
+		{
+			FImageAttributesFresh = false;
+		}
+
 
 		/// <summary>
 		/// Returns a pointer to raw pixels

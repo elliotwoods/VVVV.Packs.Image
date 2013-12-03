@@ -37,14 +37,16 @@ namespace VVVV.CV.Core
         /// in favour of FActionQueue.
         /// </summary>
 		protected bool FNeedsAllocate = true;
-		virtual public bool NeedsAllocate()
+		public bool NeedsAllocate
 		{
-			if (FNeedsAllocate)
+			get
 			{
-				FNeedsAllocate = false;
-				return true;
+				return FNeedsAllocate;
 			}
-			return false;
+		}
+		public void ClearNeedsAllocate()
+		{
+			FNeedsAllocate = false;
 		}
 
 		/// <summary>

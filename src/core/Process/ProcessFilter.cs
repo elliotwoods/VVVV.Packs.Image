@@ -38,11 +38,19 @@ namespace VVVV.CV.Core
 								if (!FInput[i].Allocated)
 									continue;
 
-								if (FInput[i].ImageAttributesChanged || FProcess[i].NeedsAllocate())
+								if (FInput[i].ImageAttributesChanged || FProcess[i].NeedsAllocate)
+								{
+									FInput[i].ClearImageAttributesChanged();
+									FProcess[i].ClearNeedsAllocate();
+
+									FProcess[i].ClearNeedsAllocate();
 									FProcess[i].Allocate();
+								}
 
 								if (FInput[i].ImageChanged || FProcess[i].FlaggedForProcess)
 								{
+									FInput[i].ClearImageChanged();
+									FProcess[i].ClearFlagForProcess();
 									FProcess[i].TransferTimestamp();
 									FProcess[i].Process();
 								}
@@ -61,8 +69,6 @@ namespace VVVV.CV.Core
 				{
 					Thread.Sleep(10);
 				}
-
-				
 			}
 		}
 

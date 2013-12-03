@@ -20,11 +20,6 @@ namespace VVVV.CV.Nodes
 {
     public class VideoPlayerInstance : IGeneratorInstance
     {
-        public override bool NeedsAllocate()
-        {
-            return false;
-        }
-
         Capture FCapture;
 
         string FFilename;

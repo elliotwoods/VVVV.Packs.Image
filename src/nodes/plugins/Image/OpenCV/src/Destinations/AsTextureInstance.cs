@@ -133,8 +133,6 @@ namespace VVVV.CV.Nodes
 
 				if (FInput.ImageAttributesChanged)
 				{
-					//reset flag we just dropped
-					FInput.ImageAttributesChanged = true;
 					return;
 				}
 

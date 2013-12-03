@@ -32,14 +32,22 @@ namespace VVVV.CV.Core
 							if (!FInput[i].Allocated)
 								continue;
 
-							if (FInput[i].ImageAttributesChanged || FProcess[i].NeedsAllocate())
+							if (FInput[i].ImageAttributesChanged || FProcess[i].NeedsAllocate)
+							{
+								FInput[i].ClearImageAttributesChanged();
+								FProcess[i].ClearNeedsAllocate();
 								for (int iProcess = i; iProcess < SliceCount; iProcess += (FInput.SliceCount > 0 ? FInput.SliceCount : int.MaxValue))
 									FProcess[iProcess].Allocate();
+							}
+
 							try
 							{
 								if (FInput[i].ImageChanged)
+								{
+									FInput[i].ClearImageChanged();
 									for (int iProcess = i; iProcess < SliceCount; iProcess += (FInput.SliceCount > 0 ? FInput.SliceCount : int.MaxValue))
 										FProcess[iProcess].Process();
+								}
 							}
 							catch (Exception e)
 							{

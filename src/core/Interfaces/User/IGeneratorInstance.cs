@@ -130,8 +130,11 @@ namespace VVVV.CV.Core
 			{
 				if (IsOpen)
 				{
-					if (FOutput.Image.Allocated == false && this.NeedsAllocate())
+					if (FOutput.Image.Allocated == false && this.NeedsAllocate)
+					{
+						this.ClearNeedsAllocate();
 						ReAllocate();
+					}
 					else
 					{
 						FOutput.Image.Timestamp = DateTime.UtcNow.Ticks - TimestampDelay * 10000;

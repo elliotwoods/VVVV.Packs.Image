@@ -105,19 +105,6 @@ namespace VVVV.CV.Core
 			}
 		}
 
-		public bool ImageAttributesChanged
-		{
-			get
-			{
-				foreach (CVImageInput input in this)
-				{
-					if (input.ImageAttributesChanged)
-						return true;
-				}
-				return false;
-			}
-		}
-
 		public bool Connected
 		{
 			get

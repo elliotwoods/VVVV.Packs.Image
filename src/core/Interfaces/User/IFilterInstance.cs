@@ -50,20 +50,16 @@ namespace VVVV.CV.Core
 		{
 			get
 			{
-				if (FFlaggedForProcess)
-				{
-					FFlaggedForProcess = false;
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+				return FFlaggedForProcess;
 			}
 		}
 		public void FlagForProcess()
 		{
 			FFlaggedForProcess = true;
+		}
+		public void ClearFlagForProcess()
+		{
+			FFlaggedForProcess = false;
 		}
 	}
 }

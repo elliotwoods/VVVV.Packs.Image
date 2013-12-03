@@ -63,21 +63,20 @@ namespace VVVV.CV.Nodes
         public override void Process()
         {
 			//called on upstream image update
-
-            lock (FLockTexture)
-            {
-                //ImageChanged so mark needs refresh on created textures
-                foreach (var texture in FTextures)
-                {
-					var resource = texture.Value;
-					resource.NeedsRefresh = true;
-                }
-            }
-
 			if (FNeedsConversion)
 			{
-				FInput.GetImage(FBuffer);
+				FInput.GetImage(FBuffer.BackImage);
 				FBuffer.Swap();
+			}
+
+			lock (FLockTexture)
+			{
+				//ImageChanged so mark needs refresh on created textures
+				foreach (var texture in FTextures)
+				{
+					var resource = texture.Value;
+					resource.NeedsRefresh = true;
+				}
 			}
         }
 
