@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardCorners (DX9).v4p" systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" locked="0">
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardCorners (DX9).v4p" systemname="DrawBoardCorners (OpenCV DX9 2D)" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\modules\Image\OpenCV\DrawBoardCorners (OpenCV DX9 2D).v4p" locked="0">
    <BOUNDS type="Window" left="18330" top="2745" width="10170" height="12975">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="79" systemname="IOBox (Value Advanced)">
@@ -37,7 +37,7 @@
    </PIN>
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
-   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" values="-1">
    </PIN>
    </NODE>
    <NODE systemname="IOBox (Value Advanced)" nodename="IOBox (Value Advanced)" componentmode="InABox" id="77">
@@ -121,7 +121,7 @@
    </BOUNDS>
    <PIN pinname="VerticesXYZ" visible="1">
    </PIN>
-   <PIN pinname="Transform" visible="1">
+   <PIN pinname="Transform" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="BinSize" visible="1">
    </PIN>
@@ -177,7 +177,7 @@
    </BOUNDS>
    <PIN pinname="VerticesXYZ" visible="1">
    </PIN>
-   <PIN pinname="Transform" visible="1">
+   <PIN pinname="Transform" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="BinSize" visible="1">
    </PIN>
@@ -517,7 +517,7 @@
    </PIN>
    <PIN pinname="Transform Out" visible="1">
    </PIN>
-   <PIN pinname="Transform In" visible="1">
+   <PIN pinname="Transform In" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="85">
