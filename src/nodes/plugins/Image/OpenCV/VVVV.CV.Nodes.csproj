@@ -83,6 +83,7 @@
     </Reference>
     <Reference Include="VVVV.Nodes">
       <HintPath>..\..\..\..\..\..\..\lib\nodes\plugins\VVVV.Nodes.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Utils, Version=31.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\VVVV.Utils.31.3.2-develop-35\lib\net40\VVVV.Utils.dll</HintPath>

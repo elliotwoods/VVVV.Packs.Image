@@ -76,7 +76,7 @@ namespace VVVV.CV.Nodes
 	#endregion
 
 	#region Instances
-	[FilterInstance(">", Help = "Greater than")]
+	[FilterInstance("GT", Help = "Greater than")]
 	public class GTInstance : CMPInstance
 	{
 		protected override void Compare(IntPtr CvMat)
@@ -85,7 +85,7 @@ namespace VVVV.CV.Nodes
 		}
 	}
 
-	[FilterInstance("<", Help = "Less than")]
+	[FilterInstance("LT", Help = "Less than")]
 	public class LTInstance : CMPInstance
 	{
 		protected override void Compare(IntPtr CvMat)
@@ -94,7 +94,7 @@ namespace VVVV.CV.Nodes
 		}
 	}
 
-	[FilterInstance("=", Help = "Equal to")]
+	[FilterInstance("EQ", Help = "Equal to")]
 	public class EQInstance : CMPInstance
 	{
 		protected override void Compare(IntPtr CvMat)
