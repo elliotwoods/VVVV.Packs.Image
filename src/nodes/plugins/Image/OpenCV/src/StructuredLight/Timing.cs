@@ -126,6 +126,8 @@ namespace VVVV.CV.Nodes.StructuredLight
 			if (FInAbort[0])
 			{
 				FActionQueue.Clear();
+				FOutInitialise[0] = false;
+				FOutCapture[0] = false;
 			}
 
 			while (FActionQueue.Count > 0)

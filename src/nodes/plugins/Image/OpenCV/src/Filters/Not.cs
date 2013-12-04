@@ -31,6 +31,5 @@ namespace VVVV.CV.Nodes
 			FInput.ReleaseForReading(); //and  this after you've finished with FImage
 			FOutput.Send();
 		}
-
 	}
 }

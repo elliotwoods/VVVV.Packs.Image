@@ -53,7 +53,7 @@ namespace VVVV.Nodes.EDSDK.Nodes
 						else if (FInSaveOnComputer[i])
 							camera.SavePicturesToHost(FInSaveLocation[i]);
 						else if (FInSaveOnCamera.IsChanged || FInSaveOnComputer.IsChanged && FFirstRun)
-							throw(new Exception("Canon.Eos.Framework doesn't support turning off save pictures to camera or comptuer if you've set this flag previously unless the camera is reset. For the remainder of this session you will need to select either to save to the camera or the computer"));
+							throw(new Exception("Canon.Eos.Framework requires to you turn on Save To Camera or Save To Computer. But you can actually turn it off again afterwards and ReceivePhoto will continue to work."));
 
 						FOutStatus[i] = "OK";
 					}

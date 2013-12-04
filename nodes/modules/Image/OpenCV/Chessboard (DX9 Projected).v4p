@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (DX9 Projected).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\subpatches\GenerateChessboard.v4p" systemname="GenerateChessboard">
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (DX9 Projected).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\subpatches\GenerateChessboard.v4p" systemname="GenerateChessboard">
    <BOUNDS height="8760" left="18090" top="6075" type="Window" width="9330">
    </BOUNDS>
    <NODE componentmode="InABox" id="3" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
@@ -302,7 +302,7 @@
    <PIN pinname="Y" slicecount="1" values="-1">
    </PIN>
    </NODE>
-   <NODE componentmode="InAWindow" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (DX9).v4p" id="29" nodename="Chessboard (DX9)" systemname="Chessboard (DX9)">
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (DX9).v4p" id="29" nodename="Chessboard (DX9)" systemname="Chessboard (DX9)">
    <BOUNDS height="270" left="4470" top="4335" type="Node" width="2715">
    </BOUNDS>
    <PIN pinname="Lightness" visible="1">
