@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
    <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (DX9 Projected).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\subpatches\GenerateChessboard.v4p" systemname="GenerateChessboard">
-   <BOUNDS height="8760" left="18090" top="6075" type="Window" width="9330">
+   <BOUNDS height="8760" left="7545" top="0" type="Window" width="9330">
    </BOUNDS>
    <NODE componentmode="InABox" id="3" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="100" left="6225" top="315" type="Node" width="100">
@@ -319,20 +319,16 @@
    </PIN>
    <PIN pinname="Transform In" visible="1" slicecount="1" values="||">
    </PIN>
+   <BOUNDS type="Window" left="2970" top="2985" width="8790" height="5505">
+   </BOUNDS>
+   <PIN pinname="Board Size XY" visible="1">
+   </PIN>
    </NODE>
    <LINK dstnodeid="29" dstpinname="Board Pitch" srcnodeid="3" srcpinname="Y Output Value">
    </LINK>
    <LINK dstnodeid="17" dstpinname="Layer 2" hiddenwhenlocked="1" srcnodeid="29" srcpinname="Layer">
    </LINK>
-   <LINK srcnodeid="31" srcpinname="X" dstnodeid="29" dstpinname="Board Size XY">
-   </LINK>
    <LINK srcnodeid="31" srcpinname="Y" dstnodeid="29" dstpinname="Board Size Y">
-   </LINK>
-   <LINK srcnodeid="32" srcpinname="Output Node" dstnodeid="29" dstpinname="Transform In" linkstyle="VHV">
-   <LINKPOINT x="3695" y="2470">
-   </LINKPOINT>
-   <LINKPOINT x="4480" y="2570">
-   </LINKPOINT>
    </LINK>
    <INFO author="elliotwoods" description="For use when projecting a chessboard" tags="projector calibration">
    </INFO>
@@ -401,5 +397,7 @@
    </LINKPOINT>
    </LINK>
    <LINK srcnodeid="9" srcpinname="Object XYZ" dstnodeid="6" dstpinname="XYZ UnTransformed">
+   </LINK>
+   <LINK srcnodeid="30" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Board Size XY">
    </LINK>
    </PATCH>

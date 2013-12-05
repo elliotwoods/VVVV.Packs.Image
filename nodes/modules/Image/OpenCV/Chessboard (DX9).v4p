@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\modules\Chessboard (EmguCV, DX9).v4p" systemname="Chessboard (EmguCV, DX9)">
-   <BOUNDS height="5505" left="3405" top="8130" type="Window" width="8790">
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\Chessboard (DX9).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\modules\Chessboard (EmguCV, DX9).v4p" systemname="Chessboard (EmguCV, DX9)">
+   <BOUNDS height="5505" left="2970" top="2985" type="Window" width="8790">
    </BOUNDS>
    <NODE componentmode="Hidden" id="8" nodename="Quad (DX9)" systemname="Quad (DX9)">
    <BOUNDS height="270" left="660" top="3780" type="Node" width="5925">
