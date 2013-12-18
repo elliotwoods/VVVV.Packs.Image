@@ -130,7 +130,7 @@ namespace VVVV.CV.Nodes
     [PluginInfo(Name = "VideoPlayer",
               Category = "CV.Image",
               Help = "Plays a video file to an Image stream",
-              Tags = "")]
+              Tags = "source")]
     #endregion PluginInfo
     public class VideoPlayerNode : IGeneratorNode<VideoPlayerInstance>
     {

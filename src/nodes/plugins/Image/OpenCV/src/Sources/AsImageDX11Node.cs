@@ -19,10 +19,10 @@ using SlimDX;
 namespace VVVV.CV.Nodes
 {	
 	[PluginInfo(Name = "AsImage",
-				Category = "CV.Image",
-				Version = "DX11.Texture2D",
+				Category = "DX11.Texture2D",
+				Version = "",
 				Help = "Converts DX11.Texture2D to CVImageLink",
-				Tags = "")]
+				Tags = "cv, source")]
 	public unsafe class AsImageDX11Node : IPluginEvaluate, IDX11ResourceDataRetriever, IDisposable
 	{
 		[Input("Input")]

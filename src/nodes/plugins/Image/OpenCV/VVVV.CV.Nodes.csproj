@@ -176,7 +176,7 @@
     <Compile Include="src\Tracking\ContourDelauneyNode.cs" />
     <Compile Include="src\Tracking\ContourNode.cs" />
     <Compile Include="src\Tracking\ContourPerimeterSplitNode.cs" />
-    <Compile Include="src\Tracking\TrackObject.cs" />
+    <Compile Include="src\Tracking\DetectObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="src\Destinations\ImageViewNode.resx">

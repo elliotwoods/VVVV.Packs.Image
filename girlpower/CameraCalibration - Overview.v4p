@@ -1,0 +1,247 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug31.3.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\VVVV.Packs.Image\girlpower\Calibration.v4p" systemname="Calibration" filename="C:\Users\joreg\dev\repos\VVVV.Packs.Image\girlpower\Calibration.v4p">
+   <BOUNDS type="Window" left="6015" top="1725" width="12030" height="10245">
+   </BOUNDS>
+   <NODE systemname="SolvePnP (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="SolvePnP (OpenCV)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="2370" top="7935" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2370" top="7935">
+   </BOUNDS>
+   <PIN pinname="Intrinsics" visible="1">
+   </PIN>
+   <PIN pinname="Image Points Bin Size" visible="1" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Object PointsXYZ" visible="1">
+   </PIN>
+   <PIN pinname="Extrinsics" visible="1">
+   </PIN>
+   <PIN pinname="Image PointsXY" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="FindBoard (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="FindBoard (OpenCV)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="2370" top="3765" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2370" top="3765">
+   </BOUNDS>
+   <PIN pinname="PositionXY" visible="1">
+   </PIN>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Extrinsics (OpenCV Split)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Extrinsics (OpenCV Split)" componentmode="Hidden" id="4">
+   <BOUNDS type="Node" left="3585" top="8640" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Extrinsics" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="3585" top="8640">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="Intrinsics (OpenCV Split)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Intrinsics (OpenCV Split)" componentmode="Hidden" id="5">
+   <BOUNDS type="Node" left="3585" top="7440" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Intrinsics" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="3585" top="7440">
+   </BOUNDS>
+   </NODE>
+   <NODE systemname="CalibrateCamera (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="CalibrateCamera (OpenCV)" componentmode="Hidden" id="10">
+   <BOUNDS type="Node" left="2970" top="5850" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2970" top="5850">
+   </BOUNDS>
+   <PIN pinname="Object PointsXYZ" visible="1">
+   </PIN>
+   <PIN pinname="Image PointsXY" visible="1">
+   </PIN>
+   <PIN pinname="Intrinsics" visible="1">
+   </PIN>
+   <PIN pinname="ResolutionXY" slicecount="2" values="0,0">
+   </PIN>
+   </NODE>
+   <NODE systemname="BoardObjectPoints (OpenCV)" filename="%VVVV%\packs\Image\nodes\modules\Image\OpenCV\BoardObjectPoints (OpenCV).v4p" nodename="BoardObjectPoints (OpenCV)" componentmode="Hidden" id="12">
+   <BOUNDS type="Node" left="6570" top="3780" width="1560" height="270">
+   </BOUNDS>
+   <PIN pinname="Object XYZ" visible="1">
+   </PIN>
+   <PIN pinname="Board Size X" visible="1">
+   </PIN>
+   <PIN pinname="Board Size Y" visible="1">
+   </PIN>
+   </NODE>
+   <NODE componentmode="InABox" id="15" nodename="IOBox (String)" systemname="IOBox (String)">
+   <BOUNDS height="270" left="3330" top="3780" type="Node" width="3330">
+   </BOUNDS>
+   <BOUNDS height="525" left="3330" top="3780" type="Box" width="2370">
+   </BOUNDS>
+   <BOUNDS height="160" left="0" top="0" type="Window" width="215">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|&lt; Finds chessboard patterns within the input Image stream.|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="16" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="4710" top="5865" width="2790" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4710" top="5865" width="2205" height="1185">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|&lt; Returns camera intrinsics given a chessboards actual (Object Points) coordinates and its coordinates (Image Points) as found in the image|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="12" srcpinname="Object XYZ" dstnodeid="10" dstpinname="Object PointsXYZ">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="17" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="2910" top="2790" width="450" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2910" top="2790" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="8">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Board size X">
+   </LINK>
+   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="12" dstpinname="Board Size X">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="18" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="3735" top="2790" width="390" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3735" top="2790" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="6">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="18" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Board size Y">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Y Output Value" dstnodeid="12" dstpinname="Board Size Y">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="PositionXY" dstnodeid="10" dstpinname="Image PointsXY">
+   </LINK>
+   <LINK srcnodeid="10" srcpinname="Intrinsics" dstnodeid="0" dstpinname="Intrinsics">
+   </LINK>
+   <LINK srcnodeid="12" srcpinname="Object XYZ" dstnodeid="0" dstpinname="Object PointsXYZ">
+   </LINK>
+   <LINK srcnodeid="0" srcpinname="Extrinsics" dstnodeid="4" dstpinname="Extrinsics">
+   </LINK>
+   <LINK srcnodeid="10" srcpinname="Intrinsics" dstnodeid="5" dstpinname="Intrinsics">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="19" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="4710" top="7395" width="3960" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4710" top="7395" width="1995" height="510">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|&lt; The cameras perspective and distortion parameters|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="20" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="4710" top="8610" width="3870" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4710" top="8610" width="2370" height="450">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|&lt; the cameras view transform (ie. position, rotation)|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE systemname="VideoIn (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="VideoIn (OpenCV)" componentmode="Hidden" id="21">
+   <BOUNDS type="Node" left="1590" top="1980" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="Output" dstnodeid="3" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Info (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (OpenCV)" componentmode="Hidden" id="22">
+   <BOUNDS type="Node" left="1035" top="2880" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Width" visible="1">
+   </PIN>
+   <PIN pinname="Height" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="Output" dstnodeid="22" dstpinname="Image">
+   </LINK>
+   <NODE nodename="Vector (2D Join)" id="24" systemname="Vector (2d Join)">
+   <PIN pinname="X" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Y" slicecount="1" visible="1" values="0">
+   </PIN>
+   <BOUNDS type="Node" left="1155" top="3360" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="24" srcpinname="XY" dstnodeid="10" dstpinname="ResolutionXY">
+   </LINK>
+   <LINK srcnodeid="22" srcpinname="Width" dstnodeid="24" dstpinname="X">
+   </LINK>
+   <LINK srcnodeid="22" srcpinname="Height" dstnodeid="24" dstpinname="Y">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="PositionXY" dstnodeid="0" dstpinname="Image PointsXY">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="25" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="840" top="330" width="5640" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="840" top="330" width="5220" height="1005">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|A (non-functional) schematic explaining the steps involved in getting a cameras intrinsics and extrinsics|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" values="12">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="26" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="8265" top="3780" width="4575" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="8265" top="3780" width="2595" height="510">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|&lt; Constructs the chessboard coordinates given its dimensions|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   </PATCH>

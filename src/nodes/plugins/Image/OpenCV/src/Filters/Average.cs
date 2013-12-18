@@ -15,7 +15,7 @@ using VVVV.CV.Core;
 
 namespace VVVV.CV.Nodes
 {
-	[FilterInstance("Average", Tags = "temporal", Help = "Average input image over N frames (outputs at input framerate / N)", Author = "elliotwoods")]
+	[FilterInstance("Average", Version = "Temporal", Tags = "filter", Help = "Average input image over N frames (outputs at input framerate / N)", Author = "elliotwoods")]
 	public class TemporalAverageInstance : IFilterInstance
 	{
 		private int FFrames = 1;

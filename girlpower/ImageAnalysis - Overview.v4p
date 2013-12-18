@@ -1,22 +1,8 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug31.3.dtd" >
-   <PATCH nodename="C:\Users\joreg\dev\repos\VVVV.Packs.Image\girlpower\ImageAnalysis - Overview.v4p" systemname="ImageAnalysis - Overview" filename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\Image\girlpower\ImageAnalysis - Overview.v4p">
-   <BOUNDS type="Window" left="9555" top="4875" width="11520" height="7410">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug31.4.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\girlpower\ImageAnalysis - Overview.v4p" systemname="ImageAnalysis - Overview" filename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\Image\girlpower\ImageAnalysis - Overview.v4p">
+   <BOUNDS type="Window" left="6555" top="1185" width="11520" height="7410">
    </BOUNDS>
-   <NODE systemname="Renderer (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Renderer (OpenCV)" componentmode="InAWindow" id="35">
-   <BOUNDS type="Node" left="4110" top="1605" width="100" height="100">
-   </BOUNDS>
-   <BOUNDS type="Window" left="150" top="1170" width="6240" height="5010">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Slice" slicecount="1" values="0">
-   </PIN>
-   <BOUNDS type="Box" left="4110" top="1605">
-   </BOUNDS>
-   <PIN pinname="Descriptive Name" slicecount="1" values="||">
-   </PIN>
-   </NODE>
-   <NODE systemname="Pipet (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Pipet (OpenCV)" componentmode="Hidden" id="0">
+   <NODE systemname="Pipet (CV.Image)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Pipet (OpenCV)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="3930" top="3750" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -30,7 +16,7 @@
    <BOUNDS type="Box" left="3930" top="3750">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Framerate (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Framerate (OpenCV)" componentmode="Hidden" id="20">
+   <NODE systemname="Framerate (CV.Image)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Framerate (OpenCV)" componentmode="Hidden" id="20">
    <BOUNDS type="Node" left="1485" top="3750" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -40,7 +26,7 @@
    <BOUNDS type="Box" left="1485" top="3750">
    </BOUNDS>
    </NODE>
-   <NODE systemname="Contour (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Contour (OpenCV)" componentmode="Hidden" id="21">
+   <NODE systemname="Contour (CV.Image)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Contour (OpenCV)" componentmode="Hidden" id="21">
    <BOUNDS type="Node" left="5580" top="3750" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -56,7 +42,7 @@
    <PIN pinname="Perimeter" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="VideoIn (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="VideoIn (OpenCV)" componentmode="Hidden" id="17">
+   <NODE systemname="VideoIn (CV.Image VfW)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="VideoIn (OpenCV)" componentmode="Hidden" id="17">
    <BOUNDS type="Node" left="3930" top="885" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
@@ -72,9 +58,7 @@
    </LINK>
    <LINK srcnodeid="17" srcpinname="Output" dstnodeid="21" dstpinname="Input">
    </LINK>
-   <LINK srcnodeid="17" srcpinname="Output" dstnodeid="35" dstpinname="Input">
-   </LINK>
-   <NODE systemname="Change (OpenCV)" nodename="Change (OpenCV)" componentmode="Hidden" id="19" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll">
+   <NODE systemname="Change (CV.Image)" nodename="Change (OpenCV)" componentmode="Hidden" id="19" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll">
    <BOUNDS type="Node" left="615" top="3750" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1" slicecount="1" values="||">
@@ -152,16 +136,6 @@
    </NODE>
    <LINK srcnodeid="20" srcpinname="Framerate fps" dstnodeid="41" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="AvgSdv (OpenCV Mean)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AvgSdv (OpenCV Mean)" componentmode="Hidden" id="42">
-   <BOUNDS type="Node" left="7050" top="3750" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="7050" top="3750">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="17" srcpinname="Output" dstnodeid="42" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="43" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="7050" top="4560" width="795" height="720">
    </BOUNDS>
@@ -173,16 +147,14 @@
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="3">
    </PIN>
-   <PIN pinname="Y Input Value">
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Vector Size" slicecount="1" values="3">
    </PIN>
    <PIN pinname="Default" slicecount="1" values="|0, 0, 0|">
    </PIN>
    </NODE>
-   <LINK srcnodeid="42" srcpinname="Average" dstnodeid="43" dstpinname="Y Input Value">
-   </LINK>
-   <NODE systemname="ObjectTracking (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ObjectTracking (OpenCV)" componentmode="Hidden" id="44">
+   <NODE systemname="DetectObject (CV.Image)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ObjectTracking (OpenCV)" componentmode="Hidden" id="44">
    <BOUNDS type="Node" left="8415" top="3750" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -205,26 +177,10 @@
    </PIN>
    <PIN pinname="Rows" slicecount="1" values="2">
    </PIN>
-   <PIN pinname="Y Input Value">
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="44" srcpinname="PositionXY" dstnodeid="45" dstpinname="Y Input Value">
-   </LINK>
-   <NODE systemname="ContourDelauney (OpenCV)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ContourDelauney (OpenCV)" componentmode="Hidden" id="46">
-   <BOUNDS type="Node" left="6090" top="5595" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="21" srcpinname="Perimeter" dstnodeid="46" dstpinname="Input">
-   </LINK>
-   <NODE systemname="ContourPerimeter (OpenCV Split)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ContourPerimeter (OpenCV Split)" componentmode="Hidden" id="47">
-   <BOUNDS type="Node" left="5805" top="6045" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="21" srcpinname="Perimeter" dstnodeid="47" dstpinname="Input">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="48" systemname="IOBox (String)">
    <BOUNDS type="Node" left="645" top="555" width="1080" height="270">
@@ -242,4 +198,62 @@
    <PIN pinname="Size" slicecount="1" values="12">
    </PIN>
    </NODE>
+   <NODE systemname="Renderer (EX9)" filename="" nodename="Renderer (EX9)" componentmode="InAWindow" id="35">
+   <BOUNDS type="Node" left="4110" top="1935" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Window" left="150" top="1170" width="6240" height="5010">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Slice">
+   </PIN>
+   <BOUNDS type="Box" left="4110" top="1935">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="GridView (DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\GridView (DX9).v4p" nodename="GridView (DX9)" componentmode="Hidden" id="49">
+   <BOUNDS type="Node" left="4110" top="1575" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="17" srcpinname="Output" dstnodeid="49" dstpinname="Image">
+   </LINK>
+   <LINK srcnodeid="49" srcpinname="Layer" dstnodeid="35" dstpinname="Layers">
+   </LINK>
+   <NODE id="42" systemname="Average (CV.Image)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AvgSdv (OpenCV Mean)" componentmode="Hidden">
+   <BOUNDS type="Node" left="7050" top="3750" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="7050" top="3750">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="42" srcpinname="Average" dstnodeid="43" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="17" srcpinname="Output" dstnodeid="42" dstpinname="Input">
+   </LINK>
+   <NODE id="46" systemname="Delauney (CV.Contour)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ContourDelauney (OpenCV)" componentmode="Hidden">
+   <BOUNDS type="Node" left="6090" top="5595" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="Perimeter" dstnodeid="46" dstpinname="Input">
+   </LINK>
+   <INFO author="" description="" tags="">
+   </INFO>
+   <NODE systemname="Perimeter (CV.Contour Split)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Perimeter (CV.Contour Split)" componentmode="Hidden" id="47">
+   <BOUNDS type="Node" left="5805" top="6045" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="21" srcpinname="Perimeter" dstnodeid="47" dstpinname="Input">
+   </LINK>
    </PATCH>
