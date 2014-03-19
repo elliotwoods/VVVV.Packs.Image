@@ -50,11 +50,6 @@
       <HintPath>Dependencies\EmguCV\Emgu.Util.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\DX11\core\FeralTic.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex, Version=4.1.2.0, Culture=neutral, PublicKeyToken=13e5ffd4e05db186, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\VVVV.System.ComponentModel.Composition.Codeplex.2.5.0\lib\net40\System.ComponentModel.Composition.CodePlex.dll</HintPath>
@@ -69,16 +64,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="VVVV.Core, Version=31.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\VVVV.Core.31.3.2-develop-35\lib\net40\VVVV.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\DX11\core\VVVV.DX11.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="VVVV.DX11.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\DX11\core\VVVV.DX11.Lib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Nodes">
@@ -107,7 +92,7 @@
     <Compile Include="src\Calibration\FindBoardInstance.cs" />
     <Compile Include="src\Calibration\FindBoardNode.cs" />
     <Compile Include="src\Calibration\IntrinsicsSplitNode.cs" />
-    <Compile Include="src\Calibration\IntrinsicsJoinNode.cs" /> 
+    <Compile Include="src\Calibration\IntrinsicsJoinNode.cs" />
     <Compile Include="src\Calibration\ProjectPointsNode.cs" />
     <None Include="packages.config" />
     <None Include="src\Features\Stitch.cs" />
@@ -161,7 +146,7 @@
     <Compile Include="src\Filters\OpticalFlowLK.cs" />
     <Compile Include="src\Filters\Template.cs" />
     <Compile Include="src\Filters\WithinRange.cs" />
-    <Compile Include="src\MultiInput\Cons.cs" />
+    <None Include="src\MultiInput\Cons.cs" />
     <Compile Include="src\Sources\FileImageNode.cs" />
     <Compile Include="src\Sources\NoiseNode.cs" />
     <Compile Include="src\Sources\VideoInNode.cs" />
@@ -185,6 +170,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\dx11\src\Core\VVVV.DX11.Core\VVVV.DX11.Core.csproj">
+      <Project>{71c0786d-2640-4e39-aa7b-83602f36f3a3}</Project>
+      <Name>VVVV.DX11.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\dx11\src\FeralTic\Core\FeralTic.csproj">
+      <Project>{9ead0f44-e6aa-4363-be4d-d944c1d35044}</Project>
+      <Name>FeralTic</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\core\VVVV.CV.Core.csproj">
       <Project>{673fdae3-3e5d-435c-8690-06378d3ed954}</Project>
       <Name>VVVV.CV.Core</Name>
