@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.props" Condition="Exists('..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.props')" />
   <Import Project="..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props" Condition="Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="Default.Core.Project.settings" />
@@ -12,6 +13,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\src\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
+    <EmguCVPrivate>false</EmguCVPrivate>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -87,6 +89,7 @@
     <Error Condition="!Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props'))" />
     <Error Condition="!Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets'))" />
     <Error Condition="!Exists('..\packages\VVVV.PluginInterfaces.31.7.1-develop-175\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.PluginInterfaces.31.7.1-develop-175\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.props'))" />
     <Error Condition="!Exists('..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.targets'))" />
   </Target>
   <Import Project="..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" />
