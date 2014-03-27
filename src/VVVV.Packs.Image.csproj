@@ -11,6 +11,8 @@
     <AssemblyName>VVVV.Packs.Image</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">.\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -82,10 +84,6 @@
       <Project>{450cf5db-edb3-4e59-bd5f-f1857eb76419}</Project>
       <Name>VVVV.Nodes.DeckLink</Name>
     </ProjectReference>
-    <ProjectReference Include="nodes\plugins\Image\EDSDK\VVVV.Nodes.OpenCV.EDSDK.csproj">
-      <Project>{5edb3c6e-2685-44f6-bd71-678cfc10ab31}</Project>
-      <Name>VVVV.Nodes.OpenCV.EDSDK</Name>
-    </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\FlyCapture\VVVV.Nodes.OpenCV.FlyCapture.csproj">
       <Project>{998e4e7e-f3b4-4ca1-acd3-0eabacf23dd0}</Project>
       <Name>VVVV.Nodes.OpenCV.FlyCapture</Name>
@@ -97,10 +95,6 @@
     <ProjectReference Include="nodes\plugins\Image\OpenCV\VVVV.CV.Nodes.csproj">
       <Project>{e9a7fc26-34e0-4c1e-83d8-c01a169422b2}</Project>
       <Name>VVVV.CV.Nodes</Name>
-    </ProjectReference>
-    <ProjectReference Include="nodes\plugins\Image\OpenNI\VVVV.Nodes.OpenCV.OpenNI.csproj">
-      <Project>{d9d17924-98d5-468f-840e-3a3f8308be35}</Project>
-      <Name>VVVV.Nodes.OpenCV.OpenNI</Name>
     </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\OptiTrack\VVVV.Nodes.OpenCV.OptiTrack.csproj">
       <Project>{5971be7a-0fb0-4ddf-b7d2-000e80ef6fdd}</Project>
@@ -115,6 +109,13 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
