@@ -114,9 +114,7 @@ namespace VVVV.CV.Factories
             //    namedArguments[namedArgument.MemberInfo.Name] = namedArgument.TypedValue.Value;
             //}
 
-            var author = "";
-            var help = "";
-            var version = "";
+            var attributes = new Dictionary<string, string>();
 
             var namedArguments = attribute.NamedArguments;
 
@@ -124,20 +122,12 @@ namespace VVVV.CV.Factories
             {
                 var argumentName = argument.MemberInfo.Name;
                 var value = argument.TypedValue.Value.ToString();
-                
-                switch (argumentName)
-                {
-                    case "Author":
-                        author = value;
-                        break;
-                    case "Help":
-                        help = value;
-                        break;
-                    case "Version":
-                        version = value;
-                        break;
-                }
+
+                attributes.Add(argumentName, value);
             }
+
+            string version;
+            attributes.TryGetValue("Version", out version);
 
             var nodeInfo = FNodeInfoFactory.CreateNodeInfo(
                 name,
@@ -146,8 +136,21 @@ namespace VVVV.CV.Factories
                 filename,
                 true);
 
+            string author;
+            attributes.TryGetValue("Author", out author);
             nodeInfo.Author = author;
+
+            string help;
+            attributes.TryGetValue("Help", out help);
             nodeInfo.Help = help;
+
+            string credits;
+            attributes.TryGetValue("Credits", out credits);
+            nodeInfo.Credits = credits;
+
+            string tags;
+            attributes.TryGetValue("Tags", out tags);
+            nodeInfo.Tags = tags;
 
             //foreach (var entry in namedArguments)
             //{
