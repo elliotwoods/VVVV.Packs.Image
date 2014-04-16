@@ -23,19 +23,19 @@ namespace VVVV.CV.Nodes
 
 		protected CVImage Buffer = new CVImage();
 
-		private bool FPassOriginal = false;
-		public bool PassOriginal
-		{
-			set
-			{
-				FPassOriginal = value;
-				ReAllocate();
-			}
-		}
+        [Input("Pass Original", DefaultBoolean = false, IsToggle = true, IsSingle = true)]
+	    public bool PassOriginal;
+
+	    [Input("Raw Range", DefaultBoolean = false, IsToggle = true, IsSingle = true, Visibility = PinVisibility.OnlyInspector)] 
+        public bool RawRange;
+
+        protected double RangeMult = byte.MaxValue;
 
 		public override void Allocate()
 		{
 			Buffer.Initialise(FInput.ImageAttributes.Size, TColorFormat.L8);
+
+            RangeMult = FInput.ImageAttributes.BytesPerPixel > 4 ? float.MaxValue : byte.MaxValue;
 		}
 
 		public override void Process()
@@ -58,11 +58,11 @@ namespace VVVV.CV.Nodes
 				FInput.GetImage(Buffer);
 				Compare(Buffer.CvMat);
 			}
-
-			if (FPassOriginal)
-				FOutput.Image.SetImage(FInput.Image);
-			if (FPassOriginal)
+				
+            if (PassOriginal)
 			{
+                FOutput.Image.SetImage(FInput.Image);
+
 				CvInvoke.cvNot(Buffer.CvMat, Buffer.CvMat);
 				CvInvoke.cvSet(FOutput.Image.CvMat, new MCvScalar(0.0), Buffer.CvMat);
 				FOutput.Send();
@@ -81,7 +81,10 @@ namespace VVVV.CV.Nodes
 	{
 		protected override void Compare(IntPtr CvMat)
 		{
-			CvInvoke.cvCmpS(CvMat, Threshold, Buffer.CvMat, CMP_TYPE.CV_CMP_GT);
+            var value = Threshold * RangeMult;
+            if (RawRange) value = Threshold;
+			
+            CvInvoke.cvCmpS(CvMat, value, Buffer.CvMat, CMP_TYPE.CV_CMP_GT);
 		}
 	}
 
@@ -90,7 +93,10 @@ namespace VVVV.CV.Nodes
 	{
 		protected override void Compare(IntPtr CvMat)
 		{
-			CvInvoke.cvCmpS(CvMat, Threshold, Buffer.CvMat, CMP_TYPE.CV_CMP_LT);
+            var value = Threshold * RangeMult;
+            if (RawRange) value = Threshold;
+			
+            CvInvoke.cvCmpS(CvMat, value, Buffer.CvMat, CMP_TYPE.CV_CMP_LT);
 		}
 	}
 
@@ -99,7 +105,10 @@ namespace VVVV.CV.Nodes
 	{
 		protected override void Compare(IntPtr CvMat)
 		{
-			CvInvoke.cvCmpS(CvMat, Threshold, Buffer.CvMat, CMP_TYPE.CV_CMP_EQ);
+		    var value = Threshold*RangeMult;
+		    if (RawRange) value = Threshold;
+			
+            CvInvoke.cvCmpS(CvMat, value, Buffer.CvMat, CMP_TYPE.CV_CMP_EQ);
 		}
 	}
 	#endregion

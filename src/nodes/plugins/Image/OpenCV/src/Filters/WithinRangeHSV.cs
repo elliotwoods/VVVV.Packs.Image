@@ -7,7 +7,7 @@ using VVVV.CV.Core;
 
 namespace VVVV.CV.Nodes
 {
-    [FilterInstance("WithinRange", Version = "HSV", Author = "alg", Help = "Check if value is in target HSV range")]
+    [FilterInstance("WithinRange", Version = "HSV", Author = "alg", Help = "check if color is in target HSV range")]
     public class WithinRangeHsvInstance : IFilterInstance
     {
         [Input("Minimum", DefaultValues = new double[] {0, 0, 0}, MinValue = 0, MaxValue = 1)] 
@@ -19,11 +19,14 @@ namespace VVVV.CV.Nodes
         [Input("Pass Original", DefaultBoolean = false, IsToggle = true, IsSingle = true)] 
         public bool PassOriginal;
 
+        [Input("Raw Range", DefaultBoolean = false, IsToggle = true, IsSingle = true, Visibility = PinVisibility.OnlyInspector)]
+        public bool RawRange;
+
         private readonly CVImage FHsvImage = new CVImage();
         private readonly CVImage FBuffer = new CVImage();
 
 
-        private double FMult = byte.MaxValue;
+        private double FRangeMult = byte.MaxValue;
 
         public override void Allocate()
         {
@@ -32,7 +35,7 @@ namespace VVVV.CV.Nodes
             
             FOutput.Image.Initialise(FInput.Image.ImageAttributes);
 
-            FMult = FInput.ImageAttributes.BytesPerPixel > 4 ? float.MaxValue : byte.MaxValue;
+            FRangeMult = FInput.ImageAttributes.BytesPerPixel > 4 ? float.MaxValue : byte.MaxValue;
         }
 
         public override void Process()
@@ -43,8 +46,11 @@ namespace VVVV.CV.Nodes
             
             FInput.ReleaseForReading();
 
-            CvInvoke.cvInRangeS(FHsvImage.CvMat, new MCvScalar(Minimum.x * FMult, Minimum.y * FMult, Minimum.z * FMult),
-                    new MCvScalar(Maximum.x * FMult, Maximum.y * FMult, Maximum.z * FMult), FBuffer.CvMat);
+            var mult = FRangeMult;
+            if (RawRange) mult = 1;
+
+            CvInvoke.cvInRangeS(FHsvImage.CvMat, new MCvScalar(Minimum.x * mult, Minimum.y * mult, Minimum.z * mult),
+                    new MCvScalar(Maximum.x * mult, Maximum.y * mult, Maximum.z * mult), FBuffer.CvMat);
 
             if (PassOriginal)
             {
