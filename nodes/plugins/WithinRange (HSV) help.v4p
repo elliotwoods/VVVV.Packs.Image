@@ -1,0 +1,93 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.7.dtd" >
+   <PATCH nodename="D:\Dropbox\Git Repos\vvvv-sdk\vvvv45\packs\imagepack\nodes\plugins\WithinRange (HSV) help.v4p" systemname="WithinRange (HSV) help" filename="D:\Dropbox\Git Repos\vvvv-sdk\vvvv45\packs\imagepack\nodes\plugins\WithinRange (HSV) help.v4p">
+   <BOUNDS type="Window" left="9900" top="5100" width="9000" height="6000">
+   </BOUNDS>
+   <NODE systemname="VideoIn (CV.Image DirectShow)" filename="%VVVV%\packs\imagepack\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (CV.Image DirectShow)" componentmode="Hidden" id="0">
+   <BOUNDS type="Node" left="2490" top="1695" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Enabled" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="AsTexture (CV.Image DX11.Texture2D)" filename="%VVVV%\packs\imagepack\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AsTexture (CV.Image DX11.Texture2D)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="2505" top="3135" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="2">
+   <BOUNDS type="Node" left="2025" top="4560" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2025" top="4560" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="21315" top="6240" width="6240" height="5085">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Quad (DX11.Layer)" filename="%VVVV%\packs\dx11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="2190" top="3900" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Texture" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Texture Out" dstnodeid="3" dstpinname="Texture">
+   </LINK>
+   <LINK srcnodeid="3" srcpinname="Layer" dstnodeid="2" dstpinname="Layers">
+   </LINK>
+   <NODE systemname="AsTexture (CV.Image EX9.Texture)" filename="%VVVV%\packs\imagepack\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AsTexture (CV.Image EX9.Texture)" componentmode="Hidden" id="6">
+   <BOUNDS type="Node" left="4995" top="3165" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InAWindow" id="7">
+   <BOUNDS type="Node" left="4665" top="4350" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4665" top="4350" width="2400" height="1800">
+   </BOUNDS>
+   <BOUNDS type="Window" left="21300" top="11115" width="6240" height="5085">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Quad (DX9)" nodename="Quad (DX9)" componentmode="Hidden" id="8">
+   <BOUNDS type="Node" left="4650" top="3585" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Texture" visible="1">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="6" srcpinname="Texture Out" dstnodeid="8" dstpinname="Texture">
+   </LINK>
+   <LINK srcnodeid="8" srcpinname="Layer" dstnodeid="7" dstpinname="Layers">
+   </LINK>
+   <NODE systemname="WithinRange (CV.Image HSV)" filename="%VVVV%\packs\imagepack\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="WithinRange (CV.Image HSV)" componentmode="Hidden" id="4">
+   <BOUNDS type="Node" left="2490" top="2460" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="MaximumXYZ" slicecount="3" values="1,1,1">
+   </PIN>
+   <PIN pinname="MinimumXYZ" slicecount="3" values="0,0,0">
+   </PIN>
+   <PIN pinname="Pass Original" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Output" dstnodeid="4" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="4" srcpinname="Output" dstnodeid="1" dstpinname="Image">
+   </LINK>
+   <LINK srcnodeid="4" srcpinname="Output" dstnodeid="6" dstpinname="Image">
+   </LINK>
+   </PATCH>
