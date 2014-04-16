@@ -8,7 +8,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using SlimDX.Direct3D10;
 using VVVV.Hosting.Factories;
+using VVVV.Hosting.Graph;
 using VVVV.Hosting.Interfaces;
 using VVVV.Hosting.IO;
 using VVVV.CV.Core;
@@ -112,12 +114,40 @@ namespace VVVV.CV.Factories
             //    namedArguments[namedArgument.MemberInfo.Name] = namedArgument.TypedValue.Value;
             //}
 
+            var author = "";
+            var help = "";
+            var version = "";
+
+            var namedArguments = attribute.NamedArguments;
+
+            foreach (var argument in namedArguments)
+            {
+                var argumentName = argument.MemberInfo.Name;
+                var value = argument.TypedValue.Value.ToString();
+                
+                switch (argumentName)
+                {
+                    case "Author":
+                        author = value;
+                        break;
+                    case "Help":
+                        help = value;
+                        break;
+                    case "Version":
+                        version = value;
+                        break;
+                }
+            }
+
             var nodeInfo = FNodeInfoFactory.CreateNodeInfo(
                 name,
                 "CV.Image",
-                "",
+                version,
                 filename,
                 true);
+
+            nodeInfo.Author = author;
+            nodeInfo.Help = help;
 
             //foreach (var entry in namedArguments)
             //{

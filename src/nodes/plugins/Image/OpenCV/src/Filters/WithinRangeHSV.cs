@@ -7,7 +7,7 @@ using VVVV.CV.Core;
 
 namespace VVVV.CV.Nodes
 {
-    [FilterInstance("WithinRangeHSV", Version = "HSV", Author = "alg", Help = "Check if value is in target HSV range")]
+    [FilterInstance("WithinRange", Version = "HSV", Author = "alg", Help = "Check if value is in target HSV range")]
     public class WithinRangeHsvInstance : IFilterInstance
     {
         [Input("Minimum", DefaultValues = new double[] {0, 0, 0}, MinValue = 0, MaxValue = 1)] 
