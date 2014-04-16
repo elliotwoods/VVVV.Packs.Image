@@ -3,81 +3,35 @@ using Emgu.CV.Structure;
 
 using VVVV.PluginInterfaces.V2;
 using VVVV.Utils.VMath;
+using VVVV.CV.Core;
 
 namespace VVVV.CV.Nodes
 {
-	public class WithinRangeHSVInstance : IFilterInstance
-	{
-		public Vector3D Minimum { private get; set; }
-		public Vector3D Maximum { private get; set; }
+    [FilterInstance("WithinRange", Version = "HSV", Author = "alg", Help = "Check if value is in target HSV range")]
+    public class WithinRangeHsvInstance : IFilterInstance
+    {
+        [Input("Minimum", DefaultValues = new double[] {0, 0, 0}, MinValue = 0, MaxValue = 1)] public Vector3D Minimum;
 
-		private double FMult = byte.MaxValue;
+        [Input("Maximum", DefaultValues = new double[] {1, 1, 1}, MinValue = 0, MaxValue = 1)] public Vector3D Maximum;
 
-		private readonly CVImage FBuffer = new CVImage();
-		private readonly CVImage FHSVImage = new CVImage();
+        private double FMult = byte.MaxValue;
 
+        public override void Allocate()
+        {
+            FOutput.Image.Initialise(FInput.Image.ImageAttributes.Size, TColorFormat.L8);
 
-		private bool FPassOriginal;
-		public bool PassOriginal
-		{
-			set
-			{
-				FPassOriginal = value;
-				ReAllocate();
-			}
-		}
+            FMult = FInput.ImageAttributes.BytesPerPixel > 4 ? float.MaxValue : byte.MaxValue;
+        }
 
-		public override void Allocate()
-		{
-			FBuffer.Initialise(FInput.ImageAttributes.Size, TColorFormat.L8);
-			FHSVImage.Initialise(FInput.ImageAttributes.Size, TColorFormat.HSV32F);
+        public override void Process()
+        {
+            if (!FInput.LockForReading()) return;
 
-			FMult = FInput.ImageAttributes.BytesPerPixel > 4 ? float.MaxValue : byte.MaxValue;
-		}
+            CvInvoke.cvInRangeS(FInput.CvMat, new MCvScalar(Minimum.x*FMult, Minimum.y*FMult, Minimum.z*FMult),
+                new MCvScalar(Maximum.x*FMult, Maximum.y*FMult, Maximum.z*FMult), FOutput.CvMat);
+            FInput.ReleaseForReading();
 
-		public override void Process()
-		{
-			FInput.GetImage(FHSVImage);
-			Compare();
-
-			if (FPassOriginal)
-			{
-				FOutput.Image.SetImage(FInput.Image);
-
-				CvInvoke.cvNot(FBuffer.CvMat, FBuffer.CvMat);
-				CvInvoke.cvSet(FOutput.Image.CvMat, new MCvScalar(0.0), FBuffer.CvMat);
-				FOutput.Send();
-			}
-			else
-				FOutput.Send(FBuffer);
-		}
-
-		private void Compare()
-		{
-			CvInvoke.cvInRangeS(FHSVImage.CvMat, new MCvScalar(Minimum.x * FMult, Minimum.y * FMult, Minimum.z * FMult), new MCvScalar(Maximum.x * FMult, Maximum.y * FMult, Maximum.z * FMult), FBuffer.CvMat);
-		}
-	}
-
-	[PluginInfo(Name = "WithinRange", Help = "Check if value is in target range", Category = "OpenCV", Version = "Filter HSV", Author = "alg")]
-	public class WithinRangeHSVNode : IFilterNode<WithinRangeHSVInstance>
-	{
-		[Input("Minimum HSV ", DefaultValues = new double[]{0,0,0}, MinValue = 0, MaxValue = 1)]
-		ISpread<Vector3D> FMinimumIn;
-
-		[Input("Maximum HSV ", DefaultValues = new double[] { 1, 1, 1 }, MinValue = 0, MaxValue = 1)]
-		ISpread<Vector3D> FMaximumIn;
-
-		[Input("Pass Original", DefaultValue = 0, IsToggle = true)]
-		ISpread<bool> FPassOriginalIn;
-
-		protected override void Update(int instanceCount, bool spreadChanged)
-		{
-			for (var i = 0; i < instanceCount; i++)
-			{
-				FProcessor[i].Minimum = FMinimumIn[i];
-				FProcessor[i].Maximum = FMaximumIn[i];
-				FProcessor[i].PassOriginal = FPassOriginalIn[i];
-			}			
-		}
-	}
+            FOutput.Send();
+        }
+    }
 }

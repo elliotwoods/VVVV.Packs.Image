@@ -73,6 +73,7 @@
     <Compile Include="src\Filters\Transform.cs" />
     <Compile Include="src\Filters\RotateStep.cs" />
     <Compile Include="src\Filters\UsharpMask.cs" />
+    <Compile Include="src\Filters\WithinRangeHSV.cs" />
     <Compile Include="src\Sources\AsImageDX11Node.cs" />
     <Compile Include="src\Sources\AsImageDX11Instance.cs" />
     <Compile Include="src\Sources\AsImageRaw.cs" />
