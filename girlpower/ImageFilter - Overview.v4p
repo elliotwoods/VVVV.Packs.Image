@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug31.4.dtd" >
-   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\girlpower\ImageFilter - Overview.v4p" systemname="ImageFilter - Overview" filename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\Image\girlpower\ImageFilter - Overview.v4p">
-   <BOUNDS type="Window" left="0" top="6225" width="21465" height="7845">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.9.dtd" >
+   <PATCH nodename="C:\Users\joreg\Documents\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\girlpower\ImageFilter - Overview.v4p" systemname="ImageFilter - Overview" filename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\Image\girlpower\ImageFilter - Overview.v4p">
+   <BOUNDS type="Window" left="615" top="6000" width="21465" height="7845">
    </BOUNDS>
    <NODE systemname="Canny (CV.Image)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Canny (OpenCV)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="4905" top="4335" width="100" height="100">
@@ -213,7 +213,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="165" top="4890" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" values="4">
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -314,28 +314,6 @@
    <BOUNDS type="Box" left="16275" top="4335">
    </BOUNDS>
    </NODE>
-   <NODE systemname="OpticalFlow (CV.Image)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="OpticalFlowHS (OpenCV)" componentmode="Hidden" id="51">
-   <BOUNDS type="Node" left="17940" top="4335" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <PIN pinname="Use Previous Velocity" slicecount="1" values="0">
-   </PIN>
-   <BOUNDS type="Box" left="17940" top="4335">
-   </BOUNDS>
-   </NODE>
-   <NODE systemname="OpticalFlow (CV.Image)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="OpticalFlowLK (OpenCV)" componentmode="Hidden" id="52">
-   <BOUNDS type="Node" left="19170" top="4335" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   <BOUNDS type="Box" left="19170" top="4335">
-   </BOUNDS>
-   </NODE>
    <NODE systemname="BackgroundSubtract (CV.Image)" filename="%VVVV%\packs\Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="BackgroundSubtract (OpenCV)" componentmode="Hidden" id="53">
    <BOUNDS type="Node" left="14550" top="4335" width="100" height="100">
    </BOUNDS>
@@ -353,10 +331,6 @@
    <LINK srcnodeid="53" srcpinname="Output" dstnodeid="41" dstpinname="Input 3">
    </LINK>
    <LINK srcnodeid="43" srcpinname="Output" dstnodeid="41" dstpinname="Input 4">
-   </LINK>
-   <LINK srcnodeid="51" srcpinname="Output" dstnodeid="41" dstpinname="Input 5">
-   </LINK>
-   <LINK srcnodeid="52" srcpinname="Output" dstnodeid="41" dstpinname="Input 6">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="55" systemname="IOBox (String)">
    <BOUNDS type="Box" left="3945" top="420" width="1980" height="270">
@@ -763,14 +737,12 @@
    </BOUNDS>
    <PIN pinname="Height" slicecount="1" values="480">
    </PIN>
+   <PIN pinname="Show Settings" slicecount="1" values="0">
+   </PIN>
    </NODE>
    <LINK srcnodeid="37" srcpinname="Y Output Value" dstnodeid="83" dstpinname="Enabled">
    </LINK>
-   <LINK srcnodeid="83" srcpinname="Output" dstnodeid="51" dstpinname="Input">
-   </LINK>
    <LINK srcnodeid="83" srcpinname="Output" dstnodeid="43" dstpinname="Input">
-   </LINK>
-   <LINK srcnodeid="83" srcpinname="Output" dstnodeid="52" dstpinname="Input">
    </LINK>
    <LINK srcnodeid="83" srcpinname="Output" dstnodeid="53" dstpinname="Input">
    </LINK>
@@ -782,4 +754,38 @@
    </LINK>
    <LINK srcnodeid="83" srcpinname="Output" dstnodeid="73" dstpinname="Input">
    </LINK>
+   <NODE systemname="OpticalFlow (CV.Image Horn–Schunck)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="OpticalFlow (CV.Image Horn–Schunck)" componentmode="Hidden" id="51">
+   <BOUNDS type="Node" left="17940" top="4335" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <PIN pinname="Use Previous Velocity" slicecount="1" values="0">
+   </PIN>
+   <BOUNDS type="Box" left="17940" top="4335">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="51" srcpinname="Output" dstnodeid="41" dstpinname="Input 5">
+   </LINK>
+   <LINK srcnodeid="83" srcpinname="Output" dstnodeid="51" dstpinname="Input">
+   </LINK>
+   <NODE systemname="OpticalFlow (CV.Image Lucas-Kanade)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="OpticalFlow (CV.Image Lucas-Kanade)" componentmode="Hidden" id="52">
+   <BOUNDS type="Node" left="19170" top="4335" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   <BOUNDS type="Box" left="19170" top="4335">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="52" srcpinname="Output" dstnodeid="41" dstpinname="Input 6">
+   </LINK>
+   <LINK srcnodeid="83" srcpinname="Output" dstnodeid="52" dstpinname="Input">
+   </LINK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="31.9.0">
+   </PACK>
    </PATCH>
