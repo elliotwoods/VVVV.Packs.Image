@@ -33,8 +33,6 @@
       <HintPath>..\..\..\..\packages\VVVV.Core.31.10.0-develop-237\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="VVVV.Utils">
       <HintPath>..\..\..\..\packages\VVVV.Utils.31.10.0-develop-237\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
