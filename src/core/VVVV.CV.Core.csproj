@@ -13,7 +13,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\src\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
-    <EmguCVPrivate>false</EmguCVPrivate>
+    <EmguCVPrivate>true</EmguCVPrivate>
     <NuGetPackageImportStamp>0fb903af</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
