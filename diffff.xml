@@ -47,11 +47,15 @@
 -->
 <CONVVVVERTER>
   <PATCH version="0.1.0">
+	<NODE old="LT (OpenCV Filter, Scalar)" new="LT (CV.Image)"> </NODE>
+	<NODE old="GT (OpenCV Filter, Scalar)" new="GT (CV.Image)"> </NODE>
+	<NODE old="EQ (OpenCV Filter, Scalar)" new="EQ (CV.Image)"> </NODE>
     <NODE old="AdaptiveThreshold (OpenCV)" new="AdaptiveThreshold (CV.Image)"> </NODE>
 	<NODE old="AsImage (OpenCV DX11.Texture2D)" new="AsImage (DX11.Texture2D)"> </NODE>
 	<NODE old="AsImage (OpenCV Raw)" new="AsImage (Raw)"> </NODE>
 	<NODE old="AsTexture (OpenCV DX11.Texture2D)" new="AsTexture (CV.Image DX11.Texture2D)"> </NODE>
 	<NODE old="AsTexture (OpenCV EX9.Texture)" new="AsTexture (CV.Image EX9.Texture)"> </NODE>
+	<NODE old="AsTexture (OpenCV)" new="AsTexture (CV.Image EX9.Texture)"> </NODE>
 	<NODE old="Average (OpenCV Temporal)" new="Average (CV.Image Temporal)"> </NODE>
 	<NODE old="AvgSdv (OpenCV Mean)" new="Average (CV.Image)"> </NODE>
 	<NODE old="BackgroundSubtract (OpenCV)" new="BackgroundSubtract (CV.Image)"> </NODE>
@@ -71,17 +75,18 @@
 	<NODE old="ContourDelauney (OpenCV)" new="Delauney (CV.Contour)"> </NODE>
 	<NODE old="ContourPerimeter (OpenCV Split)" new="Perimeter (CV.Contour Split)"> </NODE>
 	<NODE old="ConvertScale (OpenCV)" new="ConvertScale (CV.Image)"> </NODE>
-	<NODE old="Decode (OpenCV StructuredLight)" new="Decode (CV.StructuredLight)"> </NODE>
+	<NODE old="Decode (Image.StructuredLight)" new="Decode (CV.StructuredLight)"> </NODE>
 	<NODE old="Delauney (OpenCV Analysis Contour)" new="Delauney (CV.Contour)"> </NODE>
-	<NODE old="DetectFeatures (OpenCV Analysis Features)" new="DetectFeatures (CV..Image)"> </NODE>
+	<NODE old="DetectFeatures (OpenCV Analysis Features)" new="DetectFeatures (CV.Image)"> </NODE>
 	<NODE old="Dilate (OpenCV)" new="Dilate (CV.Image)"> </NODE>
 	<NODE old="DrawBoardCorners (OpenCV DX9 2D)" new="BoardCorners (DX9)"> </NODE>
-	<NODE old="Encode (OpenCV StructuredLight)" new="Encode (CV .StructuredLight)"> </NODE>
+	<NODE old="Encode (Image.StructuredLight)" new="Encode (CV.StructuredLight)"> </NODE>
 	<NODE old="Erode (OpenCV)" new="Erode (CV.Image)"> </NODE>
 	<NODE old="Extrinsics (OpenCV Split)" new="Extrinsics (CV.Transform Split)"> </NODE>
 	<NODE old="FeatureSet (OpenCV Features Split)" new="FeatureSet (CV.Features Split)"> </NODE>
 	<NODE old="FindBoard (OpenCV)" new="FindBoard (CV.Image)"> </NODE>
-	<NODE old="FindCommonImages (OpenCV StereoCalibrate)" new="FindCommonImages (CV.Transform)"> </NODE>
+	<NODE old="FindCommonImages (OpenCV StereoCalibrate)" new="FindCommonImages (CV.Transform StereoCalibrate)"> </NODE>
+	<NODE old="FindExtrinsics (OpenCV)" new="SolvePnP (CV.Transform)"> </NODE>
 	<NODE old="FrameDelay (OpenCV)" new="FrameDelay (CV.Image)"> </NODE>
 	<NODE old="FrameDifference (OpenCV)" new="FrameDifference (CV.Image)"> </NODE>
 	<NODE old="Framerate (OpenCV)" new="Framerate (CV.Image)"> </NODE>
@@ -92,7 +97,7 @@
 	<NODE old="ImageQuad (OpenCV DX11.Layer)" new="GridView (DX11.Layer)"> </NODE>
 	<NODE old="ImageQuad (OpenCV DX9)" new="GridView (DX9)"> </NODE>
 	<NODE old="ImageRegion (OpenCV Features Criteria Position)" new="ImageRegion (CV.Features)"> </NODE>
-	<NODE old="ImageResize (OpenCV)" new="ImageResize (CV.Image)"> </NODE>
+	<NODE old="ImageResize (OpenCV)" new="Resize (CV.Image)"> </NODE>
 	<NODE old="Images (OpenCV OpenNI)" new="Images (CV.Image OpenNI)"> </NODE>
 	<NODE old="ImageToProjection (OpenCV 2D)" new="ImageToProjection (CV 2D)"> </NODE>
 	<NODE old="Info (OpenCV)" new="Info (CV.Image)"> </NODE>
@@ -103,25 +108,26 @@
 	<NODE old="MapNormalisedToCamera (OpenCV 2D)" new="MapNormalisedToCamera (CV.Transform)"> </NODE>
 	<NODE old="Marker (DX9, 3D)" new="Marker (DX9 3D)"> </NODE>
 	<NODE old="MatchFeatures (OpenCV Features)" new="MatchFeatures (CV.Features)"> </NODE>
+	<NODE old="Noise (OpenCV Generator)" new="Noise (CV.Image)"> </NODE>
 	<NODE old="Noise (OpenCV Source)" new="Noise (CV.Image)"> </NODE>
-	<NODE old="Not (OpenCV)" new="NOT (CV.Image)"> </NODE>
+	<NODE old="Not (OpenCV Filter)" new="NOT (CV.Image)"> </NODE>
 	<NODE old="ObjectTracking (OpenCV)" new="DetectObject (CV.Image)"> </NODE>
 	<NODE old="OpticalFlowHS (OpenCV)" new="OpticalFlow (CV.Image Horn–Schunck)"> </NODE>
 	<NODE old="OpticalFlowLK (OpenCV)" new="OpticalFlow (CV.Image Lucas-Kanade)"> </NODE>
-	<NODE old="Payload (OpenCV StructuredLight)" new="Payload (CV.StructuredLight)"> </NODE>
+	<NODE old="Payload (Image.StructuredLight)" new="Payload (CV.StructuredLight)"> </NODE>
 	<NODE old="Perspective (OpenCV Intrinsics Transform)" new="Perspective (CV.Transform)"> </NODE>
 	<NODE old="Pipet (OpenCV)" new="Pipet (CV.Image)"> </NODE>
 	<NODE old="ProjectPoints (OpenCV Split)" new="ProjectPoints (CV.Transform)"> </NODE>
 	<NODE old="Reader (OpenCV Intrinsics)" new="Reader (CV.Transform Intrinsics)"> </NODE>
 	<NODE old="Renderer (OpenCV)" new="Renderer (CV.Image)"> </NODE>
-	<NODE old="Rotate (OpenCV)" new="Rotate (CV.Image)"> </NODE>
+	<NODE old="Rotate (OpenCV Step)" new="Rotate (CV.Image)"> </NODE>
 	<NODE old="S+H (OpenCV)" new="S+H (CV.Image)"> </NODE>
 	<NODE old="SelectMinimumArea (OpenCV Contour)" new="SelectMinimumArea (CV.Contour)"> </NODE>
 	<NODE old="Sobel (OpenCV)" new="Sobel (CV.Image)"> </NODE>
 	<NODE old="SolvePnP (OpenCV)" new="SolvePnP (CV.Transform)"> </NODE>
-	<NODE old="Space (OpenCV StructuredLight)" new="Space (CV.StructuredLight)"> </NODE>
+	<NODE old="Space (Image.StructuredLight)" new="Space (CV.StructuredLight)"> </NODE>
 	<NODE old="StereoCalibrate (OpenCV)" new="StereoCalibrate (CV.Transform)"> </NODE>
-	<NODE old="Template (OpenCV)" new="Template (CV.Image)"> </NODE>
+	<NODE old="Template (OpenCV Filter)" new="Template (CV.Image)"> </NODE>
 	<NODE old="TimingCircuit (OpenCV StructuredLight)" new="TimingCircuit (CV.StructuredLight)"> </NODE>
 	<NODE old="Transform (OpenCV)" new="Transform (CV.Image)"> </NODE>
 	<NODE old="UnsharpMask (OpenCV)" new="UnsharpMask (CV.Image)"> </NODE>
