@@ -12,8 +12,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ProjectGuid>{9313912A-C352-4757-80D6-1CA154E84237}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>VVVV.Nodes.OpenCV.VideoInput</RootNamespace>
-    <AssemblyName>VVVV.Nodes.OpenCV.VideoInput</AssemblyName>
+    <RootNamespace>VVVV.Nodes.CV.DX11</RootNamespace>
+    <AssemblyName>VVVV.Nodes.CV.DX11</AssemblyName>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>

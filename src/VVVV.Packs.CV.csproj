@@ -68,6 +68,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="core\VVVV.CV.Core.csproj">
+      <Project>{673fdae3-3e5d-435c-8690-06378d3ed954}</Project>
+      <Name>VVVV.CV.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="factories\VVVV.CV.Factory.csproj">
       <Project>{0fbadfb2-3c92-4079-be0e-cf0f7adf9108}</Project>
       <Name>VVVV.CV.Factory</Name>
@@ -84,6 +88,14 @@
       <Project>{450cf5db-edb3-4e59-bd5f-f1857eb76419}</Project>
       <Name>VVVV.Nodes.DeckLink</Name>
     </ProjectReference>
+    <ProjectReference Include="nodes\plugins\Image\DX11\VVVV.Nodes.CV.DX11.csproj">
+      <Project>{9313912a-c352-4757-80d6-1ca154e84237}</Project>
+      <Name>VVVV.Nodes.CV.DX11</Name>
+    </ProjectReference>
+    <ProjectReference Include="nodes\plugins\Image\EDSDK\VVVV.Nodes.OpenCV.EDSDK.csproj">
+      <Project>{5edb3c6e-2685-44f6-bd71-678cfc10ab31}</Project>
+      <Name>VVVV.Nodes.OpenCV.EDSDK</Name>
+    </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\FlyCapture\VVVV.Nodes.OpenCV.FlyCapture.csproj">
       <Project>{998e4e7e-f3b4-4ca1-acd3-0eabacf23dd0}</Project>
       <Name>VVVV.Nodes.OpenCV.FlyCapture</Name>
@@ -95,6 +107,10 @@
     <ProjectReference Include="nodes\plugins\Image\OpenCV\VVVV.CV.Nodes.csproj">
       <Project>{e9a7fc26-34e0-4c1e-83d8-c01a169422b2}</Project>
       <Name>VVVV.CV.Nodes</Name>
+    </ProjectReference>
+    <ProjectReference Include="nodes\plugins\Image\OpenNI\VVVV.Nodes.OpenCV.OpenNI.csproj">
+      <Project>{d9d17924-98d5-468f-840e-3a3f8308be35}</Project>
+      <Name>VVVV.Nodes.OpenCV.OpenNI</Name>
     </ProjectReference>
     <ProjectReference Include="nodes\plugins\Image\OptiTrack\VVVV.Nodes.OpenCV.OptiTrack.csproj">
       <Project>{5971be7a-0fb0-4ddf-b7d2-000e80ef6fdd}</Project>
