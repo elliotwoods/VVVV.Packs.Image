@@ -25,9 +25,8 @@
     <NuGetPackageImportStamp>aa635cfe</NuGetPackageImportStamp>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FeralTic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\dx11\src\FeralTic\Core\bin\x86\Debug\FeralTic.dll</HintPath>
+    <Reference Include="FeralTic">
+      <HintPath>..\..\..\..\..\..\DX11\core\FeralTic.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -47,9 +46,12 @@
       <HintPath>..\..\..\..\packages\VVVV.Core.32.0.0\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\dx11\core\VVVV.DX11.Core.dll</HintPath>
+    <Reference Include="VVVV.DX11.Core">
+      <HintPath>..\..\..\..\..\..\DX11\core\VVVV.DX11.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="VVVV.DX11.Lib">
+      <HintPath>..\..\..\..\..\..\DX11\core\VVVV.DX11.Lib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Utils">
