@@ -30,6 +30,7 @@
       <HintPath>..\..\..\..\packages\VVVV.System.ComponentModel.Composition.Codeplex.2.5.0\lib\net40\System.ComponentModel.Composition.CodePlex.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="VVVV.Core">
       <HintPath>..\..\..\..\packages\VVVV.Core.32.0.0\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
@@ -51,7 +52,11 @@
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props'))" />
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets'))" />
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.FeralTic.1.0.1\build\net40\VVVV.FeralTic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.FeralTic.1.0.1\build\net40\VVVV.FeralTic.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.DX11.Core.32.1.1\build\net40\VVVV.DX11.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.DX11.Core.32.1.1\build\net40\VVVV.DX11.Core.targets'))" />
   </Target>
   <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" />
   <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.FeralTic.1.0.1\build\net40\VVVV.FeralTic.targets" Condition="Exists('..\..\..\..\packages\VVVV.FeralTic.1.0.1\build\net40\VVVV.FeralTic.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.DX11.Core.32.1.1\build\net40\VVVV.DX11.Core.targets" Condition="Exists('..\..\..\..\packages\VVVV.DX11.Core.32.1.1\build\net40\VVVV.DX11.Core.targets')" />
 </Project>

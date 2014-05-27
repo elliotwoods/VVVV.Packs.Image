@@ -25,10 +25,6 @@
     <NuGetPackageImportStamp>aa635cfe</NuGetPackageImportStamp>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FeralTic">
-      <HintPath>..\..\..\..\..\..\DX11\core\FeralTic.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition.CodePlex">
@@ -44,14 +40,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="VVVV.Core">
       <HintPath>..\..\..\..\packages\VVVV.Core.32.0.0\lib\net40\VVVV.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="VVVV.DX11.Core">
-      <HintPath>..\..\..\..\..\..\DX11\core\VVVV.DX11.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="VVVV.DX11.Lib">
-      <HintPath>..\..\..\..\..\..\DX11\core\VVVV.DX11.Lib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Utils">
@@ -91,11 +79,15 @@
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.Ximea.3.18.3.1\build\net40\VVVV.Ximea.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.Ximea.3.18.3.1\build\net40\VVVV.Ximea.targets'))" />
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets'))" />
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.Utils3rdParty.32.0.0\build\net40\VVVV.Utils3rdParty.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.Utils3rdParty.32.0.0\build\net40\VVVV.Utils3rdParty.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.FeralTic.1.0.1\build\net40\VVVV.FeralTic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.FeralTic.1.0.1\build\net40\VVVV.FeralTic.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.DX11.Core.32.1.1\build\net40\VVVV.DX11.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.DX11.Core.32.1.1\build\net40\VVVV.DX11.Core.targets'))" />
   </Target>
   <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" />
   <Import Project="..\..\..\..\packages\VVVV.Ximea.3.18.3.1\build\net40\VVVV.Ximea.targets" Condition="Exists('..\..\..\..\packages\VVVV.Ximea.3.18.3.1\build\net40\VVVV.Ximea.targets')" />
   <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets')" />
   <Import Project="..\..\..\..\packages\VVVV.Utils3rdParty.32.0.0\build\net40\VVVV.Utils3rdParty.targets" Condition="Exists('..\..\..\..\packages\VVVV.Utils3rdParty.32.0.0\build\net40\VVVV.Utils3rdParty.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.FeralTic.1.0.1\build\net40\VVVV.FeralTic.targets" Condition="Exists('..\..\..\..\packages\VVVV.FeralTic.1.0.1\build\net40\VVVV.FeralTic.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.DX11.Core.32.1.1\build\net40\VVVV.DX11.Core.targets" Condition="Exists('..\..\..\..\packages\VVVV.DX11.Core.32.1.1\build\net40\VVVV.DX11.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
