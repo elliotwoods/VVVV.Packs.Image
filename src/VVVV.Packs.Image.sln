@@ -7,27 +7,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "image", "image", "{1ED4B073
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Nodes", "nodes\plugins\Image\OpenCV\VVVV.CV.Nodes.csproj", "{E9A7FC26-34E0-4C1E-83D8-C01A169422B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.VideoInput", "nodes\plugins\Image\VideoInput\VVVV.Nodes.OpenCV.VideoInput.csproj", "{C111EF2E-E57C-480C-9E76-C6304AC02D79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Nodes.VideoInput", "nodes\plugins\Image\VideoInput\VVVV.CV.Nodes.VideoInput.csproj", "{C111EF2E-E57C-480C-9E76-C6304AC02D79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.EDSDK", "nodes\plugins\Image\EDSDK\VVVV.Nodes.OpenCV.EDSDK.csproj", "{5EDB3C6E-2685-44F6-BD71-678CFC10AB31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Nodes.EDSDK", "nodes\plugins\Image\EDSDK\VVVV.CV.Nodes.EDSDK.csproj", "{5EDB3C6E-2685-44F6-BD71-678CFC10AB31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.OpenNI", "nodes\plugins\Image\OpenNI\VVVV.Nodes.OpenCV.OpenNI.csproj", "{D9D17924-98D5-468F-840E-3A3F8308BE35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Nodes.OpenNI", "nodes\plugins\Image\OpenNI\VVVV.CV.Nodes.OpenNI.csproj", "{D9D17924-98D5-468F-840E-3A3F8308BE35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.FlyCapture", "nodes\plugins\Image\FlyCapture\VVVV.Nodes.OpenCV.FlyCapture.csproj", "{998E4E7E-F3B4-4CA1-ACD3-0EABACF23DD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Nodes.FlyCapture", "nodes\plugins\Image\FlyCapture\VVVV.CV.Nodes.FlyCapture.csproj", "{998E4E7E-F3B4-4CA1-ACD3-0EABACF23DD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.FreeImage", "nodes\plugins\Image\FreeImage\VVVV.Nodes.OpenCV.FreeImage.csproj", "{7A5AC7E2-511C-4240-8D2B-5171F511F4C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Nodes.FreeImage", "nodes\plugins\Image\FreeImage\VVVV.CV.Nodes.FreeImage.csproj", "{7A5AC7E2-511C-4240-8D2B-5171F511F4C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.OptiTrack", "nodes\plugins\Image\OptiTrack\VVVV.Nodes.OpenCV.OptiTrack.csproj", "{5971BE7A-0FB0-4DDF-B7D2-000E80EF6FDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Nodes.OptiTrack", "nodes\plugins\Image\OptiTrack\VVVV.CV.Nodes.OptiTrack.csproj", "{5971BE7A-0FB0-4DDF-B7D2-000E80EF6FDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.DeckLink", "nodes\plugins\Image\DeckLink\VVVV.Nodes.DeckLink.csproj", "{450CF5DB-EDB3-4E59-BD5F-F1857EB76419}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Nodes.DeckLink", "nodes\plugins\Image\DeckLink\VVVV.CV.Nodes.DeckLink.csproj", "{450CF5DB-EDB3-4E59-BD5F-F1857EB76419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.Ximea", "nodes\plugins\DX11\Ximea\VVVV.Nodes.Ximea.csproj", "{685C0911-C080-46B4-B21F-B8BBAD507D0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.DX11.Nodes.Ximea", "nodes\plugins\DX11\Ximea\VVVV.CV.DX11.Nodes.Ximea.csproj", "{685C0911-C080-46B4-B21F-B8BBAD507D0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.CLEye", "nodes\plugins\Image\CLEye\VVVV.Nodes.OpenCV.CLEye.csproj", "{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Nodes.CLEye", "nodes\plugins\Image\CLEye\VVVV.CV.Nodes.CLEye.csproj", "{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Factory", "factories\VVVV.CV.Factory.csproj", "{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Core", "core\VVVV.CV.Core.csproj", "{673FDAE3-3E5D-435C-8690-06378D3ED954}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.DX11.Nodes", "nodes\plugins\Image\DX11\VVVV.CV.DX11.Nodes.csproj", "{9313912A-C352-4757-80D6-1CA154E84237}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -327,6 +329,30 @@ Global
 		{673FDAE3-3E5D-435C-8690-06378D3ED954}.Release|x64.Build.0 = Release|x64
 		{673FDAE3-3E5D-435C-8690-06378D3ED954}.Release|x86.ActiveCfg = Release|x86
 		{673FDAE3-3E5D-435C-8690-06378D3ED954}.Release|x86.Build.0 = Release|x86
+		{9313912A-C352-4757-80D6-1CA154E84237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9313912A-C352-4757-80D6-1CA154E84237}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9313912A-C352-4757-80D6-1CA154E84237}.Debug|x64.ActiveCfg = Debug|x64
+		{9313912A-C352-4757-80D6-1CA154E84237}.Debug|x64.Build.0 = Debug|x64
+		{9313912A-C352-4757-80D6-1CA154E84237}.Debug|x86.ActiveCfg = Debug|x86
+		{9313912A-C352-4757-80D6-1CA154E84237}.Debug|x86.Build.0 = Debug|x86
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Debug|x64.ActiveCfg = Debug|x64
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Debug|x64.Build.0 = Debug|x64
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Debug|x86.ActiveCfg = Debug|x86
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Debug|x86.Build.0 = Debug|x86
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Release|Any CPU.Build.0 = Release|Any CPU
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Release|x64.ActiveCfg = Release|x64
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Release|x64.Build.0 = Release|x64
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Release|x86.ActiveCfg = Release|x86
+		{9313912A-C352-4757-80D6-1CA154E84237}.Deploy_Release|x86.Build.0 = Release|x86
+		{9313912A-C352-4757-80D6-1CA154E84237}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9313912A-C352-4757-80D6-1CA154E84237}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9313912A-C352-4757-80D6-1CA154E84237}.Release|x64.ActiveCfg = Release|x64
+		{9313912A-C352-4757-80D6-1CA154E84237}.Release|x64.Build.0 = Release|x64
+		{9313912A-C352-4757-80D6-1CA154E84237}.Release|x86.ActiveCfg = Release|x86
+		{9313912A-C352-4757-80D6-1CA154E84237}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -344,5 +370,6 @@ Global
 		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 		{673FDAE3-3E5D-435C-8690-06378D3ED954} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
+		{9313912A-C352-4757-80D6-1CA154E84237} = {1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}
 	EndGlobalSection
 EndGlobal
