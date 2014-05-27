@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\DX11.Layer\DrawBoardCorners (DX11.Layer).v4p" systemname="DrawBoardCorners (DX11.Layer)" filename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\DX11.Layer\DrawBoardCorners (DX11.Layer).v4p">
-   <BOUNDS type="Window" left="7710" top="8265" width="9630" height="7245">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\DX11.Layer\DrawBoardCorners (DX11.Layer).v4p" systemname="DrawBoardCorners (DX11.Layer)" filename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\DX11.Layer\DrawBoardCorners (DX11.Layer).v4p">
+   <BOUNDS type="Window" left="8325" top="10440" width="9630" height="7245">
    </BOUNDS>
    <NODE systemname="Line (DX11)" filename="%VVVV%\packs\DX11\nodes\modules\Line (DX11).v4p" nodename="Line (DX11)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="615" top="3885" width="100" height="100">
@@ -21,7 +21,7 @@
    <NODE systemname="Vector (2d Split)" nodename="Vector (2d Split)" componentmode="Hidden" id="4">
    <BOUNDS type="Node" left="690" top="1455" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="XY" visible="1" slicecount="2" values="0">
+   <PIN pinname="XY" visible="1" slicecount="2" values="0,0">
    </PIN>
    <PIN pinname="X" visible="1">
    </PIN>
@@ -156,16 +156,6 @@
    <LINKPOINT x="3900" y="2673">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="MapCameraToNormalised (OpenCV 2D)" filename="%VVVV%\imagepack\lib\nodes\modules\Image\OpenCV\MapCameraToNormalised (OpenCV 2D).v4p" nodename="MapCameraToNormalised (OpenCV 2D)" componentmode="Hidden" id="16">
-   <BOUNDS type="Node" left="675" top="975" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1" slicecount="2" values="0,0">
-   </PIN>
-   <PIN pinname="Resolution" visible="1" slicecount="2" values="1280,720">
-   </PIN>
-   <PIN pinname="Output" visible="1">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="17" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="660" top="135" width="795" height="480">
    </BOUNDS>
@@ -184,8 +174,6 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="Input">
    </PIN>
    </NODE>
-   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Input">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="18" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="2640" top="135" width="795" height="480">
    </BOUNDS>
@@ -208,8 +196,6 @@
    <PIN pinname="Y Output Value" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="18" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Resolution">
-   </LINK>
    <LINK srcnodeid="5" srcpinname="XYZ" dstnodeid="9" dstpinname="Input" linkstyle="Bezier">
    <LINKPOINT x="765" y="2348">
    </LINKPOINT>
@@ -221,8 +207,6 @@
    </LINKPOINT>
    <LINKPOINT x="1260" y="3030">
    </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="16" srcpinname="Output" dstnodeid="4" dstpinname="XY">
    </LINK>
    <LINK srcnodeid="11" srcpinname="Layer" dstnodeid="12" dstpinname="Layer 3" linkstyle="VHV">
    <LINKPOINT x="3225" y="5070">
@@ -351,5 +335,21 @@
    <LINK srcnodeid="25" srcpinname="Transform Out" dstnodeid="14" dstpinname="Transform In">
    </LINK>
    <LINK srcnodeid="13" srcpinname="Transform Out" dstnodeid="25" dstpinname="Transform In">
+   </LINK>
+   <NODE systemname="MapCameraToNormalised (CV.Transform)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\MapCameraToNormalised (CV.Transform).v4p" nodename="MapCameraToNormalised (CV.Transform)" componentmode="Hidden" id="16">
+   <BOUNDS type="Node" left="675" top="975" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Resolution" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="17" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="18" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Resolution">
+   </LINK>
+   <LINK srcnodeid="16" srcpinname="Output" dstnodeid="4" dstpinname="XY">
    </LINK>
    </PATCH>

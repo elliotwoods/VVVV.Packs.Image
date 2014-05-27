@@ -1,11 +1,11 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\DX11\Chessboard (DX11.Layer).v4p" systemname="Chessboard (DX11.Layer)" filename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\DX11\Chessboard (DX11.Layer).v4p">
-   <BOUNDS type="Window" left="10455" top="4635" width="8355" height="9645">
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\DX11\Chessboard (DX11.Layer).v4p" systemname="Chessboard (DX11.Layer)" filename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\DX11\Chessboard (DX11.Layer).v4p">
+   <BOUNDS type="Window" left="19215" top="7020" width="8355" height="9645">
    </BOUNDS>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="1" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="1500" top="180" width="795" height="480">
+   <BOUNDS type="Box" left="1845" top="135" width="795" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="1500" top="180" width="0" height="0">
+   <BOUNDS type="Node" left="1845" top="135" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="2" values="8,6">
    </PIN>
@@ -25,7 +25,7 @@
    </PIN>
    </NODE>
    <NODE systemname="QUAD (DX11.LAYER)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="8">
-   <BOUNDS type="Node" left="975" top="3345" width="100" height="100">
+   <BOUNDS type="Node" left="975" top="3345" width="1725" height="270">
    </BOUNDS>
    <PIN pinname="Sampler State" visible="1">
    </PIN>
@@ -66,24 +66,6 @@
    <PIN pinname="Input Node" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Chessboard (DX11.TextureFX)" filename="%VVVV%\lib\nodes\texture11\Chessboard.tfx" nodename="Chessboard (DX11.TextureFX)" componentmode="Hidden" id="10">
-   <BOUNDS type="Node" left="1485" top="1755" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Texture Out" visible="1">
-   </PIN>
-   <PIN pinname="BoardSizeXY" visible="1">
-   </PIN>
-   <PIN pinname="Default SizeXY" visible="1" pintype="Input" slicecount="2" values="256,256">
-   </PIN>
-   <PIN pinname="Texture In" visible="-1" pintype="Input" slicecount="1" values="||">
-   </PIN>
-   <BOUNDS type="Box" left="1485" top="1755">
-   </BOUNDS>
-   </NODE>
-   <LINK srcnodeid="10" srcpinname="Texture Out" dstnodeid="8" dstpinname="Texture">
-   </LINK>
-   <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="10" dstpinname="BoardSizeXY">
-   </LINK>
    <NODE systemname="Group (DX11.Layer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Group (DX11.Layer)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="390" top="6120" width="930" height="270">
    </BOUNDS>
@@ -91,7 +73,7 @@
    </PIN>
    <PIN pinname="Layer Out" visible="1">
    </PIN>
-   <PIN pinname="Layer 1" visible="1">
+   <PIN pinname="Layer 1" visible="1" slicecount="1" values="||">
    </PIN>
    </NODE>
    <LINK srcnodeid="11" srcpinname="Layer Out" dstnodeid="9" dstpinname="Input Node">
@@ -290,12 +272,6 @@
    </NODE>
    <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="25" dstpinname="Input 1">
    </LINK>
-   <LINK srcnodeid="25" srcpinname="Output" dstnodeid="10" dstpinname="Default SizeXY" hiddenwhenlocked="1" linkstyle="Bezier">
-   <LINKPOINT x="1515" y="1515">
-   </LINKPOINT>
-   <LINKPOINT x="1515" y="1515">
-   </LINKPOINT>
-   </LINK>
    <LINK srcnodeid="25" srcpinname="Output" dstnodeid="21" dstpinname="Input 1" linkstyle="Bezier" hiddenwhenlocked="1">
    <LINKPOINT x="1560" y="1500">
    </LINKPOINT>
@@ -349,9 +325,9 @@
    <LINK srcnodeid="28" srcpinname="Output" dstnodeid="27" dstpinname="XY">
    </LINK>
    <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="28" dstpinname="Input 1" linkstyle="Bezier">
-   <LINKPOINT x="1560" y="2408">
+   <LINKPOINT x="1790" y="2378">
    </LINKPOINT>
-   <LINKPOINT x="5175" y="2408">
+   <LINKPOINT x="5290" y="2393">
    </LINKPOINT>
    </LINK>
    <NODE systemname="CDR (Spreads)" nodename="CDR (Spreads)" componentmode="Hidden" id="29">
@@ -494,20 +470,42 @@
    </NODE>
    <LINK srcnodeid="41" srcpinname="XYZ" dstnodeid="42" dstpinname="Y Input Value">
    </LINK>
-   <LINK srcnodeid="12" srcpinname="Layer Out" dstnodeid="11" dstpinname="Layer 1">
-   </LINK>
    <LINK srcnodeid="13" srcpinname="Transform Out" dstnodeid="12" dstpinname="Transform In">
    </LINK>
-   <LINK srcnodeid="8" srcpinname="Layer Out" dstnodeid="11" dstpinname="Layer 2">
-   </LINK>
    <LINK srcnodeid="7" srcpinname="Sampler" dstnodeid="8" dstpinname="Samper State">
-   </LINK>
-   <LINK srcnodeid="10" srcpinname="Texture Out" dstnodeid="8" dstpinname="Texture In">
    </LINK>
    <LINK srcnodeid="20" srcpinname="Transform Out" dstnodeid="8" dstpinname="Transform In" linkstyle="VHV">
    <LINKPOINT x="3465" y="3150">
    </LINKPOINT>
    <LINKPOINT x="1200" y="3150">
    </LINKPOINT>
+   </LINK>
+   <NODE systemname="Chessboard (DX11.TextureFX)" filename="D:\openFrameworks\apps\Installations.LineSegmentsSpace\2. Kinect + Projector DX11\texture11\Chessboard.tfx" nodename="Chessboard (DX11.TextureFX)" componentmode="Hidden" id="10">
+   <BOUNDS type="Node" left="1485" top="1755" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Texture Out" visible="1">
+   </PIN>
+   <PIN pinname="BoardSizeXY" visible="1">
+   </PIN>
+   <PIN pinname="Default SizeXY" visible="1" pintype="Input">
+   </PIN>
+   <PIN pinname="Texture In" visible="-1" pintype="Input" slicecount="1" values="||">
+   </PIN>
+   <BOUNDS type="Box" left="1485" top="1755">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="10" srcpinname="Texture Out" dstnodeid="8" dstpinname="Texture">
+   </LINK>
+   <LINK srcnodeid="1" srcpinname="Y Output Value" dstnodeid="10" dstpinname="BoardSizeXY">
+   </LINK>
+   <LINK srcnodeid="25" srcpinname="Output" dstnodeid="10" dstpinname="Default SizeXY" hiddenwhenlocked="1" linkstyle="Bezier">
+   <LINKPOINT x="1515" y="1515">
+   </LINKPOINT>
+   <LINKPOINT x="1515" y="1515">
+   </LINKPOINT>
+   </LINK>
+   <LINK srcnodeid="8" srcpinname="Layer" dstnodeid="11" dstpinname="Layer 2">
+   </LINK>
+   <LINK srcnodeid="12" srcpinname="Layer" dstnodeid="11" dstpinname="Layer 1">
    </LINK>
    </PATCH>

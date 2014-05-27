@@ -7,8 +7,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ProjectGuid>{E9A7FC26-34E0-4C1E-83D8-C01A169422B2}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>VVVV.Nodes.OpenCV</RootNamespace>
-    <AssemblyName>VVVV.Nodes.OpenCV</AssemblyName>
+    <RootNamespace>VVVV.CV.Nodes</RootNamespace>
+    <AssemblyName>VVVV.CV.Nodes</AssemblyName>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <CopyOpenCVBins>true</CopyOpenCVBins>
@@ -57,8 +57,6 @@
     <Compile Include="src\Calibration\ProjectPointsNode.cs" />
     <None Include="packages.config" />
     <None Include="src\Features\Stitch.cs" />
-    <Compile Include="src\Destinations\AsTextureDX11Instance.cs" />
-    <Compile Include="src\Destinations\AsTextureDX11Node.cs" />
     <Compile Include="src\Features\Criteria\Position.cs" />
     <Compile Include="src\Features\DetectFeatures.cs" />
     <Compile Include="src\Features\FeatureSet.cs" />
@@ -71,8 +69,6 @@
     <Compile Include="src\Filters\RotateStep.cs" />
     <Compile Include="src\Filters\UsharpMask.cs" />
     <Compile Include="src\Filters\WithinRangeHSV.cs" />
-    <Compile Include="src\Sources\AsImageDX11Node.cs" />
-    <Compile Include="src\Sources\AsImageDX11Instance.cs" />
     <Compile Include="src\Sources\AsImageRaw.cs" />
     <Compile Include="src\Sources\Lena.cs" />
     <Compile Include="src\Sources\VideoPlayer.cs" />
@@ -132,22 +128,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\dx11\src\Core\VVVV.DX11.Core\VVVV.DX11.Core.csproj">
-      <Project>{71c0786d-2640-4e39-aa7b-83602f36f3a3}</Project>
-      <Name>VVVV.DX11.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\dx11\src\FeralTic\Core\FeralTic.csproj">
-      <Project>{9ead0f44-e6aa-4363-be4d-d944c1d35044}</Project>
-      <Name>FeralTic</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\core\VVVV.CV.Core.csproj">
       <Project>{673fdae3-3e5d-435c-8690-06378d3ed954}</Project>
       <Name>VVVV.CV.Core</Name>
       <EmbedInteropTypes>False</EmbedInteropTypes>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

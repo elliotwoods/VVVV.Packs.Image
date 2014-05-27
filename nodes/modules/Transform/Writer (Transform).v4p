@@ -1,0 +1,83 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta31.2.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\packs\VVVV.Packs.CV\nodes\modules\Transform\Writer (Transform).v4p" systemname="Writer (Transform)" filename="C:\kimchiandchips\Installations\VVVV.Patches.DaVinci13\-. Common\Writer (Transform).v4p">
+   <BOUNDS type="Window" left="8655" top="6450" width="7770" height="4290">
+   </BOUNDS>
+   <NODE systemname="IOBox (Node)" nodename="IOBox (Node)" componentmode="InABox" id="0">
+   <BOUNDS type="Node" left="720" top="300" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="720" top="300" width="795" height="240">
+   </BOUNDS>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Transform">
+   </PIN>
+   <PIN pinname="Output Node" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="GetMatrix (Transform)" nodename="GetMatrix (Transform)" componentmode="Hidden" id="1">
+   <BOUNDS type="Node" left="720" top="300" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Matrix Out" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="0" srcpinname="Output Node" dstnodeid="1" dstpinname="Transform">
+   </LINK>
+   <NODE systemname="AsRaw (Value)" filename="%VVVV%\lib\nodes\plugins\VVVV.Nodes.dll" nodename="AsRaw (Value)" componentmode="Hidden" id="2">
+   <BOUNDS type="Node" left="705" top="1695" width="2025" height="270">
+   </BOUNDS>
+   <PIN pinname="Input" visible="1">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="1" srcpinname="Matrix Out" dstnodeid="2" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Writer (Raw)" nodename="Writer (Raw)" componentmode="Hidden" id="3">
+   <BOUNDS type="Node" left="705" top="2325" width="4650" height="270">
+   </BOUNDS>
+   <PIN pinname="Content" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="2" srcpinname="Output" dstnodeid="3" dstpinname="Content">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="4" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="2235" top="300" width="2385" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="2235" top="300" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" values="file.txt">
+   </PIN>
+   <PIN pinname="Default" slicecount="1" values="file.txt">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="|Binary matrices (*.mat)||*.mat|">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="Filename">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Filename">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="4" srcpinname="Output String" dstnodeid="3" dstpinname="Filename">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="5" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="3765" top="1020" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3765" top="1020" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="Write">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="5" srcpinname="Y Output Value" dstnodeid="3" dstpinname="Write">
+   </LINK>
+   </PATCH>
