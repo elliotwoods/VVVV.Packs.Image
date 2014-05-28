@@ -59,8 +59,8 @@ namespace VVVV.CV.Core
 
 		public static Matrix4x4 ConvertToVVVV(Matrix4x4 OpenCVMatrix)
 		{
-			var coordShift = VMath.Scale(-1, -1, 1);
-			return coordShift * OpenCVMatrix * coordShift;
+			var coordShift = VMath.Scale(1, -1, -1);
+			return coordShift * OpenCVMatrix;
 		}
 	}
 }

@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\CalibrateProjector (CV.Transform).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Build\Modules\CalibrateProjector (EmguCV).v4p" systemname="CalibrateProjector (EmguCV)">
-   <BOUNDS height="8715" left="13935" top="4680" type="Window" width="16320">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha32.1.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\packs\VVVV.Packs.CV\nodes\modules\Image\OpenCV\CalibrateProjector (CV.Transform).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Build\Modules\CalibrateProjector (EmguCV).v4p" systemname="CalibrateProjector (EmguCV)">
+   <BOUNDS height="6645" left="165" top="4365" type="Window" width="16320">
    </BOUNDS>
    <NODE componentmode="InABox" id="18" nodename="IOBox (Value Advanced)" systemname="IOBox (Value Advanced)">
    <BOUNDS height="0" left="4470" top="1050" type="Node" width="0">
@@ -370,56 +370,6 @@
    <PIN pinname="Input Enum" slicecount="1" values="VVVV">
    </PIN>
    </NODE>
-   <NODE systemname="Multiply (Transform)" nodename="Multiply (Transform)" componentmode="Hidden" id="60">
-   <BOUNDS type="Node" left="810" top="4635" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Transform In 1" visible="1" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Transform Out" visible="1">
-   </PIN>
-   <PIN pinname="Transform In 2" visible="1" slicecount="1" values="||">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="60" srcpinname="Transform Out" dstnodeid="26" dstpinname="Transform" hiddenwhenlocked="1">
-   </LINK>
-   <LINK srcnodeid="60" srcpinname="Transform Out" dstnodeid="3" dstpinname="Input Node" linkstyle="VHV">
-   <LINKPOINT x="840" y="5325">
-   </LINKPOINT>
-   <LINKPOINT x="2760" y="5175">
-   </LINKPOINT>
-   </LINK>
-   <NODE systemname="Scale (Transform Vector)" nodename="Scale (Transform Vector)" componentmode="Hidden" id="61">
-   <BOUNDS type="Node" left="1065" top="4215" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Transform Out" visible="1">
-   </PIN>
-   <PIN pinname="Z">
-   </PIN>
-   <PIN pinname="Y">
-   </PIN>
-   <PIN pinname="X">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="61" srcpinname="Transform Out" dstnodeid="60" dstpinname="Transform In 2">
-   </LINK>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="63" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="1515" top="3360" width="330" height="720">
-   </BOUNDS>
-   <BOUNDS type="Node" left="1515" top="3360" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="3" values="1,-1,-1">
-   </PIN>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Vector Size" slicecount="1" values="3">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="3">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="63" srcpinname="Y Output Value" dstnodeid="61" dstpinname="XYZ">
-   </LINK>
    <INFO author="elliot woods" description="Finds a projectors position/rotation and lens characteristics given a few real-world coordinates (3d) and their corresponding 2d coordinates as seen by the projector." tags="">
    </INFO>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="68" systemname="IOBox (Value Advanced)">
@@ -481,6 +431,8 @@
    </BOUNDS>
    <PIN pinname="ResolutionXY" visible="1">
    </PIN>
+   <PIN pinname="View per board" visible="1">
+   </PIN>
    </NODE>
    <LINK dstnodeid="67" dstpinname="Do" srcnodeid="10" srcpinname="Y Output Value" linkstyle="VHV">
    <LINKPOINT x="15975" y="2820">
@@ -507,8 +459,6 @@
    </LINKPOINT>
    <LINKPOINT x="6330" y="2693">
    </LINKPOINT>
-   </LINK>
-   <LINK srcnodeid="67" srcpinname="View per board" dstnodeid="60" dstpinname="Transform In 1">
    </LINK>
    <LINK srcnodeid="68" srcpinname="Y Output Value" dstnodeid="67" dstpinname="Object PointsXYZ">
    </LINK>
@@ -546,6 +496,18 @@
    <LINKPOINT x="4515" y="3743">
    </LINKPOINT>
    <LINKPOINT x="5820" y="3743">
+   </LINKPOINT>
+   </LINK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="31.9.0">
+   </PACK>
+   <LINK srcnodeid="67" srcpinname="View per board" dstnodeid="26" dstpinname="Transform">
+   </LINK>
+   <LINK srcnodeid="67" srcpinname="View per board" dstnodeid="3" dstpinname="Input Node" linkstyle="VHV">
+   <LINKPOINT x="860" y="5185">
+   </LINKPOINT>
+   <LINKPOINT x="2730" y="5185">
    </LINKPOINT>
    </LINK>
    </PATCH>
