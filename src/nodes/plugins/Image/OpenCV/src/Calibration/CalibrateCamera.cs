@@ -132,12 +132,7 @@ namespace VVVV.CV.Nodes.Calibration
 
 				for (int i=0; i<nImages; i++)
 				{
-					objectPoints[i] = new MCvPoint3D32f[nPointsPerImage];
-
-					for (int j=0; j<nPointsPerImage; j++)
-					{
-						objectPoints[i] = MatrixUtils.ObjectPoints(FPinInObject, useVVVVCoords);
-					}
+					objectPoints[i] = MatrixUtils.ObjectPoints(FPinInObject, useVVVVCoords);
 				}
 
 				try

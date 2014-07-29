@@ -9,7 +9,6 @@ using FeralTic.DX11;
 using FeralTic.DX11.Resources;
 using VVVV.Core.Logging;
 using VVVV.DX11;
-using VVVV.DX11.Lib;
 using VVVV.CV.Core.ThreadUtils;
 using xiApi.NET;
 

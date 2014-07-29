@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta26.dtd" >
-   <PATCH nodename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.EmguCV\Samples\modules\Marker (DX9, 3D).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\modules\Marker (DX9, 3D).v4p" systemname="Marker (DX9, 3D)">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha32.1.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\packs\VVVV.Packs.CV\nodes\modules\Image\OpenCV\Marker (DX9 3D).v4p" filename="C:\kimchiandchips\VVVV.Research\VVVV.Nodes.KC.EmguCV\tests\modules\Marker (DX9, 3D).v4p" systemname="Marker (DX9, 3D)">
    <BOUNDS height="4575" left="13350" top="8310" type="Window" width="5340">
    </BOUNDS>
    <NODE componentmode="Hidden" id="5" nodename="Translate (Transform Vector)" systemname="Translate (Transform Vector)">
@@ -95,6 +95,10 @@
    </PIN>
    <PIN encoded="0" pinname="Descriptive Name" slicecount="1" values="Enabled">
    </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <LINK dstnodeid="2" dstpinname="Enabled" srcnodeid="8" srcpinname="Y Output Value">
    </LINK>
@@ -139,7 +143,7 @@
    </PIN>
    <PIN pinname="Output" visible="1" pintype="Output">
    </PIN>
-   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" values="||" encoded="0">
+   <PIN pinname="Descriptive Name" pintype="Configuration" slicecount="1" encoded="0" values="||">
    </PIN>
    <PIN pinname="Saturation" pintype="Input" visible="1" slicecount="1" values="1">
    </PIN>
@@ -162,4 +166,8 @@
    </LINK>
    <LINK srcnodeid="1" srcpinname="Transform Out" dstnodeid="12" dstpinname="Transform">
    </LINK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="31.9.0">
+   </PACK>
    </PATCH>

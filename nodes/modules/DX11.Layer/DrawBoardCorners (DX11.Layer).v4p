@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\DX11.Layer\DrawBoardCorners (DX11.Layer).v4p" systemname="DrawBoardCorners (DX11.Layer)" filename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\DX11.Layer\DrawBoardCorners (DX11.Layer).v4p">
-   <BOUNDS type="Window" left="7710" top="8265" width="9630" height="7245">
+   <PATCH nodename="C:\vvvv\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\DX11.Layer\DrawBoardCorners (DX11.Layer).v4p" systemname="DrawBoardCorners (DX11.Layer)" filename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\DX11.Layer\DrawBoardCorners (DX11.Layer).v4p">
+   <BOUNDS type="Window" left="8325" top="10440" width="9630" height="7245">
    </BOUNDS>
    <NODE systemname="Line (DX11)" filename="%VVVV%\packs\DX11\nodes\modules\Line (DX11).v4p" nodename="Line (DX11)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="615" top="3885" width="100" height="100">

@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace VVVV.CV.Core
 {
-	public enum TColorFormat { UnInitialised, RGB8, RGB32F, RGBA8, RGBA32F, L8, L16, L32S, L32F };
+	public enum TColorFormat { UnInitialised, RGB8, RGB32F, RGBA8, RGBA32F, L8, L16, L32S, L32F, HSV8, HSV32F };
 
 	public enum TChannelFormat { UnInitialised, Byte, UShort, UInt, Float};
 
