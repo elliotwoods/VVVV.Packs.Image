@@ -9,7 +9,7 @@ using VVVV.CV.Core;
 
 namespace VVVV.CV.Nodes
 {
-	[FilterInstance("OpticalFlow", Version = "Horn–Schunck", Help = "Perform HS optical flow on image", Author = "elliotwoods")]
+	[FilterInstance("OpticalFlow", Version = "HornSchunck", Help = "Perform HS optical flow on image", Author = "elliotwoods")]
 	public class OpticalFlowHSInstance : IFilterInstance
 	{
 		private Size FSize;
