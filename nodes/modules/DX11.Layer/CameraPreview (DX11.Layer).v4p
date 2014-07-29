@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\DX11.Layer\CameraPreview (DX11.Layer).v4p" filename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\DX11.Layer\CameraPreview (DX11.Layer).v4p" systemname="CameraPreview (DX11.Layer)">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
+   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\modules\DX11.Layer\CameraPreview (DX11.Layer).v4p" filename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\modules\DX11.Layer\CameraPreview (DX11.Layer).v4p" systemname="CameraPreview (DX11.Layer)">
    <BOUNDS height="6855" left="7140" top="10500" type="Window" width="8235">
    </BOUNDS>
    <NODE componentmode="InABox" id="6" nodename="IOBox (Node)" systemname="IOBox (Node)">
@@ -132,6 +132,12 @@
    <PIN pinname="Fill Mode" slicecount="1" values="Wireframe">
    </PIN>
    <PIN pinname="Render State" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Enable Depth Clip" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Enable Line AntiAlias" slicecount="1" values="1">
+   </PIN>
+   <PIN pinname="Enable MultiSampling" slicecount="1" values="1">
    </PIN>
    </NODE>
    <LINK srcnodeid="18" srcpinname="Render State" dstnodeid="15" dstpinname="Render State">
