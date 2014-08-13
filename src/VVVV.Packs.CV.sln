@@ -1,6 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+# SharpDevelop 5.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "image", "image", "{1ED4B073-68C1-4573-AFAB-43D5B4CCB50A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Nodes", "nodes\plugins\Image\OpenCV\VVVV.CV.Nodes.csproj", "{E9A7FC26-34E0-4C1E-83D8-C01A169422B2}"
@@ -21,20 +22,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.DeckLink", "node
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.Ximea", "nodes\plugins\DX11\Ximea\VVVV.Nodes.Ximea.csproj", "{685C0911-C080-46B4-B21F-B8BBAD507D0B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{54471BC0-C305-4333-A3FD-E1A0D50DDF97}"
-	ProjectSection(SolutionItems) = preProject
-		Performance1.psess = Performance1.psess
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.OpenCV.CLEye", "nodes\plugins\Image\CLEye\VVVV.Nodes.OpenCV.CLEye.csproj", "{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Packs.CV", "VVVV.Packs.CV.csproj", "{91A6F321-89A6-409E-996A-693CB93EC22D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Factory", "factories\VVVV.CV.Factory.csproj", "{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.CV.Core", "core\VVVV.CV.Core.csproj", "{673FDAE3-3E5D-435C-8690-06378D3ED954}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VVVV.Nodes.CV.DX11", "nodes\plugins\Image\DX11\VVVV.Nodes.CV.DX11.csproj", "{9313912A-C352-4757-80D6-1CA154E84237}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{54471BC0-C305-4333-A3FD-E1A0D50DDF97}"
+	ProjectSection(SolutionItems) = preProject
+		Performance1.psess = Performance1.psess
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -166,18 +165,6 @@ Global
 		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Release|x64.Build.0 = Release|x64
 		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Release|x86.ActiveCfg = Release|x86
 		{03178DF6-94F0-4BBE-A790-AE7ACED17AC8}.Release|x86.Build.0 = Release|x86
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Debug|x64.ActiveCfg = Debug|x64
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Debug|x64.Build.0 = Debug|x64
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Debug|x86.ActiveCfg = Debug|x86
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Debug|x86.Build.0 = Debug|x86
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Release|x64.ActiveCfg = Release|x64
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Release|x64.Build.0 = Release|x64
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Release|x86.ActiveCfg = Release|x86
-		{91A6F321-89A6-409E-996A-693CB93EC22D}.Release|x86.Build.0 = Release|x86
 		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FBADFB2-3C92-4079-BE0E-CF0F7ADF9108}.Debug|x64.ActiveCfg = Debug|x64
