@@ -6,6 +6,7 @@ using Emgu.CV;
 using System.Drawing;
 using SlimDX.Direct3D9;
 using SlimDX;
+using VVVV.Utils;
 using VVVV.Utils.SlimDX;
 using System.ComponentModel.Composition;
 using VVVV.Core.Logging;
@@ -163,8 +164,16 @@ namespace VVVV.CV.Nodes
 						{
 							if (!FBufferConverted.FrontImage.Allocated)
 								throw (new Exception());
-
-							rect.Data.WriteRange(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.BytesPerFrame);
+							
+							if (rect.Pitch == FBufferConverted.ImageAttributes.Stride)
+							    rect.Data.WriteRange(FBufferConverted.FrontImage.Data, FBufferConverted.ImageAttributes.BytesPerFrame);
+							else
+							{
+							    //copy full lines
+                				for (int i = 0; i < FBufferConverted.ImageAttributes.Height; i++) 
+                				    Memory.Copy(rect.Data.DataPointer.Move(rect.Pitch * i), FBufferConverted.FrontImage.Data.Move(FBufferConverted.ImageAttributes.Stride * i), (uint)FBufferConverted.ImageAttributes.Stride);
+							}
+							
 							FNeedsRefresh[texture] = false;
 						}
 						catch (Exception e)

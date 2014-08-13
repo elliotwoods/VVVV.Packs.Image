@@ -38,6 +38,9 @@
       <Private>False</Private>
       <HintPath>..\..\..\..\packages\VVVV.Utils.32.1.0\lib\net40\VVVV.Utils.dll</HintPath>
     </Reference>
+    <Reference Include="VVVV.UtilsIL">
+      <HintPath>..\..\..\..\packages\VVVV.UtilsIL.32.1.0\lib\net40\VVVV.UtilsIL.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ManageDependencies.cs" />
