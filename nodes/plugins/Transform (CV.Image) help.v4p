@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\Transform (CV Filter) help.v4p" systemname="Rotate (OpenCV Continuous) help" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\Rotate (OpenCV Continuous) help.v4p">
-   <BOUNDS type="Window" left="9900" top="6000" width="8595" height="8100">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug32.2.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\Transform (CV.Image) help.v4p" systemname="Rotate (OpenCV Continuous) help" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\Rotate (OpenCV Continuous) help.v4p">
+   <BOUNDS type="Window" left="6285" top="5610" width="8595" height="8100">
    </BOUNDS>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InABox" id="6">
    <BOUNDS type="Node" left="735" top="2895" width="100" height="100">
@@ -45,7 +45,7 @@
    </BOUNDS>
    <BOUNDS height="160" left="9210" top="44340" type="Window" width="215">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="0" values="|Transform (CV)|">
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|Transform (CV.Image)|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -54,7 +54,7 @@
    <PIN pinname="Size" slicecount="1" values="12">
    </PIN>
    </NODE>
-   <NODE systemname="ImageLoad (CV Source)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ImageLoad (CV Source)" componentmode="Hidden" id="13">
+   <NODE systemname="FileImage (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ImageLoad (CV Source)" componentmode="Hidden" id="13">
    <BOUNDS type="Node" left="750" top="1350" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
@@ -62,7 +62,7 @@
    <PIN pinname="Filename" slicecount="1" values="..\..\..\..\lib\assets\images\earth_512x512.jpg">
    </PIN>
    </NODE>
-   <NODE systemname="Transform (CV Filter)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Transform (CV Filter)" componentmode="Hidden" id="1">
+   <NODE systemname="Transform (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Transform (CV Filter)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="735" top="1890" width="6675" height="270">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
@@ -78,7 +78,7 @@
    </NODE>
    <LINK srcnodeid="13" srcpinname="Output" dstnodeid="1" dstpinname="Input">
    </LINK>
-   <NODE systemname="ImageQuad (CV DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="5">
+   <NODE systemname="GridView (DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="5">
    <BOUNDS type="Node" left="735" top="2430" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -87,8 +87,6 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="5" srcpinname="Layer" dstnodeid="6" dstpinname="Layers">
-   </LINK>
-   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="5" dstpinname="Image">
    </LINK>
    <NODE systemname="Rotate (Transform)" nodename="Rotate (Transform)" componentmode="Hidden" id="14">
    <BOUNDS type="Node" left="4065" top="1515" width="100" height="100">
@@ -123,5 +121,11 @@
    </PIN>
    </NODE>
    <LINK srcnodeid="16" srcpinname="Y Output Value" dstnodeid="1" dstpinname="Apply To Image Center">
+   </LINK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="32.2.0">
+   </PACK>
+   <LINK srcnodeid="1" srcpinname="Output" dstnodeid="5" dstpinname="Image">
    </LINK>
    </PATCH>

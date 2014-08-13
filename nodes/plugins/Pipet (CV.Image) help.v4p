@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\Pipet (CV Analysis) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Pipet (OpenCV) help.v4p" systemname="Pipet (OpenCV) help">
-   <BOUNDS height="11985" left="7290" top="7635" type="Window" width="9600">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug32.2.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\Pipet (CV.Image) help.v4p" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\Pipet (OpenCV) help.v4p" systemname="Pipet (OpenCV) help">
+   <BOUNDS height="11985" left="5880" top="3750" type="Window" width="9600">
    </BOUNDS>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InABox" id="3">
    <BOUNDS type="Node" left="675" top="4035" width="100" height="100">
@@ -258,7 +258,7 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <NODE systemname="VideoIn (CV Source)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="VideoIn (CV Source)" componentmode="Hidden" id="1">
+   <NODE systemname="VideoIn (CV.Image VfW)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="VideoIn (CV Source)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="3480" top="705" width="3675" height="270">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
@@ -266,7 +266,7 @@
    <PIN pinname="Enabled" slicecount="1" values="1">
    </PIN>
    </NODE>
-   <NODE systemname="Info (CV Analysis)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV Analysis)" componentmode="Hidden" id="12">
+   <NODE systemname="Info (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV Analysis)" componentmode="Hidden" id="12">
    <BOUNDS type="Node" left="3480" top="1785" width="1710" height="270">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -286,7 +286,7 @@
    </LINK>
    <LINK srcnodeid="1" srcpinname="Output" dstnodeid="12" dstpinname="Image">
    </LINK>
-   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="0" nodename="Pipet (CV Analysis)" systemname="Pipet (CV Analysis)">
+   <NODE componentmode="Hidden" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" id="0" nodename="Pipet (CV Analysis)" systemname="Pipet (CV.Image)">
    <BOUNDS height="100" left="6450" top="1785" type="Node" width="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -312,7 +312,7 @@
    <LINKPOINT x="6450" y="1365">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="ImageQuad (CV DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="2">
+   <NODE systemname="GridView (DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="675" top="1785" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -330,4 +330,8 @@
    <LINKPOINT x="1150" y="1440">
    </LINKPOINT>
    </LINK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="32.2.0">
+   </PACK>
    </PATCH>

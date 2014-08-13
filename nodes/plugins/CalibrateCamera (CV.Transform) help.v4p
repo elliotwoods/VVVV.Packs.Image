@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\CalibrateCamera (CV) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug32.2.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\CalibrateCamera (CV.Transform) help.v4p">
    <BOUNDS type="Window" left="10620" top="735" width="12315" height="12675">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -27,9 +27,9 @@
    <NODE nodename="IOBox (String)" componentmode="InABox" id="9" systemname="IOBox (String)">
    <BOUNDS type="Node" left="150" top="150" width="5000" height="450">
    </BOUNDS>
-   <BOUNDS type="Box" left="150" top="150" width="3885" height="435">
+   <BOUNDS type="Box" left="150" top="150" width="4695" height="435">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="0" values="|CalibrateCamera (OpenCV)|">
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|CalibrateCamera (CV.Transform)|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -546,13 +546,13 @@
    </NODE>
    <LINK srcnodeid="82" srcpinname="Remainder" dstnodeid="37" dstpinname="Distortion ">
    </LINK>
-   <NODE systemname="ListDevices (CV DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="ListDevices (CV DirectShow)" componentmode="Hidden" id="61">
+   <NODE systemname="ListDevices (CV.Image DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="ListDevices (CV DirectShow)" componentmode="Hidden" id="61">
    <BOUNDS type="Node" left="3435" top="1020" width="100" height="100">
    </BOUNDS>
    </NODE>
    <LINK srcnodeid="61" srcpinname="Device name" dstnodeid="62" dstpinname="Input String">
    </LINK>
-   <NODE systemname="VideoIn (CV DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (CV DirectShow)" componentmode="Hidden" id="58">
+   <NODE systemname="VideoIn (CV.Image DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (CV DirectShow)" componentmode="Hidden" id="58">
    <BOUNDS type="Node" left="1140" top="1665" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
@@ -566,7 +566,7 @@
    </LINK>
    <LINK srcnodeid="65" srcpinname="Y Output Value" dstnodeid="58" dstpinname="Enabled">
    </LINK>
-   <NODE systemname="FindBoard (CV)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="FindBoard (CV)" componentmode="Hidden" id="10">
+   <NODE systemname="FindBoard (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="FindBoard (CV)" componentmode="Hidden" id="10">
    <BOUNDS type="Node" left="2325" top="4455" width="2235" height="270">
    </BOUNDS>
    <PIN pinname="PositionXY" visible="1">
@@ -588,7 +588,7 @@
    </LINK>
    <LINK srcnodeid="58" srcpinname="Output" dstnodeid="10" dstpinname="Input">
    </LINK>
-   <NODE systemname="Info (CV Analysis)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV Analysis)" componentmode="Hidden" id="16">
+   <NODE systemname="Info (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV Analysis)" componentmode="Hidden" id="16">
    <BOUNDS type="Node" left="3600" top="2670" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -604,7 +604,7 @@
    </LINK>
    <LINK srcnodeid="58" srcpinname="Output" dstnodeid="16" dstpinname="Image">
    </LINK>
-   <NODE systemname="BoardObjectPoints (CV)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardObjectPoints (CV).v4p" nodename="BoardObjectPoints (CV)" componentmode="Hidden" id="11">
+   <NODE systemname="BoardCorners (3d)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\BoardObjectPoints (CV).v4p" nodename="BoardObjectPoints (CV)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="5625" top="3105" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Board Size X">
@@ -622,7 +622,7 @@
    </LINK>
    <LINK srcnodeid="26" srcpinname="Y Output Value" dstnodeid="11" dstpinname="Board Pitch">
    </LINK>
-   <NODE nodename="CalibrateCamera (CV)" componentmode="Hidden" id="6" systemname="CalibrateCamera (CV)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll">
+   <NODE nodename="CalibrateCamera (CV)" componentmode="Hidden" id="6" systemname="CalibrateCamera (CV.Transform)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll">
    <BOUNDS type="Node" left="5125" top="5585" width="2010" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="5125" top="5585" width="0" height="0">
@@ -656,7 +656,7 @@
    </LINK>
    <LINK srcnodeid="11" srcpinname="Object XYZ" dstnodeid="6" dstpinname="Object PointsXYZ">
    </LINK>
-   <NODE systemname="Intrinsics (CV Split)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Intrinsics (CV Split)" componentmode="Hidden" id="55">
+   <NODE systemname="Intrinsics (CV.Transform Split)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Intrinsics (CV Split)" componentmode="Hidden" id="55">
    <BOUNDS type="Node" left="5775" top="7350" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Intrinsics" visible="1">
@@ -674,7 +674,7 @@
    </LINK>
    <LINK srcnodeid="6" srcpinname="Intrinsics" dstnodeid="55" dstpinname="Intrinsics">
    </LINK>
-   <NODE systemname="AsTexture (CV EX9.Texture)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AsTexture (CV EX9.Texture)" componentmode="Hidden" id="59">
+   <NODE systemname="AsTexture (CV.Image EX9.Texture)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AsTexture (CV EX9.Texture)" componentmode="Hidden" id="59">
    <BOUNDS type="Node" left="5145" top="8640" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -686,7 +686,7 @@
    </LINK>
    <LINK srcnodeid="58" srcpinname="Output" dstnodeid="59" dstpinname="Image">
    </LINK>
-   <NODE systemname="DrawBoardCorners (CV DX9 2D)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\DrawBoardCorners (CV DX9 2D).v4p" nodename="DrawBoardCorners (CV DX9 2D)" componentmode="Hidden" id="40">
+   <NODE systemname="BoardCorners (DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\DrawBoardCorners (CV DX9 2D).v4p" nodename="DrawBoardCorners (CV DX9 2D)" componentmode="Hidden" id="40">
    <BOUNDS type="Node" left="2325" top="9015" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image PointsXY" visible="1">
@@ -710,7 +710,7 @@
    </LINK>
    <LINK srcnodeid="10" srcpinname="Position Bin Size" dstnodeid="40" dstpinname="BinSize">
    </LINK>
-   <NODE systemname="ImageQuad (CV DX9)" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="31" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p">
+   <NODE systemname="GridView (DX9)" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="31" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p">
    <BOUNDS type="Node" left="1140" top="9015" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -726,7 +726,7 @@
    </LINK>
    <LINK srcnodeid="58" srcpinname="Output" dstnodeid="31" dstpinname="Image">
    </LINK>
-   <NODE systemname="Writer (CV Intrinsics)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Writer (CV Intrinsics)" componentmode="Hidden" id="77">
+   <NODE systemname="Writer (CV.Transform Intrinsics)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Writer (CV Intrinsics)" componentmode="Hidden" id="77">
    <BOUNDS type="Node" left="9435" top="9390" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Intrinsics" visible="1">
@@ -738,4 +738,8 @@
    </LINK>
    <LINK srcnodeid="6" srcpinname="Intrinsics" dstnodeid="77" dstpinname="Intrinsics">
    </LINK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="32.2.0">
+   </PACK>
    </PATCH>

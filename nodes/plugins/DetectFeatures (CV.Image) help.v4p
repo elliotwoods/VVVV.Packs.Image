@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\DetectFeatures (CV SURF) help.v4p" systemname="DetectFeatures (OpenCV SURF) help" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\DetectFeatures (OpenCV SURF) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug32.2.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\DetectFeatures (CV.Image) help.v4p" systemname="DetectFeatures (OpenCV SURF) help" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\DetectFeatures (OpenCV SURF) help.v4p">
    <BOUNDS type="Window" left="13815" top="3480" width="9285" height="11160">
    </BOUNDS>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InABox" id="4">
@@ -171,7 +171,7 @@
    </BOUNDS>
    <BOUNDS height="160" left="-60" top="10080" type="Window" width="215">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="0" values="|DetectFeatures - OpenCV|">
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|DetectFeatures (CV.Image)|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -194,7 +194,7 @@
    </LINK>
    <LINK srcnodeid="22" srcpinname="X" dstnodeid="14" dstpinname="X">
    </LINK>
-   <NODE systemname="ImageLoad (CV FreeImage)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.FreeImage.dll" nodename="ImageLoad (CV FreeImage)" componentmode="Hidden" id="1">
+   <NODE systemname="FileImage (CV.Image FreeImage)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.FreeImage.dll" nodename="ImageLoad (CV FreeImage)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="585" top="1155" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
@@ -202,7 +202,7 @@
    </NODE>
    <LINK srcnodeid="5" srcpinname="Output String" dstnodeid="1" dstpinname="Filename">
    </LINK>
-   <NODE systemname="ImageQuad (CV DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="2">
+   <NODE systemname="GridView (DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="585" top="1725" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -216,7 +216,7 @@
    </LINK>
    <LINK srcnodeid="1" srcpinname="Output" dstnodeid="2" dstpinname="Image">
    </LINK>
-   <NODE systemname="Info (CV Analysis)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV Analysis)" componentmode="Hidden" id="11">
+   <NODE systemname="Info (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV Analysis)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="1905" top="1725" width="1965" height="270">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -240,7 +240,7 @@
    <LINKPOINT x="2605" y="1560">
    </LINKPOINT>
    </LINK>
-   <NODE systemname="DetectFeatures (CV Analysis Features)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="DetectFeatures (CV Analysis Features)" componentmode="Hidden" id="3">
+   <NODE systemname="DetectFeatures (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="DetectFeatures (CV Analysis Features)" componentmode="Hidden" id="3">
    <BOUNDS type="Node" left="4575" top="1725" width="1575" height="270">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -282,7 +282,7 @@
    </LINK>
    <LINK srcnodeid="21" srcpinname="Output" dstnodeid="22" dstpinname="XY">
    </LINK>
-   <NODE systemname="FeatureSet (CV Features Split)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="FeatureSet (CV Features Split)" componentmode="Hidden" id="23">
+   <NODE systemname="FeatureSet (CV.Features Split)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="FeatureSet (CV Features Split)" componentmode="Hidden" id="23">
    <BOUNDS type="Node" left="5370" top="2115" width="100" height="100">
    </BOUNDS>
    <PIN pinname="PositionXY" visible="1">
@@ -294,4 +294,8 @@
    </LINK>
    <LINK srcnodeid="3" srcpinname="Output" dstnodeid="23" dstpinname="Input">
    </LINK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="32.2.0">
+   </PACK>
    </PATCH>
