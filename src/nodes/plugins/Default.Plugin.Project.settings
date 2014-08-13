@@ -32,11 +32,4 @@
   <PropertyGroup Condition=" '$(SolutionDir)' != '' ">
     <OutputPath>$(MSBuildThisFileDirectory)..\..\..\nodes\plugins\</OutputPath>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)..\..\core\VVVV.CV.Core.csproj">
-      <Project>{673fdae3-3e5d-435c-8690-06378d3ed954}</Project>
-      <Name>VVVV.CV.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
