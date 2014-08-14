@@ -28,11 +28,23 @@ Buying said license (if bought for the VVVV.Packs.OpenCV project) will also inde
 Installation
 ============
 
-If you are installing this pack for development use (e.g. with Visual Studio), then you should clone this repo to be in vvvv\packs folder (aside DX11 for example).
+If you are installing this pack for development here are the steps you need to take:
+* clone this repo to be in vvvvXY\packs folder 
+* make sure you also have the DX11 pack in vvvvXY\packs\DX11 as there are some references to this location
+* make sure you also have the addonpack installed
+* make sure you're using nuget >= 2.8.x 
+* open src\VVVV.Packs.CV.sln 
+* make sure Build Platform is set to: x86
+* Build
 
-Some parts of this pack rely on the addonpack and/or DX11 pack, so be prepared to install those also.
+With VisualStudio 2013 (latest update):
+* never click the option "Enable NuGet Packet Restore" in the Solution menu!
 
-NuGet is used to manage VVVV dependencies from this pack.
+With SharpDevelop 5 (beta5):
+* when building initially fails run "Restore Packages" in the Solution menu and build again
+
+Updating nugets:
+If for some reason you want to update nugets to build against vvvv-alpha nugets, go ahead. In the nugets dialog simply choose "Update all". Special care only needs to be taken in SharpDevelop 5 (beta 5) where after doing so all nuget references have their "Local Copy" set to true which will break things. So after updating first have a look at the changes to all .csproj files and restore the deleted PRIVATE=false lines. 
 
 Usage
 =====
