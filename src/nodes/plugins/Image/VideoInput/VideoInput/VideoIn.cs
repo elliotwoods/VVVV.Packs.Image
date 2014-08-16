@@ -21,6 +21,7 @@ namespace VVVV.Nodes.OpenCV.VideoInput
 	public class VideoInInstance : IGeneratorInstance
 	{
 		Capture FCapture = new Capture();
+		Dictionary<Property, float> FPropertySet;
 
 		private int FDeviceID;
 		public int DeviceID
@@ -89,6 +90,8 @@ namespace VVVV.Nodes.OpenCV.VideoInput
                     //should this always be performed?
 					ReAllocate();
 
+					SetProperties(FPropertySet);
+
 					Status = "OK";
 					return true;
 				}
@@ -142,6 +145,8 @@ namespace VVVV.Nodes.OpenCV.VideoInput
 			if (PropertySet == null)
 				return;
 
+			FPropertySet = PropertySet;
+
 			foreach (var property in PropertySet)
 			{
 				FCapture.SetProperty(property.Key, property.Value);
@@ -185,25 +190,25 @@ namespace VVVV.Nodes.OpenCV.VideoInput
 		//called when data for any output pin is requested
 		protected override void Update(int InstanceCount, bool SpreadChanged)
 		{
-			if (FPinInDeviceID.IsChanged)
+			if (FPinInDeviceID.IsChanged || SpreadChanged)
 			{
 				for (int i = 0; i < InstanceCount; i++)
 					FProcessor[i].DeviceID = FPinInDeviceID[i];
 			}
 
-			if (FPinInWidth.IsChanged)
+			if (FPinInWidth.IsChanged || SpreadChanged)
 			{
 				for (int i = 0; i < InstanceCount; i++)
 					FProcessor[i].Width = FPinInWidth[i];
 			}
 
-			if (FPinInHeight.IsChanged)
+			if (FPinInHeight.IsChanged || SpreadChanged)
 			{
 				for (int i = 0; i < InstanceCount; i++)
 					FProcessor[i].Height = FPinInHeight[i];
 			}
 
-			if (FPinInFPS.IsChanged)
+			if (FPinInFPS.IsChanged || SpreadChanged)
 			{
 				for (int i = 0; i < InstanceCount; i++)
 					FProcessor[i].Framerate = FPinInFPS[i];
@@ -213,9 +218,11 @@ namespace VVVV.Nodes.OpenCV.VideoInput
 				if (FPinInShowSettings[i])
 					FProcessor[i].ShowSettings();
 
-			if (FPinInProperties.IsChanged)
+			if (FPinInProperties.IsChanged || SpreadChanged)
+			{
 				for (int i = 0; i < InstanceCount; i++)
 					FProcessor[i].SetProperties(FPinInProperties[i]);
+			}
 		}
 	}
 }
