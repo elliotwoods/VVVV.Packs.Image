@@ -1,6 +1,6 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\ObjectTracking (CV) help.v4p" systemname="OpenCVTest" filename="C:\Users\smakhtin\Desktop\OpenCVTest.v4p">
-   <BOUNDS type="Window" left="3825" top="3645" width="12645" height="9000">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug32.2.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\DetectObject (CV.Image) help.v4p" systemname="OpenCVTest" filename="C:\Users\smakhtin\Desktop\OpenCVTest.v4p">
+   <BOUNDS type="Window" left="13890" top="3465" width="10605" height="8535">
    </BOUNDS>
    <NODE systemname="Quad (DX9)" nodename="Quad (DX9)" componentmode="Hidden" id="2">
    <BOUNDS type="Node" left="960" top="2610" width="100" height="100">
@@ -232,7 +232,7 @@
    </NODE>
    <LINK srcnodeid="22" srcpinname="Transform Out" dstnodeid="13" dstpinname="Transform In">
    </LINK>
-   <NODE systemname="VideoIn (CV DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (CV DirectShow)" componentmode="Hidden" id="0">
+   <NODE systemname="VideoIn (CV.Image DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (CV DirectShow)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="1305" top="1080" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
@@ -246,7 +246,7 @@
    <PIN pinname="Height" slicecount="1" values="240">
    </PIN>
    </NODE>
-   <NODE systemname="AsTexture (CV EX9.Texture)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AsTexture (CV EX9.Texture)" componentmode="Hidden" id="1">
+   <NODE systemname="AsTexture (CV.Image EX9.Texture)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AsTexture (CV EX9.Texture)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="1290" top="1995" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -258,7 +258,7 @@
    </LINK>
    <LINK srcnodeid="0" srcpinname="Output" dstnodeid="1" dstpinname="Image">
    </LINK>
-   <NODE systemname="ObjectTracking (CV Analysis)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ObjectTracking (CV Analysis)" componentmode="Hidden" id="5">
+   <NODE systemname="DetectObject (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ObjectTracking (CV Analysis)" componentmode="Hidden" id="5">
    <BOUNDS type="Node" left="3690" top="2640" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Input" visible="1">
@@ -288,7 +288,7 @@
    </LINK>
    <LINK srcnodeid="0" srcpinname="Output" dstnodeid="5" dstpinname="Input">
    </LINK>
-   <NODE systemname="ImageLoad (CV FreeImage)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.FreeImage.dll" nodename="ImageLoad (CV FreeImage)" componentmode="Hidden" id="15">
+   <NODE systemname="FileImage (CV.Image FreeImage)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.FreeImage.dll" nodename="ImageLoad (CV FreeImage)" componentmode="Hidden" id="15">
    <BOUNDS type="Node" left="6015" top="2985" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Filename" slicecount="1" values="..\..\..\..\..\..\..\..\..\..\emgucv\bin\lena.jpg">
@@ -300,10 +300,10 @@
    <PIN pinname="Reload" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <NODE systemname="AsTexture (CV EX9.Texture)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AsTexture (CV EX9.Texture)" componentmode="Hidden" id="17">
+   <NODE systemname="AsTexture (CV.Image EX9.Texture)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="AsTexture (CV EX9.Texture)" componentmode="Hidden" id="17">
    <BOUNDS type="Node" left="5955" top="3945" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Image" visible="1">
+   <PIN pinname="Image" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Texture Out" visible="1">
    </PIN>
@@ -312,4 +312,8 @@
    </LINK>
    <LINK srcnodeid="15" srcpinname="Output" dstnodeid="17" dstpinname="Image">
    </LINK>
+   <PACK Name="addonpack" Version="32.2.0">
+   </PACK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
    </PATCH>

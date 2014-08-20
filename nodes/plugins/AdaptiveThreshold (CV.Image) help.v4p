@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\AdaptiveThreshold (CV Filter) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug32.2.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\AdaptiveThreshold (CV.Image) help.v4p">
    <BOUNDS type="Window" left="8805" top="6495" width="9000" height="7455">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -7,7 +7,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="150" top="150" width="5000" height="450">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="0" values="|AdaptiveThreshold (CV Filter)|">
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|AdaptiveThreshold (CV.Image)|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -24,7 +24,7 @@
    <PIN pinname="Output String" visible="0">
    </PIN>
    </NODE>
-   <NODE nodename="AdaptiveThreshold (CV Filter)" componentmode="Hidden" id="0" systemname="AdaptiveThreshold (CV Filter)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll">
+   <NODE nodename="AdaptiveThreshold (CV Filter)" componentmode="Hidden" id="0" systemname="AdaptiveThreshold (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll">
    <BOUNDS type="Node" left="955" top="5210" width="4905" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="955" top="5210" width="0" height="0">
@@ -42,7 +42,7 @@
    <PIN pinname="Constant" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <NODE systemname="VideoIn (CV DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (CV DirectShow)" componentmode="Hidden" id="4">
+   <NODE systemname="VideoIn (CV.Image DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (CV DirectShow)" componentmode="Hidden" id="4">
    <BOUNDS type="Node" left="975" top="1995" width="1980" height="270">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
@@ -58,7 +58,7 @@
    </NODE>
    <LINK srcnodeid="4" srcpinname="Output" dstnodeid="0" dstpinname="Input">
    </LINK>
-   <NODE systemname="VideoOut (CV)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\VideoOut (CV).v4p" nodename="VideoOut (CV)" componentmode="Hidden" id="5">
+   <NODE systemname="VideoOut (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\VideoOut (CV).v4p" nodename="VideoOut (CV)" componentmode="Hidden" id="5">
    <BOUNDS type="Node" left="960" top="5880" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -84,7 +84,7 @@
    </NODE>
    <LINK srcnodeid="6" srcpinname="Y Output Value" dstnodeid="4" dstpinname="Enabled">
    </LINK>
-   <NODE systemname="ListDevices (CV DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="ListDevices (CV DirectShow)" componentmode="Hidden" id="7">
+   <NODE systemname="ListDevices (CV.Image DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="ListDevices (CV DirectShow)" componentmode="Hidden" id="7">
    <BOUNDS type="Node" left="4590" top="1755" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Refresh" slicecount="1" values="0">
@@ -200,4 +200,8 @@
    </NODE>
    <LINK srcnodeid="14" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Constant">
    </LINK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="32.2.0">
+   </PACK>
    </PATCH>

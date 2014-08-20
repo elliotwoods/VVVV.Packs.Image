@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="C:\vvvv-sdk\vvvv45\VVVV.Packs.Image\lib\nodes\plugins\UnsharpMask (OpenCV) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug32.2.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\UnsharpMask (CV.Image) help.v4p">
    <BOUNDS type="Window" left="7575" top="2265" width="14325" height="13005">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -7,7 +7,7 @@
    </BOUNDS>
    <BOUNDS type="Box" left="150" top="150" width="5000" height="450">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="0" values="|UnsharpMask (OpenCV)|">
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|UnsharpMask (CV.Image)|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -24,7 +24,7 @@
    <PIN pinname="Output String" visible="0">
    </PIN>
    </NODE>
-   <NODE nodename="UnsharpMask (OpenCV)" componentmode="Hidden" id="0" systemname="UnsharpMask (OpenCV)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll">
+   <NODE nodename="UnsharpMask (OpenCV)" componentmode="Hidden" id="0" systemname="UnsharpMask (CV.Image)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll">
    <BOUNDS type="Node" left="660" top="2490" width="7335" height="270">
    </BOUNDS>
    <BOUNDS type="Box" left="660" top="2490" width="0" height="0">
@@ -34,7 +34,7 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="ImageLoad (OpenCV)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ImageLoad (OpenCV)" componentmode="Hidden" id="4">
+   <NODE systemname="FileImage (CV.Image)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="ImageLoad (OpenCV)" componentmode="Hidden" id="4">
    <BOUNDS type="Node" left="660" top="1740" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="660" top="1740">
@@ -46,7 +46,7 @@
    <PIN pinname="Reload" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <NODE systemname="ImageQuad (OpenCV DX9)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" nodename="ImageQuad (OpenCV DX9)" componentmode="Hidden" id="5">
+   <NODE systemname="GridView (DX9)" filename="%VVVV%\VVVV.Packs.Image\lib\nodes\modules\Image\OpenCV\ImageQuad (OpenCV DX9).v4p" nodename="ImageQuad (OpenCV DX9)" componentmode="Hidden" id="5">
    <BOUNDS type="Node" left="660" top="3225" width="100" height="100">
    </BOUNDS>
    <BOUNDS type="Box" left="660" top="3225">
@@ -156,4 +156,8 @@
    </NODE>
    <LINK srcnodeid="13" srcpinname="Y Output Value" dstnodeid="0" dstpinname="WeightOrig">
    </LINK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="32.2.0">
+   </PACK>
    </PATCH>

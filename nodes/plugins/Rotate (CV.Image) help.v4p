@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\Rotate (CV Filter) help.v4p" systemname="Rotate (OpenCV Step) help" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\Rotate (OpenCV Step) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45debug32.2.dtd" >
+   <PATCH nodename="C:\Users\joreg\dev\repos\vvvv\public\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\Rotate (CV.Image) help.v4p" systemname="Rotate (OpenCV Step) help" filename="C:\vvvv\vvvv-sdk\vvvv45\imagepack\lib\nodes\plugins\Rotate (OpenCV Step) help.v4p">
    <BOUNDS type="Window" left="9210" top="4935" width="14505" height="8085">
    </BOUNDS>
    <NODE systemname="Renderer (EX9)" nodename="Renderer (EX9)" componentmode="InABox" id="6">
@@ -47,7 +47,7 @@
    </BOUNDS>
    <BOUNDS height="160" left="9210" top="44340" type="Window" width="215">
    </BOUNDS>
-   <PIN pinname="Input String" slicecount="1" visible="0" values="|Rotate - OpenCV Step|">
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|Rotate (CV.Image)|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -158,7 +158,7 @@
    </NODE>
    <LINK srcnodeid="21" srcpinname="frames per second" dstnodeid="22" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="VideoIn (CV DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (CV DirectShow)" componentmode="Hidden" id="0">
+   <NODE systemname="VideoIn (CV.Image DirectShow)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.VideoInput.dll" nodename="VideoIn (CV DirectShow)" componentmode="Hidden" id="0">
    <BOUNDS type="Node" left="270" top="1365" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Enabled" slicecount="1" values="1">
@@ -166,7 +166,7 @@
    <PIN pinname="Output" visible="1">
    </PIN>
    </NODE>
-   <NODE systemname="Rotate (CV Filter)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Rotate (CV Filter)" componentmode="Hidden" id="1">
+   <NODE systemname="Rotate (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Rotate (CV Filter)" componentmode="Hidden" id="1">
    <BOUNDS type="Node" left="285" top="1890" width="2205" height="270">
    </BOUNDS>
    <PIN pinname="Output" visible="1">
@@ -184,7 +184,7 @@
    </LINK>
    <LINK srcnodeid="0" srcpinname="Output" dstnodeid="1" dstpinname="Input">
    </LINK>
-   <NODE systemname="ImageQuad (CV DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="5">
+   <NODE systemname="GridView (DX9)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\modules\Image\OpenCV\ImageQuad (CV DX9).v4p" nodename="ImageQuad (CV DX9)" componentmode="Hidden" id="5">
    <BOUNDS type="Node" left="285" top="2430" width="100" height="100">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -198,7 +198,7 @@
    </LINK>
    <LINK srcnodeid="1" srcpinname="Output" dstnodeid="5" dstpinname="Image">
    </LINK>
-   <NODE systemname="Info (CV Analysis)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV Analysis)" componentmode="Hidden" id="14">
+   <NODE systemname="Info (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.dll" nodename="Info (CV Analysis)" componentmode="Hidden" id="14">
    <BOUNDS type="Node" left="6585" top="2430" width="3330" height="270">
    </BOUNDS>
    <PIN pinname="Image" visible="1">
@@ -220,4 +220,8 @@
    <LINKPOINT x="6635" y="2280">
    </LINKPOINT>
    </LINK>
+   <PACK Name="VVVV.Packs" Version="0.1.0">
+   </PACK>
+   <PACK Name="addonpack" Version="32.2.0">
+   </PACK>
    </PATCH>
