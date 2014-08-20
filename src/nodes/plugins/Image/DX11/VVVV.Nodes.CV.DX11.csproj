@@ -39,8 +39,8 @@
       <HintPath>..\..\..\..\packages\VVVV.VideoInput.1.0.0.1\lib\VideoInputSharp.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.Core">
-      <HintPath>..\..\..\..\packages\VVVV.Core.31.7.1-develop-175\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
+      <HintPath>..\..\..\..\packages\VVVV.Core.32.1.0\lib\net40\VVVV.Core.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.DX11.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -53,8 +53,8 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="VVVV.Utils">
-      <HintPath>..\..\..\..\packages\VVVV.Utils.31.7.1-develop-175\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
+      <HintPath>..\..\..\..\packages\VVVV.Utils.32.1.0\lib\net40\VVVV.Utils.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +67,13 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\core\VVVV.CV.Core.csproj">
+      <Project>{673FDAE3-3E5D-435C-8690-06378D3ED954}</Project>
+      <Name>VVVV.CV.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -75,12 +82,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props'))" />
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets'))" />
-    <Error Condition="!Exists('..\..\..\..\packages\VVVV.PluginInterfaces.31.7.1-develop-175\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.PluginInterfaces.31.7.1-develop-175\build\net40\VVVV.PluginInterfaces.targets'))" />
-    <Error Condition="!Exists('..\..\..\..\packages\VVVV.Utils3rdParty.31.7.1-develop-175\build\net40\VVVV.Utils3rdParty.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.Utils3rdParty.31.7.1-develop-175\build\net40\VVVV.Utils3rdParty.targets'))" />
   </Target>
   <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" />
-  <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.31.7.1-develop-175\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.31.7.1-develop-175\build\net40\VVVV.PluginInterfaces.targets')" />
-  <Import Project="..\..\..\..\packages\VVVV.Utils3rdParty.31.7.1-develop-175\build\net40\VVVV.Utils3rdParty.targets" Condition="Exists('..\..\..\..\packages\VVVV.Utils3rdParty.31.7.1-develop-175\build\net40\VVVV.Utils3rdParty.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.32.1.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.32.1.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.Utils3rdParty.32.1.0\build\net40\VVVV.Utils3rdParty.targets" Condition="Exists('..\..\..\..\packages\VVVV.Utils3rdParty.32.1.0\build\net40\VVVV.Utils3rdParty.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

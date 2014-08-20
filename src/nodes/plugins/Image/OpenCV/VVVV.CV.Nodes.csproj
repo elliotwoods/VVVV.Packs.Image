@@ -31,12 +31,15 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="VVVV.Core">
-      <HintPath>..\..\..\..\packages\VVVV.Core.32.0.0\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
+      <HintPath>..\..\..\..\packages\VVVV.Core.32.1.0\lib\net40\VVVV.Core.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.Utils">
-      <HintPath>..\..\..\..\packages\VVVV.Utils.32.0.0\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
+      <HintPath>..\..\..\..\packages\VVVV.Utils.32.1.0\lib\net40\VVVV.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="VVVV.UtilsIL">
+      <HintPath>..\..\..\..\packages\VVVV.UtilsIL.32.1.0\lib\net40\VVVV.UtilsIL.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -148,13 +151,10 @@
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets'))" />
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.props'))" />
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.targets'))" />
-    <Error Condition="!Exists('..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets'))" />
-    <Error Condition="!Exists('..\..\..\..\packages\VVVV.Utils3rdParty.32.0.0\build\net40\VVVV.Utils3rdParty.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.Utils3rdParty.32.0.0\build\net40\VVVV.Utils3rdParty.targets'))" />
-    <Error Condition="!Exists('..\..\..\..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets'))" />
   </Target>
   <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" />
   <Import Project="..\..\..\..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.targets" Condition="Exists('..\..\..\..\packages\VVVV.EmguCV.2.4.2.1\build\net40\VVVV.EmguCV.targets')" />
-  <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.32.0.0\build\net40\VVVV.PluginInterfaces.targets')" />
-  <Import Project="..\..\..\..\packages\VVVV.Utils3rdParty.32.0.0\build\net40\VVVV.Utils3rdParty.targets" Condition="Exists('..\..\..\..\packages\VVVV.Utils3rdParty.32.0.0\build\net40\VVVV.Utils3rdParty.targets')" />
-  <Import Project="..\..\..\..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\..\..\..\packages\VVVV.Nodes.Generic.32.0.0\build\net40\VVVV.Nodes.Generic.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.32.1.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.32.1.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.Nodes.Generic.32.1.0\build\net40\VVVV.Nodes.Generic.targets" Condition="Exists('..\..\..\..\packages\VVVV.Nodes.Generic.32.1.0\build\net40\VVVV.Nodes.Generic.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.Utils3rdParty.32.1.0\build\net40\VVVV.Utils3rdParty.targets" Condition="Exists('..\..\..\..\packages\VVVV.Utils3rdParty.32.1.0\build\net40\VVVV.Utils3rdParty.targets')" />
 </Project>
