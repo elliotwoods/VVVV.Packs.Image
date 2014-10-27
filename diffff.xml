@@ -185,4 +185,8 @@
 	<NODE old="Writer (OpenCV Intrinsics)" new="Writer (CV.Transform Intrinsics)"> </NODE>
 	<NODE old="ImageLoad (OpenCV FreeImage)" new="FileImage (CV.Image FreeImage)"> </NODE>
   </PATCH>
+  <PATCH version="0.2.0">
+	<NODE old="OpticalFlow (CV.Image Horn–Schunck)" new="OpticalFlow (CV.Image HornSchunck)"> </NODE>
+	<NODE old="OpticalFlow (CV.Image Lucas-Kanade)" new="OpticalFlow (CV.Image LucasKanade)"> </NODE>
+  </PATCH>
 </CONVVVVERTER>
