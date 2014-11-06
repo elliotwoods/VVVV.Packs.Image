@@ -1,5 +1,5 @@
-<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45alpha31.1.dtd" >
-   <PATCH nodename="c:\vvvv-sdk\vvvv45\packs\VVVV.Packs.Image\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p" systemname="VideoIn (DeckLink EX9.Texture) help" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p">
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta33.3.dtd" >
+   <PATCH nodename="C:\PROD\dev\vvvv-sdk\vvvv45\VVVV.Packs.Image\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p" systemname="VideoIn (DeckLink EX9.Texture) help" filename="C:\vvvv\vvvv-sdk\vvvv45\addonpack\lib\nodes\plugins\VideoIn (DeckLink EX9.Texture) help.v4p">
    <BOUNDS type="Window" left="3900" top="1545" width="13275" height="13215">
    </BOUNDS>
    <NODE systemname="ListDevices (DeckLink)" filename="%VVVV%\addonpack\lib\nodes\plugins\VVVV.Nodes.KC.DeckLink.dll" nodename="ListDevices (DeckLink)" componentmode="Hidden" id="0">
@@ -101,7 +101,7 @@
    <NODE systemname="Quad (DX9)" filename="" nodename="Quad (DX9)" componentmode="Hidden" id="11">
    <BOUNDS type="Node" left="870" top="4695" width="100" height="100">
    </BOUNDS>
-   <PIN pinname="Texture" visible="1">
+   <PIN pinname="Texture" visible="1" slicecount="1" values="||">
    </PIN>
    <PIN pinname="Layer" visible="1">
    </PIN>
@@ -202,6 +202,8 @@
    <PIN pinname="Behavior" slicecount="1" values="Bang">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" encoded="0" values="Refresh">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
    <LINK srcnodeid="21" srcpinname="Y Output Value" dstnodeid="0" dstpinname="Refresh">
@@ -304,44 +306,14 @@
    </NODE>
    <LINK srcnodeid="1" srcpinname="Frame Received" dstnodeid="28" dstpinname="Y Input Value">
    </LINK>
-   <NODE systemname="ColorSpaceConversion (EX9.Texture)" filename="%VVVV%\imagepack\lib\nodes\modules\DeckLink\ColorSpaceConversion (EX9.Texture).v4p" nodename="ColorSpaceConversion (EX9.Texture)" componentmode="Hidden" id="30">
-   <BOUNDS type="Node" left="1185" top="3615" width="100" height="100">
-   </BOUNDS>
-   <PIN pinname="Input" visible="1">
-   </PIN>
-   <BOUNDS type="Window" left="10890" top="2700" width="14280" height="11490">
-   </BOUNDS>
-   <PIN pinname="Texture Out" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="1" srcpinname="Texture Out" dstnodeid="30" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="645" y="3278">
-   </LINKPOINT>
-   <LINKPOINT x="1185" y="3278">
-   </LINKPOINT>
-   </LINK>
-   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="31" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="2070" top="3225" width="855" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="2070" top="3225" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="YUV422">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="31" srcpinname="Output Enum" dstnodeid="30" dstpinname="Input Format">
-   </LINK>
-   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="32" systemname="IOBox (Enumerations)">
-   <BOUNDS type="Box" left="2955" top="3225" width="855" height="240">
-   </BOUNDS>
-   <BOUNDS type="Node" left="2955" top="3225" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" values="RGB888">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="32" srcpinname="Output Enum" dstnodeid="30" dstpinname="Output Format">
-   </LINK>
-   <LINK srcnodeid="30" srcpinname="Texture Out" dstnodeid="11" dstpinname="Texture">
-   </LINK>
    <LINK srcnodeid="27" srcpinname="Layer" dstnodeid="26" dstpinname="Layer 2">
    </LINK>
+   <LINK srcnodeid="1" srcpinname="Texture Out" dstnodeid="11" dstpinname="Texture" linkstyle="Bezier">
+   <LINKPOINT x="630" y="3825">
+   </LINKPOINT>
+   <LINKPOINT x="1215" y="3825">
+   </LINKPOINT>
+   </LINK>
+   <PACK Name="addonpack" Version="33.3.0">
+   </PACK>
    </PATCH>

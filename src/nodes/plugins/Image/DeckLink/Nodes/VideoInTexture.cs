@@ -131,7 +131,7 @@ namespace VVVV.Nodes.DeckLink
 			bool isEx = device is DeviceEx;
 			var pool = isEx ? Pool.Default : Pool.Managed;
 			var usage = isEx ? Usage.Dynamic : Usage.None;
-			return new Texture(device, Math.Max(FCaptures[Slice].Width / 2, 1), Math.Max(FCaptures[Slice].Height, 1), 1, usage, Format.A8R8G8B8, pool);
+			return new Texture(device, Math.Max(FCaptures[Slice].Width, 1), Math.Max(FCaptures[Slice].Height, 1), 1, usage, Format.A8R8G8B8, pool);
 		}
 
 		DateTime FLastUpdate = DateTime.Now;

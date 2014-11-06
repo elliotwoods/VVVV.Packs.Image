@@ -13,11 +13,14 @@ namespace VVVV.Nodes.DeckLink
 	class Capture : IDisposable, IDeckLinkInputCallback
 	{
 		IDeckLinkInput FDevice;
+		IDeckLinkOutput FOutDevice;
 		_BMDDisplayMode FMode;
 		_BMDVideoInputFlags FFlags;
 		IDeckLinkDisplayMode FDisplayMode;
 		_BMDPixelFormat FPixelFormat = _BMDPixelFormat.bmdFormat8BitYUV;
 		IntPtr FData;
+		IDeckLinkVideoConversion FConverter;
+		IDeckLinkMutableVideoFrame rgbFrame;
 		public bool Reinitialise { get; private set;}
 		public bool FreshData { get; private set; }
 		public int Width { get; private set; }
@@ -49,8 +52,10 @@ namespace VVVV.Nodes.DeckLink
 
 					IDeckLink rawDevice = DeviceRegister.Singleton.GetDeviceHandle(device.Index);
 					FDevice = rawDevice as IDeckLinkInput;
+					FOutDevice = rawDevice as IDeckLinkOutput;
 					FMode = mode;
 					FFlags = flags;
+					FConverter = new CDeckLinkVideoConversion();
 
 					if (FDevice == null)
 						throw (new Exception("No input device connected"));
@@ -61,6 +66,15 @@ namespace VVVV.Nodes.DeckLink
 
 					Width = FDisplayMode.GetWidth();
 					Height = FDisplayMode.GetHeight();
+
+					// inspiration http://dviz.googlecode.com/svn/trunk/src/livemix/CameraThread.cpp
+
+					FOutDevice.CreateVideoFrame(Width,
+												Height,
+												Width * 4,
+												_BMDPixelFormat.bmdFormat8BitBGRA,
+												_BMDFrameFlags.bmdFrameFlagDefault,
+												out rgbFrame);
 
 					FDevice.EnableVideoInput(FMode, FPixelFormat, FFlags);
 					FDevice.SetCallback(this);
@@ -116,8 +130,13 @@ namespace VVVV.Nodes.DeckLink
 			this.Lock.AcquireWriterLock(5000);
 			try
 			{
-				videoFrame.GetBytes(out FData);
+
+				FConverter.ConvertFrame(videoFrame, rgbFrame);
+
+				rgbFrame.GetBytes(out FData);
+
 				System.Runtime.InteropServices.Marshal.ReleaseComObject(videoFrame);
+
 				FreshData = true;
 			}
 			catch
@@ -152,7 +171,7 @@ namespace VVVV.Nodes.DeckLink
 		{
 			get
 			{
-				return Width / 2 * Height * 4;
+				return Width * Height * 4;
 			}
 		}
 
