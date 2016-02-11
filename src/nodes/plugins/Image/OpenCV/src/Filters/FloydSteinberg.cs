@@ -25,21 +25,21 @@ namespace VVVV.CV.Nodes
         private readonly CVImage FGrayScale = new CVImage();
         private Emgu.CV.Image<Gray, int> FGrayInt;
         private Emgu.CV.Image<Gray, byte> FGrayByte;
-        private int[,] DitheringArray;
 
+        private TColorFormat FOutFormat;
 
         public override void Allocate()
         {
-            
-            //This function gets called whenever the output image needs to be initialised
-            //Initialising = setting the attributes (i.e. setting the image header and allocating the memory)
-            Size FSize = FInput.ImageAttributes.Size;
-            FGrayScale.Initialise(FInput.Image.ImageAttributes.Size, TColorFormat.L8);
-            
+            FOutFormat = ImageUtils.MakeGrayscale(FInput.ImageAttributes.ColorFormat);
 
-            FOutput.Image.Initialise(FSize, FInput.ImageAttributes.ColorFormat);
+            //if we can't convert or it's already grayscale, just pass through
+            if (FOutFormat == TColorFormat.UnInitialised)
+                FOutFormat = FInput.ImageAttributes.ColorFormat;
 
-            DitheringArray = new int[FOutput.Image.Width, FOutput.Image.Height];
+            FOutput.Image.Initialise(FInput.Image.ImageAttributes.Size, FOutFormat);
+
+            FGrayScale.Initialise(FInput.Image.ImageAttributes.Size, FOutFormat);
+
         }
 
         public override void Process()
@@ -48,32 +48,26 @@ namespace VVVV.CV.Nodes
             if (!FInput.LockForReading())
                 return;
 
-            FInput.Image.GetImage(TColorFormat.L8, FGrayScale);
-            FInput.ReleaseForReading(); //and  this after you've finished with FImage
+            FInput.GetImage(FGrayScale);
+
+            FInput.ReleaseForReading();
 
             FGrayByte = FGrayScale.GetImage() as Image<Gray, byte>;
             FGrayInt = FGrayByte.Convert<Gray, int>();
 
-            if (FInput.ImageAttributes.ColorFormat == TColorFormat.L8)
-            {
-                try
-                {
-                    PixelWiseDither();
-                }
-                catch (Exception e)
-                {
-                    Status = e.ToString();
-                    ImageUtils.Log(e);
-                }
-            }
+            PixelWiseDither();
+            //try
+            //{
+            //    PixelWiseDither();
+            //}
+            //catch (Exception e)
+            //{
+            //    Status = e.ToString();
+            //    ImageUtils.Log(e);
+            //}
 
-            //FGrayInt.Data[256, 256, 0] = 255;
-            //FGrayInt.Data[256, 258, 0] = 0;
-            //FGrayInt.Data[258, 256, 0] = 1024;
 
             ImageUtils.CopyImage(FGrayInt.Convert<Gray, byte>() as IImage, FOutput.Image);
-            
-
             FOutput.Send();
         }
 
