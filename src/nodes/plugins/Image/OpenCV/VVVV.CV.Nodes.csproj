@@ -106,6 +106,7 @@
     <Compile Include="src\Features\Criteria\ICriteria.cs" />
     <Compile Include="src\Features\MatchFeatures.cs" />
     <Compile Include="src\Filters\Crop.cs" />
+    <Compile Include="src\Filters\FloydSteinberg.cs" />
     <Compile Include="src\Filters\Transform.cs" />
     <Compile Include="src\Filters\RotateStep.cs" />
     <Compile Include="src\Filters\UsharpMask.cs" />

@@ -1,0 +1,305 @@
+<!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
+   <PATCH nodename="C:\vvvv\vvvv_45beta34.2_x86\packs\VVVV.Packs.Image\nodes\plugins\FloydSteinberg (CV.Image) help.v4p" scrollx="15" scrolly="30">
+   <BOUNDS type="Window" left="13980" top="300" width="6090" height="11655">
+   </BOUNDS>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="225" top="225" width="5100" height="450">
+   </BOUNDS>
+   <BOUNDS type="Box" left="225" top="225" width="5100" height="450">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|FloydSteinberg (CV.Image)|">
+   </PIN>
+   <PIN pinname="Output String" slicecount="1" visible="0" values="||">
+   </PIN>
+   <PIN pinname="Size" slicecount="1" visible="1" values="14">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="2" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="225" top="600" width="5100" height="600">
+   </BOUNDS>
+   <BOUNDS type="Box" left="225" top="600" width="5100" height="600">
+   </BOUNDS>
+   <PIN pinname="Input String" slicecount="1" visible="0" values="|Use the source of this filter as a reference on how to write your own filters|">
+   </PIN>
+   <PIN pinname="Output String" slicecount="1" visible="0" values="||">
+   </PIN>
+   </NODE>
+   <PACK Name="VVVV.Packs" Version="0.2.0">
+   </PACK>
+   <PACK Name="addonpack" Version="34.1.0">
+   </PACK>
+   <NODE systemname="Info (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.CV.Nodes.dll" nodename="Info (CV.Image)" componentmode="Hidden" id="8">
+   <BOUNDS type="Node" left="360" top="4185" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Format" visible="1">
+   </PIN>
+   <PIN pinname="Width" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="9" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="900" top="4605" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="900" top="4605" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="8" srcpinname="Format" dstnodeid="9" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="Info (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.CV.Nodes.dll" nodename="Info (CV.Image)" componentmode="Hidden" id="11">
+   <BOUNDS type="Node" left="375" top="3150" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Format" visible="1">
+   </PIN>
+   <PIN pinname="Height" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="10" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="915" top="3570" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="915" top="3570" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Format" dstnodeid="10" dstpinname="Input String">
+   </LINK>
+   <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="12">
+   <BOUNDS type="Node" left="4395" top="4710" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4395" top="4710" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="23925" top="9930" width="3855" height="3600">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Show Alpha" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InAWindow" id="14">
+   <BOUNDS type="Node" left="2310" top="9495" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2310" top="9495" width="2400" height="1800">
+   </BOUNDS>
+   <BOUNDS type="Window" left="420" top="12615" width="22305" height="3135">
+   </BOUNDS>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="23" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="3360" top="2385" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="3360" top="2385" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="16">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="28" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="345" top="3615" width="555" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="345" top="3615" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="11" srcpinname="Height" dstnodeid="28" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="Resize (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.CV.Nodes.dll" nodename="Resize (CV.Image)" componentmode="Hidden" id="29">
+   <BOUNDS type="Node" left="3075" top="2820" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="23" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Width">
+   </LINK>
+   <LINK srcnodeid="23" srcpinname="Y Output Value" dstnodeid="29" dstpinname="Height">
+   </LINK>
+   <NODE systemname="Info (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.CV.Nodes.dll" nodename="Info (CV.Image)" componentmode="Hidden" id="35">
+   <BOUNDS type="Node" left="330" top="6195" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Image" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Format" visible="1">
+   </PIN>
+   <PIN pinname="Width" visible="1">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="34" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="870" top="6615" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="870" top="6615" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="35" srcpinname="Format" dstnodeid="34" dstpinname="Input String">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="36" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="390" top="4770" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="390" top="4770" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="8" srcpinname="Width" dstnodeid="36" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="37" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="330" top="7140" width="795" height="240">
+   </BOUNDS>
+   <BOUNDS type="Node" left="330" top="7140" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="35" srcpinname="Width" dstnodeid="37" dstpinname="Y Input Value">
+   </LINK>
+   <NODE systemname="Grayscale (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.CV.Nodes.dll" nodename="Grayscale (CV.Image)" componentmode="Hidden" id="42">
+   <BOUNDS type="Node" left="2520" top="3300" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Input" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Output" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="42" srcpinname="Output" dstnodeid="8" dstpinname="Image">
+   </LINK>
+   <NODE systemname="Preview (DX11.Texture)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Preview (DX11.Texture)" componentmode="InAWindow" id="45">
+   <BOUNDS type="Node" left="4395" top="7200" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4395" top="7200" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="20430" top="465" width="7920" height="8265">
+   </BOUNDS>
+   <PIN pinname="Texture In" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Index" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <NODE systemname="AsTexture (CV.Image DX11.Texture2D)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.CV.DX11.dll" nodename="AsTexture (CV.Image DX11.Texture2D)" componentmode="Hidden" id="46">
+   <BOUNDS type="Node" left="4395" top="3900" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="4395" top="3900">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="46" srcpinname="Texture Out" dstnodeid="12" dstpinname="Texture In">
+   </LINK>
+   <LINK srcnodeid="42" srcpinname="Output" dstnodeid="46" dstpinname="Image">
+   </LINK>
+   <NODE systemname="Quad (DX11.Layer)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Quad (DX11.Layer)" componentmode="Hidden" id="47">
+   <BOUNDS type="Node" left="3030" top="7785" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Sampler State" visible="1">
+   </PIN>
+   <PIN pinname="Texture" visible="1" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Layer" visible="1">
+   </PIN>
+   <PIN pinname="Transform" visible="1">
+   </PIN>
+   </NODE>
+   <NODE systemname="Sampler (DX11)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Sampler (DX11)" componentmode="Hidden" id="48">
+   <BOUNDS type="Node" left="2835" top="7020" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Mode" slicecount="1" values="PointWrap">
+   </PIN>
+   <PIN pinname="Sampler" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="48" srcpinname="Sampler" dstnodeid="47" dstpinname="Sampler State">
+   </LINK>
+   <NODE systemname="Renderer (DX11)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Renderer (DX11)" componentmode="InAWindow" id="49">
+   <BOUNDS type="Node" left="2895" top="8340" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2895" top="8340" width="6000" height="4500">
+   </BOUNDS>
+   <BOUNDS type="Window" left="17610" top="9420" width="6240" height="5085">
+   </BOUNDS>
+   <PIN pinname="Layers" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="47" srcpinname="Layer" dstnodeid="49" dstpinname="Layers">
+   </LINK>
+   <NODE systemname="UniformScale (Transform)" nodename="UniformScale (Transform)" componentmode="Hidden" id="50">
+   <BOUNDS type="Node" left="4335" top="7710" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Transform Out" visible="1">
+   </PIN>
+   <PIN pinname="XYZ" slicecount="1" values="24">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="50" srcpinname="Transform Out" dstnodeid="47" dstpinname="Transform">
+   </LINK>
+   <NODE systemname="Lena (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.CV.Nodes.dll" nodename="Lena (CV.Image)" componentmode="Hidden" id="52">
+   <BOUNDS type="Node" left="2505" top="2415" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="52" srcpinname="Output" dstnodeid="29" dstpinname="Input">
+   </LINK>
+   <LINK srcnodeid="52" srcpinname="Output" dstnodeid="11" dstpinname="Image">
+   </LINK>
+   <LINK srcnodeid="52" srcpinname="Output" dstnodeid="42" dstpinname="Input">
+   </LINK>
+   <NODE systemname="Info (DX11.Texture 2d)" filename="%VVVV%\packs\DX11\nodes\plugins\VVVV.DX11.Nodes.dll" nodename="Info (DX11.Texture 2d)" componentmode="Hidden" id="59">
+   <BOUNDS type="Node" left="270" top="7980" width="100" height="100">
+   </BOUNDS>
+   <PIN pinname="Texture In" visible="1" slicecount="1" values="||">
+   </PIN>
+   </NODE>
+   <NODE nodename="FloydSteinberg (CV.Image)" componentmode="Hidden" id="60" systemname="FloydSteinberg (CV.Image)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.CV.Nodes.dll">
+   <BOUNDS type="Node" left="2535" top="5220" width="0" height="0">
+   </BOUNDS>
+   <BOUNDS type="Box" left="2535" top="5220" width="0" height="0">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="60" srcpinname="Output" dstnodeid="35" dstpinname="Image">
+   </LINK>
+   <LINK srcnodeid="42" srcpinname="Output" dstnodeid="60" dstpinname="Input">
+   </LINK>
+   <NODE systemname="AsTexture (CV.Image DX11.Texture2D)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.CV.DX11.dll" nodename="AsTexture (CV.Image DX11.Texture2D)" componentmode="Hidden" id="61">
+   <BOUNDS type="Node" left="4290" top="6630" width="100" height="100">
+   </BOUNDS>
+   </NODE>
+   <LINK srcnodeid="61" srcpinname="Texture Out" dstnodeid="45" dstpinname="Texture In">
+   </LINK>
+   <LINK srcnodeid="61" srcpinname="Texture Out" dstnodeid="47" dstpinname="Texture">
+   </LINK>
+   <LINK srcnodeid="61" srcpinname="Texture Out" dstnodeid="59" dstpinname="Texture In">
+   </LINK>
+   <LINK srcnodeid="60" srcpinname="Output" dstnodeid="61" dstpinname="Image">
+   </LINK>
+   </PATCH>
