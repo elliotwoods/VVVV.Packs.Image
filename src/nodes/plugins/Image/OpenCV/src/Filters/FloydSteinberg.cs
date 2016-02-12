@@ -1,16 +1,16 @@
 ﻿#region using
 using System.Collections.Generic;
 using System.Drawing;
+using System.Diagnostics;
 using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 
 using VVVV.PluginInterfaces.V2;
-using VVVV.Utils.VMath;
+//using VVVV.Utils.VMath;
 using System;
-using VVVV.Utils.VColor;
+//using VVVV.Utils.VColor;
 using VVVV.CV.Core;
-
 #endregion
 
 namespace VVVV.CV.Nodes
@@ -19,12 +19,9 @@ namespace VVVV.CV.Nodes
     public class FloydSteinbergInstance : IFilterInstance
     {
 
-        //example of a property
-        private byte[] FColorAdd = new byte[3];
-
         private readonly CVImage FGrayScale = new CVImage();
-        private Emgu.CV.Image<Gray, int> FGrayInt;
-        private Emgu.CV.Image<Gray, byte> FGrayByte;
+        private Image<Gray, int> FGrayInt;
+        private Image<Gray, byte> FGrayByte;
 
         private TColorFormat FOutFormat;
 
@@ -44,18 +41,27 @@ namespace VVVV.CV.Nodes
 
         public override void Process()
         {
+            //Stopwatch sw = new Stopwatch();
+            //sw.Start();
+            //Status = "";
 
             if (!FInput.LockForReading())
                 return;
 
             FInput.GetImage(FGrayScale);
-
             FInput.ReleaseForReading();
 
             FGrayByte = FGrayScale.GetImage() as Image<Gray, byte>;
             FGrayInt = FGrayByte.Convert<Gray, int>();
 
+            //Status += "reading: " + sw.ElapsedMilliseconds.ToString();
+            //sw.Restart();
+
+
             PixelWiseDither();
+
+            //Status += " dithering: " + sw.ElapsedMilliseconds.ToString();
+            //sw.Restart();
             //try
             //{
             //    PixelWiseDither();
@@ -66,8 +72,12 @@ namespace VVVV.CV.Nodes
             //    ImageUtils.Log(e);
             //}
 
-
+            
             ImageUtils.CopyImage(FGrayInt.Convert<Gray, byte>() as IImage, FOutput.Image);
+            //Status += " writing: " + sw.ElapsedMilliseconds.ToString();
+
+     
+
             FOutput.Send();
         }
 
@@ -80,40 +90,67 @@ namespace VVVV.CV.Nodes
             {
                 for (int x = 0; x < width; ++x)
                 {
-                    ditherImage(FGrayInt, y, x, width, height);
+                    ditherImage(y, x, width, height);
+                    //ditherPointer(rgb, y, x, width, height);
                 }
             }
 
         }
 
-        private unsafe void ditherImage(Image<Gray, int> image, int y, int x, int width, int height)
+        private unsafe void ditherImage(int y, int x, int width, int height)
         {
 
             int error = 0;
 
-            //int value = image.Data[y, x, 0];
-
-            if (image.Data[y, x, 0] < 128)
+            // threshold
+            if (FGrayInt.Data[y, x, 0] < 128)
             {
-                error = image.Data[y, x, 0] / 16;
-                image.Data[y, x, 0] = 0;
+                error = FGrayInt.Data[y, x, 0] / 16;
+                FGrayInt.Data[y, x, 0] = 0;
             }
             else
             {
-                error = (image.Data[y, x, 0] -255) / 16;
-                image.Data[y, x, 0] = 255;
+                error = (FGrayInt.Data[y, x, 0] -255) / 16;
+                FGrayInt.Data[y, x, 0] = 255;
             }
 
             //add error to neighbours
             if (y - 1 >= 0 && x - 1 >= 0)
-                image.Data[y - 1, x - 1, 0] += error * 3;
+                FGrayInt.Data[y - 1, x - 1, 0] += error * 3;
             if (y + 1 < height)
-                image.Data[y + 1, x, 0] += error * 5;
+                FGrayInt.Data[y + 1, x, 0] += error * 5;
             if (y + 1 < height && x + 1 < width)
-                image.Data[y + 1, x + 1, 0] += error;
+                FGrayInt.Data[y + 1, x + 1, 0] += error;
             if (x + 1 < width)
-                image.Data[y, x + 1, 0] += error * 7;
+                FGrayInt.Data[y, x + 1, 0] += error * 7;
 
+        }
+
+        private unsafe void ditherPointer(byte* ptr, int y, int x, int width, int height)
+        {
+            int error = 0;
+
+            int currentpixel = (y * width) + x;
+
+            int value = (int)ptr[currentpixel];
+            int v2 = FGrayInt.Bitmap.GetPixel(y, x).R;
+
+
+            if (ptr[currentpixel] < 128)
+            {
+                error = ptr[currentpixel] / 16;
+                ptr[currentpixel] = 0;
+            }
+            else
+            {
+                error = (ptr[currentpixel] - 255) / 16;
+                ptr[currentpixel] = 255;
+            }
+
+            //if (row + 1 < height && col - 1 >= 0) ptr[((row + 1) * width) + (col - 1)] += divisor * 3;
+            //if (row + 1 < height) ptr[((row + 1) * width) + col] += divisor * 5;
+            //if (row + 1 < height && col + 1 < width) ptr[((row + 1) * width) + (col + 1)] +=divisor;
+            //if (col + 1 < width) ptr[(row * width) + (col + 1)] += divisor * 7;
         }
     }
 }
