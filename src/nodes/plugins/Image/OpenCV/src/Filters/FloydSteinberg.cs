@@ -62,6 +62,7 @@ namespace VVVV.CV.Nodes
 
             //Status += " dithering: " + sw.ElapsedMilliseconds.ToString();
             //sw.Restart();
+
             //try
             //{
             //    PixelWiseDither();
@@ -90,14 +91,14 @@ namespace VVVV.CV.Nodes
             {
                 for (int x = 0; x < width; ++x)
                 {
-                    ditherImage(y, x, width, height);
+                    dither(y, x, width, height);
                     //ditherPointer(rgb, y, x, width, height);
                 }
             }
 
         }
 
-        private unsafe void ditherImage(int y, int x, int width, int height)
+        private unsafe void dither(int y, int x, int width, int height)
         {
 
             int error = 0;
