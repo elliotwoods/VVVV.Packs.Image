@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props')" />
+  <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props')" />
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>7d15372a</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -117,14 +118,16 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props'))" />
-    <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets'))" />
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.FlyCapture.2.4.3.1\build\net40\VVVV.FlyCapture.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.FlyCapture.2.4.3.1\build\net40\VVVV.FlyCapture.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets'))" />
   </Target>
-  <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" />
   <Import Project="..\..\..\..\packages\VVVV.FlyCapture.2.4.3.1\build\net40\VVVV.FlyCapture.targets" Condition="Exists('..\..\..\..\packages\VVVV.FlyCapture.2.4.3.1\build\net40\VVVV.FlyCapture.targets')" />
-  <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.32.1.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.32.1.0\build\net40\VVVV.PluginInterfaces.targets')" />
-  <Import Project="..\..\..\..\packages\VVVV.Utils3rdParty.32.1.0\build\net40\VVVV.Utils3rdParty.targets" Condition="Exists('..\..\..\..\packages\VVVV.Utils3rdParty.32.1.0\build\net40\VVVV.Utils3rdParty.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets" Condition="Exists('..\..\..\..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
