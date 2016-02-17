@@ -303,19 +303,117 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         }
 
+
+        #region setParameters
+
         private void mirrorHorizontal(bool Enable)
         {
-            uEye.Defines.Status statusRet;
-
-            statusRet = cam.RopEffect.Set(uEye.Defines.RopEffectMode.LeftRight, Enable);
+            camStatus = cam.RopEffect.Set(uEye.Defines.RopEffectMode.LeftRight, Enable);
         }
 
         private void mirrorVertical(bool Enable)
         {
-            uEye.Defines.Status statusRet;
-
-            statusRet = cam.RopEffect.Set(uEye.Defines.RopEffectMode.UpDown, Enable);
+            camStatus = cam.RopEffect.Set(uEye.Defines.RopEffectMode.UpDown, Enable);
         }
+
+        private void SetAoiWidth(int s32Value)
+        {
+            System.Drawing.Rectangle rect;
+
+            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
+            camStatus = cam.Size.AOI.GetPosRange(out rangeWidth, out rangeHeight);
+
+            while ((s32Value % rangeWidth.Increment) != 0)
+            {
+                --s32Value;
+            }
+
+            camStatus = cam.Size.AOI.Get(out rect);
+            rect.Width = s32Value;
+
+            camStatus = cam.Size.AOI.Set(rect);
+
+
+            // memory reallocation
+            Int32[] memList;
+            camStatus = cam.Memory.GetList(out memList);
+            camStatus = cam.Memory.Free(memList);
+            camStatus = cam.Memory.Allocate();
+
+        }
+
+        private void SetAoiHeight(int s32Value)
+        {
+            System.Drawing.Rectangle rect;
+
+            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
+            camStatus = cam.Size.AOI.GetPosRange(out rangeWidth, out rangeHeight);
+
+            while ((s32Value % rangeHeight.Increment) != 0)
+            {
+                --s32Value;
+            }
+
+            camStatus = cam.Size.AOI.Get(out rect);
+            rect.Height = s32Value;
+
+            camStatus = cam.Size.AOI.Set(rect);
+
+            // memory reallocation
+            Int32[] memList;
+            camStatus = cam.Memory.GetList(out memList);
+            camStatus = cam.Memory.Free(memList);
+            camStatus = cam.Memory.Allocate();
+        }
+
+        private void SetAoiLeft(int s32Value)
+        {
+            System.Drawing.Rectangle rect;
+
+            uEye.Types.Range<Int32> rangePosX, rangePosY;
+            camStatus = cam.Size.AOI.GetPosRange(out rangePosX, out rangePosY);
+
+            while ((s32Value % rangePosX.Increment) != 0)
+            {
+                --s32Value;
+            }
+
+            camStatus = cam.Size.AOI.Get(out rect);
+            rect.X = s32Value;
+
+            camStatus = cam.Size.AOI.Set(rect);
+
+            // update aoi width
+            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
+            camStatus = cam.Size.AOI.GetSizeRange(out rangeWidth, out rangeHeight);
+        }
+
+        private void SetAoiTop(int s32Value)
+        {
+            System.Drawing.Rectangle rect;
+
+            uEye.Types.Range<Int32> rangePosX, rangePosY;
+            camStatus = cam.Size.AOI.GetPosRange(out rangePosX, out rangePosY);
+
+            while ((s32Value % rangePosY.Increment) != 0)
+            {
+                --s32Value;
+            }
+
+            camStatus = cam.Size.AOI.Get(out rect);
+            rect.Y = s32Value;
+
+            camStatus = cam.Size.AOI.Set(rect);
+
+            // update aoi height
+            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
+            camStatus = cam.Size.AOI.GetSizeRange(out rangeWidth, out rangeHeight);
+        }
+
+        #endregion setParameters
+
+
+        #region queryParameterSets
 
         private void updateHorizontalBinning()
         {
@@ -361,13 +459,13 @@ namespace VVVV.Nodes.OpenCV.IDS
             }
 
             Int32 s32Factor;
-            cam.Size.Binning.GetFactorHorizontal(out s32Factor);
+            camStatus = cam.Size.Binning.GetFactorHorizontal(out s32Factor);
         }
 
         private void updateVerticalBinning()
         {
             uEye.Defines.BinningMode mode;
-            cam.Size.Binning.GetSupported(out mode);
+            camStatus = cam.Size.Binning.GetSupported(out mode);
 
             List<BinningMode> SupportedVerticalBinnings = new List<BinningMode>();
 
@@ -408,15 +506,15 @@ namespace VVVV.Nodes.OpenCV.IDS
             }
 
             Int32 s32Factor;
-            cam.Size.Binning.GetFactorVertical(out s32Factor);
+            camStatus = cam.Size.Binning.GetFactorVertical(out s32Factor);
         }
 
         private void updateHorizontalSubsampling()
         {
-            List<SubsamplingMode> SubsamplingHorizontal = new List<SubsamplingMode>;
+            List<SubsamplingMode> SubsamplingHorizontal = new List<SubsamplingMode>();
 
             uEye.Defines.SubsamplingMode mode;
-            cam.Size.Subsampling.GetSupported(out mode);
+            camStatus = cam.Size.Subsampling.GetSupported(out mode);
             if ((mode & uEye.Defines.SubsamplingMode.Disable) == mode)
             {
                 // Horizontal Subsampling not supported
@@ -455,7 +553,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
             Int32 s32Factor;
 
-            cam.Size.Subsampling.GetFactorHorizontal(out s32Factor);
+            camStatus = cam.Size.Subsampling.GetFactorHorizontal(out s32Factor);
         }
 
         private void updateVerticalSubsampling()
@@ -464,7 +562,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             List<SubsamplingMode> comboBoxFormatSubsamplingVertical = new List<SubsamplingMode>();
 
             uEye.Defines.SubsamplingMode mode;
-            cam.Size.Subsampling.GetSupported(out mode);
+            camStatus = cam.Size.Subsampling.GetSupported(out mode);
 
             if ((mode & uEye.Defines.SubsamplingMode.Disable) == mode)
             {
@@ -503,109 +601,12 @@ namespace VVVV.Nodes.OpenCV.IDS
             }
 
             Int32 s32Factor;
-            cam.Size.Subsampling.GetFactorVertical(out s32Factor);
+            camStatus = cam.Size.Subsampling.GetFactorVertical(out s32Factor);
         }
 
-        private void SetAoiWidth(Int32 s32Value)
-        {
+        # endregion queryParameterSets
 
-            uEye.Defines.Status statusRet;
-            System.Drawing.Rectangle rect;
-
-            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
-            cam.Size.AOI.GetPosRange(out rangeWidth, out rangeHeight);
-
-            while ((s32Value % rangeWidth.Increment) != 0)
-            {
-                --s32Value;
-            }
-
-            statusRet = cam.Size.AOI.Get(out rect);
-            rect.Width = s32Value;
-
-            statusRet = cam.Size.AOI.Set(rect);
-
-
-            // memory reallocation
-            Int32[] memList;
-            statusRet = cam.Memory.GetList(out memList);
-            statusRet = cam.Memory.Free(memList);
-            statusRet = cam.Memory.Allocate();
-
-        }
-
-        private void SetAoiHeight(Int32 s32Value)
-        {
-
-            uEye.Defines.Status statusRet;
-            System.Drawing.Rectangle rect;
-
-            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
-            cam.Size.AOI.GetPosRange(out rangeWidth, out rangeHeight);
-
-            while ((s32Value % rangeHeight.Increment) != 0)
-            {
-                --s32Value;
-            }
-
-            statusRet = cam.Size.AOI.Get(out rect);
-            rect.Height = s32Value;
-
-            statusRet = cam.Size.AOI.Set(rect);
-
-            // memory reallocation
-            Int32[] memList;
-            statusRet = cam.Memory.GetList(out memList);
-            statusRet = cam.Memory.Free(memList);
-            statusRet = cam.Memory.Allocate();
-        }
-
-        private void SetAoiLeft(Int32 s32Value)
-        {
-
-            uEye.Defines.Status statusRet;
-            System.Drawing.Rectangle rect;
-
-            uEye.Types.Range<Int32> rangePosX, rangePosY;
-            statusRet = cam.Size.AOI.GetPosRange(out rangePosX, out rangePosY);
-
-            while ((s32Value % rangePosX.Increment) != 0)
-            {
-                --s32Value;
-            }
-
-            statusRet = cam.Size.AOI.Get(out rect);
-            rect.X = s32Value;
-
-            statusRet = cam.Size.AOI.Set(rect);
-
-            // update aoi width
-            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
-            statusRet = cam.Size.AOI.GetSizeRange(out rangeWidth, out rangeHeight);
-        }
-
-        private void SetAoiTop(Int32 s32Value)
-        {
-            uEye.Defines.Status statusRet;
-            System.Drawing.Rectangle rect;
-
-            uEye.Types.Range<Int32> rangePosX, rangePosY;
-            statusRet = cam.Size.AOI.GetPosRange(out rangePosX, out rangePosY);
-
-            while ((s32Value % rangePosY.Increment) != 0)
-            {
-                --s32Value;
-            }
-
-            statusRet = cam.Size.AOI.Get(out rect);
-            rect.Y = s32Value;
-
-            statusRet = cam.Size.AOI.Set(rect);
-
-            // update aoi height
-            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
-            statusRet = cam.Size.AOI.GetSizeRange(out rangeWidth, out rangeHeight);
-        }
+        
 
 
 
