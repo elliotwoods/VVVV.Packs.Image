@@ -47,8 +47,36 @@ namespace VVVV.Nodes.OpenCV.IDS
             }
         }
 
-        // Formats
+        // Formats - ~ Resolution
+        private int ResX = 640;
+        private int ResY = 480;
         public ImageFormatInfo[] FormatInfoList;
+        private int FFormat = 0;
+        public int Format
+        {
+            set
+            {
+                FFormat = value;
+
+                setFormat(FFormat);
+            }
+        }
+
+        private void setFormat(int id)
+        {
+            if (camOpen)
+            {
+                ResX = FormatInfoList[FFormat].Size.Width;
+                ResY = FormatInfoList[FFormat].Size.Height;
+
+                //cam.EventFrame -= onFrameEvent;
+                Restart();
+            }
+
+            //setFormat(FFormat);
+            //ReAllocate();
+            //Restart();
+        }
 
         // FPS
         public Range<double> frameRateRange { get; set; }
@@ -63,7 +91,14 @@ namespace VVVV.Nodes.OpenCV.IDS
             }
         }
 
+        private void SetFrameRate(double fps)
+        {
+            if (camOpen)
+                cam.Timing.Framerate.Set(FFps);
 
+        }
+
+        // colorMode
         private ColorMode FColorMode;
 		public ColorMode ColorMode
 		{
@@ -106,12 +141,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 			//FParameterChange = false;
 		}
 
-        private void SetFrameRate(double fps)
-        {        
-            if (camOpen)   
-                cam.Timing.Framerate.Set(FFps);
-
-        }
+        
 
         ////////////////////////////////////////////////////
         // OPEN
@@ -136,6 +166,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 
                 uEye.Defines.ColorMode pixFormat;
                 cam.PixelFormat.Get(out pixFormat);
+
+                cam.Size.ImageFormat.Set((uint)FFormat);
 
                 // start capturee
                 camStatus = cam.Memory.Allocate();
@@ -163,8 +195,11 @@ namespace VVVV.Nodes.OpenCV.IDS
                 cam.Size.ImageFormat.GetList(out fil);
                 FormatInfoList = fil;
 
+                ResX = FormatInfoList[FFormat].Size.Width;
+                ResY = FormatInfoList[FFormat].Size.Height;
                 // init Output 
                 FOutput.Image.Initialise(MaxSize.Width, MaxSize.Height, format);
+                //FOutput.Image.Initialise(ResX, ResY, format);
 
                 // attach Event
                 cam.EventFrame += onFrameEvent;
@@ -189,6 +224,9 @@ namespace VVVV.Nodes.OpenCV.IDS
         {
             uEye.Camera camObject = sender as uEye.Camera;
 
+            
+
+
             IntPtr mem;
             camObject.Memory.GetActive(out mem);
             bool started;
@@ -197,6 +235,22 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 int s32MemId;
                 camObject.Memory.GetLast(out s32MemId);
+
+
+                // image size differs from format????
+                ImageInfo iii;
+                camObject.Information.GetImageInfo(s32MemId, out iii);
+
+                int h;
+                int w;
+                camObject.Memory.GetHeight(s32MemId, out h);
+                camObject.Memory.GetWidth(s32MemId, out w);
+
+                int _x, _y, _b, _p;
+                camObject.Memory.Inquire(s32MemId, out _x, out _y, out _b, out _p);
+                //camObject.Memory.Inquire(FFormat, out _x, out _y, out _b, out _p);
+
+                //copy to FOutput
                 IntPtr memPtr;
                 camObject.Memory.ToIntPtr(out memPtr);
                 camObject.Memory.CopyImageMem(memPtr, s32MemId, FOutput.Data);
@@ -314,7 +368,10 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Input("Camera Id")]
         IDiffSpread<int> FInCamId;
 
-		[Input("Resolution")]
+        [Input("Format Id")]
+        IDiffSpread<int> FInFormatId;
+
+        [Input("Resolution")]
 		IDiffSpread<VVVV.Utils.VMath.Vector2D  > FResolution;
 
         //[Input("Format")]
@@ -343,7 +400,11 @@ namespace VVVV.Nodes.OpenCV.IDS
                     FProcessor[i].CamId = FInCamId[i];
             }
 
-
+            if (SpreadCountChanged || FInFormatId.IsChanged)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                    FProcessor[i].Format = FInFormatId[i];
+            }
 
             if (SpreadCountChanged || FResolution.IsChanged)
 			{
