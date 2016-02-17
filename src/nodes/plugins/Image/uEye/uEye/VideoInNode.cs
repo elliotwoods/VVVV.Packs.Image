@@ -7,34 +7,48 @@ using VVVV.CV.Core;
 using uEye;
 using uEye.Defines;
 using System.Drawing;
+using Emgu.CV;
 
 namespace VVVV.Nodes.OpenCV.IDS
 {
 	public class VideoInInstance : IGeneratorInstance
 	{
         private Camera cam = null;
-        public int FCamId { get; set;}
+        public int FCamId { get; set; }
+        //{
+        //    get
+        //    {
+        //        return FCamId;
+        //    }
+        //    set
+        //    {
+        //        FCamId = value;
+        //        Restart();
+        //    }
+        //}
         private uEye.Defines.Status camStatus { get; set; }
 
-        private Guid FDevice = new Guid();
-		public string Device
-		{
-			set
-			{
-				try
-				{
-					FDevice = new Guid(value);
-					Restart();
-					Status = "";
-				}
-				catch (Exception e)
-				{
-					Status = e.Message;
-				}
-			}
-		}
+        private uEye.Types.Size<int> MaxSize { get; set; }
 
-		private VVVV.Utils.VMath.Vector2D FResolution;
+        private Guid FDevice = new Guid();
+        public string Device
+        {
+            set
+            {
+                try
+                {
+                    FDevice = new Guid(value);
+                    Restart();
+                    Status = "";
+                }
+                catch (Exception e)
+                {
+                    Status = e.Message;
+                }
+            }
+        }
+
+        private VVVV.Utils.VMath.Vector2D FResolution;
 		public VVVV.Utils.VMath.Vector2D Resolution
 		{
 			set
@@ -116,46 +130,34 @@ namespace VVVV.Nodes.OpenCV.IDS
 			{
                 cam = new Camera();
                 camStatus = cam.Init(FCamId);
+                
 
-                if (camStatus != uEye.Defines.Status.Success)
-                    camStatus = cam.Memory.Allocate();
-
-                if (camStatus != uEye.Defines.Status.Success)
-                    camStatus = cam.Acquisition.Capture();
-
-
-                // initialize Output ... probably not working, if those 
-                // return values are not yet known. need to tryout
-                uEye.Types.ImageInfo info;
-                cam.Information.GetImageInfo(0, out info);
+                cam.PixelFormat.Set(FColorMode); // is this working ??
 
                 uEye.Defines.ColorMode pixFormat;
                 cam.PixelFormat.Get(out pixFormat);
 
-                int w = info.ImageSize.Width;
-                int h = info.ImageSize.Height;
+                camStatus = cam.Memory.Allocate();
+                camStatus = cam.Acquisition.Capture();
+
+                int bpp;
+                cam.PixelFormat.GetBytesPerPixel(out bpp);
+
+                uEye.Types.ImageInfo info;
+                cam.Information.GetImageInfo(0, out info);
+
+                uEye.Types.SensorInfo si;
+                cam.Information.GetSensorInfo(out si);
+
+                MaxSize = si.MaxSize;
 
                 TColorFormat format = GetColor(pixFormat);
 
-                // ok init the Output now
-                FOutput.Image.Initialise(w, h, format);
+                // init Output 
+                FOutput.Image.Initialise(MaxSize.Width, MaxSize.Height, format);
 
-
-
-                // can this work via Event or must i use Generator??
+                // attach Event
                 cam.EventFrame += onFrameEvent;
-
-                //CB_Auto_Gain_Balance.Enabled = Camera.AutoFeatures.Software.Gain.Supported;
-                //CB_Auto_White_Balance.Enabled = Camera.AutoFeatures.Software.WhiteBalance.Supported;
-
-                //            if (FDevice == new Guid())
-                //	FDevice = CLEyeCameraDevice.CLEyeGetCameraUUID(0);
-                //FCamera = new CLEyeCameraDevice(FResolution, FColorMode, FFps);
-                //FCamera.Start(FDevice) ;
-                //FOutput.Image.Initialise(GetSize(FResolution), GetColor(FColorMode));
-
-                //FCamera.setLED(FLED);
-                //FParameterChange = true;
 
                 Status = "OK";
 				return true;
@@ -175,15 +177,21 @@ namespace VVVV.Nodes.OpenCV.IDS
         {
             uEye.Camera camObject = sender as uEye.Camera;
 
-            Int32 s32MemID;
-            camObject.Memory.GetActive(out s32MemID);
+            IntPtr mem;
+            camObject.Memory.GetActive(out mem);
+            bool started;
+            camObject.Acquisition.HasStarted(out started);
+            if (camObject.IsOpened && started)
+            {
+                int s32MemId;
+                camObject.Memory.GetLast(out s32MemId);
+                IntPtr memPtr;
+                camObject.Memory.ToIntPtr(out memPtr);
+                camObject.Memory.CopyImageMem(memPtr, s32MemId, FOutput.Data);
 
-            // or directly:
-            //Camera.Image.
-            //Camera.Memory.CopyImageMem(FOutput.Data);
-            //FOutput.Data
+                FOutput.Send();
+            }
 
-            //Camera.Display.Render(s32MemID, displayHandle, uEye.Defines.DisplayRenderMode.FitToWindow);
         }
 
         /// <summary>
@@ -218,21 +226,15 @@ namespace VVVV.Nodes.OpenCV.IDS
                 case uEye.Defines.ColorMode.Mono8:
                     return TColorFormat.L8;
 
-                case uEye.Defines.ColorMode.RGB8Packed:
-                    return TColorFormat.RGB8;
-
-                case uEye.Defines.ColorMode.RGB8Planar:
-                    return TColorFormat.RGB8;
-
-                case uEye.Defines.ColorMode.RGBA8Packed:
-                    return TColorFormat.RGBA8;
-
                 case uEye.Defines.ColorMode.Mono16:
                     return TColorFormat.L16;
 
+                case uEye.Defines.ColorMode.RGB8Packed:
+                case uEye.Defines.ColorMode.RGB8Planar:
                 case uEye.Defines.ColorMode.BGR8Packed:
                     return TColorFormat.RGB8;
 
+                case uEye.Defines.ColorMode.RGBA8Packed:
                 case uEye.Defines.ColorMode.BGRA8Packed:
                     return TColorFormat.RGBA8;
 
@@ -242,14 +244,27 @@ namespace VVVV.Nodes.OpenCV.IDS
 		}
 
 
-		protected override void Generate()
+		protected unsafe override void Generate()
 		{
-            IntPtr mem;
-            cam.Memory.GetActive(out mem);
+            //IntPtr mem;
+            //cam.Memory.GetActive(out mem);
+            //bool started;
+            //cam.Acquisition.HasStarted(out started);
+            //if (cam.IsOpened && started)
+            //{
+            //    int s32MemId;
+            //    cam.Memory.GetLast(out s32MemId);
+            //    IntPtr memPtr;
+            //    cam.Memory.ToIntPtr(out memPtr);
+            //    cam.Memory.CopyImageMem(memPtr, s32MemId, FOutput.Data);
+
+            //    FOutput.Send();
+            //}
 
             // how to copy the ptr to smth. like FOutput.Data ???
 
-
+            //ImageUtils.CopyMemory(pt, mem, (uint)(FResolution.x * FResolution.y));
+            //ImageUtils.CopyImage(mem, FOutput.Image);
 
             //if (FParameterChange)
             //    SetParameters();
@@ -259,7 +274,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             //if (FOutput.Image.NativeFormat == TColorFormat.RGBA8)
             //    SetAlphaChannel();
 
-            //FOutput.Send();
+            
         }
 
 
@@ -291,7 +306,11 @@ namespace VVVV.Nodes.OpenCV.IDS
 		[Input("Resolution")]
 		IDiffSpread<VVVV.Utils.VMath.Vector2D  > FResolution;
 
-		[Input("Color Mode")]
+        
+        //[Input("Format")]
+        //IDiffSpread<uEye.Types.ImageFormatInfo> FColorMode;
+
+        [Input("Color Mode")]
 		IDiffSpread<uEye.Defines.ColorMode> FColorMode;
 
 		[Input("FPS", DefaultValue=30, MinValue=5, MaxValue=120)]
@@ -310,13 +329,13 @@ namespace VVVV.Nodes.OpenCV.IDS
             }
 
 
-			if (SpreadCountChanged || FDevices.IsChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-					FProcessor[i].Device = FDevices[i];
-			}
+            if (SpreadCountChanged || FDevices.IsChanged)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                    FProcessor[i].Device = FDevices[i];
+            }
 
-			if (SpreadCountChanged || FResolution.IsChanged)
+            if (SpreadCountChanged || FResolution.IsChanged)
 			{
 				for (int i = 0; i < InstanceCount; i++)
 					FProcessor[i].Resolution = FResolution[i];
