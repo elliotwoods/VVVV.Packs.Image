@@ -280,6 +280,334 @@ namespace VVVV.Nodes.OpenCV.IDS
             }
 		}
 
+        private void QueryCameraCapabilities()
+        {
+            // get camera aoi range size
+            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
+            camStatus = cam.Size.AOI.GetSizeRange(out rangeWidth, out rangeHeight);
+
+            // get actual aoi
+            System.Drawing.Rectangle rect;
+            camStatus = cam.Size.AOI.Get(out rect);
+
+            // get pos range
+            uEye.Types.Range<Int32> rangePosX, rangePosY;
+            camStatus = cam.Size.AOI.GetPosRange(out rangePosX, out rangePosY);
+
+            // subsampling && binning
+            updateHorizontalBinning();
+            updateVerticalBinning();
+
+            updateHorizontalSubsampling();
+            updateVerticalSubsampling();
+
+        }
+
+        private void mirrorHorizontal(bool Enable)
+        {
+            uEye.Defines.Status statusRet;
+
+            statusRet = cam.RopEffect.Set(uEye.Defines.RopEffectMode.LeftRight, Enable);
+        }
+
+        private void mirrorVertical(bool Enable)
+        {
+            uEye.Defines.Status statusRet;
+
+            statusRet = cam.RopEffect.Set(uEye.Defines.RopEffectMode.UpDown, Enable);
+        }
+
+        private void updateHorizontalBinning()
+        {
+            uEye.Defines.BinningMode mode;
+            camStatus = cam.Size.Binning.GetSupported(out mode);
+
+            List<BinningMode> SupportedHorizontalBinnings = new List<BinningMode>();
+
+            if ((mode & uEye.Defines.BinningMode.Disable) == mode)
+            {
+                // horizontal binning is not supported
+            }
+            else
+            {
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal2X))
+                {
+                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal2X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal3X))
+                {
+                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal3X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal4X))
+                {
+                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal4X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal5X))
+                {
+                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal5X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal6X))
+                {
+                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal6X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal8X))
+                {
+                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal8X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal16X))
+                {
+                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal16X);
+                }
+            }
+
+            Int32 s32Factor;
+            cam.Size.Binning.GetFactorHorizontal(out s32Factor);
+        }
+
+        private void updateVerticalBinning()
+        {
+            uEye.Defines.BinningMode mode;
+            cam.Size.Binning.GetSupported(out mode);
+
+            List<BinningMode> SupportedVerticalBinnings = new List<BinningMode>();
+
+            if ((mode & uEye.Defines.BinningMode.Disable) == mode)
+            {
+                // vertical binning not supported
+            }
+            else
+            {
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical2X))
+                {
+                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical2X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical3X))
+                {
+                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical3X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical4X))
+                {
+                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical4X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical5X))
+                {
+                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical5X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical6X))
+                {
+                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical6X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical8X))
+                {
+                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical8X);
+                }
+                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical16X))
+                {
+                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical16X);
+                }
+            }
+
+            Int32 s32Factor;
+            cam.Size.Binning.GetFactorVertical(out s32Factor);
+        }
+
+        private void updateHorizontalSubsampling()
+        {
+            List<SubsamplingMode> SubsamplingHorizontal = new List<SubsamplingMode>;
+
+            uEye.Defines.SubsamplingMode mode;
+            cam.Size.Subsampling.GetSupported(out mode);
+            if ((mode & uEye.Defines.SubsamplingMode.Disable) == mode)
+            {
+                // Horizontal Subsampling not supported
+            }
+            else
+            {
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal2X))
+                {
+                    SubsamplingHorizontal.Add(uEye.Defines.SubsamplingMode.Horizontal2X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal3X))
+                {
+                    SubsamplingHorizontal.Add(uEye.Defines.SubsamplingMode.Horizontal3X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal4X))
+                {
+                    SubsamplingHorizontal.Add(uEye.Defines.SubsamplingMode.Horizontal4X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal5X))
+                {
+                    SubsamplingHorizontal.Add(uEye.Defines.SubsamplingMode.Horizontal5X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal6X))
+                {
+                    SubsamplingHorizontal.Add(uEye.Defines.SubsamplingMode.Horizontal6X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal8X))
+                {
+                    SubsamplingHorizontal.Add(uEye.Defines.SubsamplingMode.Horizontal8X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal16X))
+                {
+                    SubsamplingHorizontal.Add(uEye.Defines.SubsamplingMode.Horizontal16X);
+                }
+            }
+
+            Int32 s32Factor;
+
+            cam.Size.Subsampling.GetFactorHorizontal(out s32Factor);
+        }
+
+        private void updateVerticalSubsampling()
+        {
+            // vertical Subsampling
+            List<SubsamplingMode> comboBoxFormatSubsamplingVertical = new List<SubsamplingMode>();
+
+            uEye.Defines.SubsamplingMode mode;
+            cam.Size.Subsampling.GetSupported(out mode);
+
+            if ((mode & uEye.Defines.SubsamplingMode.Disable) == mode)
+            {
+                // vertical Subsampling not supported
+            }
+            else
+            {
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical2X))
+                {
+                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical2X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical3X))
+                {
+                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical3X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical4X))
+                {
+                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical4X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical5X))
+                {
+                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical5X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical6X))
+                {
+                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical6X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical8X))
+                {
+                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical8X);
+                }
+                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical16X))
+                {
+                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical16X);
+                }
+            }
+
+            Int32 s32Factor;
+            cam.Size.Subsampling.GetFactorVertical(out s32Factor);
+        }
+
+        private void SetAoiWidth(Int32 s32Value)
+        {
+
+            uEye.Defines.Status statusRet;
+            System.Drawing.Rectangle rect;
+
+            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
+            cam.Size.AOI.GetPosRange(out rangeWidth, out rangeHeight);
+
+            while ((s32Value % rangeWidth.Increment) != 0)
+            {
+                --s32Value;
+            }
+
+            statusRet = cam.Size.AOI.Get(out rect);
+            rect.Width = s32Value;
+
+            statusRet = cam.Size.AOI.Set(rect);
+
+
+            // memory reallocation
+            Int32[] memList;
+            statusRet = cam.Memory.GetList(out memList);
+            statusRet = cam.Memory.Free(memList);
+            statusRet = cam.Memory.Allocate();
+
+        }
+
+        private void SetAoiHeight(Int32 s32Value)
+        {
+
+            uEye.Defines.Status statusRet;
+            System.Drawing.Rectangle rect;
+
+            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
+            cam.Size.AOI.GetPosRange(out rangeWidth, out rangeHeight);
+
+            while ((s32Value % rangeHeight.Increment) != 0)
+            {
+                --s32Value;
+            }
+
+            statusRet = cam.Size.AOI.Get(out rect);
+            rect.Height = s32Value;
+
+            statusRet = cam.Size.AOI.Set(rect);
+
+            // memory reallocation
+            Int32[] memList;
+            statusRet = cam.Memory.GetList(out memList);
+            statusRet = cam.Memory.Free(memList);
+            statusRet = cam.Memory.Allocate();
+        }
+
+        private void SetAoiLeft(Int32 s32Value)
+        {
+
+            uEye.Defines.Status statusRet;
+            System.Drawing.Rectangle rect;
+
+            uEye.Types.Range<Int32> rangePosX, rangePosY;
+            statusRet = cam.Size.AOI.GetPosRange(out rangePosX, out rangePosY);
+
+            while ((s32Value % rangePosX.Increment) != 0)
+            {
+                --s32Value;
+            }
+
+            statusRet = cam.Size.AOI.Get(out rect);
+            rect.X = s32Value;
+
+            statusRet = cam.Size.AOI.Set(rect);
+
+            // update aoi width
+            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
+            statusRet = cam.Size.AOI.GetSizeRange(out rangeWidth, out rangeHeight);
+        }
+
+        private void SetAoiTop(Int32 s32Value)
+        {
+            uEye.Defines.Status statusRet;
+            System.Drawing.Rectangle rect;
+
+            uEye.Types.Range<Int32> rangePosX, rangePosY;
+            statusRet = cam.Size.AOI.GetPosRange(out rangePosX, out rangePosY);
+
+            while ((s32Value % rangePosY.Increment) != 0)
+            {
+                --s32Value;
+            }
+
+            statusRet = cam.Size.AOI.Get(out rect);
+            rect.Y = s32Value;
+
+            statusRet = cam.Size.AOI.Set(rect);
+
+            // update aoi height
+            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
+            statusRet = cam.Size.AOI.GetSizeRange(out rangeWidth, out rangeHeight);
+        }
+
+
 
         /// <summary>
         /// maps uEye.Defines.ColorMode to VVVV.CV.Core.TColorFormat
@@ -373,6 +701,12 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         [Input("Resolution")]
 		IDiffSpread<VVVV.Utils.VMath.Vector2D  > FResolution;
+
+        [Input("AOI")]
+        IDiffSpread<VVVV.Utils.VMath.Vector2D> FAOI;
+
+        [Input("Crop")]
+        IDiffSpread<VVVV.Utils.VMath.Vector2D> FCrop;
 
         //[Input("Format")]
         //IDiffSpread<uEye.Types.ImageFormatInfo> FColorMode;
