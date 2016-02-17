@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using VVVV.PluginInterfaces.V2;
 using VVVV.CV.Core;
+using VVVV.Utils;
 using uEye;
 using uEye.Defines;
+using uEye.Types;
 using System.Drawing;
 using Emgu.CV;
 
@@ -14,51 +16,55 @@ namespace VVVV.Nodes.OpenCV.IDS
 	public class VideoInInstance : IGeneratorInstance
 	{
         private Camera cam = null;
-        public int FCamId { get; set; }
-        //{
-        //    get
-        //    {
-        //        return FCamId;
-        //    }
-        //    set
-        //    {
-        //        FCamId = value;
-        //        Restart();
-        //    }
-        //}
         private uEye.Defines.Status camStatus { get; set; }
 
-        private uEye.Types.Size<int> MaxSize { get; set; }
+        public bool camOpen = false;
 
-        private Guid FDevice = new Guid();
-        public string Device
+        private int FCamId = 0;
+        public int CamId
+        {
+            get
+            {
+                return FCamId;
+            }
+            set
+            {
+                FCamId = value;
+                Restart();
+}
+        }
+        
+
+        // Resolution
+        private uEye.Types.Size<int> MaxSize { get; set; }
+        private VVVV.Utils.VMath.Vector2D FResolution;
+        public VVVV.Utils.VMath.Vector2D Resolution
         {
             set
             {
-                try
-                {
-                    FDevice = new Guid(value);
-                    Restart();
-                    Status = "";
-                }
-                catch (Exception e)
-                {
-                    Status = e.Message;
-                }
+                FResolution = value;
+                Restart();
             }
         }
 
-        private VVVV.Utils.VMath.Vector2D FResolution;
-		public VVVV.Utils.VMath.Vector2D Resolution
-		{
-			set
-			{
-				FResolution = value;
-				Restart();
-			}
-		}
+        // Formats
+        public ImageFormatInfo[] FormatInfoList;
 
-		private ColorMode FColorMode;
+        // FPS
+        public Range<double> frameRateRange { get; set; }
+        private int FFps = 30;
+        public int Fps
+        {
+            set
+            {
+                FFps = value;
+                //Restart();
+                SetFrameRate((double)FFps);
+            }
+        }
+
+
+        private ColorMode FColorMode;
 		public ColorMode ColorMode
 		{
 			set
@@ -67,17 +73,6 @@ namespace VVVV.Nodes.OpenCV.IDS
 				Restart();
 			}
 		}
-
-		private int FFps = 30;
-		public int Fps
-		{
-			set
-			{
-				FFps = value;
-				Restart();
-			}
-		}
-
 
 
 		//private bool FParameterChange = false;
@@ -111,7 +106,12 @@ namespace VVVV.Nodes.OpenCV.IDS
 			//FParameterChange = false;
 		}
 
+        private void SetFrameRate(double fps)
+        {        
+            if (camOpen)   
+                cam.Timing.Framerate.Set(FFps);
 
+        }
 
         ////////////////////////////////////////////////////
         // OPEN
@@ -131,15 +131,17 @@ namespace VVVV.Nodes.OpenCV.IDS
                 cam = new Camera();
                 camStatus = cam.Init(FCamId);
                 
-
-                cam.PixelFormat.Set(FColorMode); // is this working ??
+                // format
+                cam.PixelFormat.Set(FColorMode);
 
                 uEye.Defines.ColorMode pixFormat;
                 cam.PixelFormat.Get(out pixFormat);
 
+                // start capturee
                 camStatus = cam.Memory.Allocate();
                 camStatus = cam.Acquisition.Capture();
 
+                // query infos
                 int bpp;
                 cam.PixelFormat.GetBytesPerPixel(out bpp);
 
@@ -153,11 +155,21 @@ namespace VVVV.Nodes.OpenCV.IDS
 
                 TColorFormat format = GetColor(pixFormat);
 
+                Range<double> frr;
+                cam.Timing.Framerate.GetFrameRateRange(out frr);
+                frameRateRange = frr;
+
+                ImageFormatInfo[] fil;
+                cam.Size.ImageFormat.GetList(out fil);
+                FormatInfoList = fil;
+
                 // init Output 
                 FOutput.Image.Initialise(MaxSize.Width, MaxSize.Height, format);
 
                 // attach Event
                 cam.EventFrame += onFrameEvent;
+
+                camOpen = true;
 
                 Status = "OK";
 				return true;
@@ -209,6 +221,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 
                 cam.Exit();
                 cam = null;
+
+                camOpen = false;
             }
 		}
 
@@ -300,40 +314,36 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Input("Camera Id")]
         IDiffSpread<int> FInCamId;
 
-        [Input("Device")]
-		IDiffSpread<string> FDevices;
-
 		[Input("Resolution")]
 		IDiffSpread<VVVV.Utils.VMath.Vector2D  > FResolution;
 
-        
         //[Input("Format")]
         //IDiffSpread<uEye.Types.ImageFormatInfo> FColorMode;
 
         [Input("Color Mode")]
 		IDiffSpread<uEye.Defines.ColorMode> FColorMode;
 
-		[Input("FPS", DefaultValue=30, MinValue=5, MaxValue=120)]
+		[Input("FPS", DefaultValue=30, MinValue=0, MaxValue=1024)]
 		IDiffSpread<int> FFps;
 
+        [Output("Framerate Range")]
+        ISpread<VVVV.Utils.VMath.Vector2D> FOutFramerateRange;
 
-		//[Input("Properties")]
-		//IDiffSpread<Dictionary<CLEyeCameraParameter, int>> FPinInProperties;
+        [Output("available Formats")]
+        ISpread<ISpread<string>> FOutFormats;
 
-		override protected void Update(int InstanceCount, bool SpreadCountChanged)
+        //[Input("Properties")]
+        //IDiffSpread<Dictionary<CLEyeCameraParameter, int>> FPinInProperties;
+
+        override protected void Update(int InstanceCount, bool SpreadCountChanged)
 		{
             if (SpreadCountChanged || FInCamId.IsChanged)
             {
                 for (int i = 0; i < InstanceCount; i++)
-                    FProcessor[i].FCamId = FInCamId[i];
+                    FProcessor[i].CamId = FInCamId[i];
             }
 
 
-            if (SpreadCountChanged || FDevices.IsChanged)
-            {
-                for (int i = 0; i < InstanceCount; i++)
-                    FProcessor[i].Device = FDevices[i];
-            }
 
             if (SpreadCountChanged || FResolution.IsChanged)
 			{
@@ -349,18 +359,44 @@ namespace VVVV.Nodes.OpenCV.IDS
 
 			if (SpreadCountChanged || FFps.IsChanged)
 			{
-				for (int i = 0; i < InstanceCount; i++)
-					FProcessor[i].Fps = FFps[i];
+                for (int i = 0; i < InstanceCount; i++)
+                {
+                    FProcessor[i].Fps = FFps[i];
+                    //FOutFramerateRange[i] = new VVVV.Utils.VMath.Vector2D(FProcessor[i].frameRateRange.Minimum, FProcessor[i].frameRateRange.Maximum);
+                }
 			}
 
+            FOutFormats.SliceCount = InstanceCount;
+            FOutFramerateRange.SliceCount = InstanceCount;
 
-			//if (SpreadCountChanged || FPinInProperties.IsChanged)
-			//{
-			//	for (int i = 0; i < InstanceCount; i++)
-			//	{
-			//		FProcessor[i].Parameters = FPinInProperties[i];
-			//	}
-			//}
-		}
+            for (int i = 0; i < InstanceCount; i++)
+            {
+                if (FProcessor[i].Enabled && FProcessor[i].camOpen)
+                {
+                    FOutFramerateRange[i] = new VVVV.Utils.VMath.Vector2D(FProcessor[i].frameRateRange.Minimum, FProcessor[i].frameRateRange.Maximum);
+
+                    int numformats = FProcessor[i].FormatInfoList.Count();
+
+                    FOutFormats[i].SliceCount = numformats;
+
+                    for (int f=0; f<numformats; f++)
+                    {
+                        FOutFormats[i][f] = FProcessor[i].FormatInfoList[f].FormatName;
+                    }
+                }
+            }
+
+                
+
+
+
+            //if (SpreadCountChanged || FPinInProperties.IsChanged)
+            //{
+            //	for (int i = 0; i < InstanceCount; i++)
+            //	{
+            //		FProcessor[i].Parameters = FPinInProperties[i];
+            //	}
+            //}
+        }
 	}
 }
