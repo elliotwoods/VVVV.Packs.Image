@@ -34,8 +34,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 			}
 		}
 
-		private CLEyeCameraResolution FResolution;
-		public CLEyeCameraResolution Resolution
+		private VVVV.Utils.VMath.Vector2D FResolution;
+		public VVVV.Utils.VMath.Vector2D Resolution
 		{
 			set
 			{
@@ -44,8 +44,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 			}
 		}
 
-		private CLEyeCameraColorMode FColorMode;
-		public CLEyeCameraColorMode ColorMode
+		private ColorMode FColorMode;
+		public ColorMode ColorMode
 		{
 			set
 			{
@@ -64,33 +64,22 @@ namespace VVVV.Nodes.OpenCV.IDS
 			}
 		}
 
-		private bool FLED = true;
-		public bool LED
-		{
-			set
-			{
-				if (this.FCamera != null)
-				{
-					FLED = value;
-					FCamera.setLED(FLED);
-				}
-			}
-		}
 
-		private bool FParameterChange = false;
-		Object FParameterLock = new Object();
-		Dictionary<CLEyeCameraParameter, int> FParameters;
-		public Dictionary<uEye.Parameter, int> Parameters
-		{
-			set
-			{
-				lock (FParameterLock)
-				{
-					FParameters = value;
-				}
-				FParameterChange = true;
-			}
-		}
+
+		//private bool FParameterChange = false;
+		//Object FParameterLock = new Object();
+		//Dictionary<CLEyeCameraParameter, int> FParameters;
+		//public Dictionary<CLEyeCameraParameter, int> Parameters
+		//{
+		//	set
+		//	{
+		//		lock (FParameterLock)
+		//		{
+		//			FParameters = value;
+		//		}
+		//		FParameterChange = true;
+		//	}
+		//}
 
 		private void SetParameters()
 		{
@@ -262,15 +251,15 @@ namespace VVVV.Nodes.OpenCV.IDS
 
 
 
-            if (FParameterChange)
-                SetParameters();
+            //if (FParameterChange)
+            //    SetParameters();
 
-            FCamera.getPixels(FOutput.Data, 100);
+            //FCamera.getPixels(FOutput.Data, 100);
 
-            if (FOutput.Image.NativeFormat == TColorFormat.RGBA8)
-                SetAlphaChannel();
+            //if (FOutput.Image.NativeFormat == TColorFormat.RGBA8)
+            //    SetAlphaChannel();
 
-            FOutput.Send();
+            //FOutput.Send();
         }
 
 
@@ -308,11 +297,9 @@ namespace VVVV.Nodes.OpenCV.IDS
 		[Input("FPS", DefaultValue=30, MinValue=5, MaxValue=120)]
 		IDiffSpread<int> FFps;
 
-		[Input("LED", DefaultValue = 1)]
-		IDiffSpread<bool> FLED;
 
-		[Input("Properties")]
-		IDiffSpread<Dictionary<CLEyeCameraParameter, int>> FPinInProperties;
+		//[Input("Properties")]
+		//IDiffSpread<Dictionary<CLEyeCameraParameter, int>> FPinInProperties;
 
 		override protected void Update(int InstanceCount, bool SpreadCountChanged)
 		{
@@ -347,19 +334,14 @@ namespace VVVV.Nodes.OpenCV.IDS
 					FProcessor[i].Fps = FFps[i];
 			}
 
-			if (SpreadCountChanged || FLED.IsChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-					FProcessor[i].LED = FLED[i];
-			}
 
-			if (SpreadCountChanged || FPinInProperties.IsChanged)
-			{
-				for (int i = 0; i < InstanceCount; i++)
-				{
-					FProcessor[i].Parameters = FPinInProperties[i];
-				}
-			}
+			//if (SpreadCountChanged || FPinInProperties.IsChanged)
+			//{
+			//	for (int i = 0; i < InstanceCount; i++)
+			//	{
+			//		FProcessor[i].Parameters = FPinInProperties[i];
+			//	}
+			//}
 		}
 	}
 }
