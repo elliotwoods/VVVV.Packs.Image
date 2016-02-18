@@ -26,6 +26,7 @@ namespace VVVV.Nodes.OpenCV.IDS
         public List<int> PossibleSubsamplingX = new List<int>();
         public List<int> PossibleSubsamplingY = new List<int>();
 
+        public bool checkParams = false;
 
         public bool camOpen = false;
 
@@ -119,39 +120,6 @@ namespace VVVV.Nodes.OpenCV.IDS
 		}
 
 
-		//private bool FParameterChange = false;
-		//Object FParameterLock = new Object();
-		//Dictionary<CLEyeCameraParameter, int> FParameters;
-		//public Dictionary<CLEyeCameraParameter, int> Parameters
-		//{
-		//	set
-		//	{
-		//		lock (FParameterLock)
-		//		{
-		//			FParameters = value;
-		//		}
-		//		FParameterChange = true;
-		//	}
-		//}
-
-		private void SetParameters()
-		{
-			//if (FCamera == null || FParameters == null)
-			//	return;
-
-			//lock (FParameterLock)
-			//{
-			//	foreach (var param in FParameters)
-			//	{
-			//		FCamera.SetParameter(param.Key, param.Value);
-			//	}
-			//}
-
-			//FParameterChange = false;
-		}
-
-        
-
         ////////////////////////////////////////////////////
         // OPEN
         ////////////////////////////////////////////////////
@@ -218,6 +186,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 
                 camOpen = true;
 
+                checkParams = true;
+
                 Status = "OK";
 				return true;
 			}
@@ -227,17 +197,11 @@ namespace VVVV.Nodes.OpenCV.IDS
 				return false;
 			}
 		}
-        /// <summary>
-        /// Event that fires when new frame is available from the cam
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        
+
         private void onFrameEvent(object sender, EventArgs e)
         {
             uEye.Camera camObject = sender as uEye.Camera;
-
-            
-
 
             IntPtr mem;
             camObject.Memory.GetActive(out mem);
@@ -282,6 +246,8 @@ namespace VVVV.Nodes.OpenCV.IDS
                 bool started;
                 camStatus = cam.Acquisition.HasStarted(out started);
 
+                cam.EventFrame -= onFrameEvent;
+
                 if (started)
                     camStatus = cam.Acquisition.Stop();
 
@@ -292,6 +258,11 @@ namespace VVVV.Nodes.OpenCV.IDS
             }
 		}
 
+        public void queryFramerate()
+        {
+
+        }
+
         public void QueryCameraCapabilities()
         {
             // binning
@@ -301,6 +272,8 @@ namespace VVVV.Nodes.OpenCV.IDS
             // subsampling
             queryHorizontalSubsampling();
             queryVerticalSubsampling();
+
+            
 
             // get camera aoi range size
             //uEye.Types.Range<Int32> rangeWidth, rangeHeight;
@@ -336,7 +309,6 @@ namespace VVVV.Nodes.OpenCV.IDS
                 camStatus = cam.Size.Subsampling.Set(modeX | modeY);
         }
 
-
         private void mirrorHorizontal(bool Enable)
         {
             camStatus = cam.RopEffect.Set(uEye.Defines.RopEffectMode.LeftRight, Enable);
@@ -347,55 +319,39 @@ namespace VVVV.Nodes.OpenCV.IDS
             camStatus = cam.RopEffect.Set(uEye.Defines.RopEffectMode.UpDown, Enable);
         }
 
-        public void SetAoi(int width, int height)
+        public void SetAoi(int left, int top, int width, int height)
         {
-            System.Drawing.Rectangle rect;
+            //System.Drawing.Rectangle rect = new Rectangle();
 
             uEye.Types.Range<Int32> rangeWidth, rangeHeight;
-            camStatus = cam.Size.AOI.GetPosRange(out rangeWidth, out rangeHeight);
+            camStatus = cam.Size.AOI.GetSizeRange(out rangeWidth, out rangeHeight);
+
+            uEye.Types.Range<Int32> rangePosX, rangePosY;
+            camStatus = cam.Size.AOI.GetPosRange(out rangePosX, out rangePosY);
 
             while ((width % rangeWidth.Increment) != 0)
-            {
                 --width;
-            }
 
             while ((height % rangeHeight.Increment) != 0)
-            {
                 --height;
-            }
 
-            camStatus = cam.Size.AOI.Get(out rect);
-            rect.Width = width;
-            rect.Height = height;
+            while ((left % rangePosX.Increment) != 0)
+                --left;
 
-            camStatus = cam.Size.AOI.Set(rect);
+            while ((top % rangePosY.Increment) != 0)
+                --top;
 
+            //camStatus = cam.Size.AOI.Get(out rect);
 
-            // memory reallocation
-            Int32[] memList;
-            camStatus = cam.Memory.GetList(out memList);
-            camStatus = cam.Memory.Free(memList);
-            camStatus = cam.Memory.Allocate();
+            //rect.Width = width;
+            //rect.Height = height;
 
-        }
+            //rect.X = left;
+            //rect.Y = top;
 
+            camStatus = cam.Size.AOI.Set(left, top, width, height);
 
-        public void SetAoiWidth(int width)
-        {
-            System.Drawing.Rectangle rect;
-
-            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
-            camStatus = cam.Size.AOI.GetPosRange(out rangeWidth, out rangeHeight);
-
-            while ((width % rangeWidth.Increment) != 0)
-            {
-                --width;
-            }
-
-            camStatus = cam.Size.AOI.Get(out rect);
-            rect.Width = width;
-
-            camStatus = cam.Size.AOI.Set(rect);
+            //camStatus = cam.Size.AOI.Set(rect);
 
 
             // memory reallocation
@@ -404,74 +360,6 @@ namespace VVVV.Nodes.OpenCV.IDS
             camStatus = cam.Memory.Free(memList);
             camStatus = cam.Memory.Allocate();
 
-        }
-
-        public void SetAoiHeight(int s32Value)
-        {
-            System.Drawing.Rectangle rect;
-
-            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
-            camStatus = cam.Size.AOI.GetPosRange(out rangeWidth, out rangeHeight);
-
-            while ((s32Value % rangeHeight.Increment) != 0)
-            {
-                --s32Value;
-            }
-
-            camStatus = cam.Size.AOI.Get(out rect);
-            rect.Height = s32Value;
-
-            camStatus = cam.Size.AOI.Set(rect);
-
-            // memory reallocation
-            Int32[] memList;
-            camStatus = cam.Memory.GetList(out memList);
-            camStatus = cam.Memory.Free(memList);
-            camStatus = cam.Memory.Allocate();
-        }
-
-        private void SetAoiLeft(int s32Value)
-        {
-            System.Drawing.Rectangle rect;
-
-            uEye.Types.Range<Int32> rangePosX, rangePosY;
-            camStatus = cam.Size.AOI.GetPosRange(out rangePosX, out rangePosY);
-
-            while ((s32Value % rangePosX.Increment) != 0)
-            {
-                --s32Value;
-            }
-
-            camStatus = cam.Size.AOI.Get(out rect);
-            rect.X = s32Value;
-
-            camStatus = cam.Size.AOI.Set(rect);
-
-            // update aoi width
-            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
-            camStatus = cam.Size.AOI.GetSizeRange(out rangeWidth, out rangeHeight);
-        }
-
-        private void SetAoiTop(int s32Value)
-        {
-            System.Drawing.Rectangle rect;
-
-            uEye.Types.Range<Int32> rangePosX, rangePosY;
-            camStatus = cam.Size.AOI.GetPosRange(out rangePosX, out rangePosY);
-
-            while ((s32Value % rangePosY.Increment) != 0)
-            {
-                --s32Value;
-            }
-
-            camStatus = cam.Size.AOI.Get(out rect);
-            rect.Y = s32Value;
-
-            camStatus = cam.Size.AOI.Set(rect);
-
-            // update aoi height
-            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
-            camStatus = cam.Size.AOI.GetSizeRange(out rangeWidth, out rangeHeight);
         }
 
         #endregion setParameters
@@ -561,102 +449,6 @@ namespace VVVV.Nodes.OpenCV.IDS
                 PossibleSubsamplingY.Add(6);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical16X))
                 PossibleSubsamplingY.Add(7);
-        }
-
-
-        private void updateVerticalBinning()
-        {
-            uEye.Defines.BinningMode mode;
-            camStatus = cam.Size.Binning.GetSupported(out mode);
-
-            List<BinningMode> SupportedVerticalBinnings = new List<BinningMode>();
-
-            if ((mode & uEye.Defines.BinningMode.Disable) == mode)
-            {
-                // vertical binning not supported
-            }
-            else
-            {
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical2X))
-                {
-                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical2X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical3X))
-                {
-                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical3X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical4X))
-                {
-                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical4X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical5X))
-                {
-                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical5X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical6X))
-                {
-                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical6X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical8X))
-                {
-                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical8X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical16X))
-                {
-                    SupportedVerticalBinnings.Add(uEye.Defines.BinningMode.Vertical16X);
-                }
-            }
-
-            Int32 s32Factor;
-            camStatus = cam.Size.Binning.GetFactorVertical(out s32Factor);
-        }
-      
-        private void updateVerticalSubsampling()
-        {
-            // vertical Subsampling
-            List<SubsamplingMode> comboBoxFormatSubsamplingVertical = new List<SubsamplingMode>();
-
-            uEye.Defines.SubsamplingMode mode;
-            camStatus = cam.Size.Subsampling.GetSupported(out mode);
-
-            if ((mode & uEye.Defines.SubsamplingMode.Disable) == mode)
-            {
-                // vertical Subsampling not supported
-            }
-            else
-            {
-                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical2X))
-                {
-                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical2X);
-                }
-                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical3X))
-                {
-                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical3X);
-                }
-                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical4X))
-                {
-                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical4X);
-                }
-                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical5X))
-                {
-                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical5X);
-                }
-                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical6X))
-                {
-                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical6X);
-                }
-                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical8X))
-                {
-                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical8X);
-                }
-                if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical16X))
-                {
-                    comboBoxFormatSubsamplingVertical.Add(SubsamplingMode.Vertical16X);
-                }
-            }
-
-            Int32 s32Factor;
-            camStatus = cam.Size.Subsampling.GetFactorVertical(out s32Factor);
         }
 
         # endregion queryParameterSets
@@ -750,6 +542,7 @@ namespace VVVV.Nodes.OpenCV.IDS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    #region enums
     public enum BinningYMode
     {
         Disable,
@@ -773,6 +566,7 @@ namespace VVVV.Nodes.OpenCV.IDS
         Horizontal8X,
         Horizontal16X
     }
+
     public enum SubsamplingYMode
     {
         Disable,
@@ -796,12 +590,14 @@ namespace VVVV.Nodes.OpenCV.IDS
         Horizontal8X,
         Horizontal16X
     }
+    #endregion enums
 
     #region PluginInfo
     [PluginInfo(Name = "VideoIn", Category = "uEye", Help = "Capture from camera devices", Tags = "", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class VideoInNode : IGeneratorNode<VideoInInstance>
 	{
+        #region fields and pins
         [Input("Camera Id")]
         IDiffSpread<int> FInCamId;
 
@@ -827,7 +623,7 @@ namespace VVVV.Nodes.OpenCV.IDS
         IDiffSpread<VVVV.Utils.VMath.Vector2D> FInAOI;
 
         [Input("Crop")]
-        IDiffSpread<VVVV.Utils.VMath.Vector2D> FCrop;
+        IDiffSpread<VVVV.Utils.VMath.Vector2D> FInCrop;
 
         [Input("Color Mode")]
 		IDiffSpread<uEye.Defines.ColorMode> FColorMode;
@@ -859,9 +655,22 @@ namespace VVVV.Nodes.OpenCV.IDS
         bool firstframe = true;
 
         bool queryRequest = false;
+        #endregion fields and pins
 
         override protected void Update(int InstanceCount, bool SpreadCountChanged)
-		{         
+		{
+            for (int i = 0; i < InstanceCount; i++)
+            {
+                if (FProcessor[i].checkParams)
+                {
+                    setBinning(i);
+                    setSubsampling(i);
+                    setAOI(i);
+
+                    FProcessor[i].checkParams = false;
+                }
+            }
+
             // query Featuresets
             if ((FPinInEnabled.IsChanged || SpreadCountChanged) && FPinInEnabled[0] )
             {
@@ -871,107 +680,32 @@ namespace VVVV.Nodes.OpenCV.IDS
 
             if (queryRequest)
             {
-                FOutSubsamplingXModes.SliceCount = InstanceCount;
-                FOutSubsamplingYModes.SliceCount = InstanceCount;
-                FOutBinningXModes.SliceCount = InstanceCount;
-                FOutBinningYModes.SliceCount = InstanceCount;
-
-                for (int i = 0; i < InstanceCount; i++)
-                {
-                    if (FProcessor[i].camOpen)
-                    {
-                        FLogger.Log(LogType.Debug, "query parameter for camera " + i);
-                        FProcessor[i].QueryCameraCapabilities();
-
-                        FOutSubsamplingXModes[i].SliceCount = FProcessor[i].PossibleSubsamplingX.Count;
-                        FOutSubsamplingYModes[i].SliceCount = FProcessor[i].PossibleSubsamplingY.Count;
-                        FOutBinningXModes[i].SliceCount = FProcessor[i].PossibleSubsamplingY.Count;
-                        FOutBinningYModes[i].SliceCount = FProcessor[i].PossibleSubsamplingY.Count;
-
-
-                        for (int m = 0; m < FProcessor[i].PossibleSubsamplingX.Count; m++)
-                            FOutSubsamplingXModes[i][m] = Enum.GetName(typeof(SubsamplingXMode), m);
-
-                        for (int m = 0; m < FProcessor[i].PossibleSubsamplingY.Count; m++)
-                            FOutSubsamplingYModes[i][m] = Enum.GetName(typeof(SubsamplingYMode), m);
-
-                        for (int m = 0; m < FProcessor[i].PossibleBinningX.Count; m++)
-                            FOutBinningXModes[i][m] = Enum.GetName(typeof(BinningXMode), m);
-
-                        for (int m = 0; m < FProcessor[i].PossibleBinningY.Count; m++)
-                            FOutBinningYModes[i][m] = Enum.GetName(typeof(BinningYMode), m);
-
-                        queryRequest = false;
-                    }
-                }
-            }            
+                queryFeatures(InstanceCount);
+            }
 
             // set subsampling
-            if ((FInSubsamplingX.IsChanged || FInSubsamplingY.IsChanged) && firstframe == false)
+            if ((FInSubsamplingX.IsChanged || FInSubsamplingY.IsChanged) /*&& firstframe == false*/)
             {
                 for (int i = 0; i < InstanceCount; i++)
-                    if (FProcessor[i].Enabled)
-                    {
-                        string x = FInSubsamplingX[i].ToString();
-                        string y = FInSubsamplingY[i].ToString();
-
-                        if (!FProcessor[i].PossibleSubsamplingX.Contains((int)FInSubsamplingX[i]) )
-                        {
-                            FLogger.Log(LogType.Debug, FInSubsamplingX[i].ToString() + " is not supported");
-                            x = "Disable";
-                        }                           
-
-                        if (!FProcessor[i].PossibleSubsamplingY.Contains((int)FInSubsamplingY[i]))
-                        {
-                            FLogger.Log(LogType.Debug, FInSubsamplingY[i].ToString() + " is not supported");
-                            y = "Disable";
-                        }
-
-                        //FLogger.Log(LogType.Debug, "set subsampling of instance " + i + " to " + x + " | " + y);
-
-                        FProcessor[i].SetSubsampling(x, y);                      
-                    }
+                    setSubsampling(i);
             }
 
             // set binning
             if ((FInBinningX.IsChanged || FInBinningY.IsChanged) && firstframe == false)
             {
                 for (int i = 0; i < InstanceCount; i++)
-                    if (FProcessor[i].Enabled)
-                    {
-                        string x = FInBinningX[i].ToString();
-                        string y = FInBinningY[i].ToString();
-
-                        if (!FProcessor[i].PossibleBinningX.Contains((int)FInBinningX[i]))
-                        {
-                            FLogger.Log(LogType.Debug, FInBinningX[i].ToString() + " is not supported");
-                            x = "Disable";
-                        }
-
-                        if (!FProcessor[i].PossibleBinningY.Contains((int)FInBinningY[i]))
-                        {
-                            FLogger.Log(LogType.Debug, FInBinningY[i].ToString() + " is not supported");
-                            y = "Disable";
-                        }
-
-                        //FLogger.Log(LogType.Debug, "set subsampling of instance " + i + " to " + x + " | " + y);
-
-                        FProcessor[i].SetBinning(x, y);
-                    }
+                    setBinning(i);
             }
 
-            if (FInAOI.IsChanged  && firstframe == false)
+            // set AOI
+            if (FInAOI.IsChanged || FInCrop.IsChanged /*|| (FPinInEnabled.IsChanged && FPinInEnabled[0])*/ )
             {
                 for (int i = 0; i < InstanceCount; i++)
-                    if (FProcessor[i].Enabled)
-                    {
-                        FProcessor[i].SetAoi((int)FInAOI[i].x, (int)FInAOI[i].y);
-                        
-                    }
-                        
+                    setAOI(i);
             }
 
-                if (SpreadCountChanged || FInCamId.IsChanged)
+
+            if (SpreadCountChanged || FInCamId.IsChanged)
             {
                 for (int i = 0; i < InstanceCount; i++)
                     FProcessor[i].CamId = FInCamId[i];
@@ -981,9 +715,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 for (int i = 0; i < InstanceCount; i++)
                     FProcessor[i].Format = FInFormatId[i];
-            }
-
-            
+            }            
 
 			if (SpreadCountChanged || FColorMode.IsChanged)
 			{
@@ -1020,11 +752,101 @@ namespace VVVV.Nodes.OpenCV.IDS
                 }
             }
 
-                
-
-
-
             if (firstframe) firstframe = false;
         }
-	}
+
+        private void setSubsampling(int instanceId)
+        {
+            if (FProcessor[instanceId].Enabled)
+            {
+                string x = FInSubsamplingX[instanceId].ToString();
+                string y = FInSubsamplingY[instanceId].ToString();
+
+                if (!FProcessor[instanceId].PossibleSubsamplingX.Contains((int)FInSubsamplingX[instanceId]))
+                {
+                    FLogger.Log(LogType.Debug, FInSubsamplingX[instanceId].ToString() + " is not supported");
+                    x = "Disable";
+                }
+
+                if (!FProcessor[instanceId].PossibleSubsamplingY.Contains((int)FInSubsamplingY[instanceId]))
+                {
+                    FLogger.Log(LogType.Debug, FInSubsamplingY[instanceId].ToString() + " is not supported");
+                    y = "Disable";
+                }
+
+                //FLogger.Log(LogType.Debug, "set subsampling of instance " + i + " to " + x + " | " + y);
+
+                FProcessor[instanceId].SetSubsampling(x, y);
+            }
+        }
+
+        private void setBinning(int instanceId)
+        {
+            if (FProcessor[instanceId].Enabled)
+            {
+                string x = FInBinningX[instanceId].ToString();
+                string y = FInBinningY[instanceId].ToString();
+
+                if (!FProcessor[instanceId].PossibleBinningX.Contains((int)FInBinningX[instanceId]))
+                {
+                    FLogger.Log(LogType.Debug, FInBinningX[instanceId].ToString() + " is not supported");
+                    x = "Disable";
+                }
+
+                if (!FProcessor[instanceId].PossibleBinningY.Contains((int)FInBinningY[instanceId]))
+                {
+                    FLogger.Log(LogType.Debug, FInBinningY[instanceId].ToString() + " is not supported");
+                    y = "Disable";
+                }
+
+                FProcessor[instanceId].SetBinning(x, y);
+            }
+        }
+
+        private void setAOI(int instanceIdi)
+        {
+                if (FProcessor[instanceIdi].Enabled)
+                {
+                    FProcessor[instanceIdi].SetAoi((int)FInCrop[instanceIdi].x, (int)FInCrop[instanceIdi].y,
+                                            (int)FInAOI[instanceIdi].x, (int)FInAOI[instanceIdi].y);
+                }
+        }
+
+        private void queryFeatures(int InstanceCount)
+        {
+            FOutSubsamplingXModes.SliceCount = InstanceCount;
+            FOutSubsamplingYModes.SliceCount = InstanceCount;
+            FOutBinningXModes.SliceCount = InstanceCount;
+            FOutBinningYModes.SliceCount = InstanceCount;
+
+            for (int i = 0; i < InstanceCount; i++)
+            {
+                if (FProcessor[i].camOpen)
+                {
+                    FLogger.Log(LogType.Debug, "query parameter for camera " + i);
+                    FProcessor[i].QueryCameraCapabilities();
+
+                    FOutSubsamplingXModes[i].SliceCount = FProcessor[i].PossibleSubsamplingX.Count;
+                    FOutSubsamplingYModes[i].SliceCount = FProcessor[i].PossibleSubsamplingY.Count;
+                    FOutBinningXModes[i].SliceCount = FProcessor[i].PossibleSubsamplingY.Count;
+                    FOutBinningYModes[i].SliceCount = FProcessor[i].PossibleSubsamplingY.Count;
+
+
+                    for (int m = 0; m < FProcessor[i].PossibleSubsamplingX.Count; m++)
+                        FOutSubsamplingXModes[i][m] = Enum.GetName(typeof(SubsamplingXMode), m);
+
+                    for (int m = 0; m < FProcessor[i].PossibleSubsamplingY.Count; m++)
+                        FOutSubsamplingYModes[i][m] = Enum.GetName(typeof(SubsamplingYMode), m);
+
+                    for (int m = 0; m < FProcessor[i].PossibleBinningX.Count; m++)
+                        FOutBinningXModes[i][m] = Enum.GetName(typeof(BinningXMode), m);
+
+                    for (int m = 0; m < FProcessor[i].PossibleBinningY.Count; m++)
+                        FOutBinningYModes[i][m] = Enum.GetName(typeof(BinningYMode), m);
+
+                    queryRequest = false;
+                }
+            }
+        }
+    }
 }
