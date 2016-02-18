@@ -10,6 +10,7 @@ using uEye.Defines;
 using uEye.Types;
 using System.Drawing;
 using Emgu.CV;
+using System.ComponentModel.Composition;
 
 namespace VVVV.Nodes.OpenCV.IDS
 {
@@ -17,6 +18,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 	{
         private Camera cam = null;
         private uEye.Defines.Status camStatus { get; set; }
+
+        public List<string> EBinningXNames = new List<string>();
 
         public bool camOpen = false;
 
@@ -160,28 +163,31 @@ namespace VVVV.Nodes.OpenCV.IDS
 			{
                 cam = new Camera();
                 camStatus = cam.Init(FCamId);
-                
+
                 // format
-                cam.PixelFormat.Set(FColorMode);
+                camStatus = cam.PixelFormat.Set(FColorMode);
 
                 uEye.Defines.ColorMode pixFormat;
-                cam.PixelFormat.Get(out pixFormat);
+                camStatus = cam.PixelFormat.Get(out pixFormat);
 
-                cam.Size.ImageFormat.Set((uint)FFormat);
+                camStatus = cam.Size.ImageFormat.Set((uint)FFormat);
 
                 // start capturee
                 camStatus = cam.Memory.Allocate();
                 camStatus = cam.Acquisition.Capture();
 
                 // query infos
+                queryHorizontalBinning();
+
+
                 int bpp;
-                cam.PixelFormat.GetBytesPerPixel(out bpp);
+                camStatus = cam.PixelFormat.GetBytesPerPixel(out bpp);
 
                 uEye.Types.ImageInfo info;
-                cam.Information.GetImageInfo(0, out info);
+                camStatus = cam.Information.GetImageInfo(0, out info);
 
                 uEye.Types.SensorInfo si;
-                cam.Information.GetSensorInfo(out si);
+                camStatus = cam.Information.GetSensorInfo(out si);
 
                 MaxSize = si.MaxSize;
 
@@ -295,7 +301,6 @@ namespace VVVV.Nodes.OpenCV.IDS
             camStatus = cam.Size.AOI.GetPosRange(out rangePosX, out rangePosY);
 
             // subsampling && binning
-            updateHorizontalBinning();
             updateVerticalBinning();
 
             updateHorizontalSubsampling();
@@ -316,20 +321,20 @@ namespace VVVV.Nodes.OpenCV.IDS
             camStatus = cam.RopEffect.Set(uEye.Defines.RopEffectMode.UpDown, Enable);
         }
 
-        private void SetAoiWidth(int s32Value)
+        private void SetAoiWidth(int width)
         {
             System.Drawing.Rectangle rect;
 
             uEye.Types.Range<Int32> rangeWidth, rangeHeight;
             camStatus = cam.Size.AOI.GetPosRange(out rangeWidth, out rangeHeight);
 
-            while ((s32Value % rangeWidth.Increment) != 0)
+            while ((width % rangeWidth.Increment) != 0)
             {
-                --s32Value;
+                --width;
             }
 
             camStatus = cam.Size.AOI.Get(out rect);
-            rect.Width = s32Value;
+            rect.Width = width;
 
             camStatus = cam.Size.AOI.Set(rect);
 
@@ -415,51 +420,33 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         #region queryParameterSets
 
-        private void updateHorizontalBinning()
+        private void queryHorizontalBinning()
         {
-            uEye.Defines.BinningMode mode;
-            camStatus = cam.Size.Binning.GetSupported(out mode);
+            EBinningXNames.Clear();
+            EBinningXNames.Add("Disable");
 
-            List<BinningMode> SupportedHorizontalBinnings = new List<BinningMode>();
+            if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal2X))
+                EBinningXNames.Add( "Horizontal2X");
+            if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal3X))
+                EBinningXNames.Add("Horizontal3X");
+            if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal4X))
+                EBinningXNames.Add( "Horizontal4X");
+            if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal5X))
+                EBinningXNames.Add( "Horizontal5X");
+            if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal6X))
+                EBinningXNames.Add( "Horizontal6X");
+            if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal8X))
+                EBinningXNames.Add( "Horizontal8X");
+            if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal16X))
+                EBinningXNames.Add( "Horizontal16X");
+            
+        }
 
-            if ((mode & uEye.Defines.BinningMode.Disable) == mode)
-            {
-                // horizontal binning is not supported
-            }
-            else
-            {
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal2X))
-                {
-                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal2X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal3X))
-                {
-                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal3X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal4X))
-                {
-                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal4X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal5X))
-                {
-                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal5X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal6X))
-                {
-                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal6X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal8X))
-                {
-                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal8X);
-                }
-                if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal16X))
-                {
-                    SupportedHorizontalBinnings.Add(uEye.Defines.BinningMode.Horizontal16X);
-                }
-            }
-
-            Int32 s32Factor;
-            camStatus = cam.Size.Binning.GetFactorHorizontal(out s32Factor);
+        public void SetBinningX(string value)
+        {
+            BinningMode mode = (BinningMode)Enum.Parse(typeof(BinningMode), value);
+            if (camOpen)
+                camStatus = cam.Size.Binning.Set(mode);
         }
 
         private void updateVerticalBinning()
@@ -610,12 +597,6 @@ namespace VVVV.Nodes.OpenCV.IDS
 
 
 
-        /// <summary>
-        /// maps uEye.Defines.ColorMode to VVVV.CV.Core.TColorFormat
-        /// TODO: only basic format are mapped, yet.
-        /// </summary>
-        /// <param name="color"></param>
-        /// <returns></returns>
         private TColorFormat GetColor(uEye.Defines.ColorMode color)
 		{
 			switch(color)
@@ -674,9 +655,8 @@ namespace VVVV.Nodes.OpenCV.IDS
             
         }
 
-
         // why add always an alpha channel? does the output need to be rgba?
-		private unsafe void SetAlphaChannel()
+        private unsafe void SetAlphaChannel()
 		{	
 			byte* data = (byte*) FOutput.Data.ToPointer() + 3;
 
@@ -689,13 +669,32 @@ namespace VVVV.Nodes.OpenCV.IDS
 		}
 	}
 
-	#region PluginInfo
-	[PluginInfo(Name = "VideoIn", Category = "uEye", Help = "Capture from camera devices", Tags = "", AutoEvaluate = true)]
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+    #region PluginInfo
+    [PluginInfo(Name = "VideoIn", Category = "uEye", Help = "Capture from camera devices", Tags = "", AutoEvaluate = true)]
 	#endregion PluginInfo
 	public class VideoInNode : IGeneratorNode<VideoInInstance>
 	{
         [Input("Camera Id")]
         IDiffSpread<int> FInCamId;
+
+        [Input("Binning X", EnumName = "EBinningX")]
+        public IDiffSpread<EnumEntry> FInBinningX;
 
         [Input("Format Id")]
         IDiffSpread<int> FInFormatId;
@@ -724,11 +723,35 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Output("available Formats")]
         ISpread<ISpread<string>> FOutFormats;
 
-        //[Input("Properties")]
-        //IDiffSpread<Dictionary<CLEyeCameraParameter, int>> FPinInProperties;
+        bool firstframe = true;
+
+        [ImportingConstructor]
+        public VideoInNode()
+        {
+            var bx = new string[] { "Disable" };
+            EnumManager.UpdateEnum("EBinningX", "Disable", bx);
+        }
+
+        void updatePinEnum(string enumName, string[] entries)
+        {
+            EnumManager.UpdateEnum(enumName, entries[0], entries);
+        }
 
         override protected void Update(int InstanceCount, bool SpreadCountChanged)
 		{
+
+
+            if (FInBinningX.IsChanged && firstframe == false)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                    if (FProcessor[i].Enabled) FProcessor[i].SetBinningX(FInBinningX[i].Name);
+
+
+            }
+
+
+            
+
             if (SpreadCountChanged || FInCamId.IsChanged)
             {
                 for (int i = 0; i < InstanceCount; i++)
@@ -741,10 +764,18 @@ namespace VVVV.Nodes.OpenCV.IDS
                     FProcessor[i].Format = FInFormatId[i];
             }
 
-            if (SpreadCountChanged || FResolution.IsChanged)
+            if (SpreadCountChanged || FResolution.IsChanged && firstframe == false)
 			{
-				for (int i = 0; i < InstanceCount; i++)
-					FProcessor[i].Resolution = FResolution[i];
+                var bx = new string[] { "Disable", "Enable" };
+                EnumManager.UpdateEnum("EBinningX", "Disable", bx);
+
+                for (int i = 0; i < InstanceCount; i++)
+                {
+                    if (FProcessor[i].Enabled) EnumManager.UpdateEnum("EBinningX", FProcessor[i].EBinningXNames[0], FProcessor[i].EBinningXNames.ToArray() );
+
+                    FProcessor[i].Resolution = FResolution[i];
+                }
+					
 			}
 
 			if (SpreadCountChanged || FColorMode.IsChanged)
@@ -786,13 +817,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
 
 
-            //if (SpreadCountChanged || FPinInProperties.IsChanged)
-            //{
-            //	for (int i = 0; i < InstanceCount; i++)
-            //	{
-            //		FProcessor[i].Parameters = FPinInProperties[i];
-            //	}
-            //}
+            if (firstframe) firstframe = false;
         }
 	}
 }
