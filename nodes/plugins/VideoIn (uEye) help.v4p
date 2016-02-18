@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv_45beta34.2_x86\packs\VVVV.Packs.Image\nodes\plugins\VideoIn (uEye) help.v4p" scrollx="0" scrolly="45">
+   <PATCH nodename="C:\vvvv\vvvv_45beta34.2_x86\packs\VVVV.Packs.Image\nodes\plugins\VideoIn (uEye) help.v4p" scrollx="0" scrolly="-315">
    <BOUNDS type="Window" left="2505" top="840" width="17790" height="11880">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -51,11 +51,11 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="5" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="13485" top="2160" width="795" height="240">
+   <BOUNDS type="Box" left="13455" top="2160" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="13485" top="2160" width="0" height="0">
+   <BOUNDS type="Node" left="13455" top="2160" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="151">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="159">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -369,7 +369,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="9705" top="2160" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0,0">
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="1280,500">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -380,6 +380,8 @@
    <PIN pinname="Rows" slicecount="1" values="2">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="AOIXY">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="61" systemname="IOBox (Value Advanced)">
@@ -417,7 +419,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="5955" top="2160" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Vertical4X">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Disable">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Subsampling Y|">
    </PIN>

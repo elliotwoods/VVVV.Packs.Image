@@ -347,7 +347,40 @@ namespace VVVV.Nodes.OpenCV.IDS
             camStatus = cam.RopEffect.Set(uEye.Defines.RopEffectMode.UpDown, Enable);
         }
 
-        private void SetAoiWidth(int width)
+        public void SetAoi(int width, int height)
+        {
+            System.Drawing.Rectangle rect;
+
+            uEye.Types.Range<Int32> rangeWidth, rangeHeight;
+            camStatus = cam.Size.AOI.GetPosRange(out rangeWidth, out rangeHeight);
+
+            while ((width % rangeWidth.Increment) != 0)
+            {
+                --width;
+            }
+
+            while ((height % rangeHeight.Increment) != 0)
+            {
+                --height;
+            }
+
+            camStatus = cam.Size.AOI.Get(out rect);
+            rect.Width = width;
+            rect.Height = height;
+
+            camStatus = cam.Size.AOI.Set(rect);
+
+
+            // memory reallocation
+            Int32[] memList;
+            camStatus = cam.Memory.GetList(out memList);
+            camStatus = cam.Memory.Free(memList);
+            camStatus = cam.Memory.Allocate();
+
+        }
+
+
+        public void SetAoiWidth(int width)
         {
             System.Drawing.Rectangle rect;
 
@@ -373,7 +406,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         }
 
-        private void SetAoiHeight(int s32Value)
+        public void SetAoiHeight(int s32Value)
         {
             System.Drawing.Rectangle rect;
 
@@ -791,7 +824,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 		IDiffSpread<VVVV.Utils.VMath.Vector2D  > FResolution;
 
         [Input("AOI")]
-        IDiffSpread<VVVV.Utils.VMath.Vector2D> FAOI;
+        IDiffSpread<VVVV.Utils.VMath.Vector2D> FInAOI;
 
         [Input("Crop")]
         IDiffSpread<VVVV.Utils.VMath.Vector2D> FCrop;
@@ -896,12 +929,11 @@ namespace VVVV.Nodes.OpenCV.IDS
 
                         //FLogger.Log(LogType.Debug, "set subsampling of instance " + i + " to " + x + " | " + y);
 
-                        FProcessor[i].SetSubsampling(x, y);
-                        
+                        FProcessor[i].SetSubsampling(x, y);                      
                     }
             }
 
-            //// set binning
+            // set binning
             if ((FInBinningX.IsChanged || FInBinningY.IsChanged) && firstframe == false)
             {
                 for (int i = 0; i < InstanceCount; i++)
@@ -928,9 +960,18 @@ namespace VVVV.Nodes.OpenCV.IDS
                     }
             }
 
+            if (FInAOI.IsChanged  && firstframe == false)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                    if (FProcessor[i].Enabled)
+                    {
+                        FProcessor[i].SetAoi((int)FInAOI[i].x, (int)FInAOI[i].y);
+                        
+                    }
+                        
+            }
 
-
-            if (SpreadCountChanged || FInCamId.IsChanged)
+                if (SpreadCountChanged || FInCamId.IsChanged)
             {
                 for (int i = 0; i < InstanceCount; i++)
                     FProcessor[i].CamId = FInCamId[i];
