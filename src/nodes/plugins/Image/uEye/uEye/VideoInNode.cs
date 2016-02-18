@@ -743,6 +743,9 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Input("Subsampling Y", EnumName = "ESubsamplingY")]
         public IDiffSpread<EnumEntry> FInSubsamplingY;
 
+        [Input("Subsampling Y new", DefaultEnumEntry = "Disable")]
+        public IDiffSpread<SubsamplingMode> FInSubsamplingYnew;
+
         [Input("Format Id")]
         IDiffSpread<int> FInFormatId;
 
@@ -798,7 +801,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             // query Featuresets and update Enums
             if ((FPinInEnabled.IsChanged || SpreadCountChanged) && FPinInEnabled[0] /*&& firstframe == false*/)
             {
-                FLogger.Log(LogType.Debug, "query parameters");
+                FLogger.Log(LogType.Debug, "make query request");
                 queryRequest = true;
             }
 
@@ -807,7 +810,6 @@ namespace VVVV.Nodes.OpenCV.IDS
                 for (int i = 0; i < InstanceCount; i++)
                 {
                     if (FProcessor[i].camOpen)
-                        //if  (FProcessor[i].Enabled)
                     {
                         FLogger.Log(LogType.Debug, "query parameter for camera " + i);
                         FProcessor[i].QueryCameraCapabilities();

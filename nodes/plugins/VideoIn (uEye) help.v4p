@@ -35,7 +35,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="14715" top="2160" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -47,7 +47,7 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Enabled">
    </PIN>
-   <PIN pinname="X Input Value" slicecount="1" values="0">
+   <PIN pinname="X Input Value" slicecount="1" values="1">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="5" systemname="IOBox (Value Advanced)">
@@ -323,6 +323,8 @@
    </PIN>
    <PIN pinname="Binning X" visible="1">
    </PIN>
+   <PIN pinname="Subsampling Y new" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="4" srcpinname="Y Output Value" dstnodeid="50" dstpinname="Enabled">
    </LINK>
@@ -479,7 +481,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="5955" top="2160" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Disable">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Vertical2X">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Subsampling Y|">
    </PIN>
@@ -522,4 +524,20 @@
    </NODE>
    <LINK srcnodeid="66" srcpinname="Output Enum" dstnodeid="50" dstpinname="Binning X">
    </LINK>
+   <NODE nodename="IOBox (Enumerations)" componentmode="InABox" id="67" systemname="IOBox (Enumerations)">
+   <BOUNDS type="Box" left="6675" top="975" width="1590" height="270">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6675" top="975" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Horizontal5X">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="67" srcpinname="Output Enum" dstnodeid="50" dstpinname="Subsampling Y new">
+   </LINK>
+   <NODE systemname="Template (GUI Dynamic)" filename="%VVVV%\lib\nodes\plugins\TemplateGUIDynamic\DynamicGUITemplate.csproj" nodename="Template (GUI Dynamic)" componentmode="InAWindow" id="68">
+   <BOUNDS type="Node" left="12285" top="5340" width="100" height="100">
+   </BOUNDS>
+   <BOUNDS type="Window" left="3225" top="8070" width="7380" height="5025">
+   </BOUNDS>
+   </NODE>
    </PATCH>
