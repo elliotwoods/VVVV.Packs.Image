@@ -20,11 +20,11 @@ namespace VVVV.Nodes.OpenCV.IDS
         private Camera cam = null;
         private uEye.Defines.Status camStatus { get; set; }
 
-        public List<string> EBinningXNames = new List<string>();
-        public List<string> EBinningYNames = new List<string>();
+        public List<int> PossibleBinningX = new List<int>();
+        public List<int> PossibleBinningY = new List<int>();
 
-        public List<string> ESubsamplingXNames = new List<string>();
-        public List<string> ESubsamplingYNames = new List<string>();
+        public List<int> PossibleSubsamplingX = new List<int>();
+        public List<int> PossibleSubsamplingY = new List<int>();
 
 
         public bool camOpen = false;
@@ -448,90 +448,88 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void queryHorizontalBinning()
         {
-            EBinningXNames.Clear();
-            EBinningXNames.Add("Disable");
+            PossibleBinningX.Clear();
+            PossibleBinningX.Add(0);
 
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal2X))
-                EBinningXNames.Add( "Horizontal2X");
+                PossibleBinningX.Add(1);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal3X))
-                EBinningXNames.Add("Horizontal3X");
+                PossibleBinningX.Add(2);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal4X))
-                EBinningXNames.Add( "Horizontal4X");
+                PossibleBinningX.Add(3);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal5X))
-                EBinningXNames.Add( "Horizontal5X");
+                PossibleBinningX.Add(4);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal6X))
-                EBinningXNames.Add( "Horizontal6X");
+                PossibleBinningX.Add(5);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal8X))
-                EBinningXNames.Add( "Horizontal8X");
+                PossibleBinningX.Add(6);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Horizontal16X))
-                EBinningXNames.Add( "Horizontal16X");            
+                PossibleBinningX.Add(7);            
         }
 
         private void queryVerticalBinning()
         {
-            EBinningYNames.Clear();
-            EBinningYNames.Add("Disable");
+            PossibleBinningY.Clear();
+            PossibleBinningY.Add(0);
 
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical2X))
-                EBinningYNames.Add("Vertical2X");
+                PossibleBinningY.Add(1);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical3X))
-                EBinningYNames.Add("Vertical3X");
+                PossibleBinningY.Add(2);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical4X))
-                EBinningYNames.Add("Vertical4X");
+                PossibleBinningY.Add(3);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical5X))
-                EBinningYNames.Add("Vertical5X");
+                PossibleBinningY.Add(4);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical6X))
-                EBinningYNames.Add("Vertical6X");
+                PossibleBinningY.Add(5);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical8X))
-                EBinningYNames.Add("Vertical8X");
+                PossibleBinningY.Add(6);
             if (cam.Size.Binning.IsSupported(uEye.Defines.BinningMode.Vertical16X))
-                EBinningYNames.Add("Vertical16X");
+                PossibleBinningY.Add(7);
         }
 
         private void queryHorizontalSubsampling()
         {
-            ESubsamplingXNames.Clear();
-            ESubsamplingXNames.Add("Disable");
+            PossibleSubsamplingX.Clear();
+            PossibleSubsamplingX.Add(0);
 
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal2X))
-                ESubsamplingXNames.Add("Horizontal2X");
+                PossibleSubsamplingX.Add(1);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal3X))
-                ESubsamplingXNames.Add("Horizontal3X");
+                PossibleSubsamplingX.Add(2);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal4X))
-                ESubsamplingXNames.Add("Horizontal4X");
+                PossibleSubsamplingX.Add(3);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal5X))
-                ESubsamplingXNames.Add("Horizontal5X");
+                PossibleSubsamplingX.Add(4);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal6X))
-                ESubsamplingXNames.Add("Horizontal6X");
+                PossibleSubsamplingX.Add(5);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal8X))
-                ESubsamplingXNames.Add("Horizontal8X");
+                PossibleSubsamplingX.Add(6);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Horizontal16X))
-                ESubsamplingXNames.Add("Horizontal16X");
+                PossibleSubsamplingX.Add(7);
         }
 
         private void queryVerticalSubsampling()
         {
-            ESubsamplingYNames.Clear();
-            ESubsamplingYNames.Add("Disable");
+            PossibleSubsamplingY.Clear();
+            PossibleSubsamplingY.Add(0);
 
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical2X))
-                ESubsamplingYNames.Add("Vertical2X");
+                PossibleSubsamplingY.Add(1);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical3X))
-                ESubsamplingYNames.Add("Vertical3X");
+                PossibleSubsamplingY.Add(2);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical4X))
-                ESubsamplingYNames.Add("Vertical4X");
+                PossibleSubsamplingY.Add(3);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical5X))
-                ESubsamplingYNames.Add("Vertical5X");
+                PossibleSubsamplingY.Add(4);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical6X))
-                ESubsamplingYNames.Add("Vertical6X");
+                PossibleSubsamplingY.Add(5);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical8X))
-                ESubsamplingYNames.Add("Vertical8X");
+                PossibleSubsamplingY.Add(6);
             if (cam.Size.Subsampling.IsSupported(uEye.Defines.SubsamplingMode.Vertical16X))
-                ESubsamplingYNames.Add("Vertical16X");
+                PossibleSubsamplingY.Add(7);
         }
 
-
-        
 
         private void updateVerticalBinning()
         {
@@ -579,8 +577,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             Int32 s32Factor;
             camStatus = cam.Size.Binning.GetFactorVertical(out s32Factor);
         }
-
-        
+      
         private void updateVerticalSubsampling()
         {
             // vertical Subsampling
@@ -720,8 +717,52 @@ namespace VVVV.Nodes.OpenCV.IDS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public enum BinningYMode
+    {
+        Disable,
+        Vertical2X,
+        Vertical3X,
+        Vertical4X,
+        Vertical5X,
+        Vertical6X,
+        Vertical8X,
+        Vertical16X
+    }
 
+    public enum BinningXMode
+    {
+        Disable,
+        Horizontal2X,
+        Horizontal3X,
+        Horizontal4X,
+        Horizontal5X,
+        Horizontal6X,
+        Horizontal8X,
+        Horizontal16X
+    }
+    public enum SubsamplingYMode
+    {
+        Disable,
+        Vertical2X,
+        Vertical3X,
+        Vertical4X,
+        Vertical5X,
+        Vertical6X,
+        Vertical8X,
+        Vertical16X
+    }
 
+    public enum SubsamplingXMode     
+    {
+        Disable,
+        Horizontal2X,
+        Horizontal3X,
+        Horizontal4X,
+        Horizontal5X,
+        Horizontal6X,
+        Horizontal8X,
+        Horizontal16X
+    }
 
     #region PluginInfo
     [PluginInfo(Name = "VideoIn", Category = "uEye", Help = "Capture from camera devices", Tags = "", AutoEvaluate = true)]
@@ -731,20 +772,17 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Input("Camera Id")]
         IDiffSpread<int> FInCamId;
 
-        [Input("Binning X", EnumName = "EBinningX")]
-        public IDiffSpread<EnumEntry> FInBinningX;
+        [Input("Binning X", DefaultEnumEntry = "Disable")]
+        public IDiffSpread<BinningXMode> FInBinningX;
 
-        [Input("Binning Y", EnumName = "EBinningY")]
-        public IDiffSpread<EnumEntry> FInBinningY;
+        [Input("Binning Y", DefaultEnumEntry = "Disable")]
+        public IDiffSpread<BinningYMode> FInBinningY;
 
-        [Input("Subsampling X", EnumName = "ESubsamplingX")]
-        public IDiffSpread<EnumEntry> FInSubsamplingX;
+        [Input("Subsampling X", DefaultEnumEntry = "Disable")]
+        public IDiffSpread<SubsamplingXMode> FInSubsamplingX;
 
-        [Input("Subsampling Y", EnumName = "ESubsamplingY")]
-        public IDiffSpread<EnumEntry> FInSubsamplingY;
-
-        [Input("Subsampling Y new", DefaultEnumEntry = "Disable")]
-        public IDiffSpread<SubsamplingMode> FInSubsamplingYnew;
+        [Input("Subsampling Y", DefaultEnumEntry = "Disable")]
+        public IDiffSpread<SubsamplingYMode> FInSubsamplingY;
 
         [Input("Format Id")]
         IDiffSpread<int> FInFormatId;
@@ -758,9 +796,6 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Input("Crop")]
         IDiffSpread<VVVV.Utils.VMath.Vector2D> FCrop;
 
-        //[Input("Format")]
-        //IDiffSpread<uEye.Types.ImageFormatInfo> FColorMode;
-
         [Input("Color Mode")]
 		IDiffSpread<uEye.Defines.ColorMode> FColorMode;
 
@@ -769,6 +804,18 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         [Output("Framerate Range")]
         ISpread<VVVV.Utils.VMath.Vector2D> FOutFramerateRange;
+
+        [Output("supported  Binning X")]
+        ISpread<ISpread<string>> FOutBinningXModes;
+
+        [Output("supported  Binning Y")]
+        ISpread<ISpread<string>> FOutBinningYModes;
+
+        [Output("supported  Subsampling X")]
+        ISpread<ISpread<string>> FOutSubsamplingXModes;
+
+        [Output("supported  Subsampling Y")]
+        ISpread<ISpread<string>> FOutSubsamplingYModes;
 
         [Output("available Formats")]
         ISpread<ISpread<string>> FOutFormats;
@@ -780,26 +827,10 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         bool queryRequest = false;
 
-        [ImportingConstructor]
-        public VideoInNode()
-        {
-            var bx = new string[] { "Disable" };
-            EnumManager.UpdateEnum("EBinningX", "Disable", bx);
-            EnumManager.UpdateEnum("EBinningY", "Disable", bx);
-
-            EnumManager.UpdateEnum("ESubsamplingX", "Disable", bx);
-            EnumManager.UpdateEnum("ESubsamplingY", "Disable", bx);
-        }
-
-        void updatePinEnum(string enumName, string[] entries)
-        {
-            EnumManager.UpdateEnum(enumName, entries[0], entries);
-        }
-
         override protected void Update(int InstanceCount, bool SpreadCountChanged)
-		{
-            // query Featuresets and update Enums
-            if ((FPinInEnabled.IsChanged || SpreadCountChanged) && FPinInEnabled[0] /*&& firstframe == false*/)
+		{         
+            // query Featuresets
+            if ((FPinInEnabled.IsChanged || SpreadCountChanged) && FPinInEnabled[0] )
             {
                 FLogger.Log(LogType.Debug, "make query request");
                 queryRequest = true;
@@ -807,6 +838,11 @@ namespace VVVV.Nodes.OpenCV.IDS
 
             if (queryRequest)
             {
+                FOutSubsamplingXModes.SliceCount = InstanceCount;
+                FOutSubsamplingYModes.SliceCount = InstanceCount;
+                FOutBinningXModes.SliceCount = InstanceCount;
+                FOutBinningYModes.SliceCount = InstanceCount;
+
                 for (int i = 0; i < InstanceCount; i++)
                 {
                     if (FProcessor[i].camOpen)
@@ -814,31 +850,28 @@ namespace VVVV.Nodes.OpenCV.IDS
                         FLogger.Log(LogType.Debug, "query parameter for camera " + i);
                         FProcessor[i].QueryCameraCapabilities();
 
-                        EnumManager.UpdateEnum("EBinningX", FProcessor[i].EBinningXNames[0], FProcessor[i].EBinningXNames.ToArray());
-                        EnumManager.UpdateEnum("EBinningY", FProcessor[i].EBinningYNames[0], FProcessor[i].EBinningYNames.ToArray());
+                        FOutSubsamplingXModes[i].SliceCount = FProcessor[i].PossibleSubsamplingX.Count;
+                        FOutSubsamplingYModes[i].SliceCount = FProcessor[i].PossibleSubsamplingY.Count;
+                        FOutBinningXModes[i].SliceCount = FProcessor[i].PossibleSubsamplingY.Count;
+                        FOutBinningYModes[i].SliceCount = FProcessor[i].PossibleSubsamplingY.Count;
 
-                        EnumManager.UpdateEnum("ESubsamplingX", FProcessor[i].ESubsamplingXNames[0], FProcessor[i].ESubsamplingXNames.ToArray());
-                        EnumManager.UpdateEnum("ESubsamplingY", FProcessor[i].ESubsamplingYNames[0], FProcessor[i].ESubsamplingYNames.ToArray());
+
+                        for (int m = 0; m < FProcessor[i].PossibleSubsamplingX.Count; m++)
+                            FOutSubsamplingXModes[i][m] = Enum.GetName(typeof(SubsamplingXMode), m);
+
+                        for (int m = 0; m < FProcessor[i].PossibleSubsamplingY.Count; m++)
+                            FOutSubsamplingYModes[i][m] = Enum.GetName(typeof(SubsamplingYMode), m);
+
+                        for (int m = 0; m < FProcessor[i].PossibleBinningX.Count; m++)
+                            FOutBinningXModes[i][m] = Enum.GetName(typeof(BinningXMode), m);
+
+                        for (int m = 0; m < FProcessor[i].PossibleBinningY.Count; m++)
+                            FOutBinningYModes[i][m] = Enum.GetName(typeof(BinningYMode), m);
 
                         queryRequest = false;
                     }
                 }
-
-                
-            }
-
-            // set binning
-            if ((FInBinningX.IsChanged  || FInBinningY.IsChanged) && firstframe == false)
-            {
-                for (int i = 0; i < InstanceCount; i++)
-                    if (FProcessor[i].Enabled)
-                    {
-                        if (FInBinningX.IsChanged || FInBinningY.IsChanged)
-                        {
-                            FProcessor[i].SetBinning(FInBinningX[i].Name, FInBinningY[i].Name);
-                        }
-                    }
-            }
+            }            
 
             // set subsampling
             if ((FInSubsamplingX.IsChanged || FInSubsamplingY.IsChanged) && firstframe == false)
@@ -846,19 +879,55 @@ namespace VVVV.Nodes.OpenCV.IDS
                 for (int i = 0; i < InstanceCount; i++)
                     if (FProcessor[i].Enabled)
                     {
-                        if (FInSubsamplingX.IsChanged || FInSubsamplingY.IsChanged)
+                        string x = FInSubsamplingX[i].ToString();
+                        string y = FInSubsamplingY[i].ToString();
+
+                        if (!FProcessor[i].PossibleSubsamplingX.Contains((int)FInSubsamplingX[i]) )
                         {
-                            FProcessor[i].SetSubsampling(FInSubsamplingX[i].Name, FInSubsamplingY[i].Name);
+                            FLogger.Log(LogType.Debug, FInSubsamplingX[i].ToString() + " is not supported");
+                            x = "Disable";
+                        }                           
+
+                        if (!FProcessor[i].PossibleSubsamplingY.Contains((int)FInSubsamplingY[i]))
+                        {
+                            FLogger.Log(LogType.Debug, FInSubsamplingY[i].ToString() + " is not supported");
+                            y = "Disable";
                         }
+
+                        //FLogger.Log(LogType.Debug, "set subsampling of instance " + i + " to " + x + " | " + y);
+
+                        FProcessor[i].SetSubsampling(x, y);
+                        
                     }
             }
 
+            //// set binning
+            if ((FInBinningX.IsChanged || FInBinningY.IsChanged) && firstframe == false)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                    if (FProcessor[i].Enabled)
+                    {
+                        string x = FInBinningX[i].ToString();
+                        string y = FInBinningY[i].ToString();
 
-            
+                        if (!FProcessor[i].PossibleBinningX.Contains((int)FInBinningX[i]))
+                        {
+                            FLogger.Log(LogType.Debug, FInBinningX[i].ToString() + " is not supported");
+                            x = "Disable";
+                        }
 
-            
+                        if (!FProcessor[i].PossibleBinningY.Contains((int)FInBinningY[i]))
+                        {
+                            FLogger.Log(LogType.Debug, FInBinningY[i].ToString() + " is not supported");
+                            y = "Disable";
+                        }
 
-            
+                        //FLogger.Log(LogType.Debug, "set subsampling of instance " + i + " to " + x + " | " + y);
+
+                        FProcessor[i].SetBinning(x, y);
+                    }
+            }
+
 
 
             if (SpreadCountChanged || FInCamId.IsChanged)
