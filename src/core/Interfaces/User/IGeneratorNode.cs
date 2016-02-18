@@ -11,7 +11,7 @@ namespace VVVV.CV.Core
 		private IDiffSpread<int> FPinInTimestampDelay;
 
 		[Input("Enabled", DefaultValue=0)]
-		private IDiffSpread<bool> FPinInEnabled;
+		public IDiffSpread<bool> FPinInEnabled;
 
 		[Output("Output", Order = -1)]
 		private ISpread<CVImageLink> FPinOutOutput;
