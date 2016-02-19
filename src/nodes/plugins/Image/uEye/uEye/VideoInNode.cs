@@ -26,8 +26,6 @@ namespace VVVV.Nodes.OpenCV.IDS
         public List<int> PossibleSubsamplingX = new List<int>();
         public List<int> PossibleSubsamplingY = new List<int>();
 
-        //private Rectangle AOI;
-
         public VVVV.Utils.VMath.Vector2D framerateRange { get; set; }
 
         public bool checkParams = false;
@@ -48,19 +46,6 @@ namespace VVVV.Nodes.OpenCV.IDS
 }
         }
         
-
-
-        // colorMode
-        private ColorMode FColorMode;
-		public ColorMode ColorMode
-		{
-			set
-			{
-				FColorMode = value;
-				Restart();
-			}
-		}
-
 
 
         public override bool Open()
@@ -353,32 +338,23 @@ namespace VVVV.Nodes.OpenCV.IDS
             while ((top % rangePosY.Increment) != 0)
                 --top;
 
-            //camStatus = cam.Size.AOI.Get(out rect);
-
-            //rect.Width = width;
-            //rect.Height = height;
-
-            //rect.X = left;
-            //rect.Y = top;
 
             camStatus = cam.Size.AOI.Set(left, top, width, height);
 
-            //camStatus = cam.Size.AOI.Set(rect);
-
-
-            //// memory reallocation
-            //Int32[] memList;
-            //camStatus = cam.Memory.GetList(out memList);
-            //camStatus = cam.Memory.Free(memList);
-            //camStatus = cam.Memory.Allocate();
-
             configureOutput();
-
         }
 
         public void SetFrameRate(double fps)
         {
             camStatus = cam.Timing.Framerate.Set(fps);
+        }
+
+        public void setColorMode(ColorMode mode)
+        {
+            camStatus = cam.PixelFormat.Set(mode);
+
+            Restart();
+            //configureOutput();
         }
 
         #endregion setParameters
@@ -573,11 +549,11 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Input("Subsampling Y", DefaultEnumEntry = "Disable")]
         public IDiffSpread<SubsamplingYMode> FInSubsamplingY;
        
-        [Input("mirror Horizontal")]
-        IDiffSpread<bool> mirrorHorizontal;
+        [Input("Mirror X")]
+        IDiffSpread<bool> FInMirrorX;
 
-        [Input("mirror Vertical")]
-        IDiffSpread<bool> mirrorVertical;
+        [Input("Mirror Y")]
+        IDiffSpread<bool> FInMirrorY;
 
         [Input("Format Id")]
         IDiffSpread<int> FInFormatId;
@@ -612,9 +588,6 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Output("supported  Subsampling Y")]
         ISpread<ISpread<string>> FOutSubsamplingYModes;
 
-        [Output("available Formats")]
-        ISpread<ISpread<string>> FOutFormats;
-
         [Import()]
         public ILogger FLogger;
 
@@ -631,7 +604,6 @@ namespace VVVV.Nodes.OpenCV.IDS
             FOutBinningXModes.SliceCount = InstanceCount;
             FOutBinningYModes.SliceCount = InstanceCount;
 
-            FOutFormats.SliceCount = InstanceCount;
             FOutFramerateRange.SliceCount = InstanceCount;
 
             for (int i = 0; i < InstanceCount; i++)
@@ -641,6 +613,7 @@ namespace VVVV.Nodes.OpenCV.IDS
                     setBinning(i);
                     setSubsampling(i);
                     setAOI(i);
+                    setFramerate(i);
 
                     FProcessor[i].checkParams = false;
                 }
@@ -657,10 +630,12 @@ namespace VVVV.Nodes.OpenCV.IDS
                     if (FProcessor[i].camOpen)
                     {
                         queryFeatures(InstanceCount, i);
+                        queryFramerateRange(i);
                         queryRequest = false;  // that's not so cool to be lazy here
                     }
                 }
-                    
+              
+                      
             }
 
             // set subsampling
@@ -691,18 +666,31 @@ namespace VVVV.Nodes.OpenCV.IDS
                     setFramerate(i);
             }
 
+            // set mirroring
+            if (FInMirrorX.IsChanged)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                    if (FProcessor[i].Enabled) FProcessor[i].mirrorHorizontal(FInMirrorX[i]);
+            }
 
+            if (FInMirrorY.IsChanged)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                    if (FProcessor[i].Enabled) FProcessor[i].mirrorVertical(FInMirrorY[i]);
+            }
+
+            // set camId
             if (SpreadCountChanged || FInCamId.IsChanged)
             {
                 for (int i = 0; i < InstanceCount; i++)
                     FProcessor[i].CamId = FInCamId[i];
             }
           
-
+            // set Colormode
 			if (SpreadCountChanged || FColorMode.IsChanged)
 			{
 				for (int i = 0; i < InstanceCount; i++)
-					FProcessor[i].ColorMode = FColorMode[i];
+                    if (FProcessor[i].Enabled)  FProcessor[i].setColorMode(FColorMode[i]);
 			}
 
 
@@ -713,8 +701,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 for (int i = 0; i < InstanceCount; i++)
                 {
-                    FProcessor[i].queryFramerate();
-                    FOutFramerateRange[i] = FProcessor[i].framerateRange;
+                    queryFramerateRange(i);
                 }
             }
 
@@ -724,6 +711,11 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         }
 
+        private void queryFramerateRange(int instanceId)
+        {
+            FProcessor[instanceId].queryFramerate();
+            FOutFramerateRange[instanceId] = FProcessor[instanceId].framerateRange;
+        }
 
         private void setSubsampling(int instanceId)
         {
