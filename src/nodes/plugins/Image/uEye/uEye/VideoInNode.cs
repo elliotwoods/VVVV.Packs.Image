@@ -26,6 +26,8 @@ namespace VVVV.Nodes.OpenCV.IDS
         public List<int> PossibleSubsamplingX = new List<int>();
         public List<int> PossibleSubsamplingY = new List<int>();
 
+        //private Rectangle AOI;
+
         public VVVV.Utils.VMath.Vector2D framerateRange { get; set; }
 
         public bool checkParams = false;
@@ -47,51 +49,6 @@ namespace VVVV.Nodes.OpenCV.IDS
         }
         
 
-        // Resolution
-        private uEye.Types.Size<int> MaxSize { get; set; }
-        private VVVV.Utils.VMath.Vector2D FResolution;
-        public VVVV.Utils.VMath.Vector2D Resolution
-        {
-            set
-            {
-                FResolution = value;
-                Restart();
-            }
-        }
-
-        // Formats - ~ Resolution
-        private int ResX = 640;
-        private int ResY = 480;
-        public ImageFormatInfo[] FormatInfoList;
-        private int FFormat = 0;
-        public int Format
-        {
-            set
-            {
-                FFormat = value;
-
-                setFormat(FFormat);
-            }
-        }
-
-        private void setFormat(int id)
-        {
-            if (camOpen)
-            {
-                ResX = FormatInfoList[FFormat].Size.Width;
-                ResY = FormatInfoList[FFormat].Size.Height;
-
-                //cam.EventFrame -= onFrameEvent;
-                Restart();
-            }
-
-            //setFormat(FFormat);
-            //ReAllocate();
-            //Restart();
-        }
-
-        
-
 
         // colorMode
         private ColorMode FColorMode;
@@ -109,25 +66,25 @@ namespace VVVV.Nodes.OpenCV.IDS
         public override bool Open()
 		{
 
-            //Note on multi-camera environments
-            //When using multiple cameras in parallel operation on a single system, you should 
-            //assign a unique camera ID to each camera.To initialize or select a camera with 
-            //Init(), s32Cam must previously have been set to the desired camera ID.
-            //To initialize or select the next available camera without specifying a camera ID, 
-            //s32Cam has to be preset with 0.
+            /*
+            Note on multi - camera environments
+            When using multiple cameras in parallel operation on a single system, you should
+            assign a unique camera ID to each camera.To initialize or select a camera with
+            Init(), s32Cam must previously have been set to the desired camera ID.
+            To initialize or select the next available camera without specifying a camera ID,
+            s32Cam has to be preset with 0.
+            */
 
             try
-			{
+            {
                 cam = new Camera();
+
+                //initCam();
                 camStatus = cam.Init(FCamId);
 
-                // format
-                camStatus = cam.PixelFormat.Set(FColorMode);
+                
 
-                uEye.Defines.ColorMode pixFormat;
-                camStatus = cam.PixelFormat.Get(out pixFormat);
-
-                camStatus = cam.Size.ImageFormat.Set((uint)FFormat);
+                configureOutput();
 
                 // start capturee
                 camStatus = cam.Memory.Allocate();
@@ -136,47 +93,60 @@ namespace VVVV.Nodes.OpenCV.IDS
                 // query infos
                 QueryCameraCapabilities();
 
-
-                int bpp;
-                camStatus = cam.PixelFormat.GetBytesPerPixel(out bpp);
-
-                uEye.Types.ImageInfo info;
-                camStatus = cam.Information.GetImageInfo(0, out info);
-
-                uEye.Types.SensorInfo si;
-                camStatus = cam.Information.GetSensorInfo(out si);
-
-                MaxSize = si.MaxSize;
-
-                TColorFormat format = GetColor(pixFormat);
-
-
-                ImageFormatInfo[] fil;
-                cam.Size.ImageFormat.GetList(out fil);
-                FormatInfoList = fil;
-
-                ResX = FormatInfoList[FFormat].Size.Width;
-                ResY = FormatInfoList[FFormat].Size.Height;
-                // init Output 
-                FOutput.Image.Initialise(MaxSize.Width, MaxSize.Height, format);
-                //FOutput.Image.Initialise(ResX, ResY, format);
-
                 // attach Event
                 cam.EventFrame += onFrameEvent;
+
+
 
                 camOpen = true;
 
                 checkParams = true;
 
                 Status = "OK";
-				return true;
-			}
-			catch (Exception e)
+                return true;
+            }
+            catch (Exception e)
 			{
 				Status = e.Message;
 				return false;
 			}
 		}
+
+
+        private void configureOutput()
+        {
+            cam.EventFrame -= onFrameEvent;
+
+            // memory reallocation
+            Int32[] memList;
+            camStatus = cam.Memory.GetList(out memList);
+            camStatus = cam.Memory.Free(memList);
+            camStatus = cam.Memory.Allocate();
+
+            int height;
+            int width;
+
+            int bpp;
+            camStatus = cam.PixelFormat.GetBytesPerPixel(out bpp);
+
+            int MemID;
+            camStatus = cam.Memory.GetActive(out MemID);
+
+            uEye.Defines.ColorMode pixFormat;
+            camStatus = cam.PixelFormat.Get(out pixFormat);
+
+            TColorFormat format = GetColor(pixFormat);
+
+            camStatus = cam.Memory.GetSize(MemID, out width, out height);
+
+            Rectangle a;
+            camStatus = cam.Size.AOI.Get(out a);
+
+            //FOutput.Image.Initialise(width, height, format);
+            FOutput.Image.Initialise(a.Width, a.Height, format);
+            
+            cam.EventFrame += onFrameEvent;
+        }
 
         public override void Close()
         {
@@ -210,19 +180,11 @@ namespace VVVV.Nodes.OpenCV.IDS
                 int s32MemId;
                 camObject.Memory.GetLast(out s32MemId);
 
+                int w, h;
+                camObject.Memory.GetSize(s32MemId, out w, out h);
 
-                // image size differs from format????
-                ImageInfo iii;
-                camObject.Information.GetImageInfo(s32MemId, out iii);
-
-                int h;
-                int w;
-                camObject.Memory.GetHeight(s32MemId, out h);
-                camObject.Memory.GetWidth(s32MemId, out w);
-
-                int _x, _y, _b, _p;
-                camObject.Memory.Inquire(s32MemId, out _x, out _y, out _b, out _p);
-                //camObject.Memory.Inquire(FFormat, out _x, out _y, out _b, out _p);
+                //int s32Factor;
+                //camObject.Size.Subsampling.GetFactorVertical(out s32Factor);
 
                 //copy to FOutput
                 IntPtr memPtr;
@@ -234,7 +196,78 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         }
 
-        
+
+        private TColorFormat GetColor(uEye.Defines.ColorMode color)
+        {
+            switch (color)
+            {
+                case uEye.Defines.ColorMode.Mono8:
+                    return TColorFormat.L8;
+
+                case uEye.Defines.ColorMode.Mono16:
+                    return TColorFormat.L16;
+
+                case uEye.Defines.ColorMode.RGB8Packed:
+                case uEye.Defines.ColorMode.RGB8Planar:
+                case uEye.Defines.ColorMode.BGR8Packed:
+                    return TColorFormat.RGB8;
+
+                case uEye.Defines.ColorMode.RGBA8Packed:
+                case uEye.Defines.ColorMode.BGRA8Packed:
+                    return TColorFormat.RGBA8;
+
+                default:
+                    throw (new Exception("Color mode unsupported"));
+            }
+        }
+
+
+        protected unsafe override void Generate()
+        {
+            //IntPtr mem;
+            //cam.Memory.GetActive(out mem);
+            //bool started;
+            //cam.Acquisition.HasStarted(out started);
+            //if (cam.IsOpened && started)
+            //{
+            //    int s32MemId;
+            //    cam.Memory.GetLast(out s32MemId);
+            //    IntPtr memPtr;
+            //    cam.Memory.ToIntPtr(out memPtr);
+            //    cam.Memory.CopyImageMem(memPtr, s32MemId, FOutput.Data);
+
+            //    FOutput.Send();
+            //}
+
+            // how to copy the ptr to smth. like FOutput.Data ???
+
+            //ImageUtils.CopyMemory(pt, mem, (uint)(FResolution.x * FResolution.y));
+            //ImageUtils.CopyImage(mem, FOutput.Image);
+
+            //if (FParameterChange)
+            //    SetParameters();
+
+            //FCamera.getPixels(FOutput.Data, 100);
+
+            //if (FOutput.Image.NativeFormat == TColorFormat.RGBA8)
+            //    SetAlphaChannel();
+
+
+        }
+
+        // why add always an alpha channel? does the output need to be rgba?
+        private unsafe void SetAlphaChannel()
+        {
+            byte* data = (byte*)FOutput.Data.ToPointer() + 3;
+
+            int count = FOutput.Image.Width * FOutput.Image.Height;
+            for (int i = 0; i < count; i++)
+            {
+                *data = 255;
+                data += 4;
+            }
+        }
+
 
         public void QueryCameraCapabilities()
         {
@@ -269,6 +302,12 @@ namespace VVVV.Nodes.OpenCV.IDS
 
             if (camOpen)
                 camStatus = cam.Size.Binning.Set(modeX | modeY);
+            else
+            {
+                camStatus = cam.Size.Binning.Set(modeX | modeY);
+            }
+
+            configureOutput();
         }
 
         public void SetSubsampling(string subsamplingX, string subsamplingY)
@@ -278,6 +317,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 
             if (camOpen)
                 camStatus = cam.Size.Subsampling.Set(modeX | modeY);
+
+            configureOutput();
         }
 
         public void mirrorHorizontal(bool Enable)
@@ -325,11 +366,13 @@ namespace VVVV.Nodes.OpenCV.IDS
             //camStatus = cam.Size.AOI.Set(rect);
 
 
-            // memory reallocation
-            Int32[] memList;
-            camStatus = cam.Memory.GetList(out memList);
-            camStatus = cam.Memory.Free(memList);
-            camStatus = cam.Memory.Allocate();
+            //// memory reallocation
+            //Int32[] memList;
+            //camStatus = cam.Memory.GetList(out memList);
+            //camStatus = cam.Memory.Free(memList);
+            //camStatus = cam.Memory.Allocate();
+
+            configureOutput();
 
         }
 
@@ -443,76 +486,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
 
 
-        private TColorFormat GetColor(uEye.Defines.ColorMode color)
-		{
-			switch(color)
-			{
-                case uEye.Defines.ColorMode.Mono8:
-                    return TColorFormat.L8;
-
-                case uEye.Defines.ColorMode.Mono16:
-                    return TColorFormat.L16;
-
-                case uEye.Defines.ColorMode.RGB8Packed:
-                case uEye.Defines.ColorMode.RGB8Planar:
-                case uEye.Defines.ColorMode.BGR8Packed:
-                    return TColorFormat.RGB8;
-
-                case uEye.Defines.ColorMode.RGBA8Packed:
-                case uEye.Defines.ColorMode.BGRA8Packed:
-                    return TColorFormat.RGBA8;
-
-				default:
-					throw (new Exception("Color mode unsupported"));
-			}
-		}
-
-
-		protected unsafe override void Generate()
-		{
-            //IntPtr mem;
-            //cam.Memory.GetActive(out mem);
-            //bool started;
-            //cam.Acquisition.HasStarted(out started);
-            //if (cam.IsOpened && started)
-            //{
-            //    int s32MemId;
-            //    cam.Memory.GetLast(out s32MemId);
-            //    IntPtr memPtr;
-            //    cam.Memory.ToIntPtr(out memPtr);
-            //    cam.Memory.CopyImageMem(memPtr, s32MemId, FOutput.Data);
-
-            //    FOutput.Send();
-            //}
-
-            // how to copy the ptr to smth. like FOutput.Data ???
-
-            //ImageUtils.CopyMemory(pt, mem, (uint)(FResolution.x * FResolution.y));
-            //ImageUtils.CopyImage(mem, FOutput.Image);
-
-            //if (FParameterChange)
-            //    SetParameters();
-
-            //FCamera.getPixels(FOutput.Data, 100);
-
-            //if (FOutput.Image.NativeFormat == TColorFormat.RGBA8)
-            //    SetAlphaChannel();
-
-            
-        }
-
-        // why add always an alpha channel? does the output need to be rgba?
-        private unsafe void SetAlphaChannel()
-		{	
-			byte* data = (byte*) FOutput.Data.ToPointer() + 3;
-
-			int count = FOutput.Image.Width * FOutput.Image.Height;
-			for (int i = 0; i < count; i++)
-			{
-				*data = 255;
-				data += 4;
-			}
-		}
+        
 	}
 
 
@@ -723,12 +697,7 @@ namespace VVVV.Nodes.OpenCV.IDS
                 for (int i = 0; i < InstanceCount; i++)
                     FProcessor[i].CamId = FInCamId[i];
             }
-
-            if (SpreadCountChanged || FInFormatId.IsChanged)
-            {
-                for (int i = 0; i < InstanceCount; i++)
-                    FProcessor[i].Format = FInFormatId[i];
-            }            
+          
 
 			if (SpreadCountChanged || FColorMode.IsChanged)
 			{
@@ -835,10 +804,10 @@ namespace VVVV.Nodes.OpenCV.IDS
 
 
                 for (int m = 0; m < FProcessor[instanceId].PossibleSubsamplingX.Count; m++)
-                    FOutSubsamplingXModes[instanceId][m] = Enum.GetName(typeof(SubsamplingXMode), m);
+                    FOutSubsamplingXModes[instanceId][m] = Enum.GetName(typeof(SubsamplingXMode), FProcessor[instanceId].PossibleSubsamplingX[m]);
 
                 for (int m = 0; m < FProcessor[instanceId].PossibleSubsamplingY.Count; m++)
-                    FOutSubsamplingYModes[instanceId][m] = Enum.GetName(typeof(SubsamplingYMode), m);
+                    FOutSubsamplingYModes[instanceId][m] = Enum.GetName(typeof(SubsamplingYMode), FProcessor[instanceId].PossibleSubsamplingY[m]);
 
                 for (int m = 0; m < FProcessor[instanceId].PossibleBinningX.Count; m++)
                     FOutBinningXModes[instanceId][m] = Enum.GetName(typeof(BinningXMode), m);

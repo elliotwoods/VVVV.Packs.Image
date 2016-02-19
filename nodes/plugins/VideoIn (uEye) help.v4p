@@ -55,7 +55,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="15960" top="2205" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="159">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="60">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -239,9 +239,9 @@
    <LINK srcnodeid="26" srcpinname="Framerate fps" dstnodeid="27" dstpinname="Y Input Value">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="42" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="2055" top="6000" width="795" height="480">
+   <BOUNDS type="Box" left="2295" top="5970" width="795" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="2055" top="6000" width="0" height="0">
+   <BOUNDS type="Node" left="2295" top="5970" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -333,7 +333,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="13470" top="2205" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0,0">
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="230,260">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -345,13 +345,17 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="CropXY">
    </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="2" values="0,0">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="60" systemname="IOBox (Value Advanced)">
    <BOUNDS type="Box" left="12210" top="2205" width="795" height="480">
    </BOUNDS>
    <BOUNDS type="Node" left="12210" top="2205" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="1280,327">
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="512,512">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -387,7 +391,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="5955" top="2205" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Disable">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Vertical2X">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Subsampling Y|">
    </PIN>
@@ -397,7 +401,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="4695" top="2205" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Disable">
+   <PIN pinname="Input Enum" slicecount="1" visible="1" values="Horizontal2X">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Subsampling X|">
    </PIN>
