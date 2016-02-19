@@ -1,5 +1,5 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
-   <PATCH nodename="C:\vvvv\vvvv_45beta34.2_x86\packs\VVVV.Packs.Image\nodes\plugins\VideoIn (uEye) help.v4p" scrollx="0" scrolly="-360">
+   <PATCH nodename="C:\vvvv\vvvv_45beta34.2_x86\packs\VVVV.Packs.Image\nodes\plugins\VideoIn (uEye) help.v4p" scrollx="0" scrolly="0">
    <BOUNDS type="Window" left="0" top="0" width="20985" height="15285">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
@@ -243,9 +243,9 @@
    <LINK srcnodeid="26" srcpinname="Framerate fps" dstnodeid="27" dstpinname="Y Input Value">
    </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="42" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="2595" top="5970" width="795" height="480">
+   <BOUNDS type="Box" left="2130" top="6000" width="795" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="2595" top="5970" width="0" height="0">
+   <BOUNDS type="Node" left="2130" top="6000" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -461,6 +461,14 @@
    </PIN>
    <PIN pinname="Mirror X" visible="1">
    </PIN>
+   <PIN pinname="AOI Width Min/MaxXY" visible="1">
+   </PIN>
+   <PIN pinname="AOI Height Min/MaxXY" visible="1">
+   </PIN>
+   <PIN pinname="AOI CropX Min/MaxXY" visible="1">
+   </PIN>
+   <PIN pinname="AOI CropY Min/MaxXY" visible="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="4" srcpinname="Y Output Value" dstnodeid="70" dstpinname="Enabled">
    </LINK>
@@ -509,9 +517,9 @@
    <LINK srcnodeid="66" srcpinname="Output Enum" dstnodeid="70" dstpinname="Binning X">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="71" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="13980" top="3855" width="1185" height="2280">
+   <BOUNDS type="Box" left="10245" top="3855" width="1185" height="2280">
    </BOUNDS>
-   <BOUNDS type="Node" left="13980" top="3855" width="0" height="0">
+   <BOUNDS type="Node" left="10245" top="3855" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -529,9 +537,9 @@
    <LINK srcnodeid="70" srcpinname="supported  Subsampling Y" dstnodeid="71" dstpinname="Input String">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="73" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="10740" top="3855" width="1185" height="2280">
+   <BOUNDS type="Box" left="7905" top="3855" width="1185" height="2280">
    </BOUNDS>
-   <BOUNDS type="Node" left="10740" top="3855" width="0" height="0">
+   <BOUNDS type="Node" left="7905" top="3855" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -549,9 +557,9 @@
    <LINK srcnodeid="70" srcpinname="supported  Subsampling X" dstnodeid="73" dstpinname="Input String">
    </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="75" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="7440" top="3855" width="1185" height="2280">
+   <BOUNDS type="Box" left="5595" top="3855" width="1185" height="2280">
    </BOUNDS>
-   <BOUNDS type="Node" left="7440" top="3855" width="0" height="0">
+   <BOUNDS type="Node" left="5595" top="3855" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -567,9 +575,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="74" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="4200" top="3855" width="1185" height="2280">
+   <BOUNDS type="Box" left="3255" top="3855" width="1185" height="2280">
    </BOUNDS>
-   <BOUNDS type="Node" left="4200" top="3855" width="0" height="0">
+   <BOUNDS type="Node" left="3255" top="3855" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -697,7 +705,7 @@
    </BOUNDS>
    <BOUNDS type="Node" left="11835" top="720" width="0" height="0">
    </BOUNDS>
-   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="1">
    </PIN>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -707,6 +715,8 @@
    </PIN>
    <PIN pinname="Behavior" slicecount="1" values="Toggle">
    </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="1">
+   </PIN>
    </NODE>
    <LINK srcnodeid="81" srcpinname="Y Output Value" dstnodeid="78" dstpinname="Switch">
    </LINK>
@@ -715,5 +725,101 @@
    <LINK srcnodeid="79" srcpinname="Y Output Value" dstnodeid="78" dstpinname="Input 2">
    </LINK>
    <LINK srcnodeid="78" srcpinname="Output" dstnodeid="60" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="82" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="12570" top="4935" width="960" height="1980">
+   </BOUNDS>
+   <BOUNDS type="Node" left="12570" top="4935" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="7">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="2" values=",">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Columns" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|AOI Width Min/MaxXY|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="70" srcpinname="AOI Width Min/MaxXY" dstnodeid="82" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="83" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="13725" top="4635" width="960" height="1980">
+   </BOUNDS>
+   <BOUNDS type="Node" left="13725" top="4635" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="7">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0,0">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Columns" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|AOI Width Min/MaxXY|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="70" srcpinname="AOI Height Min/MaxXY" dstnodeid="83" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="84" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="14895" top="4335" width="960" height="1980">
+   </BOUNDS>
+   <BOUNDS type="Node" left="14895" top="4335" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="7">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0,0">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Columns" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|AOI CropX Min/MaxXY|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="70" srcpinname="AOI CropX Min/MaxXY" dstnodeid="84" dstpinname="Y Input Value">
+   </LINK>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="85" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="16065" top="4035" width="960" height="1980">
+   </BOUNDS>
+   <BOUNDS type="Node" left="16065" top="4035" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Vector Size" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="7">
+   </PIN>
+   <PIN pinname="Y Input Value" slicecount="2" visible="1" values="0,0">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Integer">
+   </PIN>
+   <PIN pinname="Columns" slicecount="1" values="2">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|AOI CropY Min/MaxXY|">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="70" srcpinname="AOI CropY Min/MaxXY" dstnodeid="85" dstpinname="Y Input Value">
    </LINK>
    </PATCH>

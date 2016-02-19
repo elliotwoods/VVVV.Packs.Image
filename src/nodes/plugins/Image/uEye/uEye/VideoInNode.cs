@@ -28,6 +28,10 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         public VVVV.Utils.VMath.Vector2D framerateRange { get; set; }
 
+        public Range<int> AOIWidth, AOIHeight;
+
+        public Range<int> CropXRange, CropYRange;
+
         public bool checkParams = false;
 
         public bool camOpen = false;
@@ -189,6 +193,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void onFrameEvent(object sender, EventArgs e)
         {
+            // -> used generate() ... to avoid race conditions?
+
             //this.Status = "";
             //this.Status += "\n onFrameEvent() ";
             //uEye.Camera camObject = sender as uEye.Camera;
@@ -296,28 +302,6 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         }
 
-        //public override void Allocate()
-        //{
-        //    Status += "\n Allocate() ";
-        //    uEye.Defines.ColorMode pixFormat;
-        //    camStatus = cam.PixelFormat.Get(out pixFormat);
-
-        //    TColorFormat format = GetColor(pixFormat);
-
-        //    Status += "\n format " + camStatus;
-
-        //    Rectangle a;
-        //    camStatus = cam.Size.AOI.Get(out a);
-
-        //    Status += "\n AOI " + camStatus;
-
-
-        //    Status += "\n initialize Outpout ";
-        //    FOutput.Image.Initialise(a.Width, a.Height, format);
-
-        //    //FOutput.Image.Initialise(new Size(FCapture.Width, FCapture.Height), TColorFormat.RGB8);
-        //}
-
         public void QueryCameraCapabilities()
         {
             Status += "\n QueryCameraCapabilities()";
@@ -408,10 +392,16 @@ namespace VVVV.Nodes.OpenCV.IDS
             while ((top % rangePosY.Increment) != 0)
                 --top;
 
-
             camStatus = cam.Size.AOI.Set(left, top, width, height);
 
             configureOutput();
+        }
+
+        public void queryAOI()
+        {
+            camStatus = cam.Size.AOI.GetSizeRange(out AOIWidth, out AOIHeight);
+
+            camStatus = cam.Size.AOI.GetPosRange(out CropXRange, out CropYRange);
         }
 
         public void SetFrameRate(double fps)
@@ -542,25 +532,9 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         #endregion queryParameterSets
 
-
-
-
-
-        
+     
 	}
 
-
-
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     #region enums
     public enum BinningYMode
@@ -672,6 +646,18 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Output("supported  Subsampling Y")]
         ISpread<ISpread<string>> FOutSubsamplingYModes;
 
+        [Output("AOI Width Range", Visibility = PinVisibility.Hidden)]
+        ISpread<Vector2D> FOutAOIWidthRange;
+
+        [Output("AOI Height Range", Visibility = PinVisibility.Hidden)]
+        ISpread<Vector2D> FOutAOIHeightRange;
+
+        [Output("CropX Range", Visibility = PinVisibility.Hidden)]
+        ISpread<Vector2D> FOutCropXRange;
+
+        [Output("CropY Range", Visibility = PinVisibility.Hidden)]
+        ISpread<Vector2D> FOutCropYRange;
+
         [Import()]
         public ILogger FLogger;
 
@@ -689,6 +675,12 @@ namespace VVVV.Nodes.OpenCV.IDS
             FOutBinningYModes.SliceCount = InstanceCount;
 
             FOutFramerateRange.SliceCount = InstanceCount;
+
+            FOutAOIWidthRange.SliceCount = InstanceCount;
+            FOutAOIWidthRange.SliceCount = InstanceCount;
+
+            FOutCropXRange.SliceCount = InstanceCount;
+            FOutCropYRange.SliceCount = InstanceCount;
 
             for (int i = 0; i < InstanceCount; i++)
             {
@@ -720,6 +712,7 @@ namespace VVVV.Nodes.OpenCV.IDS
                         FProcessor[i].Status += "\n queryRequest";
                         queryFeatures(InstanceCount, i);
                         //queryFramerateRange(i);
+                        queryAOIRange(i);
                         queryRequest = false;  // that's not so cool to be lazy here
                     }
                 }
@@ -783,7 +776,6 @@ namespace VVVV.Nodes.OpenCV.IDS
 			}
 
 
-
             // query FramerateRange
             if (FInBinningX.IsChanged || FInBinningY.IsChanged || FInSubsamplingX.IsChanged || FInSubsamplingY.IsChanged ||
                 FInCrop.IsChanged || FInAOI.IsChanged || FInFps.IsChanged)
@@ -794,6 +786,8 @@ namespace VVVV.Nodes.OpenCV.IDS
                     {
                         FProcessor[i].Status += "\n queryFramerateRange";
                         queryFramerateRange(i);
+
+                        queryAOIRange(i);
                     }
                         
                 }
@@ -805,7 +799,14 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         }
 
-        
+        private void queryAOIRange(int instanceId)
+        {
+            FProcessor[instanceId].queryAOI();
+            FOutAOIWidthRange[instanceId] = new Vector2D(FProcessor[instanceId].AOIWidth.Minimum, FProcessor[instanceId].AOIWidth.Maximum);
+            FOutAOIHeightRange[instanceId] = new Vector2D(FProcessor[instanceId].AOIHeight.Minimum, FProcessor[instanceId].AOIHeight.Maximum);
+            FOutCropXRange[instanceId] = new Vector2D(FProcessor[instanceId].CropXRange.Minimum, FProcessor[instanceId].CropXRange.Maximum);
+            FOutCropYRange[instanceId] = new Vector2D(FProcessor[instanceId].CropYRange.Minimum, FProcessor[instanceId].CropYRange.Maximum);
+        }
 
         private void queryFramerateRange(int instanceId)
         {
