@@ -50,7 +50,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         public override bool Open()
 		{
-
+            Status = "";
+            Status += "\n Open() ";
             /*
             Note on multi - camera environments
             When using multiple cameras in parallel operation on a single system, you should
@@ -64,30 +65,21 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 cam = new Camera();
 
-                //initCam();
                 camStatus = cam.Init(FCamId);
-
-                
 
                 configureOutput();
 
-                // start capturee
-                camStatus = cam.Memory.Allocate();
-                camStatus = cam.Acquisition.Capture();
+                startCapture();
 
-                // query infos
                 QueryCameraCapabilities();
 
-                // attach Event
-                cam.EventFrame += onFrameEvent;
-
-
-
+                // set flags
                 camOpen = true;
 
                 checkParams = true;
 
-                Status = "OK";
+                //Status = "OK";
+                Status += camStatus.ToString();
                 return true;
             }
             catch (Exception e)
@@ -97,90 +89,143 @@ namespace VVVV.Nodes.OpenCV.IDS
 			}
 		}
 
+        private void startCapture()
+        {
+            Status += "\n startCapture()";
+            camStatus = cam.Memory.Allocate();
+            camStatus = cam.Acquisition.Capture();
+
+            cam.EventFrame += onFrameEvent;
+        }
+
+        private void stopCapture()
+        {
+            Status += "\n stopCapture()";
+            cam.EventFrame -= onFrameEvent;
+            camStatus = cam.Acquisition.Stop();
+            //camStatus = cam.Memory.Free();
+        }
 
         private void configureOutput()
         {
-            cam.EventFrame -= onFrameEvent;
+            Status += "\n configureOutput()";
+            //cam.EventFrame -= onFrameEvent;
+
+            int MemID;
+            camStatus = cam.Memory.GetActive(out MemID);
+
+            int lastMemID;
+            camStatus = cam.Memory.GetLast(out lastMemID);
+
+            bool locked;
+            cam.Memory.GetLocked(MemID, out locked);
+
+            Status += "\n LOCKED = " + locked + " - " + MemID + " | " + lastMemID;
 
             // memory reallocation
-            Int32[] memList;
+            int[] memList;
             camStatus = cam.Memory.GetList(out memList);
             camStatus = cam.Memory.Free(memList);
             camStatus = cam.Memory.Allocate();
 
-            int height;
-            int width;
+            Status += "\n memRealloc " + camStatus;
 
-            int bpp;
-            camStatus = cam.PixelFormat.GetBytesPerPixel(out bpp);
-
-            int MemID;
-            camStatus = cam.Memory.GetActive(out MemID);
 
             uEye.Defines.ColorMode pixFormat;
             camStatus = cam.PixelFormat.Get(out pixFormat);
 
             TColorFormat format = GetColor(pixFormat);
 
-            camStatus = cam.Memory.GetSize(MemID, out width, out height);
+            Status += "\n format " + camStatus;
 
             Rectangle a;
             camStatus = cam.Size.AOI.Get(out a);
 
-            //FOutput.Image.Initialise(width, height, format);
+            Status += "\n AOI " + camStatus;
+
+
+            Status += "\n initialize Outpout ";
             FOutput.Image.Initialise(a.Width, a.Height, format);
             
-            cam.EventFrame += onFrameEvent;
+            //cam.EventFrame += onFrameEvent;
+
+            Status += camStatus;
         }
 
         public override void Close()
         {
+            Status += "\n Close()";
             if (cam != null)
             {
-                bool started;
-                camStatus = cam.Acquisition.HasStarted(out started);
+                try
+                { 
+                    //bool started;
+                    //camStatus = cam.Acquisition.HasStarted(out started);
 
-                cam.EventFrame -= onFrameEvent;
+                    //cam.EventFrame -= onFrameEvent;
 
-                if (started)
-                    camStatus = cam.Acquisition.Stop();
+                    stopCapture();
 
-                cam.Exit();
-                cam = null;
+                    int[] MemIds;
+                    camStatus = cam.Memory.GetList(out MemIds);
 
-                camOpen = false;
-            }
+                    camStatus = cam.Memory.Free(MemIds);
+
+                    //if (started)
+                    //    camStatus = cam.Acquisition.Stop();
+
+                    cam.Exit();
+                
+                    cam = null;
+
+                    camOpen = false;
+                }
+                catch (Exception e)
+                {
+                    Status = e.Message;
+                }
+        }
         }
 
         private void onFrameEvent(object sender, EventArgs e)
         {
-            uEye.Camera camObject = sender as uEye.Camera;
+            //this.Status = "";
+            //this.Status += "\n onFrameEvent() ";
+            //uEye.Camera camObject = sender as uEye.Camera;
 
-            IntPtr mem;
-            camObject.Memory.GetActive(out mem);
-            bool started;
-            camObject.Acquisition.HasStarted(out started);
-            if (camObject.IsOpened && started)
-            {
-                int s32MemId;
-                camObject.Memory.GetLast(out s32MemId);
+            //bool started;
+            //camStatus = camObject.Acquisition.HasStarted(out started);
 
-                int w, h;
-                camObject.Memory.GetSize(s32MemId, out w, out h);
+            //if (camObject.IsOpened && started)
+            //{
+            //    int MemId;
+            //    camStatus = camObject.Memory.GetActive(out MemId);
 
-                //int s32Factor;
-                //camObject.Size.Subsampling.GetFactorVertical(out s32Factor);
+            //    int lastMemID;
+            //    camStatus = camObject.Memory.GetLast(out lastMemID);
 
-                //copy to FOutput
-                IntPtr memPtr;
-                camObject.Memory.ToIntPtr(out memPtr);
-                camObject.Memory.CopyImageMem(memPtr, s32MemId, FOutput.Data);
+            //    bool locked;
+            //    camStatus = camObject.Memory.GetLocked(MemId, out locked);
 
-                FOutput.Send();
-            }
+            //    Status += "\n LOCKED = " + locked + " - " + MemId + " | " + lastMemID + " ";
 
+            //    int w, h;
+            //    camStatus = camObject.Memory.GetSize(MemId, out w, out h);
+
+
+            //    camStatus = camObject.Memory.Lock(MemId);
+            //    //copy to FOutput
+            //    IntPtr memPtr;
+            //    camStatus = camObject.Memory.ToIntPtr(out memPtr);
+            //    camStatus = camObject.Memory.CopyImageMem(memPtr, MemId, FOutput.Data);
+
+            //    camStatus = camObject.Memory.Unlock(MemId);
+
+            //    FOutput.Send();
+            //}
+
+            //this.Status += camStatus;
         }
-
 
         private TColorFormat GetColor(uEye.Defines.ColorMode color)
         {
@@ -206,56 +251,77 @@ namespace VVVV.Nodes.OpenCV.IDS
             }
         }
 
-
         protected unsafe override void Generate()
         {
-            //IntPtr mem;
-            //cam.Memory.GetActive(out mem);
-            //bool started;
-            //cam.Acquisition.HasStarted(out started);
-            //if (cam.IsOpened && started)
-            //{
-            //    int s32MemId;
-            //    cam.Memory.GetLast(out s32MemId);
-            //    IntPtr memPtr;
-            //    cam.Memory.ToIntPtr(out memPtr);
-            //    cam.Memory.CopyImageMem(memPtr, s32MemId, FOutput.Data);
 
-            //    FOutput.Send();
-            //}
+            this.Status = "";
+            this.Status += "\n onFrameEvent() ";
 
-            // how to copy the ptr to smth. like FOutput.Data ???
+            bool started;
+            camStatus = cam.Acquisition.HasStarted(out started);
 
-            //ImageUtils.CopyMemory(pt, mem, (uint)(FResolution.x * FResolution.y));
-            //ImageUtils.CopyImage(mem, FOutput.Image);
+            bool finished;
+            camStatus = cam.Acquisition.IsFinished(out finished);
 
-            //if (FParameterChange)
-            //    SetParameters();
-
-            //FCamera.getPixels(FOutput.Data, 100);
-
-            //if (FOutput.Image.NativeFormat == TColorFormat.RGBA8)
-            //    SetAlphaChannel();
-
-
-        }
-
-        // why add always an alpha channel? does the output need to be rgba?
-        private unsafe void SetAlphaChannel()
-        {
-            byte* data = (byte*)FOutput.Data.ToPointer() + 3;
-
-            int count = FOutput.Image.Width * FOutput.Image.Height;
-            for (int i = 0; i < count; i++)
+            if (cam.IsOpened && started && finished)
             {
-                *data = 255;
-                data += 4;
+                int MemId;
+                camStatus = cam.Memory.GetActive(out MemId);
+
+                int lastMemID;
+                camStatus = cam.Memory.GetLast(out lastMemID);
+
+                bool locked;
+                camStatus = cam.Memory.GetLocked(MemId, out locked);
+
+                Status += "\n LOCKED = " + locked + " - " + MemId + " | " + lastMemID + " ";
+
+                int w, h;
+                camStatus = cam.Memory.GetSize(MemId, out w, out h);
+
+
+                camStatus = cam.Memory.Lock(MemId);
+                //copy to FOutput
+                IntPtr memPtr;
+                camStatus = cam.Memory.ToIntPtr(out memPtr);
+                camStatus = cam.Memory.CopyImageMem(memPtr, MemId, FOutput.Data);
+
+                camStatus = cam.Memory.Unlock(MemId);
+
+                FOutput.Send();
             }
+
+            this.Status += camStatus;
+
+
         }
 
+        //public override void Allocate()
+        //{
+        //    Status += "\n Allocate() ";
+        //    uEye.Defines.ColorMode pixFormat;
+        //    camStatus = cam.PixelFormat.Get(out pixFormat);
+
+        //    TColorFormat format = GetColor(pixFormat);
+
+        //    Status += "\n format " + camStatus;
+
+        //    Rectangle a;
+        //    camStatus = cam.Size.AOI.Get(out a);
+
+        //    Status += "\n AOI " + camStatus;
+
+
+        //    Status += "\n initialize Outpout ";
+        //    FOutput.Image.Initialise(a.Width, a.Height, format);
+
+        //    //FOutput.Image.Initialise(new Size(FCapture.Width, FCapture.Height), TColorFormat.RGB8);
+        //}
 
         public void QueryCameraCapabilities()
         {
+            Status += "\n QueryCameraCapabilities()";
+
             // binning
             queryHorizontalBinning();
             queryVerticalBinning();
@@ -282,6 +348,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         public void SetBinning(string binningX, string binningY)
         {
+            Status += "\n SetBinning()";
             BinningMode modeX = (BinningMode)Enum.Parse(typeof(BinningMode), binningX);
             BinningMode modeY = (BinningMode)Enum.Parse(typeof(BinningMode), binningY);
 
@@ -297,6 +364,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         public void SetSubsampling(string subsamplingX, string subsamplingY)
         {
+            Status += "\n SetSubsampling()";
             SubsamplingMode modeX = (SubsamplingMode)Enum.Parse(typeof(SubsamplingMode), subsamplingX);
             SubsamplingMode modeY = (SubsamplingMode)Enum.Parse(typeof(SubsamplingMode), subsamplingY);
 
@@ -308,17 +376,19 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         public void mirrorHorizontal(bool Enable)
         {
+            Status += "\n mirrorHorizontal()";
             camStatus = cam.RopEffect.Set(uEye.Defines.RopEffectMode.LeftRight, Enable);
         }
 
         public void mirrorVertical(bool Enable)
         {
+            Status += "\n mirrorVertical()";
             camStatus = cam.RopEffect.Set(uEye.Defines.RopEffectMode.UpDown, Enable);
         }
 
         public void SetAoi(int left, int top, int width, int height)
         {
-            //System.Drawing.Rectangle rect = new Rectangle();
+            Status += "\n SetAoi()";
 
             uEye.Types.Range<Int32> rangeWidth, rangeHeight;
             camStatus = cam.Size.AOI.GetSizeRange(out rangeWidth, out rangeHeight);
@@ -346,15 +416,21 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         public void SetFrameRate(double fps)
         {
+            Status += "\n SetFrameRate()";
+
             camStatus = cam.Timing.Framerate.Set(fps);
         }
 
         public void setColorMode(ColorMode mode)
         {
+            Status += "\n setColorMode()";
+            stopCapture();
+
             camStatus = cam.PixelFormat.Set(mode);
 
-            Restart();
-            //configureOutput();
+            startCapture();
+
+            configureOutput();
         }
 
         #endregion setParameters
@@ -364,6 +440,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void queryHorizontalBinning()
         {
+            Status += "\n queryHorizontalBinning()";
             PossibleBinningX.Clear();
             PossibleBinningX.Add(0);
 
@@ -385,6 +462,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void queryVerticalBinning()
         {
+            Status += "\n queryVerticalBinning()";
             PossibleBinningY.Clear();
             PossibleBinningY.Add(0);
 
@@ -406,6 +484,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void queryHorizontalSubsampling()
         {
+            Status += "\n queryHorizontalSubsampling()";
             PossibleSubsamplingX.Clear();
             PossibleSubsamplingX.Add(0);
 
@@ -427,6 +506,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void queryVerticalSubsampling()
         {
+            Status += "\n queryVerticalSubsampling()";
             PossibleSubsamplingY.Clear();
             PossibleSubsamplingY.Add(0);
 
@@ -448,11 +528,15 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         public void queryFramerate()
         {
-            if (cam != null)
+            
+            if (cam != null /*&& camOpen*/)
             {
+                Status += "\n queryFramerate()";
                 Range<double> range;
                 camStatus = cam.Timing.Framerate.GetFrameRateRange(out range);
                 framerateRange = new Vector2D(range.Minimum, range.Maximum);
+
+                Status += camStatus;
             }
         }
 
@@ -608,12 +692,16 @@ namespace VVVV.Nodes.OpenCV.IDS
 
             for (int i = 0; i < InstanceCount; i++)
             {
+
                 if (FProcessor[i].checkParams)
                 {
+                    FProcessor[i].Status += "\n checkParams()";
+
                     setBinning(i);
                     setSubsampling(i);
                     setAOI(i);
                     setFramerate(i);
+                    setColorMode(i);
 
                     FProcessor[i].checkParams = false;
                 }
@@ -629,8 +717,9 @@ namespace VVVV.Nodes.OpenCV.IDS
                 {
                     if (FProcessor[i].camOpen)
                     {
+                        FProcessor[i].Status += "\n queryRequest";
                         queryFeatures(InstanceCount, i);
-                        queryFramerateRange(i);
+                        //queryFramerateRange(i);
                         queryRequest = false;  // that's not so cool to be lazy here
                     }
                 }
@@ -701,7 +790,12 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 for (int i = 0; i < InstanceCount; i++)
                 {
-                    queryFramerateRange(i);
+                    if (FProcessor[i].Enabled)
+                    {
+                        FProcessor[i].Status += "\n queryFramerateRange";
+                        queryFramerateRange(i);
+                    }
+                        
                 }
             }
 
@@ -710,6 +804,8 @@ namespace VVVV.Nodes.OpenCV.IDS
             if (firstframe) firstframe = false;
 
         }
+
+        
 
         private void queryFramerateRange(int instanceId)
         {
@@ -814,6 +910,14 @@ namespace VVVV.Nodes.OpenCV.IDS
                 //FProcessor[instanceId]
             }
             
+        }
+
+        private void setColorMode(int instanceId)
+        {
+            if (FProcessor[instanceId].Enabled)
+            {
+                FProcessor[instanceId].setColorMode(FColorMode[instanceId]);
+            }
         }
     }
 }
