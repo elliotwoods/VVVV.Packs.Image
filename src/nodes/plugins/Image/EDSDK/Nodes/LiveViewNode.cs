@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Canon.Eos.Framework;
 using VVVV.CV.Core;
-using VVVV.CV.Core;
 using VVVV.PluginInterfaces.V2;
 
 namespace VVVV.Nodes.EDSDK

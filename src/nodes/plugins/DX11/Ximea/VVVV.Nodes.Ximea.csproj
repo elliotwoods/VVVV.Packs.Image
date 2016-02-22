@@ -1,17 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props')" />
+  <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props')" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="..\..\Default.Plugin.Project.settings" />
   <PropertyGroup>
@@ -22,7 +32,10 @@
     <AssemblyName>VVVV.Nodes.Ximea</AssemblyName>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>aa635cfe</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FeralTic">
@@ -37,14 +50,30 @@
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="VVVV.Core">
+    <Reference Include="VVVV.Core, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\VVVV.Core.34.2.0\lib\net40\VVVV.Core.dll</HintPath>
       <Private>False</Private>
-      <HintPath>..\..\..\..\packages\VVVV.Core.32.1.0\lib\net40\VVVV.Core.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.DX11.Core">
       <HintPath>..\..\..\..\..\..\DX11\core\VVVV.DX11.Core.dll</HintPath>
@@ -54,9 +83,9 @@
       <HintPath>..\..\..\..\..\..\DX11\core\VVVV.DX11.Lib.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="VVVV.Utils">
+    <Reference Include="VVVV.Utils, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\VVVV.Utils.34.2.0\lib\net40\VVVV.Utils.dll</HintPath>
       <Private>False</Private>
-      <HintPath>..\..\..\..\packages\VVVV.Utils.32.1.0\lib\net40\VVVV.Utils.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -93,14 +122,16 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.props'))" />
-    <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets'))" />
     <Error Condition="!Exists('..\..\..\..\packages\VVVV.Ximea.3.18.3.1\build\net40\VVVV.Ximea.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.Ximea.3.18.3.1\build\net40\VVVV.Ximea.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.props'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets'))" />
+    <Error Condition="!Exists('..\..\..\..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets'))" />
   </Target>
-  <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.1\build\net40\VVVV.SlimDX.targets')" />
   <Import Project="..\..\..\..\packages\VVVV.Ximea.3.18.3.1\build\net40\VVVV.Ximea.targets" Condition="Exists('..\..\..\..\packages\VVVV.Ximea.3.18.3.1\build\net40\VVVV.Ximea.targets')" />
-  <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.32.1.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.32.1.0\build\net40\VVVV.PluginInterfaces.targets')" />
-  <Import Project="..\..\..\..\packages\VVVV.Utils3rdParty.32.1.0\build\net40\VVVV.Utils3rdParty.targets" Condition="Exists('..\..\..\..\packages\VVVV.Utils3rdParty.32.1.0\build\net40\VVVV.Utils3rdParty.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets" Condition="Exists('..\..\..\..\packages\VVVV.PluginInterfaces.34.2.0\build\net40\VVVV.PluginInterfaces.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets" Condition="Exists('..\..\..\..\packages\VVVV.SlimDX.1.0.2\build\net40\VVVV.SlimDX.targets')" />
+  <Import Project="..\..\..\..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets" Condition="Exists('..\..\..\..\packages\VVVV.Utils3rdParty.34.2.0\build\net40\VVVV.Utils3rdParty.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
