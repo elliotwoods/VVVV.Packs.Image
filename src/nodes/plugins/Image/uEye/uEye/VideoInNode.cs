@@ -27,16 +27,17 @@ namespace VVVV.Nodes.OpenCV.IDS
         public List<int> PossibleSubsamplingX = new List<int>();
         public List<int> PossibleSubsamplingY = new List<int>();
 
-        public Vector2D framerateRange { get; set; }
+        public double currentFramerate;
+        public Range<double> framerateRange;
 
         public Range<int> AOIWidth, AOIHeight;
 
         public Range<int> CropXRange, CropYRange;
 
-        public int gainMaster;
-        public int gainRed;
-        public int gainGreen;
-        public int gainBlue;
+        //public int gainMaster;
+        //public int gainRed;
+        //public int gainGreen;
+        //public int gainBlue;
 
         public bool gainAutoSupported;
         public bool gainBoostSupported;
@@ -44,7 +45,7 @@ namespace VVVV.Nodes.OpenCV.IDS
         public Range<int> pixelClockRange;
         public int[] pixelClockList;
 
-        public uEye.Defines.Whitebalance.AntiFlickerMode supportetAntiflicker;
+        public uEye.Defines.Whitebalance.AntiFlickerMode supportedAntiflicker;
 
 
         // Timing
@@ -52,6 +53,9 @@ namespace VVVV.Nodes.OpenCV.IDS
         public Range<double> exposureRange;
         public int pixelClockCurrent;
         public double exposureCurrent;
+
+
+        private bool frameAvailable = false;
 
         public bool checkParams = false;
 
@@ -217,44 +221,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void onFrameEvent(object sender, EventArgs e)
         {
-            // -> used generate() ... to avoid race conditions?
-
-            //this.Status = "";
-            //this.Status += "\n onFrameEvent() ";
-            //uEye.Camera camObject = sender as uEye.Camera;
-
-            //bool started;
-            //camStatus = camObject.Acquisition.HasStarted(out started);
-
-            //if (camObject.IsOpened && started)
-            //{
-            //    int MemId;
-            //    camStatus = camObject.Memory.GetActive(out MemId);
-
-            //    int lastMemID;
-            //    camStatus = camObject.Memory.GetLast(out lastMemID);
-
-            //    bool locked;
-            //    camStatus = camObject.Memory.GetLocked(MemId, out locked);
-
-            //    Status += "\n LOCKED = " + locked + " - " + MemId + " | " + lastMemID + " ";
-
-            //    int w, h;
-            //    camStatus = camObject.Memory.GetSize(MemId, out w, out h);
-
-
-            //    camStatus = camObject.Memory.Lock(MemId);
-            //    //copy to FOutput
-            //    IntPtr memPtr;
-            //    camStatus = camObject.Memory.ToIntPtr(out memPtr);
-            //    camStatus = camObject.Memory.CopyImageMem(memPtr, MemId, FOutput.Data);
-
-            //    camStatus = camObject.Memory.Unlock(MemId);
-
-            //    FOutput.Send();
-            //}
-
-            //this.Status += camStatus;
+            frameAvailable = true;
         }
 
         private TColorFormat GetColor(uEye.Defines.ColorMode color)
@@ -283,47 +250,47 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         protected unsafe override void Generate()
         {
-
-            this.Status = "";
-            this.Status += "\n onFrameEvent() ";
-
-            bool started;
-            camStatus = cam.Acquisition.HasStarted(out started);
-
-            bool finished;
-            camStatus = cam.Acquisition.IsFinished(out finished);
-
-            if (cam.IsOpened && started && finished)
+            if (frameAvailable)
             {
-                int MemId;
-                camStatus = cam.Memory.GetActive(out MemId);
+                this.Status = "";
+                this.Status += "\n onFrameEvent() ";
 
-                int lastMemID;
-                camStatus = cam.Memory.GetLast(out lastMemID);
+                bool started;
+                camStatus = cam.Acquisition.HasStarted(out started);
 
-                bool locked;
-                camStatus = cam.Memory.GetLocked(MemId, out locked);
+                bool finished;
+                camStatus = cam.Acquisition.IsFinished(out finished);
 
-                Status += "\n LOCKED = " + locked + " - " + MemId + " | " + lastMemID + " ";
+                if (cam.IsOpened && started && finished)
+                {
+                    int MemId;
+                    camStatus = cam.Memory.GetActive(out MemId);
 
-                int w, h;
-                camStatus = cam.Memory.GetSize(MemId, out w, out h);
+                    int lastMemID;
+                    camStatus = cam.Memory.GetLast(out lastMemID);
+
+                    bool locked;
+                    camStatus = cam.Memory.GetLocked(MemId, out locked);
+
+                    Status += "\n LOCKED = " + locked + " - " + MemId + " | " + lastMemID + " ";
+
+                    int w, h;
+                    camStatus = cam.Memory.GetSize(MemId, out w, out h);
 
 
-                camStatus = cam.Memory.Lock(MemId);
-                //copy to FOutput
-                IntPtr memPtr;
-                camStatus = cam.Memory.ToIntPtr(out memPtr);
-                camStatus = cam.Memory.CopyImageMem(memPtr, MemId, FOutput.Data);
+                    camStatus = cam.Memory.Lock(MemId);
+                    //copy to FOutput
+                    IntPtr memPtr;
+                    camStatus = cam.Memory.ToIntPtr(out memPtr);
+                    camStatus = cam.Memory.CopyImageMem(memPtr, MemId, FOutput.Data);
 
-                camStatus = cam.Memory.Unlock(MemId);
+                    camStatus = cam.Memory.Unlock(MemId);
 
-                FOutput.Send();
+                    FOutput.Send();
+                }
+
+                this.Status += camStatus;
             }
-
-            this.Status += camStatus;
-
-
         }
 
         public void QueryCameraCapabilities()
@@ -339,7 +306,8 @@ namespace VVVV.Nodes.OpenCV.IDS
             queryVerticalSubsampling();
 
             // framerate
-            queryFramerate();           
+            //queryFramerate();           
+            queryTiming();
 
             // get camera aoi range size
             //uEye.Types.Range<Int32> rangeWidth, rangeHeight;
@@ -436,24 +404,24 @@ namespace VVVV.Nodes.OpenCV.IDS
         }
  
         // Colors
-        public void setGainMaster()
+        public void setGainMaster(int value)
         {
-            cam.Gain.Hardware.Scaled.SetMaster(gainMaster);
+            cam.Gain.Hardware.Scaled.SetMaster(value);
         }
 
-        public void setGainRed()
+        public void setGainRed(int value)
         {
-            cam.Gain.Hardware.Scaled.SetRed(gainRed);
+            cam.Gain.Hardware.Scaled.SetRed(value);
         }
 
-        public void setGainGreen()
+        public void setGainGreen(int value)
         {
-            cam.Gain.Hardware.Scaled.SetGreen(gainGreen);
+            cam.Gain.Hardware.Scaled.SetGreen(value);
         }
 
-        public void setGainBlue()
+        public void setGainBlue(int value)
         {
-            cam.Gain.Hardware.Scaled.SetBlue(gainBlue);
+            cam.Gain.Hardware.Scaled.SetBlue(value);
         }
 
         public void setAutoGain(bool enable)
@@ -482,9 +450,13 @@ namespace VVVV.Nodes.OpenCV.IDS
         public void setExposure(double exp)
         {
             cam.Timing.Exposure.Set(exp);
-            cam.Timing.PixelClock.
+            //cam.Timing.PixelClock.
         }
 
+        public void setPixelClock(int value)
+        {
+            cam.Timing.PixelClock.Set(value);
+        }
         
 
         #endregion setParameters
@@ -587,26 +559,26 @@ namespace VVVV.Nodes.OpenCV.IDS
             camStatus = cam.Size.AOI.GetPosRange(out CropXRange, out CropYRange);
         }
 
-        public void queryFramerate()
-        {
+        //public void queryFramerate()
+        //{
             
-            if (cam != null /*&& camOpen*/)
-            {
-                Status += "\n queryFramerate()";
-                Range<double> range;
-                camStatus = cam.Timing.Framerate.GetFrameRateRange(out range);
-                framerateRange = new Vector2D(range.Minimum, range.Maximum);
+        //    if (cam != null /*&& camOpen*/)
+        //    {
+        //        Status += "\n queryFramerate()";
+        //        Range<double> range;
+        //        camStatus = cam.Timing.Framerate.GetFrameRateRange(out range);
+        //        framerateRange = new Vector2D(range.Minimum, range.Maximum);
 
-                Status += camStatus;
-            }
-        }
+        //        Status += camStatus;
+        //    }
+        //}
 
-        public void getGain()
+        public void queryGain()
         {
-            camStatus = cam.Gain.Hardware.Scaled.GetMaster(out gainMaster);
-            camStatus = cam.Gain.Hardware.Scaled.GetRed(out gainRed);
-            camStatus = cam.Gain.Hardware.Scaled.GetGreen(out gainGreen);
-            camStatus = cam.Gain.Hardware.Scaled.GetBlue(out gainBlue);
+            //camStatus = cam.Gain.Hardware.Scaled.GetMaster(out gainMaster);
+            //camStatus = cam.Gain.Hardware.Scaled.GetRed(out gainRed);
+            //camStatus = cam.Gain.Hardware.Scaled.GetGreen(out gainGreen);
+            //camStatus = cam.Gain.Hardware.Scaled.GetBlue(out gainBlue);
 
             gainBoostSupported = cam.Gain.Hardware.Boost.Supported;
 
@@ -614,7 +586,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         }
 
-        private void getSoftwareAutofeatures()
+        private void querySoftwareAutofeatures()
         {
             //cam.AutoFeatures.Software.Framerate;
             //cam.AutoFeatures.Software.FrameSkip;
@@ -627,7 +599,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             //cam.AutoFeatures.Software.WhiteBalance;
         }
 
-        public void getSensorAutofeatures()
+        public void gquerySensorAutofeatures()
         {
             //cam.AutoFeatures.Sensor.Whitebalance.Supported;
             //cam.AutoFeatures.Sensor.Framerate.Supported;
@@ -640,7 +612,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             //cam.AutoFeatures.Sensor.Shutter;
         }
 
-        public void getTiming()
+        public void queryTiming()
         {
             cam.Timing.Exposure.GetSupported(out exposureSupported);
             cam.Timing.Exposure.GetRange(out exposureRange);
@@ -650,7 +622,9 @@ namespace VVVV.Nodes.OpenCV.IDS
             cam.Timing.PixelClock.GetList(out pixelClockList);
             cam.Timing.PixelClock.Get(out pixelClockCurrent);
 
-            cam.Timing.Framerate.GetFrameRateRange()
+            cam.Timing.Framerate.GetFrameRateRange(out framerateRange);
+
+            cam.Timing.Framerate.GetCurrentFps(out currentFramerate);
 
         }
         #endregion queryParameterSets
@@ -739,9 +713,6 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Input("Format Id")]
         IDiffSpread<int> FInFormatId;
 
-        [Input("Resolution")]
-		IDiffSpread<VVVV.Utils.VMath.Vector2D  > FResolution;
-
         [Input("AOI")]
         IDiffSpread<VVVV.Utils.VMath.Vector2D> FInAOI;
 
@@ -754,8 +725,19 @@ namespace VVVV.Nodes.OpenCV.IDS
 		[Input("FPS", DefaultValue=30, MinValue=0, MaxValue=1024)]
 		IDiffSpread<int> FInFps;
 
+        [Input("Exposure", DefaultValue = 0.1, MinValue = 0)]
+        IDiffSpread<double> FInExposure;
+
+        [Input("Pixelclock", DefaultValue = 20, MinValue = 0)]
+        IDiffSpread<int> FInPixelClock;
+
+        // ------------------------------------------------------------
+
         [Output("Framerate Range")]
         ISpread<VVVV.Utils.VMath.Vector2D> FOutFramerateRange;
+
+        [Output("Framerate")]
+        ISpread<double> FOutcurrentFramerate;
 
         [Output("supported  Binning X")]
         ISpread<ISpread<string>> FOutBinningXModes;
@@ -787,6 +769,24 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Output("Gain BoostSupported")]
         ISpread<bool> FOutgainBoostSupported;
 
+        [Output("supported Antiflicker Mode", Visibility = PinVisibility.Hidden)]
+        ISpread<uEye.Defines.Whitebalance.AntiFlickerMode> FOutsupportetAntiflicker;
+
+        [Output("Exposure Supported")]
+        ISpread<bool> FOutexposureSupported;
+
+        [Output("currennt PixelClock")]
+        ISpread<int> FOutpixelClockCurrent;
+
+        [Output("PixelClock Range", Visibility = PinVisibility.Hidden)]
+        ISpread<Vector2D> FOutpixelClockRange;
+
+        [Output("currennt Exposure")]
+        ISpread<double> FOutexposureCurrent;
+
+        [Output("Exposure Range", Visibility = PinVisibility.Hidden)]
+        ISpread<Vector2D> FOutexposureRange;
+
         [Import()]
         public ILogger FLogger;
 
@@ -797,19 +797,39 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         override protected void Update(int InstanceCount, bool SpreadCountChanged)
 		{
+            // framerate
+            FOutFramerateRange.SliceCount = InstanceCount;
+            FOutcurrentFramerate.SliceCount = InstanceCount;
 
+            // binning / subsampling
             FOutSubsamplingXModes.SliceCount = InstanceCount;
             FOutSubsamplingYModes.SliceCount = InstanceCount;
             FOutBinningXModes.SliceCount = InstanceCount;
             FOutBinningYModes.SliceCount = InstanceCount;
 
-            FOutFramerateRange.SliceCount = InstanceCount;
-
+            // AOI
             FOutAOIWidthRange.SliceCount = InstanceCount;
             FOutAOIWidthRange.SliceCount = InstanceCount;
-
             FOutCropXRange.SliceCount = InstanceCount;
             FOutCropYRange.SliceCount = InstanceCount;
+
+            // gain
+            FOutgainAutoSupported.SliceCount = InstanceCount;
+            FOutgainBoostSupported.SliceCount = InstanceCount;
+
+            FOutgainAutoSupported.SliceCount = InstanceCount;
+            FOutgainBoostSupported.SliceCount = InstanceCount;
+
+            //Timing
+            FOutpixelClockRange.SliceCount = InstanceCount;
+            FOutpixelClockCurrent.SliceCount = InstanceCount;
+
+            FOutexposureCurrent.SliceCount = InstanceCount;
+            FOutexposureSupported.SliceCount = InstanceCount;
+
+            // Antiflicker
+            FOutsupportetAntiflicker.SliceCount = InstanceCount;
+
 
             for (int i = 0; i < InstanceCount; i++)
             {
@@ -823,6 +843,9 @@ namespace VVVV.Nodes.OpenCV.IDS
                     setAOI(i);
                     setFramerate(i);
                     setColorMode(i);
+
+                    FProcessor[i].setPixelClock(FInPixelClock[i]);
+                    FProcessor[i].setExposure(FInExposure[i]);
 
                     FProcessor[i].checkParams = false;
                 }
@@ -841,6 +864,7 @@ namespace VVVV.Nodes.OpenCV.IDS
                         FProcessor[i].Status += "\n queryRequest";
                         queryFeatures(InstanceCount, i);
                         //queryFramerateRange(i);
+                        queryTiming(i);
                         queryAOIRange(i);
                         queryRequest = false;  // that's not so cool to be lazy here
                     }
@@ -904,26 +928,78 @@ namespace VVVV.Nodes.OpenCV.IDS
                     if (FProcessor[i].Enabled)  FProcessor[i].setColorMode(FColorMode[i]);
 			}
 
-            // query FramerateRange
+            // set Exposure
+            if (SpreadCountChanged || FInExposure.IsChanged)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                    if (FProcessor[i].Enabled) FProcessor[i].setExposure(FInExposure[i]);
+            }
+
+            // set PixelClock
+            if (SpreadCountChanged || FInPixelClock.IsChanged)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                    if (FProcessor[i].Enabled) FProcessor[i].setPixelClock(FInPixelClock[i]);
+            }
+
+            // query Timing
             if (FInBinningX.IsChanged || FInBinningY.IsChanged || FInSubsamplingX.IsChanged || FInSubsamplingY.IsChanged ||
-                FInCrop.IsChanged || FInAOI.IsChanged || FInFps.IsChanged)
+                FInCrop.IsChanged || FInAOI.IsChanged || FInFps.IsChanged || FInExposure.IsChanged || FInPixelClock.IsChanged)
             {
                 for (int i = 0; i < InstanceCount; i++)
                 {
                     if (FProcessor[i].Enabled)
                     {
-                        FProcessor[i].Status += "\n queryFramerateRange";
-                        queryFramerateRange(i);
-
-                        queryAOIRange(i);
+                        queryTiming(i);
                     }
                 }
             }
 
 
+            // get timing values every frame
+            if (!FPinInEnabled.IsChanged)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                {
+                    try
+                    {
+                        if (FProcessor[i].Enabled)
+                        {
+                            queryTiming(i);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        FLogger.Log(LogType.Error, e.ToString());
+                    }
+                }
+            }
+            
 
 
             if (firstframe) firstframe = false;
+        }
+
+        private void queryTiming(int instanceId)
+        {
+            FProcessor[instanceId].Status += "\n queryTiming";
+            //queryFramerateRange(i);
+            FProcessor[instanceId].queryTiming();
+
+            FOutcurrentFramerate[instanceId] = FProcessor[instanceId].currentFramerate;
+            FOutFramerateRange[instanceId] = new Vector2D(FProcessor[instanceId].framerateRange.Minimum, FProcessor[instanceId].framerateRange.Maximum);
+
+            FOutexposureSupported[instanceId] = FProcessor[instanceId].exposureSupported;
+
+            FOutpixelClockCurrent[instanceId] = FProcessor[instanceId].pixelClockCurrent;
+            FOutpixelClockRange[instanceId] = new Vector2D(FProcessor[instanceId].pixelClockRange.Minimum, FProcessor[instanceId].pixelClockRange.Maximum);
+
+            FOutexposureCurrent[instanceId] = FProcessor[instanceId].exposureCurrent;
+            FOutexposureRange[instanceId] = new Vector2D(FProcessor[instanceId].exposureRange.Minimum, FProcessor[instanceId].exposureRange.Maximum);
+
+
+
+            //queryAOIRange(instanceId);
         }
 
         private void queryAOIRange(int instanceId)
@@ -935,11 +1011,11 @@ namespace VVVV.Nodes.OpenCV.IDS
             FOutCropYRange[instanceId] = new Vector2D(FProcessor[instanceId].CropYRange.Minimum, FProcessor[instanceId].CropYRange.Maximum);
         }
 
-        private void queryFramerateRange(int instanceId)
-        {
-            FProcessor[instanceId].queryFramerate();
-            FOutFramerateRange[instanceId] = FProcessor[instanceId].framerateRange;
-        }
+        //private void queryFramerateRange(int instanceId)
+        //{
+        //    FProcessor[instanceId].queryFramerate();
+        //    FOutFramerateRange[instanceId] = FProcessor[instanceId].framerateRange;
+        //}
 
         private void setSubsampling(int instanceId)
         {
