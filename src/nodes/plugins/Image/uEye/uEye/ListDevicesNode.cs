@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Threading;
 using uEye;
+using uEye.Types;
 using VVVV.PluginInterfaces.V2;
 using VVVV.Core.Logging;
 
@@ -24,6 +25,12 @@ namespace VVVV.Nodes.OpenCV.CLEye
 		#region fields
 		[Input("Update", IsBang=true, IsSingle=true)]
 		ISpread<bool> FUpdate;
+
+        [Input("Camera ID", MinValue = 0, MaxValue = 255)]
+        ISpread<int> FCameraId;
+
+        [Input("Set Camera ID", IsBang = true)]
+        ISpread<bool> FSetCameraId;
 
         [Output("Camera ID")]
         ISpread<long> FOutCameraId;
@@ -68,6 +75,8 @@ namespace VVVV.Nodes.OpenCV.CLEye
 
         private Camera camera = null;
 
+        CameraInformation[] camList;
+
 
         public void Evaluate(int SpreadMax)
 		{
@@ -76,7 +85,22 @@ namespace VVVV.Nodes.OpenCV.CLEye
 				FFirstRun = false;
 				FillList();
 			}
-		}
+
+            for (int i = 0; i < camList.Length; i++)
+            {
+                if (FSetCameraId[i])
+                {
+                    camera.Init((int)FOutCameraId[i]);
+                    //camera.Init(i);
+
+                    camera.Device.SetCameraID(FCameraId[i]);
+
+                    camera.Exit();
+
+                    FillList();
+                }
+            }
+        }
 
         // retrigger Event
         void cameraDevicesChanged(object sender, EventArgs e)
@@ -99,7 +123,9 @@ namespace VVVV.Nodes.OpenCV.CLEye
                     uEye.Info.Camera.EventDeviceRemoved += cameraDevicesChanged;
                 }
 
-                uEye.Types.CameraInformation[] camList;
+                camList = new CameraInformation[] { };
+
+                //uEye.Types.CameraInformation[] camList;
                 uEye.Info.Camera.GetCameraList(out camList);
 
                 int numCams = camList.Length;
