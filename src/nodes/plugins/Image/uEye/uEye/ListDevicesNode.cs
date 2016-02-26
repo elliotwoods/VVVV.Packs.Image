@@ -26,6 +26,9 @@ namespace VVVV.Nodes.OpenCV.CLEye
 		[Input("Update", IsBang=true, IsSingle=true)]
 		ISpread<bool> FUpdate;
 
+        [Input("Log Deep Info", IsBang = true, IsSingle = true, Visibility = PinVisibility.Hidden)]
+        ISpread<bool> FLogDeepInfo;
+
         [Input("Camera ID", MinValue = 0, MaxValue = 255)]
         ISpread<int> FCameraId;
 
@@ -33,10 +36,11 @@ namespace VVVV.Nodes.OpenCV.CLEye
         ISpread<bool> FSetCameraId;
 
         [Output("Camera ID")]
-        ISpread<long> FOutCameraId;
+        ISpread<int> FOutCameraId;
 
         [Output("Device ID")]
-        ISpread<long> FOutDeviceId;
+        ISpread<int> FOutDeviceId;
+
 
         [Output("in Use")]
         ISpread<bool> FOutInUse;
@@ -45,13 +49,13 @@ namespace VVVV.Nodes.OpenCV.CLEye
         ISpread<string> FOutModel;
 
         [Output("Sensor ID", Visibility = PinVisibility.Hidden)]
-        ISpread<long> FOutSensorId;
+        ISpread<int> FOutSensorId;
 
         [Output("Serial Number")]
         ISpread<string> FOutSerialNumber;
 
         [Output("Camera Status")]
-        ISpread<long> FOutCamStatus;
+        ISpread<string> FOutCamStatus;
 
         [Output("Comport Offset", Visibility = PinVisibility.Hidden)]
         ISpread<int> FOutComportOffset;
@@ -80,52 +84,132 @@ namespace VVVV.Nodes.OpenCV.CLEye
 
         public void Evaluate(int SpreadMax)
 		{
-			if (FFirstRun || FUpdate[0])
+            // dreate camera object and attach events
+            if (camera == null)
+            {
+                camera = new Camera();
+
+                uEye.Info.Camera.EventNewDevice += cameraDevicesChanged;
+                uEye.Info.Camera.EventDeviceRemoved += cameraDevicesChanged;
+            }
+
+            // update
+            if (FFirstRun || FUpdate[0])
 			{
 				FFirstRun = false;
 				FillList();
 			}
 
+            // set cam id
             for (int i = 0; i < camList.Length; i++)
             {
-                if (FSetCameraId[i])
+                if (FSetCameraId[i] && FOutCameraId.SliceCount != 0)
                 {
                     camera.Init((int)FOutCameraId[i]);
-                    //camera.Init(i);
 
                     camera.Device.SetCameraID(FCameraId[i]);
 
                     camera.Exit();
 
                     FillList();
-                }
+                }                
             }
+
+            // query deeper info
+            if (FLogDeepInfo[0])
+            {
+                DeepInfo();
+            }
+
         }
 
         // retrigger Event
         void cameraDevicesChanged(object sender, EventArgs e)
         {
-            //uEye.Camera Cam = sender as uEye.Camera; // not needed, but strange, that it makes this underlying rcw exception
             FStatus[0] = "uEye camera (dis)connected";
             FLogger.Log(LogType.Debug, "uEye camera (dis)connected");
             FillList();
+        }
+
+        void DeepInfo()
+        {
+            if (camera != null)
+            {
+                for (int i = 0; i < camList.Length; i++)
+                {
+                    try
+                    {
+                        camera.Init((int)camList[i].CameraID);
+
+                        uEye.Defines.Status status;
+
+
+                        uEye.Types.CameraInfo camInfo;
+                        status = camera.Information.GetCameraInfo(out camInfo);
+
+                        FLogger.Log(LogType.Message, "");
+                        FLogger.Log(LogType.Message, "CameraInfo: (" + status + ")");
+                        FLogger.Log(LogType.Message, "");
+
+                        FLogger.Log(LogType.Message, "ID: " + camInfo.ID);
+                        FLogger.Log(LogType.Message, "Date: " + camInfo.Date);
+                        FLogger.Log(LogType.Message, "CameraID: " + camInfo.CameraID);
+                        FLogger.Log(LogType.Message, "BoardType: " + camInfo.BoardType);
+                        FLogger.Log(LogType.Message, "Version: " + camInfo.Version);
+                        FLogger.Log(LogType.Message, "SerialNumber: " + camInfo.SerialNumber);
+
+
+                        DeviceInformation devInfo;
+                        status = camera.Information.GetDeviceInfo(out devInfo);
+
+                        FLogger.Log(LogType.Message, "");
+                        FLogger.Log(LogType.Message, "");
+                        FLogger.Log(LogType.Message, "DeviceInformation: (" + status + ")");
+                        FLogger.Log(LogType.Message, "");
+
+                        FLogger.Log(LogType.Message, "ComportOffset: " + devInfo.DeviceInfoHeartbeat.ComportOffset);
+                        FLogger.Log(LogType.Message, "LinkSpeed_Mb: " + devInfo.DeviceInfoHeartbeat.LinkSpeed_Mb);
+                        FLogger.Log(LogType.Message, "RuntimeFirmwareVersion: " + devInfo.DeviceInfoHeartbeat.RuntimeFirmwareVersion);
+                        FLogger.Log(LogType.Message, "Temperature: " + devInfo.DeviceInfoHeartbeat.Temperature);
+                        FLogger.Log(LogType.Message, "DeviceID: " + devInfo.DeviceInfoControl.DeviceID);
+
+
+                        SensorInfo sInfo;
+                        status = camera.Information.GetSensorInfo(out sInfo);
+
+                        FLogger.Log(LogType.Message, "");
+                        FLogger.Log(LogType.Message, "");
+                        FLogger.Log(LogType.Message, "SensorInfo: (" + status + ")");
+                        FLogger.Log(LogType.Message, "");
+
+                        FLogger.Log(LogType.Message, "SensorName: " + sInfo.SensorName);
+
+                        FLogger.Log(LogType.Message, "MasterGain: " + sInfo.MasterGain);
+                        FLogger.Log(LogType.Message, "RedGain: " + sInfo.RedGain);
+                        FLogger.Log(LogType.Message, "GreenGain: " + sInfo.GreenGain);
+                        FLogger.Log(LogType.Message, "BlueGain: " + sInfo.BlueGain);
+
+                        FLogger.Log(LogType.Message, "GlobalShutter: " + sInfo.GlobalShutter);
+                        FLogger.Log(LogType.Message, "PixelSize: " + sInfo.PixelSize);
+                        FLogger.Log(LogType.Message, "MaxSize: " + sInfo.MaxSize.Width.ToString() + " x " + sInfo.MaxSize.Height.ToString());
+                        FLogger.Log(LogType.Message, "SensorColorMode: " + sInfo.SensorColorMode);
+
+                        camera.Exit();
+                    }
+                    catch (Exception e)
+                    {
+                        FLogger.Log(LogType.Message, "Exception: " + e.ToString());
+                    }
+                }
+            }
         }
 
 		void FillList()
 		{
 			try
 			{
-                if (camera == null)
-                {
-                    camera = new Camera();
-
-                    uEye.Info.Camera.EventNewDevice += cameraDevicesChanged;
-                    uEye.Info.Camera.EventDeviceRemoved += cameraDevicesChanged;
-                }
-
                 camList = new CameraInformation[] { };
 
-                //uEye.Types.CameraInformation[] camList;
                 uEye.Info.Camera.GetCameraList(out camList);
 
                 int numCams = camList.Length;
@@ -144,13 +228,15 @@ namespace VVVV.Nodes.OpenCV.CLEye
 
                 for (int i = 0; i < camList.Length; i++)
                 {
-                    FOutCameraId[i] = camList[i].CameraID;
-                    FOutDeviceId[i] = camList[i].DeviceID;
+                    FOutCameraId[i] = (int)camList[i].CameraID;
+                    FOutDeviceId[i] = (int)camList[i].DeviceID;
                     FOutInUse[i] = camList[i].InUse;
                     FOutModel[i] = camList[i].Model;
-                    FOutSensorId[i] = camList[i].SensorID;
+                    FOutSensorId[i] = (int)camList[i].SensorID;
                     FOutSerialNumber[i] = camList[i].SerialNumber;
-                    FOutCamStatus[i] = camList[i].Status;
+                    string stat = Enum.GetName(typeof(uEye.Defines.Status), camList[i].Status);
+                    FOutCamStatus[i] = stat;
+
 
                     //additional info per cam
                     uEye.Types.DeviceInformation di;

@@ -1,6 +1,6 @@
 <!DOCTYPE PATCH  SYSTEM "http://vvvv.org/versions/vvvv45beta34.2.dtd" >
    <PATCH nodename="C:\vvvv\vvvv_45beta34.2_x86\packs\VVVV.Packs.Image\nodes\plugins\ListDevices (uEye) help.v4p" scrollx="0" scrolly="-360">
-   <BOUNDS type="Window" left="2370" top="1905" width="21645" height="11655">
+   <BOUNDS type="Window" left="630" top="1995" width="26055" height="10845">
    </BOUNDS>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="3" systemname="IOBox (String)">
    <BOUNDS type="Node" left="225" top="225" width="5100" height="450">
@@ -15,9 +15,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="2" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="225" top="600" width="5100" height="600">
+   <BOUNDS type="Node" left="225" top="630" width="5100" height="600">
    </BOUNDS>
-   <BOUNDS type="Box" left="225" top="600" width="5100" height="600">
+   <BOUNDS type="Box" left="225" top="630" width="5100" height="600">
    </BOUNDS>
    <PIN pinname="Input String" slicecount="1" visible="0" values="|List available uEye camera devices w/ Information per connected Device|">
    </PIN>
@@ -29,9 +29,9 @@
    <PACK Name="addonpack" Version="34.1.0">
    </PACK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="4" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="615" top="3210" width="840" height="1920">
+   <BOUNDS type="Box" left="615" top="3960" width="840" height="1920">
    </BOUNDS>
-   <BOUNDS type="Node" left="615" top="3210" width="0" height="0">
+   <BOUNDS type="Node" left="615" top="3960" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -45,13 +45,13 @@
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Camera ID|">
    </PIN>
-   <PIN pinname="Y Input Value" slicecount="1" values="1">
+   <PIN pinname="Y Input Value" slicecount="1" values="2">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="5" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="2115" top="3210" width="840" height="1920">
+   <BOUNDS type="Box" left="2115" top="3960" width="840" height="1920">
    </BOUNDS>
-   <BOUNDS type="Node" left="2115" top="3210" width="0" height="0">
+   <BOUNDS type="Node" left="2115" top="3960" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -63,15 +63,15 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="1" values="1">
+   <PIN pinname="Y Input Value" visible="1" slicecount="1" values="1001">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Device ID|">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="6" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="3615" top="3210" width="840" height="1920">
+   <BOUNDS type="Box" left="3600" top="3960" width="840" height="1920">
    </BOUNDS>
-   <BOUNDS type="Node" left="3615" top="3210" width="0" height="0">
+   <BOUNDS type="Node" left="3600" top="3960" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -88,30 +88,10 @@
    <PIN pinname="Descriptive Name" slicecount="1" values="|in Use|">
    </PIN>
    </NODE>
-   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="10" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="9600" top="3210" width="840" height="1920">
-   </BOUNDS>
-   <BOUNDS type="Node" left="9600" top="3210" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Units" slicecount="1" values="||">
-   </PIN>
-   <PIN pinname="Precision" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Value Type" slicecount="1" values="Integer">
-   </PIN>
-   <PIN pinname="Rows" slicecount="1" values="4">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="1">
-   </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="Descriptive Name" slicecount="1" values="|Camera Status|">
-   </PIN>
-   </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="12" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="5115" top="3210" width="1200" height="1890">
+   <BOUNDS type="Box" left="5115" top="3960" width="1200" height="1890">
    </BOUNDS>
-   <BOUNDS type="Node" left="5115" top="3210" width="0" height="0">
+   <BOUNDS type="Node" left="5115" top="3960" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -125,13 +105,13 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Input String" slicecount="1" values="UI154xLE-M">
+   <PIN pinname="Input String" slicecount="1" values="UI558xCP-C">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="13" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="8100" top="3210" width="1155" height="1875">
+   <BOUNDS type="Box" left="8100" top="3960" width="1155" height="1875">
    </BOUNDS>
-   <BOUNDS type="Node" left="8100" top="3210" width="0" height="0">
+   <BOUNDS type="Node" left="8100" top="3960" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -145,13 +125,13 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Input String" slicecount="1" values="4002835952">
+   <PIN pinname="Input String" slicecount="1" values="4102956342">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="14" systemname="IOBox (String)">
-   <BOUNDS type="Box" left="17040" top="2580" width="795" height="240">
+   <BOUNDS type="Box" left="17040" top="3330" width="795" height="240">
    </BOUNDS>
-   <BOUNDS type="Node" left="17040" top="2580" width="0" height="0">
+   <BOUNDS type="Node" left="17040" top="3330" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Default" slicecount="1" values="||">
    </PIN>
@@ -165,9 +145,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="15" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="615" top="1380" width="480" height="480">
+   <BOUNDS type="Box" left="615" top="1680" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="615" top="1380" width="0" height="0">
+   <BOUNDS type="Node" left="615" top="1680" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -185,17 +165,19 @@
    </PIN>
    </NODE>
    <NODE systemname="Renderer (TTY)" nodename="Renderer (TTY)" componentmode="InABox" id="16">
-   <BOUNDS type="Node" left="615" top="7020" width="100" height="100">
+   <BOUNDS type="Node" left="18240" top="4185" width="100" height="100">
    </BOUNDS>
-   <BOUNDS type="Box" left="615" top="7020" width="19605" height="3000">
+   <BOUNDS type="Box" left="18240" top="4185" width="7080" height="5415">
    </BOUNDS>
    <BOUNDS type="Window" left="21435" top="9165" width="6240" height="5085">
    </BOUNDS>
+   <PIN pinname="Clear" visible="1">
+   </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="18" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="12585" top="3210" width="840" height="1920">
+   <BOUNDS type="Box" left="12585" top="3960" width="840" height="1920">
    </BOUNDS>
-   <BOUNDS type="Node" left="12585" top="3210" width="0" height="0">
+   <BOUNDS type="Node" left="12585" top="3960" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -207,15 +189,15 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="1" values="480">
+   <PIN pinname="Y Input Value" visible="1" slicecount="1" values="1000">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="|Link Speed (Mb)|">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="19" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="15555" top="3210" width="840" height="1920">
+   <BOUNDS type="Box" left="15555" top="3960" width="840" height="1920">
    </BOUNDS>
-   <BOUNDS type="Node" left="15555" top="3210" width="0" height="0">
+   <BOUNDS type="Node" left="15555" top="3960" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Units" slicecount="1" values="||">
    </PIN>
@@ -227,15 +209,15 @@
    </PIN>
    <PIN pinname="Show Grid" slicecount="1" values="1">
    </PIN>
-   <PIN pinname="Y Input Value" visible="1" slicecount="1" values="0">
+   <PIN pinname="Y Input Value" visible="1" slicecount="1" values="778">
    </PIN>
    <PIN pinname="Descriptive Name" slicecount="1" values="Temperature">
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="20" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="15585" top="5460" width="2310" height="270">
+   <BOUNDS type="Node" left="15735" top="6210" width="2310" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="15585" top="5460" width="1425" height="540">
+   <BOUNDS type="Box" left="15735" top="6210" width="1425" height="540">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|Only working with USB3 cameras|">
    </PIN>
@@ -246,56 +228,12 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
-   <NODE nodename="IOBox (String)" componentmode="InABox" id="21" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="9570" top="5400" width="2310" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="9570" top="5400" width="1425" height="540">
-   </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|No idea what this info means|">
-   </PIN>
-   <PIN pinname="Output String" visible="0">
-   </PIN>
-   <PIN pinname="Show Grid" slicecount="1" values="0">
-   </PIN>
-   <PIN pinname="String Type" slicecount="1" values="MultiLine">
-   </PIN>
-   </NODE>
-   <NODE nodename="ListDevices (uEye)" componentmode="Hidden" id="22" systemname="ListDevices (uEye)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.uEye.dll">
-   <BOUNDS type="Node" left="615" top="2085" width="16500" height="270">
-   </BOUNDS>
-   <BOUNDS type="Box" left="615" top="2085" width="0" height="0">
-   </BOUNDS>
-   <PIN pinname="Set Camera ID" visible="1">
-   </PIN>
-   <PIN pinname="Camera ID" visible="1">
-   </PIN>
-   </NODE>
-   <LINK srcnodeid="22" srcpinname="Camera ID" dstnodeid="4" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="22" srcpinname="Device ID" dstnodeid="5" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="22" srcpinname="in Use" dstnodeid="6" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="22" srcpinname="Model" dstnodeid="12" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="22" srcpinname="Serial Number" dstnodeid="13" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="22" srcpinname="Status" dstnodeid="14" dstpinname="Input String">
-   </LINK>
-   <LINK srcnodeid="15" srcpinname="Y Output Value" dstnodeid="22" dstpinname="Update">
-   </LINK>
-   <LINK srcnodeid="22" srcpinname="Camera Status" dstnodeid="10" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="22" srcpinname="Link Speed (Mb)" dstnodeid="18" dstpinname="Y Input Value">
-   </LINK>
-   <LINK srcnodeid="22" srcpinname="Temperature" dstnodeid="19" dstpinname="Y Input Value">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="23" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="615" top="6540" width="2310" height="270">
+   <BOUNDS type="Node" left="18270" top="9690" width="2310" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="615" top="6540" width="7575" height="315">
+   <BOUNDS type="Box" left="18270" top="9690" width="6870" height="300">
    </BOUNDS>
-   <PIN pinname="Input String" visible="0" slicecount="1" values="|if cameras are plugged in or removed, you should see it here and the node retriggers itself|">
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|if cameras are plugged in or removed, you should see it here and the node retriggers itself.&cr;&lf;&cr;&lf;|">
    </PIN>
    <PIN pinname="Output String" visible="0">
    </PIN>
@@ -305,9 +243,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="24" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="12585" top="1440" width="2310" height="270">
+   <BOUNDS type="Node" left="660" top="9315" width="2310" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="12585" top="1440" width="4455" height="555">
+   <BOUNDS type="Box" left="660" top="9315" width="4455" height="555">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|there are some more hidden pins w/ not so important information|">
    </PIN>
@@ -319,9 +257,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="25" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="13785" top="2400" width="2310" height="270">
+   <BOUNDS type="Node" left="13605" top="3240" width="2310" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="13785" top="2400" width="1425" height="540">
+   <BOUNDS type="Box" left="13605" top="3240" width="1425" height="540">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|firmware reports always 0.0.0.0 ?|">
    </PIN>
@@ -333,9 +271,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="26" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="17055" top="1125" width="480" height="480">
+   <BOUNDS type="Box" left="17055" top="1680" width="480" height="480">
    </BOUNDS>
-   <BOUNDS type="Node" left="17055" top="1125" width="0" height="0">
+   <BOUNDS type="Node" left="17055" top="1680" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
    </PIN>
@@ -352,12 +290,10 @@
    <PIN pinname="X Input Value" slicecount="1" values="0">
    </PIN>
    </NODE>
-   <LINK srcnodeid="26" srcpinname="Y Output Value" dstnodeid="22" dstpinname="Set Camera ID">
-   </LINK>
    <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="27" systemname="IOBox (Value Advanced)">
-   <BOUNDS type="Box" left="8820" top="1275" width="780" height="615">
+   <BOUNDS type="Box" left="11580" top="1680" width="780" height="615">
    </BOUNDS>
-   <BOUNDS type="Node" left="8820" top="1275" width="0" height="0">
+   <BOUNDS type="Node" left="11580" top="1680" width="0" height="0">
    </BOUNDS>
    <PIN pinname="Y Input Value" slicecount="2" visible="1" values="1,2">
    </PIN>
@@ -374,12 +310,10 @@
    <PIN pinname="SliceCount Mode" slicecount="1" values="ColsRowsPages">
    </PIN>
    </NODE>
-   <LINK srcnodeid="27" srcpinname="Y Output Value" dstnodeid="22" dstpinname="Camera ID">
-   </LINK>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="28" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="17640" top="1170" width="2520" height="270">
+   <BOUNDS type="Node" left="16995" top="885" width="2520" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="17640" top="1170" width="2790" height="540">
+   <BOUNDS type="Box" left="16995" top="885" width="2790" height="540">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|click, wait and (if you&apos;re changing a gigE cameras id) click update |">
    </PIN>
@@ -391,9 +325,9 @@
    </PIN>
    </NODE>
    <NODE nodename="IOBox (String)" componentmode="InABox" id="29" systemname="IOBox (String)">
-   <BOUNDS type="Node" left="8790" top="105" width="2310" height="270">
+   <BOUNDS type="Node" left="11550" top="405" width="2310" height="270">
    </BOUNDS>
-   <BOUNDS type="Box" left="8790" top="105" width="3165" height="960">
+   <BOUNDS type="Box" left="11550" top="405" width="3165" height="960">
    </BOUNDS>
    <PIN pinname="Input String" visible="0" slicecount="1" values="|set a random id (0-255) for each output&cr;&lf;&cr;&lf;this is needed to acces more than 1 camera at the time, because they default to 1.|">
    </PIN>
@@ -404,4 +338,132 @@
    <PIN pinname="String Type" slicecount="1" values="MultiLine">
    </PIN>
    </NODE>
+   <NODE nodename="IOBox (Value Advanced)" componentmode="InABox" id="30" systemname="IOBox (Value Advanced)">
+   <BOUNDS type="Box" left="6090" top="1680" width="480" height="480">
+   </BOUNDS>
+   <BOUNDS type="Node" left="6090" top="1680" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Y Input Value" slicecount="1" visible="1" values="0">
+   </PIN>
+   <PIN pinname="Units" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Precision" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Value Type" slicecount="1" values="Boolean">
+   </PIN>
+   <PIN pinname="Behavior" slicecount="1" values="Bang">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Log Deep Info|">
+   </PIN>
+   <PIN pinname="Y Output Value" visible="1">
+   </PIN>
+   <PIN pinname="X Input Value" slicecount="1" values="0">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="30" srcpinname="Y Output Value" dstnodeid="16" dstpinname="Clear" linkstyle="Bezier" hiddenwhenlocked="1">
+   <LINKPOINT x="11610" y="3207">
+   </LINKPOINT>
+   <LINKPOINT x="17745" y="1266">
+   </LINKPOINT>
+   <LINKPOINT x="18885" y="3873">
+   </LINKPOINT>
+   <LINKPOINT x="20415" y="3930">
+   </LINKPOINT>
+   <LINKPOINT x="19260" y="3894">
+   </LINKPOINT>
+   <LINKPOINT x="24030" y="3861">
+   </LINKPOINT>
+   <LINKPOINT x="24840" y="1980">
+   </LINKPOINT>
+   <LINKPOINT x="19320" y="2802">
+   </LINKPOINT>
+   <LINKPOINT x="18630" y="3234">
+   </LINKPOINT>
+   <LINKPOINT x="18900" y="3393">
+   </LINKPOINT>
+   </LINK>
+   <NODE nodename="ListDevices (uEye)" componentmode="Hidden" id="31" systemname="ListDevices (uEye)" filename="%VVVV%\packs\VVVV.Packs.Image\nodes\plugins\VVVV.Nodes.OpenCV.uEye.dll">
+   <BOUNDS type="Node" left="615" top="2835" width="16500" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="615" top="2835" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Log Deep Info" visible="1">
+   </PIN>
+   <PIN pinname="Cameras changed" visible="1">
+   </PIN>
+   <PIN pinname="Camera Status" visible="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="31" srcpinname="Camera ID" dstnodeid="4" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="Device ID" dstnodeid="5" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="in Use" dstnodeid="6" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="Model" dstnodeid="12" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="Serial Number" dstnodeid="13" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="Status" dstnodeid="14" dstpinname="Input String">
+   </LINK>
+   <LINK srcnodeid="15" srcpinname="Y Output Value" dstnodeid="31" dstpinname="Update">
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="Link Speed (Mb)" dstnodeid="18" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="31" srcpinname="Temperature" dstnodeid="19" dstpinname="Y Input Value">
+   </LINK>
+   <LINK srcnodeid="26" srcpinname="Y Output Value" dstnodeid="31" dstpinname="Set Camera ID">
+   </LINK>
+   <LINK srcnodeid="27" srcpinname="Y Output Value" dstnodeid="31" dstpinname="Camera ID">
+   </LINK>
+   <LINK srcnodeid="30" srcpinname="Y Output Value" dstnodeid="31" dstpinname="Log Deep Info">
+   </LINK>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="32" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="6615" top="1680" width="3705" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="6615" top="1680" width="1965" height="525">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|this takes some time and blocks the main thread...|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="33" systemname="IOBox (String)">
+   <BOUNDS type="Node" left="19050" top="3225" width="9555" height="270">
+   </BOUNDS>
+   <BOUNDS type="Box" left="19050" top="3225" width="4860" height="555">
+   </BOUNDS>
+   <PIN pinname="Input String" visible="0" slicecount="1" values="|if you press &quot;Log Deep Info&quot;, every attached cam gets initialized and its inf is queried. it will take a while, especially with gigE cameras.|">
+   </PIN>
+   <PIN pinname="Output String" visible="0">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="0">
+   </PIN>
+   <PIN pinname="String Type" slicecount="1" values="MultiLine">
+   </PIN>
+   </NODE>
+   <NODE nodename="IOBox (String)" componentmode="InABox" id="35" systemname="IOBox (String)">
+   <BOUNDS type="Box" left="9600" top="3975" width="1080" height="1845">
+   </BOUNDS>
+   <BOUNDS type="Node" left="9600" top="3975" width="0" height="0">
+   </BOUNDS>
+   <PIN pinname="Default" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="File Mask" slicecount="1" values="||">
+   </PIN>
+   <PIN pinname="Maximum Characters" slicecount="1" values="-1">
+   </PIN>
+   <PIN pinname="Descriptive Name" slicecount="1" values="|Camera Status|">
+   </PIN>
+   <PIN pinname="Rows" slicecount="1" values="4">
+   </PIN>
+   <PIN pinname="Show Grid" slicecount="1" values="1">
+   </PIN>
+   </NODE>
+   <LINK srcnodeid="31" srcpinname="Camera Status" dstnodeid="35" dstpinname="Input String">
+   </LINK>
    </PATCH>
