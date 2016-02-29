@@ -36,11 +36,11 @@ namespace VVVV.Nodes.OpenCV.IDS
         public bool isGainRedSupported, isGainBlueSupported, isGainGreenSupported, isGainMasterSupported;
 
         //public int gainMaster;
-        //public int gainRed;
-        //public int gainGreen;
-        //public int gainBlue;
+        public int currentgainRed;
+        public int currentgainGreen;
+        public int currentgainBlue;
 
-        public bool WhitebalanceSupported;
+        public bool whitebalanceSupported;
 
         public bool gainAutoSupported;
         public bool gainBoostSupported;
@@ -312,7 +312,7 @@ namespace VVVV.Nodes.OpenCV.IDS
                                            out isGainGreenSupported, out isGainBlueSupported);
 
 
-            WhitebalanceSupported = cam.AutoFeatures.Sensor.Whitebalance.Supported;
+            whitebalanceSupported = cam.AutoFeatures.Sensor.Whitebalance.Supported;
 
             //cam.AutoFeatures.Sensor.Framerate.Supported;
 
@@ -506,10 +506,11 @@ namespace VVVV.Nodes.OpenCV.IDS
                 cam.Gain.Hardware.Boost.SetEnable(enable);
         }
 
-        //public void setWhitebalance(bool enable)
-        //{
-        //    cam.AutoFeatures.Software.WhiteBalance.SetEnable(enable);
-        //}
+        public void setWhitebalance(bool enable)
+        {
+            if (whitebalanceSupported)
+            cam.AutoFeatures.Software.WhiteBalance.SetEnable(enable);
+        }
 
 
         public void SetFrameRate(double fps)
@@ -548,6 +549,13 @@ namespace VVVV.Nodes.OpenCV.IDS
             }
         }
 
+        public void queryColorGain()
+        {
+            cam.Gain.Hardware.Scaled.GetRed(out currentgainRed);
+            cam.Gain.Hardware.Scaled.GetGreen(out currentgainGreen);
+            cam.Gain.Hardware.Scaled.GetBlue(out currentgainBlue);
+        }
+
         public void queryTiming()
         {
             cam.Timing.Exposure.GetSupported(out exposureSupported);
@@ -563,8 +571,6 @@ namespace VVVV.Nodes.OpenCV.IDS
             cam.Timing.Framerate.GetCurrentFps(out currentFramerate);
 
         }
-
-        
 
         #endregion queryParameterSets
 
@@ -664,14 +670,21 @@ namespace VVVV.Nodes.OpenCV.IDS
 		[Input("FPS", DefaultValue=30, MinValue=0, MaxValue=1024)]
 		IDiffSpread<int> FInFps;
 
+        [Input("Gain Boost")]
+        IDiffSpread<bool> FInGainBoost;
+
         [Input("Gain Master", DefaultValue = 0.1, MinValue = 0, MaxValue = 1)]
         IDiffSpread<double> FInGainMaster;
 
         [Input("Gain Red", DefaultValue = 0.1, MinValue = 0, MaxValue = 1)]
         IDiffSpread<Vector3D> FInGainColor;
 
-        [Input("Auto White Balance")]
+        [Input("Auto White Balance (Gain)")]
         IDiffSpread<bool> FInAWB;
+
+        [Input("Auto White Balance (Sensor)")]
+        IDiffSpread<bool> FInWhitebalance;
+        
 
         [Input("Exposure", DefaultValue = 0.1, MinValue = 0)]
         IDiffSpread<double> FInExposure;
@@ -726,8 +739,14 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Output("Automatic Gain Supported")]
         ISpread<bool> FOutgainAutoSupported;
 
-        [Output("Gain BoostSupported")]
+        [Output("Gain Boost Supported")]
         ISpread<bool> FOutgainBoostSupported;
+
+        [Output("current Color Gain")]
+        ISpread<Vector3D> FOutcurrentColorGain;
+
+        [Output("Whitebalance Supported")]
+        ISpread<bool> FOutWhitebalance;
 
         [Output("supported Antiflicker Mode", Visibility = PinVisibility.Hidden)]
         ISpread<uEye.Defines.Whitebalance.AntiFlickerMode> FOutsupportetAntiflicker;
@@ -780,8 +799,11 @@ namespace VVVV.Nodes.OpenCV.IDS
             FOutCropYRange.SliceCount = InstanceCount;
 
             // gain
+            FOutcurrentColorGain.SliceCount = InstanceCount;
             FOutgainAutoSupported.SliceCount = InstanceCount;
             FOutgainBoostSupported.SliceCount = InstanceCount;
+
+            FOutWhitebalance.SliceCount = InstanceCount;
 
 
             //Timing
@@ -806,6 +828,13 @@ namespace VVVV.Nodes.OpenCV.IDS
                     setBinning(i);
                     setSubsampling(i);
                     setAOI(i);
+
+                    setGainBoost(i);
+                    setMasterGain(i);
+                    setColorGain(i);
+
+                    setWhitebalance(i);
+
                     setFramerate(i);
                     setColorMode(i);
                     setPixelclock(i);
@@ -827,7 +856,6 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 for (int i = 0; i < InstanceCount; i++)
                 {
-
                     if (FProcessor[i].camOpen)
                     {
                         FLogger.Log(LogType.Debug, "query parameter for camera " + i);
@@ -856,7 +884,7 @@ namespace VVVV.Nodes.OpenCV.IDS
                     FOutSubsamplingY[i] = FProcessor[i].currentSubsamplingY.ToString();
 
                     queryAOIRange(i);
-
+                    queryTiming(i);
                 }
             }
 
@@ -868,6 +896,8 @@ namespace VVVV.Nodes.OpenCV.IDS
                     FLogger.Log(LogType.Debug, "set AOI for camera " + i);
                     setAOI(i);
                     queryAOIRange(i);
+                    queryTiming(i);
+
                 }
             }
 
@@ -878,7 +908,7 @@ namespace VVVV.Nodes.OpenCV.IDS
                 {
                     FLogger.Log(LogType.Debug, "set FrameRate for camera " + i);
                     setFramerate(i);
-
+                    queryTiming(i);
                 }
             }
 
@@ -912,15 +942,36 @@ namespace VVVV.Nodes.OpenCV.IDS
 				for (int i = 0; i < InstanceCount; i++)
                 {
                     FLogger.Log(LogType.Debug, "set Colormode for  camera " + i);
-                    if (FProcessor[i].Enabled) FProcessor[i].setColorMode(FColorMode[i]);
+                    if (FProcessor[i].camOpen)
+                    {
+                        FProcessor[i].setColorMode(FColorMode[i]);
+                    }
                 }                    
 			}
 
+            // set gain
             if (FInGainColor.IsChanged || FInAWB.IsChanged)
             {
                 for (int i = 0; i < InstanceCount; i++)
                 {
                     setColorGain(i);
+                    queryGain(i);
+                }
+            }
+
+            for (int i = 0; i < InstanceCount; i++)
+            {
+                if (FInAWB[i])
+                {
+                    queryGain(i);
+                }
+            }
+
+            if (FInGainBoost.IsChanged)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                {
+                    setGainBoost(i);
                 }
             }
 
@@ -939,7 +990,11 @@ namespace VVVV.Nodes.OpenCV.IDS
                 for (int i = 0; i < InstanceCount; i++)
                 {
                     FLogger.Log(LogType.Debug, "set Exposure for  camera " + i);
-                    if (FProcessor[i].Enabled) FProcessor[i].setExposure(FInExposure[i]);
+                    if (FProcessor[i].camOpen)
+                    {
+                        FProcessor[i].setExposure(FInExposure[i]);
+                        queryTiming(i);
+                    }
 
                 }
             }
@@ -950,8 +1005,11 @@ namespace VVVV.Nodes.OpenCV.IDS
                 for (int i = 0; i < InstanceCount; i++)
                 {
                     FLogger.Log(LogType.Debug, "set PixelClock for  camera " + i);
-                    if (FProcessor[i].Enabled) FProcessor[i].setPixelClock(FInPixelClock[i]);
-
+                    if (FProcessor[i].camOpen)
+                    {
+                        FProcessor[i].setPixelClock(FInPixelClock[i]);
+                        queryTiming(i);
+                    }
                 }
             }
 
@@ -961,7 +1019,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 for (int i = 0; i < InstanceCount; i++)
                 {
-                    if (FProcessor[i].Enabled)
+                    if (FProcessor[i].camOpen)
                     {
                         FLogger.Log(LogType.Debug, "queryTiming() for  camera " + i);
                         queryTiming(i);
@@ -969,33 +1027,34 @@ namespace VVVV.Nodes.OpenCV.IDS
                 }
             }
 
+            
+            // get timing values every frame --- toooo slow
+            //if (!FPinInEnabled.IsChanged)
+            //{
+            //    for (int i = 0; i < InstanceCount; i++)
+            //    {
+            //        if (FProcessor[i].camOpen)
+            //        {
+            //            queryTiming(i);
+            //        }
+            //    }
+            //}
 
-            // get timing values every frame
-            if (!FPinInEnabled.IsChanged)
-            {
-                for (int i = 0; i < InstanceCount; i++)
-                {
-                    if (FProcessor[i].camOpen)
-                    {
-                        try
-                        {
-                            //FLogger.Log(LogType.Debug, "queryTiming() for  camera " + i);
-                            queryTiming(i);
-                        }
-
-                        catch (Exception e)
-                        {
-                            FLogger.Log(LogType.Error, e.ToString());
-                        }
-                    }
-                }
-            }
 
 
 
             if (firstframe) firstframe = false;
         }
 
+        private void queryGain(int instanceId)
+        {
+            if (FProcessor[instanceId].camOpen)
+            {
+                FProcessor[instanceId].queryColorGain();
+
+                FOutcurrentColorGain[instanceId] = new Vector3D(FProcessor[instanceId].currentgainRed / 100.0, FProcessor[instanceId].currentgainGreen / 100.0, FProcessor[instanceId].currentgainBlue / 100.0);
+            }
+        }
 
 
         private void queryFeatures(int instanceId)
@@ -1057,6 +1116,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 
                 FOutgainBoostSupported[instanceId] =  FProcessor[instanceId].gainBoostSupported;
 
+                FOutWhitebalance[instanceId] = FProcessor[instanceId].whitebalanceSupported;
+
                 queryRequest = false;
             }
         }
@@ -1066,7 +1127,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             if (FProcessor[instanceId].camOpen)
             {
                 FProcessor[instanceId].Status += "\n queryTiming";
-                //queryFramerateRange(i);
+
                 FProcessor[instanceId].queryTiming();
 
                 FOutcurrentFramerate[instanceId] = FProcessor[instanceId].currentFramerate;
@@ -1154,7 +1215,19 @@ namespace VVVV.Nodes.OpenCV.IDS
                     FProcessor[instanceId].setGainBlue((int)(FInGainColor[instanceId].z * 100));
 
                 }
+
+                queryGain(instanceId);
             }
+        }
+
+        private void setGainBoost(int instanceId)
+        {
+            FProcessor[instanceId].setGainBoost(FInGainBoost[instanceId]);
+        }
+
+        private void setWhitebalance(int instanceId)
+        {
+            FProcessor[instanceId].setWhitebalance(FInWhitebalance[instanceId]);
         }
 
 
