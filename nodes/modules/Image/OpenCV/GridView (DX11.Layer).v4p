@@ -88,12 +88,6 @@
    <PIN pinname="Output Node" visible="1">
    </PIN>
    </NODE>
-   <LINK srcnodeid="0" srcpinname="Output Node" dstnodeid="36" dstpinname="Input" linkstyle="Bezier">
-   <LINKPOINT x="3765" y="2865">
-   </LINKPOINT>
-   <LINKPOINT x="2070" y="2865">
-   </LINKPOINT>
-   </LINK>
    <LINK srcnodeid="36" srcpinname="Output Node" dstnodeid="27" dstpinname="Input Node">
    </LINK>
    <NODE systemname="Count (Node)" nodename="Count (Node)" componentmode="Hidden" id="37">
