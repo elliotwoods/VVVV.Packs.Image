@@ -20,54 +20,8 @@ namespace VVVV.Nodes.OpenCV.IDS
         #region fields
 
         private Camera cam = null;
+
         public Status camStatus { get; set; }
-
-        public BinningMode supportedBinning;
-        public BinningMode currentBinningX;
-        public BinningMode currentBinningY;
-        public SubsamplingMode supportedSubsampling;
-        public SubsamplingMode currentSubsamplingX;
-        public SubsamplingMode currentSubsamplingY;
-        
-
-        public Range<int> AOIWidth, AOIHeight;
-        public Range<int> CropXRange, CropYRange;
-
-        public bool isGainRedSupported, isGainBlueSupported, isGainGreenSupported, isGainMasterSupported;
-
-        //public int gainMaster;
-        public int currentgainRed;
-        public int currentgainGreen;
-        public int currentgainBlue;
-
-        public bool whitebalanceSupported;
-
-        public bool gainAutoSupported;
-        public bool gainBoostSupported;
-
-
-        public uEye.Defines.Whitebalance.AntiFlickerMode supportedAntiflicker;
-
-        // Timing
-        public double currentFramerate;
-        public Range<double> framerateRange;
-
-        public bool exposureSupported;
-        public Range<double> exposureRange;
-        public double currentExposure;
-
-
-        public int currentPixelClock;
-        public Range<int> pixelClockRange;
-        public int[] pixelClockList;
-
-
-
-        private bool frameAvailable = false;
-
-        public bool checkParams = false;
-
-        public bool camOpen = false;
 
         private int FCamId = 0;
 
@@ -81,11 +35,52 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 FCamId = value;
                 Restart();
-}
+            }
         }
 
-        #endregion fields
+        private bool frameAvailable = false;
 
+        public bool checkParams = false;
+
+        public bool camOpen = false;
+
+        // geometry
+        public BinningMode supportedBinning;
+        public BinningMode currentBinningX;
+        public BinningMode currentBinningY;
+        public SubsamplingMode supportedSubsampling;
+        public SubsamplingMode currentSubsamplingX;
+        public SubsamplingMode currentSubsamplingY;
+
+        public Range<int> AOIWidth, AOIHeight;
+        public Range<int> CropXRange, CropYRange;
+
+        // gain 
+        public int currentgainRed;
+        public int currentgainGreen;
+        public int currentgainBlue;
+
+        // features
+        public bool gainAutoSupported;
+        public bool gainBoostSupported;
+        public bool whitebalanceSupported;
+
+        public uEye.Defines.Whitebalance.AntiFlickerMode supportedAntiflicker;
+        //public bool isGainRedSupported, isGainBlueSupported, isGainGreenSupported, isGainMasterSupported;
+
+        // Timing
+        public double currentFramerate;
+        public Range<double> framerateRange;
+
+        public bool exposureSupported;
+        public Range<double> exposureRange;
+        public double currentExposure;
+
+        public int currentPixelClock;
+        public Range<int> pixelClockRange;
+        public int[] pixelClockList;
+
+        #endregion fields
 
         public override bool Open()
 		{
@@ -94,7 +89,15 @@ namespace VVVV.Nodes.OpenCV.IDS
 
             try
             {
+                //if (cam == null)
+                //{
                 cam = new Camera();
+
+                cam.EventDeviceRemove += camDisconnect;
+                cam.EventDeviceUnPlugged += camDisconnect;
+                cam.EventDeviceReconnect += camReconnect;
+                cam.EventDevicePluggedIn += camReconnect;
+                //}
 
                 camStatus = cam.Init(FCamId);
 
@@ -113,13 +116,14 @@ namespace VVVV.Nodes.OpenCV.IDS
                 //Status = "OK";
                 Status += camStatus.ToString();
                 return true;
-            }
+        }
             catch (Exception e)
 			{
-				Status = e.Message;
+
+                Status = e.Message;
 				return false;
 			}
-		}
+}
 
         private void startCapture()
         {
@@ -192,20 +196,16 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 try
                 { 
-                    //bool started;
-                    //camStatus = cam.Acquisition.HasStarted(out started);
-
-                    //cam.EventFrame -= onFrameEvent;
-
                     stopCapture();
+
+                    cam.EventDeviceRemove -= camDisconnect;
+                    cam.EventDeviceUnPlugged -= camDisconnect;
+                    cam.EventDeviceReconnect -= camReconnect;
+                    cam.EventDevicePluggedIn -= camReconnect;
 
                     int[] MemIds;
                     camStatus = cam.Memory.GetList(out MemIds);
-
                     camStatus = cam.Memory.Free(MemIds);
-
-                    //if (started)
-                    //    camStatus = cam.Acquisition.Stop();
 
                     cam.Exit();
                 
@@ -225,31 +225,17 @@ namespace VVVV.Nodes.OpenCV.IDS
             frameAvailable = true;
         }
 
-        private TColorFormat GetColor(uEye.Defines.ColorMode color)
+        private void camDisconnect(object sender, EventArgs e)
         {
-            switch (color)
-            {
-                case uEye.Defines.ColorMode.Mono8:
-                    return TColorFormat.L8;
-
-                case uEye.Defines.ColorMode.Mono16:
-                    return TColorFormat.L16;
-
-                case uEye.Defines.ColorMode.RGB8Packed:
-                case uEye.Defines.ColorMode.RGB8Planar:
-                case uEye.Defines.ColorMode.BGR8Packed:
-                    return TColorFormat.RGB8;
-
-                case uEye.Defines.ColorMode.RGBA8Packed:
-                case uEye.Defines.ColorMode.BGRA8Packed:
-                    return TColorFormat.RGBA8;
-
-                default:
-                    throw (new Exception("Color mode unsupported"));
-            }
+            Close();
         }
 
-        protected unsafe override void Generate()
+        private void camReconnect(object sender, EventArgs e)
+        {
+            Restart();
+        }
+
+        protected override void Generate()
         {
             if (frameAvailable)
             {
@@ -269,19 +255,20 @@ namespace VVVV.Nodes.OpenCV.IDS
                     int MemId;
                     camStatus = cam.Memory.GetActive(out MemId);
 
-                    int lastMemID;
-                    camStatus = cam.Memory.GetLast(out lastMemID);
+                    //int lastMemID;
+                    //camStatus = cam.Memory.GetLast(out lastMemID);
 
-                    bool locked;
-                    camStatus = cam.Memory.GetLocked(MemId, out locked);
+                    //bool locked;
+                    //camStatus = cam.Memory.GetLocked(MemId, out locked);
 
-                    Status += "\n LOCKED = " + locked + " - " + MemId + " | " + lastMemID + " ";
+                    //Status += "\n LOCKED = " + locked + " - " + MemId + " | " + lastMemID + " ";
 
                     int w, h;
                     camStatus = cam.Memory.GetSize(MemId, out w, out h);
 
 
                     camStatus = cam.Memory.Lock(MemId);
+
                     //copy to FOutput
                     IntPtr memPtr;
                     camStatus = cam.Memory.ToIntPtr(out memPtr);
@@ -310,8 +297,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 
             gainAutoSupported = cam.AutoFeatures.Sensor.Gain.Supported;
 
-            cam.Gain.Hardware.GetSupported(out isGainMasterSupported, out isGainRedSupported,
-                                           out isGainGreenSupported, out isGainBlueSupported);
+            //cam.Gain.Hardware.GetSupported(out isGainMasterSupported, out isGainRedSupported,
+            //                               out isGainGreenSupported, out isGainBlueSupported);
 
 
             whitebalanceSupported = cam.AutoFeatures.Sensor.Whitebalance.Supported;
@@ -339,6 +326,32 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         }
 
+        
+        #region helpers
+
+        private TColorFormat GetColor(uEye.Defines.ColorMode color)
+        {
+            switch (color)
+            {
+                case uEye.Defines.ColorMode.Mono8:
+                    return TColorFormat.L8;
+
+                case uEye.Defines.ColorMode.Mono16:
+                    return TColorFormat.L16;
+
+                case uEye.Defines.ColorMode.RGB8Packed:
+                case uEye.Defines.ColorMode.RGB8Planar:
+                case uEye.Defines.ColorMode.BGR8Packed:
+                    return TColorFormat.RGB8;
+
+                case uEye.Defines.ColorMode.RGBA8Packed:
+                case uEye.Defines.ColorMode.BGRA8Packed:
+                    return TColorFormat.RGBA8;
+
+                default:
+                    throw (new Exception("Color mode unsupported"));
+            }
+        }
 
         private double clampRange (double value, Range<double> range)
         {
@@ -379,6 +392,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             return SubsamplingMode.Disable;
         }
 
+        #endregion helpers
 
         #region setParameters
 
@@ -662,9 +676,6 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Input("Mirror Y")]
         IDiffSpread<bool> FInMirrorY;
 
-        //[Input("Format Id")]
-        //IDiffSpread<int> FInFormatId;
-
         [Input("AOI")]
         IDiffSpread<Vector2D> FInAOI;
 
@@ -836,6 +847,10 @@ namespace VVVV.Nodes.OpenCV.IDS
                     setBinning(i);
                     setSubsampling(i);
                     setAOI(i);
+                    setMirrorX(i);
+                    setMirrorY(i);
+
+                    //setColorMode(i);
 
                     setGainBoost(i);
                     setMasterGain(i);
@@ -921,16 +936,16 @@ namespace VVVV.Nodes.OpenCV.IDS
             }
 
             // set mirroring
-            if (FInMirrorX.IsChanged)
+            if (FInMirrorX.IsChanged || FInMirrorY.IsChanged)
             {
                 for (int i = 0; i < InstanceCount; i++)
-                    if (FProcessor[i].Enabled) FProcessor[i].mirrorHorizontal(FInMirrorX[i]);
+                    setMirrorX(i);
             }
 
             if (FInMirrorY.IsChanged)
             {
                 for (int i = 0; i < InstanceCount; i++)
-                    if (FProcessor[i].Enabled) FProcessor[i].mirrorVertical(FInMirrorY[i]);
+                    setMirrorY(i);
             }
 
             // set camId
@@ -1063,6 +1078,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 
             if (firstframe) firstframe = false;
         }
+
+        
 
         private void queryGain(int instanceId)
         {
@@ -1205,6 +1222,22 @@ namespace VVVV.Nodes.OpenCV.IDS
                     FProcessor[instanceId].SetAoi((int)FInCrop[instanceId].x, (int)FInCrop[instanceId].y,
                                             (int)FInAOI[instanceId].x, (int)FInAOI[instanceId].y);
                 }
+        }
+
+        private void setMirrorX(int instanceId)
+        {
+            if (FProcessor[instanceId].camOpen)
+            {
+                FProcessor[instanceId].mirrorHorizontal(FInMirrorX[instanceId]);
+            }
+        }
+
+        private void setMirrorY(int instanceId)
+        {
+            if (FProcessor[instanceId].camOpen)
+            {
+                FProcessor[instanceId].mirrorVertical(FInMirrorY[instanceId]);
+            }
         }
 
 
