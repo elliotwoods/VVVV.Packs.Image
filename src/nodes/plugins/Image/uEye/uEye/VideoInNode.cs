@@ -256,6 +256,8 @@ namespace VVVV.Nodes.OpenCV.IDS
                 this.Status = "";
                 this.Status += "\n onFrameEvent() ";
 
+                updateFrameRate();
+
                 bool started;
                 camStatus = cam.Acquisition.HasStarted(out started);
 
@@ -572,6 +574,11 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         }
 
+        public void updateFrameRate()
+        {
+            cam.Timing.Framerate.GetCurrentFps(out currentFramerate);
+        }
+
         #endregion queryParameterSets
 
 
@@ -667,11 +674,11 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Input("Color Mode")]
 		IDiffSpread<uEye.Defines.ColorMode> FColorMode;
 
-		[Input("FPS", DefaultValue=30, MinValue=0, MaxValue=1024)]
-		IDiffSpread<int> FInFps;
-
         [Input("Gain Boost")]
         IDiffSpread<bool> FInGainBoost;
+
+        [Input("Auto White Balance (Sensor)")]
+        IDiffSpread<bool> FInWhitebalance;
 
         [Input("Gain Master", DefaultValue = 0.1, MinValue = 0, MaxValue = 1)]
         IDiffSpread<double> FInGainMaster;
@@ -682,9 +689,10 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Input("Auto White Balance (Gain)")]
         IDiffSpread<bool> FInAWB;
 
-        [Input("Auto White Balance (Sensor)")]
-        IDiffSpread<bool> FInWhitebalance;
         
+
+        [Input("FPS", DefaultValue = 30, MinValue = 0, MaxValue = 1024)]
+        IDiffSpread<int> FInFps;
 
         [Input("Exposure", DefaultValue = 0.1, MinValue = 0)]
         IDiffSpread<double> FInExposure;
@@ -693,12 +701,6 @@ namespace VVVV.Nodes.OpenCV.IDS
         IDiffSpread<int> FInPixelClock;
 
         // ------------------------------------------------------------
-
-        [Output("Framerate Range")]
-        ISpread<VVVV.Utils.VMath.Vector2D> FOutFramerateRange;
-
-        [Output("Framerate")]
-        ISpread<double> FOutcurrentFramerate;
 
         [Output("supported  Binning X")]
         ISpread<ISpread<string>> FOutBinningXModes;
@@ -751,20 +753,26 @@ namespace VVVV.Nodes.OpenCV.IDS
         [Output("supported Antiflicker Mode", Visibility = PinVisibility.Hidden)]
         ISpread<uEye.Defines.Whitebalance.AntiFlickerMode> FOutsupportetAntiflicker;
 
+        [Output("Framerate Range")]
+        ISpread<Vector2D> FOutRangeFramerate;
+
+        [Output("Framerate")]
+        ISpread<double> FOutCurrentFramerate;
+
         [Output("Exposure Supported")]
-        ISpread<bool> FOutexposureSupported;
+        ISpread<bool> FOutSupportedExposure;
 
         [Output("currennt PixelClock")]
-        ISpread<int> FOutpixelClockCurrent;
+        ISpread<int> FOutCurrentPixelClock;
 
         [Output("PixelClock Range", Visibility = PinVisibility.Hidden)]
-        ISpread<Vector2D> FOutpixelClockRange;
+        ISpread<Vector2D> FOutRangePixelClock;
 
         [Output("currennt Exposure")]
-        ISpread<double> FOutexposureCurrent;
+        ISpread<double> FOutCurrentExposure;
 
         [Output("Exposure Range", Visibility = PinVisibility.Hidden)]
-        ISpread<Vector2D> FOutexposureRange;
+        ISpread<Vector2D> FOutRangeExposure;
 
         [Import()]
         public ILogger FLogger;
@@ -778,8 +786,8 @@ namespace VVVV.Nodes.OpenCV.IDS
 		{
             #region set slicecounts
             // framerate
-            FOutFramerateRange.SliceCount = InstanceCount;
-            FOutcurrentFramerate.SliceCount = InstanceCount;
+            FOutRangeFramerate.SliceCount = InstanceCount;
+            FOutCurrentFramerate.SliceCount = InstanceCount;
 
             // binning / subsampling
             FOutBinningX.SliceCount = InstanceCount;
@@ -807,11 +815,11 @@ namespace VVVV.Nodes.OpenCV.IDS
 
 
             //Timing
-            FOutpixelClockRange.SliceCount = InstanceCount;
-            FOutpixelClockCurrent.SliceCount = InstanceCount;
+            FOutRangePixelClock.SliceCount = InstanceCount;
+            FOutCurrentPixelClock.SliceCount = InstanceCount;
 
-            FOutexposureCurrent.SliceCount = InstanceCount;
-            FOutexposureSupported.SliceCount = InstanceCount;
+            FOutCurrentExposure.SliceCount = InstanceCount;
+            FOutSupportedExposure.SliceCount = InstanceCount;
 
             // Antiflicker
             FOutsupportetAntiflicker.SliceCount = InstanceCount;
@@ -959,13 +967,6 @@ namespace VVVV.Nodes.OpenCV.IDS
                 }
             }
 
-            for (int i = 0; i < InstanceCount; i++)
-            {
-                if (FInAWB[i])
-                {
-                    queryGain(i);
-                }
-            }
 
             if (FInGainBoost.IsChanged)
             {
@@ -1027,19 +1028,36 @@ namespace VVVV.Nodes.OpenCV.IDS
                 }
             }
 
-            
+
+            // do everyframe
+
             // get timing values every frame --- toooo slow
-            //if (!FPinInEnabled.IsChanged)
+            if (!FPinInEnabled.IsChanged)
+            {
+                for (int i = 0; i < InstanceCount; i++)
+                {
+                    if (FProcessor[i].camOpen)
+                    {
+                        //queryTiming(i); // very slow, but why?
+
+                        FOutCurrentFramerate[i] = FProcessor[i].currentFramerate;
+                        //FProcessor[i].cam.Timing.Framerate.GetCurrentFps(out currentFramerate);
+                    }
+
+                    if (FInAWB[i])
+                    {
+                        queryGain(i);
+                    }
+                }
+            }
+
+            //for (int i = 0; i < InstanceCount; i++)
             //{
-            //    for (int i = 0; i < InstanceCount; i++)
+            //    if (FInAWB[i])
             //    {
-            //        if (FProcessor[i].camOpen)
-            //        {
-            //            queryTiming(i);
-            //        }
+            //        queryGain(i);
             //    }
             //}
-
 
 
 
@@ -1130,16 +1148,16 @@ namespace VVVV.Nodes.OpenCV.IDS
 
                 FProcessor[instanceId].queryTiming();
 
-                FOutcurrentFramerate[instanceId] = FProcessor[instanceId].currentFramerate;
-                FOutFramerateRange[instanceId] = new Vector2D(FProcessor[instanceId].framerateRange.Minimum, FProcessor[instanceId].framerateRange.Maximum);
+                FOutCurrentFramerate[instanceId] = FProcessor[instanceId].currentFramerate;
+                FOutRangeFramerate[instanceId] = new Vector2D(FProcessor[instanceId].framerateRange.Minimum, FProcessor[instanceId].framerateRange.Maximum);
 
-                FOutexposureSupported[instanceId] = FProcessor[instanceId].exposureSupported;
+                FOutSupportedExposure[instanceId] = FProcessor[instanceId].exposureSupported;
 
-                FOutpixelClockCurrent[instanceId] = FProcessor[instanceId].currentPixelClock;
-                FOutpixelClockRange[instanceId] = new Vector2D(FProcessor[instanceId].pixelClockRange.Minimum, FProcessor[instanceId].pixelClockRange.Maximum);
+                FOutCurrentPixelClock[instanceId] = FProcessor[instanceId].currentPixelClock;
+                FOutRangePixelClock[instanceId] = new Vector2D(FProcessor[instanceId].pixelClockRange.Minimum, FProcessor[instanceId].pixelClockRange.Maximum);
 
-                FOutexposureCurrent[instanceId] = FProcessor[instanceId].currentExposure;
-                FOutexposureRange[instanceId] = new Vector2D(FProcessor[instanceId].exposureRange.Minimum, FProcessor[instanceId].exposureRange.Maximum);
+                FOutCurrentExposure[instanceId] = FProcessor[instanceId].currentExposure;
+                FOutRangeExposure[instanceId] = new Vector2D(FProcessor[instanceId].exposureRange.Minimum, FProcessor[instanceId].exposureRange.Maximum);
 
             }
         }
