@@ -42,7 +42,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         public bool checkParams = false;
 
-        public bool camOpen = false;
+        //public bool IsOpen = false;
 
         // geometry
         public BinningMode supportedBinning;
@@ -101,7 +101,6 @@ namespace VVVV.Nodes.OpenCV.IDS
 
                 QueryCameraCapabilities();
 
-                camOpen = true;
 
                 checkParams = true;
 
@@ -154,7 +153,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             if (cam != null)
             {
                 try
-                { 
+                {
                     stopCapture();
 
                     cam.EventDeviceRemove -= camDisconnect;
@@ -167,16 +166,14 @@ namespace VVVV.Nodes.OpenCV.IDS
                     camStatus = cam.Memory.Free(MemIds);
 
                     cam.Exit();
-                
-                    cam = null;
 
-                    camOpen = false;
+                    cam = null;
                 }
                 catch (Exception e)
                 {
                     Status = e.Message;
                 }
-        }
+            }
         }
 
         private void onFrameEvent(object sender, EventArgs e)
@@ -343,7 +340,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             BinningMode modeX = (BinningMode)Enum.Parse(typeof(BinningMode), binningX);
             BinningMode modeY = (BinningMode)Enum.Parse(typeof(BinningMode), binningY);
 
-            if (camOpen) // needed?
+            if (IsOpen) // needed?
             {
                 currentBinningX = clampRange(modeX, supportedBinning);
                 currentBinningY = clampRange(modeY, supportedBinning);
@@ -359,7 +356,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             SubsamplingMode modeX = (SubsamplingMode)Enum.Parse(typeof(SubsamplingMode), subsamplingX);
             SubsamplingMode modeY = (SubsamplingMode)Enum.Parse(typeof(SubsamplingMode), subsamplingY);
 
-            if (camOpen)
+            if (IsOpen)
             {
                 currentSubsamplingX = clampRange(modeX, supportedSubsampling);
                 currentSubsamplingY = clampRange(modeY, supportedSubsampling);
@@ -479,7 +476,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         public void queryAOI()
         {
-            if (camOpen)
+            if (IsOpen)
             {
                 camStatus = cam.Size.AOI.GetSizeRange(out AOIWidth, out AOIHeight);
                 camStatus = cam.Size.AOI.GetPosRange(out CropXRange, out CropYRange);
@@ -759,7 +756,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
             for (int i = 0; i < InstanceCount; i++)
             {
-                if (FProcessor[i].checkParams && FProcessor[i].camOpen)
+                if (FProcessor[i].checkParams && FProcessor[i].IsOpen)
                 {
                     queryFeatures(i);
 
@@ -768,8 +765,6 @@ namespace VVVV.Nodes.OpenCV.IDS
                     setAOI(i);
                     setMirrorX(i);
                     setMirrorY(i);
-
-                    //setColorMode(i);
 
                     setGainBoost(i);
                     setMasterGain(i);
@@ -798,7 +793,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 for (int i = 0; i < InstanceCount; i++)
                 {
-                    if (FProcessor[i].camOpen)
+                    if (FProcessor[i].IsOpen)
                     {
                         queryFeatures(i);
                         queryTiming(i);
@@ -877,7 +872,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 			{
 				for (int i = 0; i < InstanceCount; i++)
                 {
-                    if (FProcessor[i].camOpen)
+                    if (FProcessor[i].IsOpen)
                     {
                         FProcessor[i].setColorMode(FColorMode[i]);
                     }
@@ -918,7 +913,7 @@ namespace VVVV.Nodes.OpenCV.IDS
                 for (int i = 0; i < InstanceCount; i++)
                 {
                     FLogger.Log(LogType.Debug, "set Exposure for  camera " + i);
-                    if (FProcessor[i].camOpen)
+                    if (FProcessor[i].IsOpen)
                     {
                         FProcessor[i].setExposure(FInExposure[i]);
                         queryTiming(i);
@@ -932,7 +927,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 for (int i = 0; i < InstanceCount; i++)
                 {
-                    if (FProcessor[i].camOpen)
+                    if (FProcessor[i].IsOpen)
                     {
                         FProcessor[i].setPixelClock(FInPixelClock[i]);
                         queryTiming(i);
@@ -946,7 +941,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 for (int i = 0; i < InstanceCount; i++)
                 {
-                    if (FProcessor[i].camOpen)
+                    if (FProcessor[i].IsOpen)
                     {
                         queryTiming(i);
                     }
@@ -959,7 +954,7 @@ namespace VVVV.Nodes.OpenCV.IDS
             {
                 for (int i = 0; i < InstanceCount; i++)
                 {
-                    if (FProcessor[i].camOpen)
+                    if (FProcessor[i].IsOpen)
                     {
 
                         FOutCurrentFramerate[i] = FProcessor[i].currentFramerate;
@@ -982,7 +977,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void queryGain(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 FProcessor[instanceId].queryColorGain();
 
@@ -993,7 +988,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void queryFeatures(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 #region binning/subsampling
 
@@ -1057,7 +1052,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void queryTiming(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 FProcessor[instanceId].queryTiming();
 
@@ -1077,7 +1072,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void queryAOIRange(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 FProcessor[instanceId].queryAOI();
                 FOutAOIWidthRange[instanceId] = new Vector2D(FProcessor[instanceId].AOIWidth.Minimum, FProcessor[instanceId].AOIWidth.Maximum);
@@ -1090,7 +1085,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void setSubsampling(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 string x = FInSubsamplingX[instanceId].ToString();
                 string y = FInSubsamplingY[instanceId].ToString();
@@ -1101,7 +1096,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void setBinning(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 string x = FInBinningX[instanceId].ToString();
                 string y = FInBinningY[instanceId].ToString();
@@ -1112,7 +1107,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void setAOI(int instanceId)
         {
-                if (FProcessor[instanceId].camOpen)
+                if (FProcessor[instanceId].IsOpen)
                 {
                     FProcessor[instanceId].SetAoi((int)FInCrop[instanceId].x, (int)FInCrop[instanceId].y,
                                             (int)FInAOI[instanceId].x, (int)FInAOI[instanceId].y);
@@ -1121,7 +1116,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void setMirrorX(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 FProcessor[instanceId].mirrorHorizontal(FInMirrorX[instanceId]);
             }
@@ -1129,7 +1124,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void setMirrorY(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 FProcessor[instanceId].mirrorVertical(FInMirrorY[instanceId]);
             }
@@ -1138,7 +1133,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void setMasterGain(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 FProcessor[instanceId].setGainMaster((int)(FInGainMaster[instanceId] * 100));
             }
@@ -1146,7 +1141,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void setColorGain(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 if (FInAWB[instanceId])
                 {
@@ -1179,7 +1174,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void setFramerate(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 FProcessor[instanceId].SetFrameRate(FInFps[instanceId]);
             }
@@ -1187,7 +1182,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void setPixelclock(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 FProcessor[instanceId].setPixelClock(FInPixelClock[instanceId]);
             }
@@ -1195,7 +1190,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void setExposure(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 FProcessor[instanceId].setExposure(FInExposure[instanceId]);
             }
@@ -1204,7 +1199,7 @@ namespace VVVV.Nodes.OpenCV.IDS
 
         private void setColorMode(int instanceId)
         {
-            if (FProcessor[instanceId].camOpen)
+            if (FProcessor[instanceId].IsOpen)
             {
                 FProcessor[instanceId].setColorMode(FColorMode[instanceId]);
             }
