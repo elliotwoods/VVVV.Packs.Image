@@ -96,6 +96,8 @@
     <Compile Include="src\Calibration\IntrinsicsSplitNode.cs" />
     <Compile Include="src\Calibration\IntrinsicsJoinNode.cs" />
     <Compile Include="src\Calibration\ProjectPointsNode.cs" />
+    <Compile Include="src\graphics\delauney.cs" />
+    <Compile Include="src\graphics\voronoi.cs" />
     <Compile Include="src\Tracking\DetectPedestrian.cs" />
     <None Include="packages.config" />
     <None Include="src\Features\Stitch.cs" />
