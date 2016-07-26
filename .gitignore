@@ -38,8 +38,8 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 
 #Archives
-.zip
-.7z
+*.zip
+*.7z
 
 #Subversion files
 .svn
@@ -51,7 +51,9 @@ _ReSharper*/
 *~.xml
 
 #dll's
-*.dll
+#*.dll
+core/*.dll
+factories/*.dll
 
 #media files
 *.avi

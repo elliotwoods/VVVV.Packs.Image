@@ -1,4 +1,5 @@
-Dependencies
-/
+#Dependencies
+Dependencies/EDSDK
+
 *.dll
 *.xml

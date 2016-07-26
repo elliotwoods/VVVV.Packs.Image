@@ -67,8 +67,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="uEyeDotNet">
-      <HintPath>..\..\..\..\..\nodes\plugins\Dependencies\uEye\x86\uEyeDotNet.dll</HintPath>
+    <Reference Include="uEyeDotNet, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\nodes\plugins\Dependencies\uEye\uEyeDotNet.dll</HintPath>
     </Reference>
     <Reference Include="VVVV.Core, Version=34.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\VVVV.Core.34.2.0\lib\net40\VVVV.Core.dll</HintPath>
