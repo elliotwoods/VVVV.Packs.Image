@@ -15,8 +15,6 @@ using SlimDX.DXGI;
 using VVVV.Core.Logging;
 using SlimDX.Direct3D11;
 using SlimDX;
-using VVVV.CV.Core;
-
 
 namespace VVVV.CV.Nodes
 {
